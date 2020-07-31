@@ -48,10 +48,10 @@ class DataBase:
     @staticmethod
     async def initiate_database() -> bool:
         try:
-            DataBase.db_conn = await asyncpg.create_pool(user=secrets.secrets_pg_user[0],
-                                                         password=secrets.secrets_pg_password[0],
-                                                         host=secrets.secrets_pg_host[0],
-                                                         port=secrets.secrets_pg_port[0],
+            DataBase.db_conn = await asyncpg.create_pool(user=secrets.secrets_pg_user,
+                                                         password=secrets.secrets_pg_password,
+                                                         host=secrets.secrets_pg_host,
+                                                         port=secrets.secrets_pg_port,
                                                          database=secrets.secrets_pg_database,
                                                          )
             return True

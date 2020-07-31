@@ -27,7 +27,7 @@ class redditModerationCog(commands.Cog):
             return await ctx.send('The limit needs to be between `1` and `19`')
         try:
             record = await self.db_conn.fetch(
-                'SELECT "Mod_Name", ("Flair_Removals" * 5 + "Regular_Removals") AS Removals FROM "ModStatsJuly" ORDER BY Removals DESC LIMIT $1',
+                'SELECT "Mod_Name", ("Flair_Removals" * 5 + "Regular_Removals") AS Removals FROM "ModStatsAug" ORDER BY Removals DESC LIMIT $1',
                 amount)
         except Exception as e:
             print(e)
