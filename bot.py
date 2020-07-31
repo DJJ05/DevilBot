@@ -52,12 +52,13 @@ class DataBase:
                                                          password=secrets.secrets_pg_password[0],
                                                          host=secrets.secrets_pg_host[0],
                                                          port=secrets.secrets_pg_port[0],
-                                                         database=secrets.secrets_pg_database)
+                                                         database=secrets.secrets_pg_database,
+                                                         )
             return True
 
         except Exception as err:
             print('Failed to connect to database', err)
-            raise False
+            raise
 
 
 def main():
