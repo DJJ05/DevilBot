@@ -23,6 +23,11 @@ class Info(commands.Cog):
         await ctx.send(embed=discord.Embed(colour=self.colour, title=f"All Cogs ({len(self.client.cogs)})",
                                            description=f"Do `{ctx.prefix}help <cog>` to know more about them!\nhttps://bit.ly/help-command-by-niztg" + "\n\n" + "\n".join(
                                                cogs))) # joins each item in the list with a new line
+    
+    # ——— This help command was taken from Niz, who made a cool repo for this specifically
+    # ——— which you should definetely check out cos it's really awesome and helpful so here's
+    # ——— the link https://bit.ly/help-command-by-niztg and go star it or something it's awesome :)
+    
     @commands.command(aliases=['?'])
     async def help(self, ctx, *, command=None):
         """Shows info about the bot, a command or category"""
