@@ -1,0 +1,14 @@
+# Weird MacOS system file that does jackshit
+.DS_Store
+
+# Ooh secrets
+secrets.py
+
+# Remind me why pycache exists?
+__pycache__/
+
+# Yes, I should use a database, you're right
+prefixes.json
+
+# Debugging sessions
+tests/
