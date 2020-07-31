@@ -1,61 +1,77 @@
+import asyncio
+
 from discord.ext import commands
 import discord
-
+import sys
 import json, os
-from secrets import secrets_token
+import secrets
+import asyncpg
 
-class DevilBot(commands.AutoShardedBot):
-    def __init__(self):
-        super().__init__(command_prefix=self.get_prefix, pm_help=None, case_insensitive=True)
 
-        self.colour = 0xff9300
-        self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
-        self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
+class Config:
 
-    async def get_prefix(self, message):
-        with open ('prefixes.json', 'r') as f:
+    @staticmethod
+    def get_prefix(message: discord.Message) -> str:
+        with open('prefixes.json', 'r') as f:
             prefixes = json.load(f)
 
         return prefixes[str(message.guild.id)]
 
-    async def on_guild_join(self, guild):
-        with open ('prefixes.json', 'r') as f:
-            prefixes = json.load(f)
 
-        prefixes[str(guild.id)] = 'ow!'
+class Bot(commands.Bot):
+    def __init__(self, database_conn, event_loop):
+        super().__init__(command_prefix=Config.get_prefix, case_insensitive=True, loop=event_loop,
+                         description="Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532")
+        self.db_conn = database_conn
+        self.colour = 0xff9300
+        self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
+        self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
-        with open ('prefixes.json', 'w') as f:
-            json.dump(prefixes, f, indent=4)
-
-        a = sorted([c for c in guild.text_channels if c.permissions_for(guild.me).send_messages], key=lambda x: x.position)
-        channel =  a[0]
-        inv = await channel.create_invite()
-        finalinv = f"https://discord.gg/{inv.code}"
-
-        c = self.get_channel(715744000077725769)
-
-        embed = discord.Embed(colour=0xff9300, title=f'{guild}',
-                            description=f"**{guild.id}**\n**{finalinv}**")
-        embed.set_thumbnail(url=guild.icon_url)
-        await c.send(f"<@!670564722218762240> We joined guild **#{len(self.guilds)}**", embed=embed)
-
-    async def on_guild_remove(self, guild):
-        with open ('prefixes.json', 'r') as f:
-            prefixes = json.load(f)
-
-        prefixes.pop(str(guild.id))
-
-        with open ('prefixes.json', 'w') as f:
-            json.dump(prefixes, f, indent=4)
-
-    async def on_ready(self):
         for filename in os.listdir('cogs'):
             if filename.endswith('.py') and filename != 'secrets.py':
                 self.load_extension('cogs.{}'.format(filename[:-3]))
         self.load_extension(name='jishaku')
-        print ('Bot is online and cogs do be loaded')
-        await self.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="http://overwatchmemesbot.ezyro.com"))
+        print('Cogs are loaded...')
 
-client = DevilBot()
-client.remove_command('help')
-client.run(secrets_token)
+    async def on_ready(self) -> None:
+        print('We have logged in!')
+        await self.change_presence(
+            activity=discord.Activity(type=discord.ActivityType.watching, name="http://overwatchmemesbot.ezyro.com"))
+
+    def run(self):
+        super().run(secrets.secrets_token)
+
+
+class DataBase:
+    db_conn = None
+
+    @staticmethod
+    async def initiate_database() -> bool:
+        try:
+            DataBase.db_conn = await asyncpg.create_pool(user=secrets.secrets_pg_user[0],
+                                                         password=secrets.secrets_pg_password[0],
+                                                         host=secrets.secrets_pg_host[0],
+                                                         port=secrets.secrets_pg_port[0],
+                                                         database=secrets.secrets_pg_database)
+            return True
+
+        except Exception as err:
+            print('Failed to connect to database', err)
+            raise False
+
+
+def main():
+    if not DataBase.initiate_database():
+        sys.exit()
+
+    event_loop = asyncio.get_event_loop()
+    if not event_loop.run_until_complete(DataBase.initiate_database()):
+        sys.exit()
+
+    bot = Bot(database_conn=DataBase.db_conn, event_loop=event_loop)
+    bot.remove_command('help')
+    bot.run()
+
+
+if __name__ == '__main__':
+    main()
