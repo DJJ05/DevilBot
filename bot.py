@@ -60,7 +60,6 @@ class DataBase:
             print('Failed to connect to database', err)
             raise
 
-
 def main():
     if not DataBase.initiate_database():
         sys.exit()
