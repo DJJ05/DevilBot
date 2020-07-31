@@ -1,3 +1,7 @@
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Watch on GitHub](https://img.shields.io/github/watchers/DevilJamJar/DevilBot.svg?style=social)](https://github.com/DevilJamJar/DevilBot/watchers)
+[![Star on GitHub](https://img.shields.io/github/stars/DevilJamJar/DevilBot.svg?style=social)](https://github.com/DevilJamJar/DevilBot/stargazers)
+
 ## DevilBot
 DevilBot is a multi-purpose discord bot made with discord.py, formerly known as the overwatch_memesbot. Feel free to laugh at my code, it's very poor.
 
