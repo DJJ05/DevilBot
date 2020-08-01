@@ -43,10 +43,9 @@ class eventsCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        perms = [
-            commands.NotOwner,
-            commands.MissingPermissions,
-            commands.MissingRole
+        _raise = [
+            commands.CheckFailure,
+            commands.NotOwner
         ]
 
         skip = [
@@ -55,10 +54,11 @@ class eventsCog(commands.Cog):
 
         if type(error) in skip:
             return
-        elif type(error) in perms:
-            return await ctx.send(f'<@!{ctx.author.id}>, you are missing the required permissions for that.\n`{error}`')
+        elif type(error) in _raise:
+            return await ctx.send(f'<@!{ctx.author.id}>, something went wrong.\n`{error}`')
         else:
             print(f'An uncaught error occured during the handling of a command, {type(error)} » {error}')
+            return await ctx.send(f'<@!{ctx.author.id}>, something went wrong that I wasn\'t expecting. The error has been sent to my owner.\n`{error}`')
 
 def setup(bot):
     bot.add_cog(eventsCog(bot))

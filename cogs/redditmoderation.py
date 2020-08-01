@@ -23,38 +23,24 @@ class redditModerationCog(commands.Cog):
             pass
         else:
             return await ctx.send('The limit needs to be between `1` and `14`')
-        try:
-            record = await self.db_conn.fetch(
-                'SELECT "Mod_Name", ("Flair_Removals" * 5 + "Regular_Removals") AS Removals FROM "ModStatsAug" ORDER BY Removals DESC LIMIT $1',
-                amount)
-        except Exception as e:
-            print(e)
-            return await ctx.send(f'Failed to get a valid connection and execution of the database')
+        async with ctx.typing():
+            try:
+                record = await self.db_conn.fetch(
+                    'SELECT "Mod_Name", ("Flair_Removals" * 5 + "Regular_Removals") AS Removals FROM "ModStatsAug" ORDER BY Removals DESC LIMIT $1',
+                    amount)
+            except Exception as e:
+                print(f'An uncaught error occured during the handling of a command, {type(e)} » {e}')
+                return await ctx.send(f'Failed to get a valid connection and execution of the database')
+            embed = discord.Embed(title=f'Monthly Top {amount} Moderator Actions Leaderboard', color=0xff9300)
+            for row in record:
+                embed.add_field(
+                name=row[0],
+                value=row[1],
+                inline=False
+            )
 
-        embed = discord.Embed(title=f'Monthly Top {amount} Moderator Actions Leaderboard', color=0xff9300)
         embed.set_thumbnail(url=self.thumb)
-
-        for row in record:
-            embed.add_field(
-            name=row[0],
-            value=row[1],
-            inline=False
-        )
-
-        '''
-        mods = []
-        actions = []
-        i = [f"{index}) {value}" for index, value in enumerate(mods, 1)]
-        for row in record:
-            mods.append(row[0])
-            actions.append(row[1])
-
-        for mod, action in zip(i, actions):
-            embed.add_field(name=mod, value=action, inline=False)
-        '''
-
         embed.set_footer(text=self.footer)
-
         await ctx.send(embed=embed)
 
     # This is now void in place of global exception handling (check events.py)
