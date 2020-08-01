@@ -34,6 +34,14 @@ class redditModerationCog(commands.Cog):
         embed = discord.Embed(title=f'Monthly Top {amount} Moderator Actions Leaderboard', color=0xff9300)
         embed.set_thumbnail(url=self.thumb)
 
+        for row in record:
+            embed.add_field(
+            name=row[0],
+            value=row[1],
+            inline=False
+        )
+
+        '''
         mods = []
         actions = []
         i = [f"{index}) {value}" for index, value in enumerate(mods, 1)]
@@ -43,6 +51,7 @@ class redditModerationCog(commands.Cog):
 
         for mod, action in zip(i, actions):
             embed.add_field(name=mod, value=action, inline=False)
+        '''
 
         embed.set_footer(text=self.footer)
 
