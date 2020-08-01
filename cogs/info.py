@@ -42,7 +42,7 @@ class infoCog(commands.Cog):
 
     @commands.command()
     async def cogs(self, ctx):
-        """≫ Shows all of the bot's cogs"""
+        """Shows all of the bot's cogs"""
         cogs = []
         for cog in self.bot.cogs:
             cogs.append(
