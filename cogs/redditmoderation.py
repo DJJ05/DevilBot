@@ -19,10 +19,10 @@ class redditModerationCog(commands.Cog):
     @checks.check_mod_server()
     async def leaderboard(self, ctx, amount: int = 10):
         """Displays moderation leaderboard"""
-        if 0 < amount < 20:
+        if 0 < amount < 15:
             pass
         else:
-            return await ctx.send('The limit needs to be between `1` and `19`')
+            return await ctx.send('The limit needs to be between `1` and `14`')
         try:
             record = await self.db_conn.fetch(
                 'SELECT "Mod_Name", ("Flair_Removals" * 5 + "Regular_Removals") AS Removals FROM "ModStatsAug" ORDER BY Removals DESC LIMIT $1',
