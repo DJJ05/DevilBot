@@ -12,3 +12,6 @@ prefixes.json
 
 # Debugging sessions
 tests/
+
+# Maintenance mode
+maintenance.py
