@@ -48,10 +48,13 @@ class redditModerationCog(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    # This is now void in place of global exception handling (check events.py)
+    '''
     @leaderboard.error
     async def leaderboard_error(self, ctx, error):
         if isinstance(error, commands.CheckFailure):
             return await ctx.send('This command can only be ran in the `moderation guild`')
+    '''
 
 def setup(bot):
     bot.add_cog(redditModerationCog(bot))

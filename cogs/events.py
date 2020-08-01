@@ -1,6 +1,7 @@
 from discord.ext import commands
 import discord
 import json
+import traceback
 
 class eventsCog(commands.Cog):
     def __init__(self, bot):
@@ -40,6 +41,24 @@ class eventsCog(commands.Cog):
         with open('prefixes.json', 'w') as f:
             json.dump(prefixes, f, indent=4)
 
+    @commands.Cog.listener()
+    async def on_command_error(self, ctx, error):
+        perms = [
+            commands.NotOwner,
+            commands.MissingPermissions,
+            commands.MissingRole
+        ]
+
+        skip = [
+            commands.CommandNotFound
+        ]
+
+        if type(error) in skip:
+            return
+        elif type(error) in perms:
+            return await ctx.send(f'<@!{ctx.author.id}>, you are missing the required permissions for that\n`{error}`')
+        else:
+            print(f'An uncaught error occured during the handling of a command, {type(error)} » {error}')
 
 def setup(bot):
     bot.add_cog(eventsCog(bot))
