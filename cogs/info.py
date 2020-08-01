@@ -184,6 +184,5 @@ class infoCog(commands.Cog):
         embed.set_footer(text=self.footer)
         await ctx.send(embed=embed)
 
-
 def setup(bot):
     bot.add_cog(infoCog(bot))
