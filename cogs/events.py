@@ -56,7 +56,7 @@ class eventsCog(commands.Cog):
         if type(error) in skip:
             return
         elif type(error) in perms:
-            return await ctx.send(f'<@!{ctx.author.id}>, you are missing the required permissions for that\n`{error}`')
+            return await ctx.send(f'<@!{ctx.author.id}>, you are missing the required permissions for that.\n`{error}`')
         else:
             print(f'An uncaught error occured during the handling of a command, {type(error)} » {error}')
 
