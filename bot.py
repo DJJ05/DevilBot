@@ -7,20 +7,9 @@ import json, os
 import secrets
 import asyncpg
 
-
-class Config:
-
-    @staticmethod
-    def get_prefix(message: discord.Message) -> str:
-        with open('prefixes.json', 'r') as f:
-            prefixes = json.load(f)
-
-        return prefixes[str(message.guild.id)]
-
-
 class Bot(commands.Bot):
     def __init__(self, database_conn, event_loop):
-        super().__init__(command_prefix=Config.get_prefix, case_insensitive=True, loop=event_loop,
+        super().__init__(command_prefix=self.get_prefix, case_insensitive=True, loop=event_loop,
                          description="Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532")
         self.db_conn = database_conn
         self.colour = 0xff9300
@@ -33,6 +22,12 @@ class Bot(commands.Bot):
         self.load_extension(name='jishaku')
         print('Cogs are loaded...')
 
+    async def get_prefix(self, message: discord.Message) -> str:
+        with open('prefixes.json', 'r') as f:
+            prefixes = json.load(f)
+
+        return prefixes[str(message.guild.id)]
+
     async def on_ready(self) -> None:
         print('We have logged in!')
         await self.change_presence(
@@ -40,7 +35,6 @@ class Bot(commands.Bot):
 
     def run(self):
         super().run(secrets.secrets_token)
-
 
 class DataBase:
     db_conn = None
@@ -61,6 +55,7 @@ class DataBase:
             raise
 
 def main():
+    
     if not DataBase.initiate_database():
         sys.exit()
 
@@ -71,7 +66,6 @@ def main():
     bot = Bot(database_conn=DataBase.db_conn, event_loop=event_loop)
     bot.remove_command('help')
     bot.run()
-
 
 if __name__ == '__main__':
     main()

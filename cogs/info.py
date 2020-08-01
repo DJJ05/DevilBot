@@ -30,6 +30,7 @@ class infoCog(commands.Cog):
     # ——— which you should definitely check out cos it's really awesome and helpful so here's
     # ——— the link https://bit.ly/help-command-by-niztg and go star it or something it's awesome :)
 
+    '''
     @commands.command(aliases=['?'])
     async def help(self, ctx, *, command=None):
         """Shows info about the bot, a command or category"""
@@ -125,6 +126,7 @@ class infoCog(commands.Cog):
                 await ctx.send(f"No command named `{command}` found.")
         except Exception as er:
             await ctx.send(er)
+    '''
 
     @commands.command()
     async def ping(self, ctx):

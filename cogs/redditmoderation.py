@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 
 import praw, prawcore
-import psycopg2
 
 from .utils import checks
 
