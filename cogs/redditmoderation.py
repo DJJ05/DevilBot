@@ -5,7 +5,6 @@ import praw, prawcore
 
 from .utils import checks
 
-
 class redditModerationCog(commands.Cog):
     """r/Overwatch_Memes Moderation related Commands"""
 

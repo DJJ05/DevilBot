@@ -1,6 +1,6 @@
 from discord.ext import commands
+import discord
 import json
-
 
 class eventsCog(commands.Cog):
     def __init__(self, bot):
@@ -23,12 +23,12 @@ class eventsCog(commands.Cog):
         inv = await channel.create_invite()
         finalinv = f"https://discord.gg/{inv.code}"
 
-        c = self.get_channel(715744000077725769)
+        c = self.bot.get_channel(715744000077725769)
 
         embed = discord.Embed(colour=0xff9300, title=f'{guild}',
                               description=f"**{guild.id}**\n**{finalinv}**")
         embed.set_thumbnail(url=guild.icon_url)
-        await c.send(f"<@!670564722218762240> We joined guild **#{len(self.guilds)}**", embed=embed)
+        await c.send(f"<@!670564722218762240> We joined guild **#{len(self.bot.guilds)}**", embed=embed)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):

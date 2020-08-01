@@ -5,15 +5,40 @@ import time
 
 from .utils import paginator
 
+class MyHelpCommand(commands.MinimalHelpCommand):
+     def get_command_signature(self, command):
+        """
+        Code used from Rapptz' R.Danny repository provided by the MIT License
+        https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/meta.py#L125-L135
+        Copyright (c) 2015 Rapptz
+        """
+        parent = command.full_parent_name
+        if len(command.aliases) > 0:
+            aliases = '•'.join(command.aliases)
+            fmt = f'[{command.name}•{aliases}]'
+            if parent:
+                fmt = f'{parent} {fmt}'
+            alias = fmt
+        else:
+            alias = command.name if not parent else f'{parent} {command.name}'
+        return f'{alias} {command.signature}'
 
 class infoCog(commands.Cog):
     """Info and Help commands"""
 
     def __init__(self, bot):
         self.bot = bot
+
+        self._original_help_command = bot.help_command
+        bot.help_command = MyHelpCommand()
+        bot.help_command.cog = self
+
         self.colour = 0xff9300
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
+
+    def cog_unload(self):
+        self.bot.help_command = self._original_help_command
 
     @commands.command()
     async def cogs(self, ctx):
@@ -29,6 +54,9 @@ class infoCog(commands.Cog):
     # ——— This help command was taken from Niz, who made a cool repo for this specifically
     # ——— which you should definitely check out cos it's really awesome and helpful so here's
     # ——— the link https://bit.ly/help-command-by-niztg and go star it or something it's awesome :)
+
+    # ——— I am now using a subclassed help, rather than this help command, but it's still awesome
+    # ——— for beginners or anyone really.
 
     '''
     @commands.command(aliases=['?'])

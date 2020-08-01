@@ -64,7 +64,7 @@ def main():
         sys.exit()
 
     bot = Bot(database_conn=DataBase.db_conn, event_loop=event_loop)
-    bot.remove_command('help')
+    # bot.remove_command('help')
     bot.run()
 
 if __name__ == '__main__':
