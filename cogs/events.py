@@ -60,6 +60,21 @@ class eventsCog(commands.Cog):
             embed.set_thumbnail(url=self.thumb)
             embed.set_author(name=f'Requested by {message.author.name}#{message.author.discriminator}', icon_url=message.author.avatar_url)
             await message.channel.send(embed=embed)
+        elif 'devil' in message.content.lower().replace(' ', ''):
+            owner = self.bot.get_user(670564722218762240)
+            embed=discord.Embed(colour=self.colour,
+                                title=f'You may have been mentioned in: {message.guild.name}',
+                                description=f'`Author:` {message.author.mention}\
+                                            \n`Display Name:` {message.author.display_name}\
+                                            \n`Bot:` {message.author.bot}\
+                                            \n`Message:` {message.content}\
+                                            \n`Message ID:` {message.id}\
+                                            \n`Created At:` {message.created_at}\
+                                            \n`Channel:` {message.channel}\
+                                            \n`Attachments:` {message.attachments}\
+                                            \n\n**[Jump]({message.jump_url})**')
+            if message.author.id != 720229743974285312:
+                await owner.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
