@@ -59,7 +59,7 @@ class eventsCog(commands.Cog):
         if type(error) in skip:
             return
         elif type(error) in _raise:
-            return await ctx.send(f'<@!{ctx.author.id}>, something went wrong.\n`{error}`')
+            return await ctx.send(f'<@!{ctx.author.id}>, something went wrong that I was expecting.\n`{error}`')
         elif type(error) in disabled:
             return await ctx.send(f':warning: <@!{ctx.author.id}> The bot is currently in `maintenance mode.`\nThis means I\'m working on fixing bugs or imperfections and don\'t want you breaking anything. Please be patient.')
         else:
