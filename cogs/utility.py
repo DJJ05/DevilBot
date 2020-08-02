@@ -16,6 +16,8 @@ class utilityCog(commands.Cog):
     @commands.command(aliases=['wiki'])
     async def wikipedia(self, ctx, *, search: str = None):
         """Shows top wikipedia result"""
+        if not search:
+            return await ctx.send('`Search` is a required argument that is missing.')
         async with ctx.typing():
             results = wikipedia.search(search)
             if not len(results):

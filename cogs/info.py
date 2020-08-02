@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 
 import time
+import os
 
 from .utils import paginator
 
@@ -183,6 +184,46 @@ class infoCog(commands.Cog):
                               color=self.colour)
         embed.set_footer(text=self.footer)
         await ctx.send(embed=embed)
+
+    @commands.command(aliases=['src'])
+    async def source(self, ctx, command:str=None):
+        """Shows source code"""
+        # Code used from Rapptz' R.Danny repository provided by the MIT License
+        # https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/meta.py#L328-L366
+        # Copyright (c) 2015 Rapptz
+        u = '\u200b'
+        if not command:
+            embed = discord.Embed(title='View my source code on GitHub!', url='https://github.com/DevilJamJar/DevilBot', colour=self.colour,\
+                                  description=':scales: `License:` **[Apache-2.0](https://opensource.org/licenses/Apache-2.0)**')
+            return await ctx.send(embed=embed)
+
+        if command == 'help':
+            embed = discord.Embed(title='View this command on GitHub!', url='https://github.com/DevilJamJar/DevilBot/blob/master/cogs/info.py#L8-L24', colour=self.colour,\
+                                  description=':scales: `License:` **[Apache-2.0](https://opensource.org/licenses/Apache-2.0)**')
+            return await ctx.send(embed=embed)
+
+        src = f"```py\n{str(__import__('inspect').getsource(self.bot.get_command(command).callback)).replace('```', f'{u}')}```"
+        if len(src) > 2000:
+            cmd = self.bot.get_command(command)
+            if not cmd:
+                return await ctx.send("Command not found.")
+            file = cmd.callback.__code__.co_filename
+            location = os.path.relpath(file)
+            total, fl = __import__('inspect').getsourcelines(cmd.callback)
+            ll = fl + (len(total) - 1)
+            url = f"https://github.com/DevilJamJar/DevilBot/blob/master/{location}#L{fl}-L{ll}"
+            if not cmd.aliases:
+                char = '\u200b'
+            else:
+                char = '/'
+            embed = discord.Embed(color=self.colour,
+                                  title=f"View this command on GitHub: {cmd.name}{char}{'/'.join(cmd.aliases)}",
+                                  url=url)
+            embed.description = ":scales: `License:` **[Apache-2.0](https://opensource.org/licenses/Apache-2.0)**"
+            await ctx.send(embed=embed)
+
+        else:
+            await ctx.send(src)
 
 def setup(bot):
     bot.add_cog(infoCog(bot))
