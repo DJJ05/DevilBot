@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import json
 
 from .utils import checks
 
@@ -40,6 +41,27 @@ class adminCog(commands.Cog):
         embed=discord.Embed(title='Goodbye! Click here if you would like to reinvite me.', url='https://discord.com/api/oauth2/authorize?client_id=720229743974285312&permissions=2113924179&scope=bot', colour=self.colour)
         await ctx.send(embed=embed)
         await self.bot.get_guild(ctx.guild.id).leave()
+
+    @commands.command(aliases=["pre", "prefix", "changpre", "prechange", "prefixchange"])
+    @checks.check_admin_or_owner()
+    async def changeprefix(self, ctx, prefix:str='ow!'):
+        """Changes the guild prefix"""
+        if prefix == 'ow!':
+            with open ('prefixes.json', 'r') as f:
+                prefixes = json.load(f)
+            prefixes[str(ctx.guild.id)] = prefix
+            with open ('prefixes.json', 'w') as f:
+                json.dump(prefixes, f, indent=4)
+            await ctx.send(f'Successfully `reset` guild prefix to `{prefix}`')
+            await ctx.guild.me.edit(nick=f'[{prefix}] DevilBot')
+        else:
+            with open ('prefixes.json', 'r') as f:
+                prefixes = json.load(f)
+            prefixes[str(ctx.guild.id)] = prefix
+            with open ('prefixes.json', 'w') as f:
+                json.dump(prefixes, f, indent=4)
+            await ctx.send(f'Successfully `changed` guild prefix to {prefix}')
+            await ctx.guild.me.edit(nick=f'[{prefix}] DevilBot')
 
 def setup(bot):
     bot.add_cog(adminCog(bot))
