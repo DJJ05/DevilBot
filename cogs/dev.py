@@ -12,6 +12,7 @@ class devCog(commands.Cog):
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
     @commands.command(aliases=['tm'])
+    @commands.is_owner()
     async def ToggleMaintenance(self, ctx):
         """Toggles bot maintenance mode"""
         for c in self.bot.commands:
