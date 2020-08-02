@@ -67,4 +67,5 @@ def main():
     bot = Bot(database_conn=DataBase.db_conn, event_loop=event_loop)
     bot.run()
 
-asyncio.run(main())
+if __name__ == '__main__':
+    main()
