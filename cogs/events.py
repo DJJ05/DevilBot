@@ -60,21 +60,52 @@ class eventsCog(commands.Cog):
             embed.set_thumbnail(url=self.thumb)
             embed.set_author(name=f'Requested by {message.author.name}#{message.author.discriminator}', icon_url=message.author.avatar_url)
             await message.channel.send(embed=embed)
-        elif 'devil' in message.content.lower().replace(' ', ''):
+        if 'devil' in message.content.lower().replace(' ', ''):
             owner = self.bot.get_user(670564722218762240)
             embed=discord.Embed(colour=self.colour,
                                 title=f'You may have been mentioned in: {message.guild.name}',
                                 description=f'`Author:` {message.author.mention}\
-                                            \n`Display Name:` {message.author.display_name}\
-                                            \n`Bot:` {message.author.bot}\
                                             \n`Message:` {message.content}\
-                                            \n`Message ID:` {message.id}\
                                             \n`Created At:` {message.created_at}\
-                                            \n`Channel:` {message.channel}\
-                                            \n`Attachments:` {message.attachments}\
                                             \n\n**[Jump]({message.jump_url})**')
             if message.author.id != 720229743974285312:
                 await owner.send(embed=embed)
+        if 'freagl' in message.content.lower().replace(' ', '') or 'petrick' in message.content.lower().replace(' ', ''):
+            freaglii = self.bot.get_user(370633705091497985)
+            embed=discord.Embed(colour=self.colour,
+                                title=f'You may have been mentioned in: {message.guild.name}',
+                                description=f'`Author:` {message.author.mention}\
+                                            \n`Message:` {message.content}\
+                                            \n`Created At:` {message.created_at}\
+                                            \n\n**[Jump]({message.jump_url})**')
+            await freaglii.send(embed=embed)
+        if 'chill' in message.content.lower().replace(' ', '') or 'sexy' in message.content.lower().replace(' ', ''):
+            chill = self.bot.get_user(689912112386277384)
+            embed=discord.Embed(colour=self.colour,
+                                title=f'You may have been mentioned in: {message.guild.name}',
+                                description=f'`Author:` {message.author.mention}\
+                                            \n`Message:` {message.content}\
+                                            \n`Created At:` {message.created_at}\
+                                            \n\n**[Jump]({message.jump_url})**')
+            await chill.send(embed=embed)
+        if 'blitz' in message.content.lower().replace(' ', ''):
+            blitz = self.bot.get_user(239516219445608449)
+            embed=discord.Embed(colour=self.colour,
+                                title=f'You may have been mentioned in: {message.guild.name}',
+                                description=f'`Author:` {message.author.mention}\
+                                            \n`Message:` {message.content}\
+                                            \n`Created At:` {message.created_at}\
+                                            \n\n**[Jump]({message.jump_url})**')
+            await blitz.send(embed=embed)
+        if 'para' in message.content.lower().replace(' ', ''):
+            para = self.bot.get_user(596079424680493096)
+            embed=discord.Embed(colour=self.colour,
+                                title=f'You may have been mentioned in: {message.guild.name}',
+                                description=f'`Author:` {message.author.mention}\
+                                            \n`Message:` {message.content}\
+                                            \n`Created At:` {message.created_at}\
+                                            \n\n**[Jump]({message.jump_url})**')
+            await para.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
