@@ -110,6 +110,16 @@ class eventsCog(commands.Cog):
                                             \n\n**[Jump]({message.jump_url})**')
             if message.author.id != 720229743974285312:
                 await para.send(embed=embed)
+        if 'asti' in message.content.lower().replace(' ', '').replace('\n', '') or 'mos' in message.content.lower().replace(' ', '').replace('\n', ''):
+            asti = self.bot.get_user(517067779145334795)
+            embed=discord.Embed(colour=self.colour,
+                                title=f'You may have been mentioned in: {message.guild.name}',
+                                description=f'`Author:` {message.author.mention}\
+                                            \n\n`Message:` {message.content}\
+                                            \n\n`Created At:` {message.created_at}\
+                                            \n\n**[Jump]({message.jump_url})**')
+            if message.author.id != 720229743974285312:
+                await asti.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):

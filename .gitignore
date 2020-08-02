@@ -9,6 +9,3 @@ __pycache__/
 
 # Yes, I should use a database, you're right
 prefixes.json
-
-# Debugging sessions
-tests/
