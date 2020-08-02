@@ -108,7 +108,8 @@ class eventsCog(commands.Cog):
                                             \n\n`Message:` {message.content}\
                                             \n\n`Created At:` {message.created_at}\
                                             \n\n**[Jump]({message.jump_url})**')
-            await para.send(embed=embed)
+            if message.author.id != 720229743974285312:
+                await para.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):

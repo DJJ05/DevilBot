@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 
 import asyncio, aiohttp, io
+from .utils.pokemon import STAT_NAMES, TYPES
+from html import unescape as unes
 
 class funCog(commands.Cog):
     """Fun commands"""
@@ -83,6 +85,50 @@ class funCog(commands.Cog):
                             await ctx.send(file=discord.File(fp, filename=filename))
                 else:
                     await ctx.send(embed=discord.Embed(title='Doggo :)', color=self.colour).set_image(url=url))
+
+    @commands.command(aliases=['poke', 'pokeman'], name='pokemon', help='Displays pokemon information')
+    async def pokemon(self, ctx, pokemon=''):
+        abilities = []
+        lst = []
+        stats = []
+        numlist = []
+        if pokemon:
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(f'https://pokeapi.co/api/v2/pokemon/{pokemon.lower()}') as r:
+                    res = await r.json()
+                    await cs.close()
+
+                sprite = res['sprites']['front_default']
+                abils = res['abilities']
+                s_s = res['stats']
+                ts = res['types']
+
+                for item in s_s:
+                    stats.append(f"**•   {STAT_NAMES[item['stat']['name']]}:** `{item['base_stat']}`")
+                for ability in abils:
+                    abilities.append(f"**•   {ability['ability']['name'].capitalize()}**")
+                for a in ts:
+                    lst.append(TYPES[a['type']['name']])
+                for b in s_s:
+                    numlist.append(b['base_stat'])
+
+                types = " ".join(lst[::-1])
+                    
+                async with aiohttp.ClientSession() as cs:
+                    async with cs.get(f"https://pokeapi.co/api/v2/pokemon-species/{res['id']}/") as r:
+                        data = await r.json()
+
+                embed=discord.Embed(title=f"{pokemon.capitalize()}  »  #{res['id']}", description = f"{types}\n**Height:** {res['height'] / 10} m\n**Weight:** {res['weight'] / 10} kg\n\n<:highlighted:713555161833930862> **Description:**\n{unes(data['flavor_text_entries'][0]['flavor_text'])}", color=0xff9300)
+                embed.set_thumbnail(url=sprite)
+                embed.add_field(name="Abilities:", value="\n".join(abilities[::-1]), inline=False)
+                embed.add_field(name="Stats:", value="\n".join(stats[::-1]) + f"\nTotal: `{sum(numlist)}`", inline=False)
+                await ctx.send(embed=embed)
+
+        else:
+            embed=discord.Embed(title='You need to give me a pokemon to look up!', color=0xff9300)
+            embed.set_thumbnail(url='https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg')
+            embed.set_footer(text='Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532')
+            await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(funCog(bot))
