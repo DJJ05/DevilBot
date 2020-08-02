@@ -41,11 +41,20 @@ class eventsCog(commands.Cog):
             guildpre = await self.bot.get_prefix(message)
             guildpre = f'{guildpre[2]}'
             appinfo = await self.bot.application_info()
+            _commands = []
+            for c in self.bot.commands:
+                if c.enabled == True:
+                    _commands.append(c.name)
+            if len(_commands) == len(self.bot.commands):
+                currentstatus = f'<:status_online:596576749790429200> `Status:` The Bot is currently **active.**'
+            else:
+                currentstatus = f'<:status_dnd:596576774364856321> `Status:` The Bot is currently **undergoing maintenance.**'
             embed = discord.Embed(colour=self.colour,
                                   title=f"{appinfo.name} | {appinfo.id}",
-                                  description=f"<:greenTick:596576670815879169> `Guild Prefix:` **{guildpre}**\
+                                  description=f":diamond_shape_with_a_dot_inside: `Guild Prefix:` **{guildpre}**\
                                               \n<:owner:730864906429136907> `Owner:` **<@!{appinfo.owner.id}>**\
                                               \n<:text_channel:703726554018086912> `Description:` **{appinfo.description}**\
+                                              \n{currentstatus}\
                                               \n\n**Do** `{guildpre}help` **to view a full command list.**\
                                               \n**Do** `{guildpre}help [command]` **to view specific command help.**")
             embed.set_thumbnail(url=self.thumb)
