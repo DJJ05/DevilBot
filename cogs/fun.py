@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 
+import asyncio, aiohttp, io
+
 class funCog(commands.Cog):
     """Fun commands"""
 
@@ -46,6 +48,41 @@ class funCog(commands.Cog):
         message = " ".join(message)
 
         return await ctx.send(f'`{message}`')
+
+    @commands.command(aliases=['catto'])
+    async def cat(self, ctx):
+        """Generates an awesome cat image"""
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://api.thecatapi.com/v1/images/search") as resp:
+                if resp.status != 200:
+                    return await ctx.send('No cat found :(')
+                js = await resp.json()
+                await ctx.send(embed=discord.Embed(title='Catto :)', color=self.colour).set_image(url=js[0]['url']))
+
+    @commands.command(aliases=['pupper', 'doggo'])
+    async def dog(self, ctx):
+        """Generates an awesome image or video of a dog"""
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://random.dog/woof") as resp:
+                if resp.status != 200:
+                    return await ctx.send('No dog found :(')
+
+                filename = await resp.text()
+                url = f'https://random.dog/{filename}'
+                filesize = ctx.guild.filesize_limit if ctx.guild else 8388608
+                if filename.endswith(('.mp4', '.webm')):
+                    async with ctx.typing():
+                        async with cs.get(url) as other:
+                            if other.status != 200:
+                                return await ctx.send('Could not download dog video :(')
+
+                            if int(other.headers['Content-Length']) >= filesize:
+                                return await ctx.send(f'Video was too big to upload... See it here: {url} instead.')
+
+                            fp = io.BytesIO(await other.read())
+                            await ctx.send(file=discord.File(fp, filename=filename))
+                else:
+                    await ctx.send(embed=discord.Embed(title='Doggo :)', color=self.colour).set_image(url=url))
 
 def setup(bot):
     bot.add_cog(funCog(bot))

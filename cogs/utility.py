@@ -95,15 +95,16 @@ class utilityCog(commands.Cog):
     @commands.command(aliases=['trans'])
     async def translate(self, ctx, *, message: commands.clean_content):
         """Auto Detects and translates text into English"""
-        loop = self.bot.loop
+        async with ctx.typing():
+            loop = self.bot.loop
 
-        ret = await loop.run_in_executor(None, self.trans.translate, message)
+            ret = await loop.run_in_executor(None, self.trans.translate, message)
 
-        embed = discord.Embed(title='Auto-Detection Translator', colour=self.colour)
-        src = googletrans.LANGUAGES.get(ret.src, '(auto-detected)').title()
-        dest = googletrans.LANGUAGES.get(ret.dest, 'Unknown').title()
-        embed.add_field(name=f'From {src}', value=ret.origin, inline=True)
-        embed.add_field(name=f'To {dest}', value=ret.text, inline=True)
+            embed = discord.Embed(title='Auto-Detection Translator', colour=self.colour)
+            src = googletrans.LANGUAGES.get(ret.src, '(auto-detected)').title()
+            dest = googletrans.LANGUAGES.get(ret.dest, 'Unknown').title()
+            embed.add_field(name=f'From {src}', value=ret.origin, inline=True)
+            embed.add_field(name=f'To {dest}', value=ret.text, inline=True)
         await ctx.send(embed=embed)
 
 def setup(bot):
