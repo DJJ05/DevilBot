@@ -1,5 +1,5 @@
 from discord.ext import commands
-import discord
+import discord, wikipedia
 import json
 import traceback
 
@@ -7,6 +7,10 @@ class eventsCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.db_conn = bot.db_conn
+
+        self.colour = 0xff9300
+        self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
+        self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
@@ -31,6 +35,23 @@ class eventsCog(commands.Cog):
         embed.set_thumbnail(url=guild.icon_url)
         await c.send(f"<@!670564722218762240> We joined guild **#{len(self.bot.guilds)}**", embed=embed)
 
+    @commands.Cog.listener(name="on_message")
+    async def on_user_mention(self, message):
+        if message.content in ("<@!720229743974285312>", "<@720229743974285312>"):
+            guildpre = await self.bot.get_prefix(message)
+            guildpre = f'{guildpre[2]}'
+            appinfo = await self.bot.application_info()
+            embed = discord.Embed(colour=self.colour,
+                                  title=f"{appinfo.name} | {appinfo.id}",
+                                  description=f"<:greenTick:596576670815879169> `Guild Prefix:` **{guildpre}**\
+                                              \n<:owner:730864906429136907> `Owner:` **<@!{appinfo.owner.id}>**\
+                                              \n<:text_channel:703726554018086912> `Description:` **{appinfo.description}**\
+                                              \n\n**Do** `{guildpre}help` **to view a full command list.**\
+                                              \n**Do** `{guildpre}help [command]` **to view specific command help.**")
+            embed.set_thumbnail(url=self.thumb)
+            embed.set_author(name=f'Requested by {message.author.name}#{message.author.discriminator}', icon_url=message.author.avatar_url)
+            await message.channel.send(embed=embed)
+
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
         with open('prefixes.json', 'r') as f:
@@ -45,7 +66,8 @@ class eventsCog(commands.Cog):
     async def on_command_error(self, ctx, error):
         _raise = [
             commands.CheckFailure,
-            commands.NotOwner
+            commands.NotOwner,
+            wikipedia.DisambiguationError
         ]
 
         skip = [
@@ -64,7 +86,7 @@ class eventsCog(commands.Cog):
             return await ctx.send(f':warning: <@!{ctx.author.id}> The bot is currently in `maintenance mode.`\nThis means I\'m working on fixing bugs or imperfections and don\'t want you breaking anything. Please be patient.')
         else:
             print(f'An uncaught error occured during the handling of a command, {type(error)} » {error}')
-            return await ctx.send(f'<@!{ctx.author.id}>, something went wrong that I wasn\'t expecting. The error has been sent to my owner.\n`{error}`')
+            return await ctx.send(f'<@!{ctx.author.id}>, something went wrong that I wasn\'t expecting.\n`{error}`')
 
 def setup(bot):
     bot.add_cog(eventsCog(bot))
