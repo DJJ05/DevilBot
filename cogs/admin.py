@@ -33,5 +33,13 @@ class adminCog(commands.Cog):
             return await ctx.send(f'I found and deleted `{len(messages)}` of my '
                                 f'message(s) out of the last `{limit}` message(s).', delete_after=3)
 
+    @commands.command()
+    @checks.check_admin_or_owner()
+    async def leaveguild(self, ctx):
+        """Leaves the guild that the command was executed in."""
+        embed=discord.Embed(title='Goodbye! Click here if you would like to reinvite me.', url='https://discord.com/api/oauth2/authorize?client_id=720229743974285312&permissions=2113924179&scope=bot', colour=self.colour)
+        await ctx.send(embed=embed)
+        await self.bot.get_guild(ctx.guild.id).leave()
+
 def setup(bot):
     bot.add_cog(adminCog(bot))
