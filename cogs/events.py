@@ -60,50 +60,53 @@ class eventsCog(commands.Cog):
             embed.set_thumbnail(url=self.thumb)
             embed.set_author(name=f'Requested by {message.author.name}#{message.author.discriminator}', icon_url=message.author.avatar_url)
             await message.channel.send(embed=embed)
-        if 'devil' in message.content.lower().replace(' ', ''):
+
+        # Please ignore this, it's horribly made and only made for a proof of concept, imagine it doesn't exist
+
+        if 'devil' in message.content.lower().replace(' ', '').replace('\n', ''):
             owner = self.bot.get_user(670564722218762240)
             embed=discord.Embed(colour=self.colour,
                                 title=f'You may have been mentioned in: {message.guild.name}',
                                 description=f'`Author:` {message.author.mention}\
-                                            \n`Message:` {message.content}\
-                                            \n`Created At:` {message.created_at}\
+                                            \n\n`Message:` {message.content}\
+                                            \n\n`Created At:` {message.created_at}\
                                             \n\n**[Jump]({message.jump_url})**')
             if message.author.id != 720229743974285312:
                 await owner.send(embed=embed)
-        if 'freagl' in message.content.lower().replace(' ', '') or 'petrick' in message.content.lower().replace(' ', ''):
+        if 'freagl' in message.content.lower().replace(' ', '').replace('\n', '') or 'petrick' in message.content.lower().replace(' ', '').replace('\n', ''):
             freaglii = self.bot.get_user(370633705091497985)
             embed=discord.Embed(colour=self.colour,
                                 title=f'You may have been mentioned in: {message.guild.name}',
                                 description=f'`Author:` {message.author.mention}\
-                                            \n`Message:` {message.content}\
-                                            \n`Created At:` {message.created_at}\
+                                            \n\n`Message:` {message.content}\
+                                            \n\n`Created At:` {message.created_at}\
                                             \n\n**[Jump]({message.jump_url})**')
             await freaglii.send(embed=embed)
-        if 'chill' in message.content.lower().replace(' ', '') or 'sexy' in message.content.lower().replace(' ', ''):
+        if 'chill' in message.content.lower().replace(' ', '').replace('\n', '') or 'sexy' in message.content.lower().replace(' ', '').replace('\n', ''):
             chill = self.bot.get_user(689912112386277384)
             embed=discord.Embed(colour=self.colour,
                                 title=f'You may have been mentioned in: {message.guild.name}',
                                 description=f'`Author:` {message.author.mention}\
-                                            \n`Message:` {message.content}\
-                                            \n`Created At:` {message.created_at}\
+                                            \n\n`Message:` {message.content}\
+                                            \n\n`Created At:` {message.created_at}\
                                             \n\n**[Jump]({message.jump_url})**')
             await chill.send(embed=embed)
-        if 'blitz' in message.content.lower().replace(' ', ''):
+        if 'blitz' in message.content.lower().replace(' ', '').replace('\n', ''):
             blitz = self.bot.get_user(239516219445608449)
             embed=discord.Embed(colour=self.colour,
                                 title=f'You may have been mentioned in: {message.guild.name}',
                                 description=f'`Author:` {message.author.mention}\
-                                            \n`Message:` {message.content}\
-                                            \n`Created At:` {message.created_at}\
+                                            \n\n`Message:` {message.content}\
+                                            \n\n`Created At:` {message.created_at}\
                                             \n\n**[Jump]({message.jump_url})**')
             await blitz.send(embed=embed)
-        if 'para' in message.content.lower().replace(' ', ''):
+        if 'para' in message.content.lower().replace(' ', '').replace('\n', ''):
             para = self.bot.get_user(596079424680493096)
             embed=discord.Embed(colour=self.colour,
                                 title=f'You may have been mentioned in: {message.guild.name}',
                                 description=f'`Author:` {message.author.mention}\
-                                            \n`Message:` {message.content}\
-                                            \n`Created At:` {message.created_at}\
+                                            \n\n`Message:` {message.content}\
+                                            \n\n`Created At:` {message.created_at}\
                                             \n\n**[Jump]({message.jump_url})**')
             await para.send(embed=embed)
 

@@ -1,8 +1,9 @@
 import discord
 from discord.ext import commands
 
-import time
+import time, datetime
 import os
+import collections
 
 from .utils import paginator
 
@@ -224,6 +225,75 @@ class infoCog(commands.Cog):
 
         else:
             await ctx.send(src)
+
+    @commands.command(aliases=['server', 'guildinfo', 'guild', 'gi', 'si'])
+    async def serverinfo(self, ctx):
+        '''Get information about the server.'''
+
+        statuses = collections.Counter([m.status for m in ctx.guild.members])
+
+        embed = discord.Embed(colour=self.colour, title=f"{ctx.guild.name}")
+        embed.description = ctx.guild.description if ctx.guild.description else None
+        embed.add_field(name='**General:**',
+                        value=f'Owner: **{ctx.guild.owner}**\n'
+                              f'Created on: **{datetime.datetime.strftime(ctx.guild.created_at, "%A %d %B %Y at %H:%M")}**\n'
+                              f'<:member:716339965771907099> **{ctx.guild.member_count}**\n'
+                              f'<:online:726127263401246832> **{statuses[discord.Status.online]:,}**\n'
+                              f'<:idle:726127192165187594> **{statuses[discord.Status.idle]:,}**\n'
+                              f'<:dnd:726127192001478746> **{statuses[discord.Status.dnd]:,}**\n'
+                              f'<:offline:726127263203983440> **{statuses[discord.Status.offline]:,}**\n'
+                              f'<:nitro:731722710283190332> **Tier {ctx.guild.premium_tier}**\n'
+                              f'Boosters: **{ctx.guild.premium_subscription_count}**\n'
+                              f'Max File Size: **{round(ctx.guild.filesize_limit / 1048576)} MB**\n'
+                              f'Bitrate: **{round(ctx.guild.bitrate_limit / 1000)} kbps**\n'
+                              f'Max Emojis: **{ctx.guild.emoji_limit}**\n', inline=False)
+
+        embed.add_field(name='**Channel Information:**',
+                        value=f'`AFK timeout:` **{int(ctx.guild.afk_timeout / 60)}m**\n'
+                              f'`AFK channel:` **{ctx.guild.afk_channel}**\n'
+                              f'`Text channels:` **{len(ctx.guild.text_channels)}**\n'
+                              f'`Voice channels:` **{len(ctx.guild.voice_channels)}**\n', inline = False)
+
+        embed.set_thumbnail(url=ctx.guild.icon_url)
+        embed.set_image(url=ctx.guild.banner_url)
+        embed.set_footer(text=f'Guild ID: {ctx.guild.id}  |  Requested by: {ctx.author.name}#{ctx.author.discriminator}')
+
+        return await ctx.send(embed=embed)
+
+    @commands.command(aliases=['user', 'ui'])
+    async def userinfo(self, ctx, *, member: discord.Member = None):
+        '''Get information about a member.'''
+        if member is None:
+            member = ctx.author
+
+        for activity in member.activities:
+            if isinstance(activity, discord.Spotify):
+                activity = 'Listening to **Spotify**'
+            elif isinstance(activity, discord.Game):
+                activity = f'Playing **{activity.name}**'
+            elif isinstance(activity, discord.Streaming):
+                activity = f'Streaming **{activity.name}**'
+            else:
+                activity = '**None**'
+
+        embed = discord.Embed(title=f"{member}", colour=self.colour)
+        embed.add_field(name='**General:**',
+                        value=f'Name: **{member}**\n'
+                              f'Activity: {activity}\n'
+                              f'Desktop Status: **{member.desktop_status}**\n'
+                              f'Mobile Status: **{member.mobile_status}**\n'
+                              f'Web (browser) Status: **{member.web_status}**\n'
+                              f'Created on: **{datetime.datetime.strftime(member.created_at, "%A %d %B %Y at %H:%M")}**', inline=False)
+
+        embed.add_field(name='**Guild related information:**',
+                        value=f'Joined guild: **{datetime.datetime.strftime(member.joined_at, "%A %d %B %Y at %H:%M")}**\n'
+                              f'Nickname: **{member.nick}**\n'
+                              f'Top role: **{member.top_role.mention}**', inline=False)
+
+        embed.set_thumbnail(url=member.avatar_url_as(static_format='png'))
+        embed.set_footer(text=f'Member ID: {member.id}  |  Requested by: {ctx.author.name}#{ctx.author.discriminator}')
+
+        return await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(infoCog(bot))

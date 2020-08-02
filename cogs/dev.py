@@ -21,6 +21,7 @@ class devCog(commands.Cog):
                     c.enabled = True
                 else:
                     c.enabled = False
+        print('Maintenance has been toggled.')
         return await ctx.send('Successfully `toggled` maintenance mode.')
 
 def setup(bot):
