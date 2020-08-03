@@ -8,7 +8,7 @@ import collections
 from .utils import paginator
 
 class MyHelpCommand(commands.MinimalHelpCommand):
-     def get_command_signature(self, command):
+    def get_command_signature(self, command):
         """
         Code used from Rapptz' R.Danny repository provided by the MIT License
         https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/meta.py#L125-L135

@@ -24,13 +24,9 @@ class redditModerationCog(commands.Cog):
         else:
             return await ctx.send('The limit needs to be between `1` and `14`')
         async with ctx.typing():
-            try:
-                record = await self.db_conn.fetch(
-                    'SELECT "Mod_Name", ("Flair_Removals" * 5 + "Regular_Removals") AS Removals FROM "ModStatsAug" ORDER BY Removals DESC LIMIT $1',
-                    amount)
-            except Exception as e:
-                print(f'An uncaught error occured during the handling of a command, {type(e)} » {e}')
-                return await ctx.send(f'Failed to get a valid connection and execution of the database')
+            record = await self.db_conn.fetch(
+                'SELECT "Mod_Name", ("Flair_Removals" * 5 + "Regular_Removals") AS Removals FROM "ModStatsAug" ORDER BY Removals DESC LIMIT $1',
+                amount)
             embed = discord.Embed(title=f'Monthly Top {amount} Moderator Actions Leaderboard', color=0xff9300)
             for row in record:
                 embed.add_field(
@@ -43,13 +39,19 @@ class redditModerationCog(commands.Cog):
         embed.set_footer(text=self.footer)
         await ctx.send(embed=embed)
 
-    # This is now void in place of global exception handling (check events.py)
-    '''
-    @leaderboard.error
-    async def leaderboard_error(self, ctx, error):
-        if isinstance(error, commands.CheckFailure):
-            return await ctx.send('This command can only be ran in the `moderation guild`')
-    '''
+    @commands.command(aliases=['stat', 'overview'])
+    @checks.check_mod_server()
+    async def stats(self, ctx, *, user:str=None):
+        """Displays mod stats for a user, or for you."""
+        if not user:
+            user = ctx.author.display_name
+        user = user.lower()
+        async with ctx.typing():
+            record = await self.db_conn.fetch(
+                'SELECT * FROM "ModStatsAug" WHERE "Mod_Name" = $1', user)
+        if not len(record):
+            return await ctx.send('Specified user `not found.` Please note that the default user is your `nickname` if another user is not specified.')
+        return await ctx.send(record)
 
 def setup(bot):
     bot.add_cog(redditModerationCog(bot))

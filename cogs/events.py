@@ -63,63 +63,35 @@ class eventsCog(commands.Cog):
 
         # Please ignore this, it's horribly made and only made for a proof of concept, imagine it doesn't exist
 
+        em=discord.Embed(colour=self.colour,
+                 title=f'You may have been mentioned in: {message.guild.name}',
+                 description=f'`Author:` {message.author.mention}\
+                 \n\n`Message:` {message.content}\
+                 \n\n`Created At:` {message.created_at}\
+                 \n\n**[Jump]({message.jump_url})**')
+
         if 'devil' in message.content.lower().replace(' ', '').replace('\n', ''):
             owner = self.bot.get_user(670564722218762240)
-            embed=discord.Embed(colour=self.colour,
-                                title=f'You may have been mentioned in: {message.guild.name}',
-                                description=f'`Author:` {message.author.mention}\
-                                            \n\n`Message:` {message.content}\
-                                            \n\n`Created At:` {message.created_at}\
-                                            \n\n**[Jump]({message.jump_url})**')
             if message.author.id != 720229743974285312:
-                await owner.send(embed=embed)
+                await owner.send(embed=em)
         if 'freagl' in message.content.lower().replace(' ', '').replace('\n', '') or 'petrick' in message.content.lower().replace(' ', '').replace('\n', ''):
             freaglii = self.bot.get_user(370633705091497985)
-            embed=discord.Embed(colour=self.colour,
-                                title=f'You may have been mentioned in: {message.guild.name}',
-                                description=f'`Author:` {message.author.mention}\
-                                            \n\n`Message:` {message.content}\
-                                            \n\n`Created At:` {message.created_at}\
-                                            \n\n**[Jump]({message.jump_url})**')
-            await freaglii.send(embed=embed)
-        if 'chill' in message.content.lower().replace(' ', '').replace('\n', '') or 'sexy' in message.content.lower().replace(' ', '').replace('\n', ''):
+            await freaglii.send(embed=em)
+        if 'chill' in message.content.lower().replace(' ', '').replace('\n', ''):
             chill = self.bot.get_user(689912112386277384)
-            embed=discord.Embed(colour=self.colour,
-                                title=f'You may have been mentioned in: {message.guild.name}',
-                                description=f'`Author:` {message.author.mention}\
-                                            \n\n`Message:` {message.content}\
-                                            \n\n`Created At:` {message.created_at}\
-                                            \n\n**[Jump]({message.jump_url})**')
-            await chill.send(embed=embed)
+            await chill.send(embed=em)
         if 'blitz' in message.content.lower().replace(' ', '').replace('\n', ''):
             blitz = self.bot.get_user(239516219445608449)
-            embed=discord.Embed(colour=self.colour,
-                                title=f'You may have been mentioned in: {message.guild.name}',
-                                description=f'`Author:` {message.author.mention}\
-                                            \n\n`Message:` {message.content}\
-                                            \n\n`Created At:` {message.created_at}\
-                                            \n\n**[Jump]({message.jump_url})**')
-            await blitz.send(embed=embed)
-        if 'para' in message.content.lower().replace(' ', '').replace('\n', ''):
+            await blitz.send(embed=em)
+        if 'para ' in message.content.lower():
             para = self.bot.get_user(596079424680493096)
-            embed=discord.Embed(colour=self.colour,
-                                title=f'You may have been mentioned in: {message.guild.name}',
-                                description=f'`Author:` {message.author.mention}\
-                                            \n\n`Message:` {message.content}\
-                                            \n\n`Created At:` {message.created_at}\
-                                            \n\n**[Jump]({message.jump_url})**')
             if message.author.id != 720229743974285312:
-                await para.send(embed=embed)
+                await para.send(embed=em)
         if 'asti' in message.content.lower().replace(' ', '').replace('\n', '') or 'mos' in message.content.lower().replace(' ', '').replace('\n', ''):
             asti = self.bot.get_user(517067779145334795)
-            embed=discord.Embed(colour=self.colour,
-                                title=f'You may have been mentioned in: {message.guild.name}',
-                                description=f'`Author:` {message.author.mention}\
-                                            \n\n`Message:` {message.content}\
-                                            \n\n`Created At:` {message.created_at}\
-                                            \n\n**[Jump]({message.jump_url})**')
             if message.author.id != 720229743974285312:
-                await asti.send(embed=embed)
+                if message.guild.id == 621044091056029696:
+                    await asti.send(embed=em)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
@@ -136,7 +108,8 @@ class eventsCog(commands.Cog):
         _raise = [
             commands.CheckFailure,
             commands.NotOwner,
-            wikipedia.DisambiguationError
+            wikipedia.DisambiguationError,
+            commands.MissingRequiredArgument
         ]
 
         skip = [

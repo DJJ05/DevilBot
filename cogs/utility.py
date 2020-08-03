@@ -4,6 +4,10 @@ from discord.ext import commands
 import wikipedia, asyncio, textwrap, aiohttp
 import googletrans
 
+def to_emoji(c):
+    base = 0x1f1e6
+    return chr(base + c)
+
 class utilityCog(commands.Cog):
     """Utility commands"""
 
@@ -106,6 +110,43 @@ class utilityCog(commands.Cog):
             embed.add_field(name=f'From {src}', value=ret.origin, inline=True)
             embed.add_field(name=f'To {dest}', value=ret.text, inline=True)
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def poll(self, ctx, *, question):
+        """Creates an interactive poll"""
+        messages = [ctx.message]
+        answers = []
+
+        def check(m):
+            return m.author == ctx.author and m.channel == ctx.channel and len(m.content) <= 100
+
+        for i in range(20):
+            messages.append(await ctx.send(f'Say poll option or `{ctx.prefix}cancel` to publish poll.'))
+
+            try:
+                entry = await self.bot.wait_for('message', check=check, timeout=60.0)
+            except asyncio.TimeoutError:
+                break
+
+            messages.append(entry)
+
+            if entry.clean_content.startswith(f'{ctx.prefix}cancel'):
+                break
+
+            answers.append((to_emoji(i), entry.clean_content))
+
+        try:
+            await ctx.channel.delete_messages(messages)
+        except:
+            pass
+
+        answer = '\n'.join(f'{keycap}: {content}' for keycap, content in answers)
+        # actual_poll = await ctx.send(f'**{ctx.author} asks: **{question}\n\n{answer}')
+        embed=discord.Embed(title=question, colour=self.colour, description=answer)
+        embed.set_author(name=f'{ctx.author.name}#{ctx.author.discriminator}', icon_url=ctx.author.avatar_url)
+        actual_poll = await ctx.send(embed=embed)
+        for emoji, _ in answers:
+            await actual_poll.add_reaction(emoji)
 
 def setup(bot):
     bot.add_cog(utilityCog(bot))

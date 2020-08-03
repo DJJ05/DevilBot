@@ -94,9 +94,12 @@ class funCog(commands.Cog):
         numlist = []
         if pokemon:
             async with aiohttp.ClientSession() as cs:
-                async with cs.get(f'https://pokeapi.co/api/v2/pokemon/{pokemon.lower()}') as r:
-                    res = await r.json()
-                    await cs.close()
+                try:
+                    async with cs.get(f'https://pokeapi.co/api/v2/pokemon/{pokemon.lower()}') as r:
+                        res = await r.json()
+                        await cs.close()
+                except:
+                    return await ctx.send('That pokemon doesn\'t exist.')
 
                 sprite = res['sprites']['front_default']
                 abils = res['abilities']
@@ -125,10 +128,7 @@ class funCog(commands.Cog):
                 await ctx.send(embed=embed)
 
         else:
-            embed=discord.Embed(title='You need to give me a pokemon to look up!', color=0xff9300)
-            embed.set_thumbnail(url='https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg')
-            embed.set_footer(text='Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532')
-            await ctx.send(embed=embed)
+            await ctx.send('`Pokemon` is a required argument that is missing.')
 
 def setup(bot):
     bot.add_cog(funCog(bot))
