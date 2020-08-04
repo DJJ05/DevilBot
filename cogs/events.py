@@ -72,26 +72,30 @@ class eventsCog(commands.Cog):
 
         if 'devil' in message.content.lower().replace(' ', '').replace('\n', ''):
             owner = self.bot.get_user(670564722218762240)
-            if message.author.id != 720229743974285312:
+            if message.author.id != 720229743974285312 and message.author != owner:
                 await owner.send(embed=em)
         if 'freagl' in message.content.lower().replace(' ', '').replace('\n', '') or 'petrick' in message.content.lower().replace(' ', '').replace('\n', ''):
             freaglii = self.bot.get_user(370633705091497985)
-            await freaglii.send(embed=em)
+            if message.author != freaglii:
+                await freaglii.send(embed=em)
         if 'chill' in message.content.lower().replace(' ', '').replace('\n', ''):
             chill = self.bot.get_user(689912112386277384)
-            await chill.send(embed=em)
+            if message.author != chill:
+                await chill.send(embed=em)
         if 'blitz' in message.content.lower().replace(' ', '').replace('\n', ''):
             blitz = self.bot.get_user(239516219445608449)
-            await blitz.send(embed=em)
+            if message.author != blitz:
+                await blitz.send(embed=em)
         if 'para ' in message.content.lower():
             para = self.bot.get_user(596079424680493096)
-            if message.author.id != 720229743974285312:
+            if message.author.id != 720229743974285312 and message.author != para:
                 await para.send(embed=em)
-        if 'asti' in message.content.lower().replace(' ', '').replace('\n', '') or 'mos' in message.content.lower().replace(' ', '').replace('\n', ''):
+        if 'asti ' in message.content.lower() or 'mos ' in message.content.lower():
             asti = self.bot.get_user(517067779145334795)
             if message.author.id != 720229743974285312:
                 if message.guild.id == 621044091056029696:
-                    await asti.send(embed=em)
+                    if message.author != asti:
+                        await asti.send(embed=em)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):

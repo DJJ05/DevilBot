@@ -51,7 +51,11 @@ class redditModerationCog(commands.Cog):
                 'SELECT * FROM "ModStatsAug" WHERE "Mod_Name" = $1', user)
         if not len(record):
             return await ctx.send('Specified user `not found.` Please note that the default user is your `nickname` if another user is not specified.')
-        return await ctx.send(record)
+        embed=discord.Embed(title=f'Monthly Moderator Stats for u/{record[0][0]}', color=self.colour)
+        embed.add_field(name='Flair removals:', value=f'{record[0][1]}', inline=False)
+        embed.add_field(name='Regular removals:', value=f'{record[0][2]}', inline=False)
+        embed.add_field(name='Total action count:', value=f'{int(record[0][1]) * 5 + int(record[0][2])}', inline=False)
+        return await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(redditModerationCog(bot))

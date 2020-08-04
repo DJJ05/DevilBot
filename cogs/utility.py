@@ -4,6 +4,8 @@ from discord.ext import commands
 import wikipedia, asyncio, textwrap, aiohttp
 import googletrans
 
+from unit_convert import UnitConvert
+
 def to_emoji(c):
     base = 0x1f1e6
     return chr(base + c)
@@ -147,6 +149,11 @@ class utilityCog(commands.Cog):
         actual_poll = await ctx.send(embed=embed)
         for emoji, _ in answers:
             await actual_poll.add_reaction(emoji)
+
+    @commands.command()
+    async def pong(self, ctx):
+        """Reverse ping lmao"""
+        await ctx.send('https://cdn.discordapp.com/attachments/621044091056029698/740265681060364418/unknown.png')
 
 def setup(bot):
     bot.add_cog(utilityCog(bot))

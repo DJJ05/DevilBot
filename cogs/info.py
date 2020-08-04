@@ -94,7 +94,7 @@ class infoCog(commands.Cog):
             return await ctx.send(embed=embed)
 
         if command == 'help':
-            embed = discord.Embed(title='View this command on GitHub!', url='https://github.com/DevilJamJar/DevilBot/blob/master/cogs/info.py#L8-L24', colour=self.colour,\
+            embed = discord.Embed(title='View this command on GitHub!', url='https://github.com/DevilJamJar/DevilBot/blob/master/cogs/info.py#L10-L26', colour=self.colour,\
                                   description=':scales: `License:` **[Apache-2.0](https://opensource.org/licenses/Apache-2.0)**')
             return await ctx.send(embed=embed)
 
