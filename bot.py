@@ -22,12 +22,11 @@ class Bot(commands.Bot):
         self.load_extension(name='jishaku')
         print('Cogs are loaded...')
 
-    async def get_prefix(self, message):
+    async def get_prefix(self, message: discord.Message) -> str:
         with open('prefixes.json', 'r') as f:
             prefixes = json.load(f)
-        guild_prefix = prefixes.get(str(message.guild.id), "ow!")
-        return commands.when_mentioned_or(guild_prefix)(self, message)
 
+        return prefixes[str(message.guild.id)]
 
     async def on_ready(self) -> None:
         print('We have logged in!')
@@ -65,6 +64,7 @@ def main():
         sys.exit()
 
     bot = Bot(database_conn=DataBase.db_conn, event_loop=event_loop)
+    # bot.remove_command('help')
     bot.run()
 
 if __name__ == '__main__':
