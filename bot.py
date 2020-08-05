@@ -25,8 +25,8 @@ class Bot(commands.Bot):
     async def get_prefix(self, message: discord.Message) -> str:
         with open('prefixes.json', 'r') as f:
             prefixes = json.load(f)
-
-        return prefixes[str(message.guild.id)]
+        guild_prefix = prefixes.get(str(message.guild.id), "ow!")		
+        return commands.when_mentioned_or(guild_prefix)(self, message)
 
     async def on_ready(self) -> None:
         print('We have logged in!')
