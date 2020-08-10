@@ -87,11 +87,11 @@ class infoCog(commands.Cog):
         # Code used from Rapptz' R.Danny repository provided by the MIT License
         # https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/meta.py#L328-L366
         # Copyright (c) 2015 Rapptz
-        '''
-        Copyright (c) 2020 nizcomix
-        https://github.com/niztg/CyberTron5000/blob/master/CyberTron5000/cogs/meta.py#L95-L140
-        under the terms of the  MIT LICENSE
-        '''
+        
+        # Code used from niztg's CyberTron5000 GitHub Repository Provided by the MIT License
+        # https://github.com/niztg/CyberTron5000/blob/master/CyberTron5000/cogs/meta.py#L95-L140
+        # Copyright (c) 2020 niztg
+        
         u = '\u200b'
         if not command:
             embed = discord.Embed(title='View my source code on GitHub!', url='https://github.com/DevilJamJar/DevilBot', colour=self.colour,\
