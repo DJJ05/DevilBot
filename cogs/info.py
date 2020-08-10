@@ -88,8 +88,8 @@ class infoCog(commands.Cog):
         # https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/meta.py#L328-L366
         # Copyright (c) 2015 Rapptz
         '''
-        Code also used from Niztg's repo
-        https://github.com/niztg/CyberTron5000
+        Copyright (c) 2020 nizcomix
+        https://github.com/niztg/CyberTron5000/blob/master/CyberTron5000/cogs/meta.py#L95-L140
         under the terms of the  MIT LICENSE
         '''
         u = '\u200b'

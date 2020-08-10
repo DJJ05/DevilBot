@@ -1,10 +1,9 @@
 from discord.ext import commands
 
 '''
-This check was taken straight from Niztg's repo
+Copyright (c) 2020 nizcomix
 https://github.com/niztg/CyberTron5000
 under the terms of the  MIT LICENSE
-I haven't changed anything :)
 '''
 
 def check_admin_or_owner():
