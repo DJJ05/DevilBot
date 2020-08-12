@@ -61,41 +61,35 @@ class eventsCog(commands.Cog):
             embed.set_author(name=f'Requested by {message.author.name}#{message.author.discriminator}', icon_url=message.author.avatar_url)
             await message.channel.send(embed=embed)
 
-        # Please ignore this, it's horribly made and only made for a proof of concept, imagine it doesn't exist
+        # with <3 from niz
 
-        em=discord.Embed(colour=self.colour,
-                 title=f'You may have been mentioned in: {message.guild.name}',
-                 description=f'`Author:` {message.author.mention}\
-                 \n\n`Message:` {message.content}\
-                 \n\n`Created At:` {message.created_at}\
-                 \n\n**[Jump]({message.jump_url})**')
-
-        if 'devil' in message.content.lower().replace(' ', '').replace('\n', ''):
-            owner = self.bot.get_user(670564722218762240)
-            if message.author.id != 720229743974285312 and message.author != owner:
-                await owner.send(embed=em)
-        if 'freagl' in message.content.lower().replace(' ', '').replace('\n', '') or 'petrick' in message.content.lower().replace(' ', '').replace('\n', ''):
-            freaglii = self.bot.get_user(370633705091497985)
-            if message.author != freaglii:
-                await freaglii.send(embed=em)
-        if 'chill' in message.content.lower().replace(' ', '').replace('\n', ''):
-            chill = self.bot.get_user(689912112386277384)
-            if message.author != chill:
-                await chill.send(embed=em)
-        if 'blitz' in message.content.lower().replace(' ', '').replace('\n', ''):
-            blitz = self.bot.get_user(239516219445608449)
-            if message.author != blitz:
-                await blitz.send(embed=em)
-        if 'para ' in message.content.lower():
-            para = self.bot.get_user(596079424680493096)
-            if message.author.id != 720229743974285312 and message.author != para:
-                await para.send(embed=em)
-        if 'asti ' in message.content.lower() or 'mos ' in message.content.lower():
+        em = discord.Embed(colour=self.colour, title=f'You may have been mentioned in: {message.guild.name}')
+        em.description += f'`Author:` {message.author.mention}\n'
+        em.description += f'`Message:` {message.content}\n'
+        em.description += f'`Created At:` {message.created_at}\n'
+        em.description += f'**[Jump]({message.jump_url})**'
+        
+        users = {
+        'devil': 670564722218762240,
+        'freaglii': 370633705091497985,
+        'petrick': 370633705091497985,
+        'chill': 689912112386277384,
+        'para ': 596079424680493096,
+        'blitz': 239516219445608449,
+        }
+        
+        for person in users.keys():
+            if person in message.content.lower().replace('\n', ''):
+                send_to = self.bot.get_user(users.get(person))
+                await send_to.send(embed=em)
+                
+        def check(message):
+            return message.author.id not in (517067779145334795, 720229743974285312) and message.guild.id == 621044091056029696
+                   
+            
+        if 'asti ' in message.content.lower() or 'mos ' in message.content.lower() and check(message):
             asti = self.bot.get_user(517067779145334795)
-            if message.author.id != 720229743974285312:
-                if message.guild.id == 621044091056029696:
-                    if message.author != asti:
-                        await asti.send(embed=em)
+            await asti.send(embed=em)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
