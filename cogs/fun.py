@@ -88,6 +88,9 @@ class funCog(commands.Cog):
 
     @commands.command(aliases=['poke', 'pokeman'], name='pokemon', help='Displays pokemon information')
     async def pokemon(self, ctx, pokemon=''):
+        # Code used from niztg's CyberTron5000 GitHub Repository Provided by the MIT License
+        # https://github.com/niztg/CyberTron5000/blob/master/CyberTron5000
+        # Copyright (c) 2020 niztg
         abilities = []
         lst = []
         stats = []
