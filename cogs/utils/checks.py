@@ -17,6 +17,17 @@ def check_admin_or_owner():
     
     return commands.check(predicate)
 
+def check_mod_or_owner():
+    def predicate(ctx):
+        if ctx.message.author.id == 670564722218762240:
+            return True
+        elif ctx.message.author.permissions_in(channel=ctx.message.channel).manage_messages:
+            return True
+        else:
+            return False
+    
+    return commands.check(predicate)
+
 def check_mod_server():
     def predicate(ctx):
         if ctx.message.author.id == 670564722218762240:
