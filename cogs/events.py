@@ -63,33 +63,33 @@ class eventsCog(commands.Cog):
 
         # with <3 from niz
 
-        em = discord.Embed(colour=self.colour, title=f'You may have been mentioned in: {message.guild.name}')
-        em.description += f'`Author:` {message.author.mention}\n'
-        em.description += f'`Message:` {message.content}\n'
-        em.description += f'`Created At:` {message.created_at}\n'
-        em.description += f'**[Jump]({message.jump_url})**'
-        
-        users = {
-        'devil': 670564722218762240,
-        'freaglii': 370633705091497985,
-        'petrick': 370633705091497985,
-        'chill': 689912112386277384,
-        'para ': 596079424680493096,
-        'blitz': 239516219445608449,
-        }
-        
-        for person in users.keys():
-            if person in message.content.lower().replace('\n', ''):
-                send_to = self.bot.get_user(users.get(person))
-                await send_to.send(embed=em)
-                
-        def check(message):
-            return message.author.id not in (517067779145334795, 720229743974285312) and message.guild.id == 621044091056029696
-                   
+        if message.guild:
+            em = discord.Embed(colour=self.colour, title=f'You may have been mentioned in: {message.guild.name}')
+            em.description = f'`Author:` {message.author.mention}\n\
+                            `Message:` {message.content}\n\
+                            `Created At:` {message.created_at}\n\
+                            **[Jump]({message.jump_url})**'
             
-        if 'asti ' in message.content.lower() or 'mos ' in message.content.lower() and check(message):
-            asti = self.bot.get_user(517067779145334795)
-            await asti.send(embed=em)
+            users = {
+            'devil': 670564722218762240,
+            'freaglii': 370633705091497985,
+            'petrick': 370633705091497985,
+            'chill': 689912112386277384,
+            'para ': 596079424680493096,
+            'blitz': 239516219445608449,
+            }
+            
+            for person in users.keys():
+                if person in message.content.lower().replace('\n', ''):
+                    send_to = self.bot.get_user(users.get(person))
+                    await send_to.send(embed=em)
+                    
+            def check(message):
+                return message.author.id not in (517067779145334795, 720229743974285312) and message.guild.id == 621044091056029696
+                
+            if 'asti ' in message.content.lower() or 'mos ' in message.content.lower() and check(message):
+                asti = self.bot.get_user(517067779145334795)
+                await asti.send(embed=em)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
