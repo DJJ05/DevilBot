@@ -2,6 +2,13 @@ import discord
 from discord.ext import commands
 
 import os
+from pydactyl import PterodactylClient
+
+import secrets
+
+serverclient = PterodactylClient(secrets.secrets_server_url, secrets.secrets_server_key)
+my_servers = serverclient.client.list_servers()
+srv_id = my_servers[0]['identifier']
 
 class devCog(commands.Cog):
     """Developer commands"""
@@ -12,6 +19,22 @@ class devCog(commands.Cog):
         self.colour = 0xff9300
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
+
+    @commands.command(aliases=['sss'])
+    @commands.is_owner()
+    async def sendserversignal(self, ctx, signal):
+        """Sends signal to py-dactl server"""
+        known = [
+            'stop',
+            'restart',
+            'kill'
+        ]
+        if signal.lower() in known:
+            try:
+                await ctx.send('`Trying...`')
+                serverclient.client.send_power_action(srv_id, signal)
+            except:
+                pass
 
     @commands.command(aliases=['tm'])
     @commands.is_owner()
