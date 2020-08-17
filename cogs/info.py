@@ -5,8 +5,6 @@ import time, datetime
 import os
 import collections
 
-from .utils import paginator
-
 class MyHelpCommand(commands.MinimalHelpCommand):
     def get_command_signature(self, command):
         """

@@ -155,5 +155,21 @@ class utilityCog(commands.Cog):
         """Reverse ping lmao"""
         await ctx.send('https://cdn.discordapp.com/attachments/621044091056029698/740265681060364418/unknown.png')
 
+    @commands.command(aliases=['emoteurl', 'urlemote', 'emote_url', 'emoji'])
+    async def emote(self, ctx, emote:str=None):
+        """Returns URL of given emote"""
+        if not emote:
+            return await ctx.send('You need to provide an `emote`')
+        c = emote
+        d = f'{c}' 
+        p = int(d.split(':')[2].split('>')[0])
+        g = self.bot.get_emoji(p)
+        try:
+            final_url = f'{g.url}'
+        except:
+            return await ctx.send('Unfortunately this command only works on emojis that are part of guilds that I am a member of.')
+        embed = discord.Embed(title='Link:', colour=self.colour, description=f'**{final_url}**')
+        await ctx.send(embed=embed)
+
 def setup(bot):
     bot.add_cog(utilityCog(bot))

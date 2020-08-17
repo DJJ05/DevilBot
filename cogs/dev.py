@@ -48,7 +48,7 @@ class devCog(commands.Cog):
         """Reloads all cogs or a specified cog"""
         if not extension:
             for filename in os.listdir('./cogs'):
-                if filename.endswith('.py') and filename != 'dev.py':
+                if filename.endswith('.py') and filename != 'dev.py' and filename != 'secrets.py':
                     self.bot.unload_extension(f'cogs.{filename[:-3]}')
                     self.bot.load_extension(f'cogs.{filename[:-3]}')
             return await ctx.send('Successfully reloaded extension `all cogs.`')
