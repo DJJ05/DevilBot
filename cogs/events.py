@@ -12,6 +12,14 @@ class eventsCog(commands.Cog):
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
+        self.btgreen = '\033[1;32m'
+        self.tgreen = '\033[32m'
+        self.btmag = '\033[1;35m'
+        self.tmag = '\033[35m'
+        self.btred = '\033[1;31m'
+        self.tred = '\033[31m'
+        self.endc = '\033[m'
+
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
         with open('prefixes.json', 'r') as f:
@@ -103,6 +111,16 @@ class eventsCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
+        # Code used from Daggy1234's DagBot GitHub Repository Provided by the GNU Affero General Public License
+        # https://github.com/Daggy1234/dagbot/blob/master/dagbot/extensions/errors.py#L37-#L42
+        # Copyright (C) 2020  Daggy1234
+        
+        etype = type(error)
+        trace = error.__traceback__
+        verbosity = 2
+        lines = traceback.format_exception(etype, error, trace, verbosity)
+        traceback_text = "".join(lines)
+
         _raise = [
             commands.CheckFailure,
             commands.NotOwner,
@@ -125,7 +143,7 @@ class eventsCog(commands.Cog):
         elif type(error) in disabled:
             return await ctx.send(f':warning: <@!{ctx.author.id}> The bot is currently in `maintenance mode.`\nThis means I\'m working on fixing bugs or imperfections and don\'t want you breaking anything. Please be patient.')
         else:
-            print(f'An uncaught error occured during the handling of a command, {type(error)} » {error}')
+            print(f'{self.btred} ERROR: {self.tred} {traceback_text} {self.endc}——————————————————————————————')
             return await ctx.send(f'<@!{ctx.author.id}>, something went wrong that I wasn\'t expecting.\n`{error}`')
 
 def setup(bot):

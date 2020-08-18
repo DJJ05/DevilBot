@@ -61,14 +61,6 @@ class infoCog(commands.Cog):
         await pong.edit(content=f'Latency: `{round(self.bot.latency * 1000)}` ms\
                         \nResponse Time: `{response}` ms')
 
-    @commands.command(aliases=['web'])
-    async def website(self, ctx):
-        """Displays website link"""
-
-        embed = discord.Embed(title='Visit My Website', url='http://overwatchmemesbot.ezyro.com', color=self.colour)
-        embed.set_footer(text=self.footer)
-        await ctx.send(embed=embed)
-
     @commands.command(aliases=['inv'])
     async def invite(self, ctx):
         """Displays invite link"""

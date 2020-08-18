@@ -16,11 +16,26 @@ class Bot(commands.Bot):
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
+        self.btgreen = '\033[1;32m'
+        self.tgreen = '\033[32m'
+        self.btmag = '\033[1;35m'
+        self.tmag = '\033[35m'
+        self.btred = '\033[1;31m'
+        self.tred = '\033[31m'
+        self.endc = '\033[m'
+
         for filename in os.listdir('cogs'):
             if filename.endswith('.py') and filename != 'secrets.py':
                 self.load_extension('cogs.{}'.format(filename[:-3]))
         self.load_extension(name='jishaku')
-        print('Cogs are loaded...')
+        print(self.btmag + r'''
+ ____                _  _  ____          _   
+|  _ \   ___ __   __(_)| || __ )   ___  | |_ 
+| | | | / _ \\ \ / /| || ||  _ \  / _ \ | __|
+| |_| ||  __/ \ V / | || || |_) || (_) || |_ 
+|____/  \___|  \_/  |_||_||____/  \___/  \__|
+        ''' + self.endc)
+        print(f'{self.tgreen}Cogs are loaded, logging in...{self.endc}\n——————————————————————————————')
 
     async def get_prefix(self, message: discord.Message) -> str:
         with open('prefixes.json', 'r') as f:
@@ -29,9 +44,11 @@ class Bot(commands.Bot):
         return commands.when_mentioned_or(guild_prefix)(self, message)
 
     async def on_ready(self) -> None:
-        print('We have logged in!')
+        print(f'{self.btgreen}Logged in as: {self.endc}{self.user.name}#{self.user.discriminator}')
+        print(f'{self.btgreen}With ID: {self.endc}{self.user.id}\n——————————————————————————————')
         await self.change_presence(
-            activity=discord.Activity(type=discord.ActivityType.watching, name="http://overwatchmemesbot.ezyro.com"))
+            activity=discord.Activity(type=discord.ActivityType.watching, name="you..."))
+        print(f'{self.tgreen}Status changed successfully {self.endc}\n——————————————————————————————')
 
     def run(self):
         super().run(secrets.secrets_token)
@@ -51,7 +68,7 @@ class DataBase:
             return True
 
         except Exception as err:
-            print('Failed to connect to database', err)
+            print(f'\033[31m Failed to connect to database \033[1;31m', err, '\033[m \n——————————————————————————————')
             raise
 
 def main():
