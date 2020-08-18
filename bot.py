@@ -47,7 +47,7 @@ class Bot(commands.Bot):
         print(f'{self.btgreen}Logged in as: {self.endc}{self.user.name}#{self.user.discriminator}')
         print(f'{self.btgreen}With ID: {self.endc}{self.user.id}\n——————————————————————————————')
         await self.change_presence(
-            activity=discord.Activity(type=discord.ActivityType.watching, name="you..."))
+            activity=discord.Activity(type=discord.ActivityType.watching, name="the Umbrella Academy"))
         print(f'{self.tgreen}Status changed successfully {self.endc}\n——————————————————————————————')
 
     def run(self):

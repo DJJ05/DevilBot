@@ -43,6 +43,16 @@ class eventsCog(commands.Cog):
         embed.set_thumbnail(url=guild.icon_url)
         await c.send(f"<@!670564722218762240> We joined guild **#{len(self.bot.guilds)}**", embed=embed)
 
+    @commands.Cog.listener(name="on_message_delete")
+    async def on_message_delete(self, message):
+        with open('deleted.json', 'r') as f:
+            deleted = json.load(f)
+
+        deleted[str(message.channel.id)] = f'{message.clean_content} ««« {message.author.name}#{message.author.discriminator} ««« {message.created_at}'
+
+        with open('deleted.json', 'w') as f:
+            json.dump(deleted, f, indent=4)
+
     @commands.Cog.listener(name="on_message")
     async def on_user_mention(self, message):
         if message.content in ("<@!720229743974285312>", "<@720229743974285312>"):
@@ -88,7 +98,7 @@ class eventsCog(commands.Cog):
             }
             
             for person in users.keys():
-                if person in message.content.lower().replace('\n', ''):
+                if person in message.content.lower().replace('\n', '') and message.author.id != 720229743974285312:
                     send_to = self.bot.get_user(users.get(person))
                     await send_to.send(embed=em)
                     

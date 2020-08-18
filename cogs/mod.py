@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import json
 
 from .utils import checks
 
@@ -12,6 +13,24 @@ class modCog(commands.Cog):
         self.colour = 0xff9300
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
+
+    @commands.command(aliases=['ud'])
+    @checks.check_mod_or_owner()
+    async def snipe(self, ctx):
+        """Returns last deleted message in this channel"""
+        with open('deleted.json', 'r') as f:
+            deleted = json.load(f)
+        try:
+            unformatted = deleted[str(ctx.channel.id)].split('«««')
+        except:
+            return await ctx.send('I do not have any `stored deletions` for this channel.')
+        embed = discord.Embed(
+            title = f'Last deleted message in #{ctx.channel.name}',
+            colour = self.colour,
+            description = f'**Author:**\n{unformatted[1]}\n**Message:**\n{unformatted[0]}\n**Created At:**\n{unformatted[2]}'
+        )
+        embed.set_author(name=f'Requested by {ctx.message.author.name}#{ctx.message.author.discriminator}', icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
 
     @commands.command(aliases=['devclean', 'botpurge'])
     @checks.check_mod_or_owner()

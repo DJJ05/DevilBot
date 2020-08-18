@@ -156,29 +156,31 @@ class infoCog(commands.Cog):
         if member is None:
             member = ctx.author
 
-        for activity in member.activities:
-            if isinstance(activity, discord.Spotify):
-                activity = 'Listening to **Spotify**'
-            elif isinstance(activity, discord.Game):
-                activity = f'Playing **{activity.name}**'
-            elif isinstance(activity, discord.Streaming):
-                activity = f'Streaming **{activity.name}**'
-            else:
-                activity = '**None**'
-
+        if len(member.activities) > 0:
+            for activity in member.activities:
+                if isinstance(activity, discord.Spotify):
+                    activity = 'Listening to `Spotify`'
+                elif isinstance(activity, discord.Game):
+                    activity = f'Playing `{activity.name}``'
+                elif isinstance(activity, discord.Streaming):
+                    activity = f'Streaming `{activity.name}`'
+                else:
+                    activity = '`None`'
+        else:
+            activity = '`None`'
         embed = discord.Embed(title=f"{member}", colour=self.colour)
         embed.add_field(name='**General:**',
-                        value=f'Name: **{member}**\n'
+                        value=f'Name: `{member}`\n'
                               f'Activity: {activity}\n'
-                              f'Desktop Status: **{member.desktop_status}**\n'
-                              f'Mobile Status: **{member.mobile_status}**\n'
-                              f'Web (browser) Status: **{member.web_status}**\n'
-                              f'Created on: **{datetime.datetime.strftime(member.created_at, "%A %d %B %Y at %H:%M")}**', inline=False)
+                              f'Desktop Status: `{member.desktop_status}`\n'
+                              f'Mobile Status: `{member.mobile_status}`\n'
+                              f'Browser Status: `{member.web_status}`\n'
+                              f'Created on: `{datetime.datetime.strftime(member.created_at, "%A %d %B %Y at %H:%M")}`', inline=False)
 
         embed.add_field(name='**Guild related information:**',
-                        value=f'Joined guild: **{datetime.datetime.strftime(member.joined_at, "%A %d %B %Y at %H:%M")}**\n'
-                              f'Nickname: **{member.nick}**\n'
-                              f'Top role: **{member.top_role.mention}**', inline=False)
+                        value=f'Joined guild: `{datetime.datetime.strftime(member.joined_at, "%A %d %B %Y at %H:%M")}`\n'
+                              f'Nickname: `{member.nick}`\n'
+                              f'Top role: {member.top_role.mention}', inline=False)
 
         embed.set_thumbnail(url=member.avatar_url_as(static_format='png'))
         embed.set_footer(text=f'Member ID: {member.id}  |  Requested by: {ctx.author.name}#{ctx.author.discriminator}')
