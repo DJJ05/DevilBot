@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-
 import os
 from pydactyl import PterodactylClient
 
@@ -19,6 +18,18 @@ class devCog(commands.Cog):
         self.colour = 0xff9300
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
+
+    # {'state': 'on', 'memory': {'current': 111, 'limit': 256}, 'cpu': {'current': 1.539, 'cores': [0.397, 0.137, 0.68, 0, 0, 0.155, 0, 0, 0, 0.169], 'limit': 200}, 'disk': {'current': 50, 'limit': 3000}}
+    @commands.command(aliases=['ss'])
+    @commands.is_owner()
+    async def serverstats(self, ctx):
+        """Retrieves server information"""
+        srv_utilization2 = serverclient.client.get_server_utilization(srv_id)
+        await ctx.send(f'**Server Information**\n\
+State: `{srv_utilization2["state"]}`\n\
+Memory Usage: `{srv_utilization2["memory"]["current"]}MB`\n\
+CPU Usage: `{srv_utilization2["cpu"]["current"]}%`\n\
+Disk Usage: `{srv_utilization2["disk"]["current"]}`')
 
     @commands.command(aliases=['sss'])
     @commands.is_owner()
