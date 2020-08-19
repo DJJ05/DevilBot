@@ -14,6 +14,23 @@ class modCog(commands.Cog):
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
+    @commands.command(aliases=['yeet'])
+    @checks.check_mod_or_owner()
+    async def kick(self, ctx, member:discord.Member=None, *, reason:str='None Provided'):
+        """Kicks a member"""
+        if not member:
+            return await ctx.send('`Member` is a required argument that is missing.')
+        if member.top_role > ctx.guild.me.top_role:
+            return await ctx.send('I am not permitted to `kick` this member.')
+        await member.kick(reason=reason)
+        await ctx.send(f'Successfully `kicked` {member.mention} from the guild.')
+        embed = discord.Embed(title=f'You have been kicked from {ctx.guild.name}', colour=self.colour,
+                              description=f'By:\n`{ctx.author.name}`\nBecause:\n`{reason}`')
+        try:
+            await member.send(embed=embed)
+        except:
+            await ctx.send(f'Attempt to `message` {member.mention} failed.')
+
     @commands.command(aliases=['ud'])
     @checks.check_mod_or_owner()
     async def snipe(self, ctx):
