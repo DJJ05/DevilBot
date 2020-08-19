@@ -29,7 +29,7 @@ class devCog(commands.Cog):
 State: `{srv_utilization2["state"]}`\n\
 Memory Usage: `{srv_utilization2["memory"]["current"]}MB`\n\
 CPU Usage: `{srv_utilization2["cpu"]["current"]}%`\n\
-Disk Usage: `{srv_utilization2["disk"]["current"]}`')
+Disk Usage: `{srv_utilization2["disk"]["current"]}MB`')
 
     @commands.command(aliases=['sss'])
     @commands.is_owner()
