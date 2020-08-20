@@ -11,4 +11,4 @@ DevilBot is a multi-purpose discord bot made with discord.py, formerly known as 
 - Massive thanks to [Matthew](https://github.com/DankDumpster) for helping me massively with my database things and just generally making my code much better with his pull request :)
 
 ## Contact
-If you wanna ask me why my code is so shit, or just generally ask me anything, my Discord is DevilJamJar#0001
+If you want to ask me why my code is so shit, or just generally ask me anything, my Discord is DevilJamJar#0001
