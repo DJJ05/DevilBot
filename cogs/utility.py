@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-import wikipedia, asyncio, textwrap, aiohttp
+import wikipedia, asyncio, textwrap, aiohttp, json
 import googletrans
 
 from unit_convert import UnitConvert
@@ -21,6 +21,27 @@ class utilityCog(commands.Cog):
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
         self.trans = googletrans.Translator()
+    
+    @commands.command()
+    async def afk(self, ctx, *, reason:str='None Provided'):
+        """Sets or removes an outstanding AFK"""
+        with open('afks.json', 'r') as f:
+            afks = json.load(f)
+
+        try:
+            if afks[str(ctx.author.id)]:
+                afks.pop(str(ctx.author.id))
+                with open('afks.json', 'w') as f:
+                    json.dump(afks, f, indent=4)
+                return await ctx.send(f'{ctx.author.mention}, I removed your AFK.')
+        except KeyError:
+            pass
+        
+        afks[str(ctx.author.id)] = reason
+        await ctx.send(f'{ctx.author.mention}, I successfully marked you as AFK.')
+        await asyncio.sleep(1)
+        with open('afks.json', 'w') as f:
+            json.dump(afks, f, indent=4)
 
     @commands.command(aliases=['wiki'])
     async def wikipedia(self, ctx, *, search: str = None):

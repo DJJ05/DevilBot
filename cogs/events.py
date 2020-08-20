@@ -79,7 +79,7 @@ class eventsCog(commands.Cog):
             embed.set_author(name=f'Requested by {message.author.name}#{message.author.discriminator}', icon_url=message.author.avatar_url)
             await message.channel.send(embed=embed)
 
-        # with <3 from niz
+        # ——————————————————
 
         if message.guild:
             em = discord.Embed(colour=self.colour, title=f'You may have been mentioned in: {message.guild.name}')
@@ -108,6 +108,29 @@ class eventsCog(commands.Cog):
             if 'asti ' in message.content.lower() or 'mos ' in message.content.lower() and check(message):
                 asti = self.bot.get_user(517067779145334795)
                 await asti.send(embed=em)
+
+            # ——————————————————————————
+
+            with open('afks.json', 'r') as f:
+                afks = json.load(f)
+
+            try:
+                if afks[str(message.author.id)]:
+                    afks.pop(str(message.author.id))
+                    with open('afks.json', 'w') as f:
+                        json.dump(afks, f, indent=4)
+                    await message.channel.send(f'{message.author.mention}, I removed your AFK.')
+            except KeyError:
+                pass
+
+            # ————————————————————————
+            
+            if len(message.mentions):
+                with open('afks.json', 'r') as f:
+                    afks = json.load(f)
+                for i in message.mentions:
+                    if str(i.id) in afks:
+                        await message.channel.send(f'**{message.author.mention},** `that user is currently AFK.`\n**Reason:** `{afks[str(i.id)].capitalize()}`')
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
