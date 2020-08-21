@@ -48,7 +48,7 @@ class eventsCog(commands.Cog):
         with open('deleted.json', 'r') as f:
             deleted = json.load(f)
 
-        deleted[str(message.channel.id)] = f'{message.clean_content} ««« {message.author.name}#{message.author.discriminator} ««« {message.created_at}'
+        deleted[str(message.channel.id)] = f'{message.clean_content} ««« {message.author} ««« {message.created_at}'
 
         with open('deleted.json', 'w') as f:
             json.dump(deleted, f, indent=4)
@@ -76,7 +76,7 @@ class eventsCog(commands.Cog):
                                               \n\n**Do** `{guildpre}help` **to view a full command list.**\
                                               \n**Do** `{guildpre}help [command]` **to view specific command help.**")
             embed.set_thumbnail(url=self.thumb)
-            embed.set_author(name=f'Requested by {message.author.name}#{message.author.discriminator}', icon_url=message.author.avatar_url)
+            embed.set_author(name=f'Requested by {message.author}', icon_url=message.author.avatar_url)
             await message.channel.send(embed=embed)
 
         # ——————————————————
