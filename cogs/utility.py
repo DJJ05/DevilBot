@@ -181,14 +181,17 @@ class utilityCog(commands.Cog):
         """Returns URL of given emote"""
         if not emote:
             return await ctx.send('You need to provide an `emote`')
-        c = emote
-        d = f'{c}' 
-        p = int(d.split(':')[2].split('>')[0])
-        g = self.bot.get_emoji(p)
+        try:
+            c = emote
+            d = f'{c}' 
+            p = int(d.split(':')[2].split('>')[0])
+            g = self.bot.get_emoji(p)
+        except:
+            raise commands.BadArgument("Unknown emote provided.")
         try:
             final_url = f'{g.url}'
         except:
-            return await ctx.send('Unfortunately this command only works on emojis that are part of guilds that I am a member of.')
+            raise commands.BadArgument("This emote belongs to a guild I am not a member of.")
         embed = discord.Embed(title='Link:', colour=self.colour, description=f'**{final_url}**')
         await ctx.send(embed=embed)
 

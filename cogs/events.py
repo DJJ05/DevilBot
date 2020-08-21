@@ -123,7 +123,7 @@ class eventsCog(commands.Cog):
             except KeyError:
                 pass
 
-            # ————————————————————————
+            # —————————————————————————
             
             if len(message.mentions):
                 with open('afks.json', 'r') as f:
@@ -158,7 +158,8 @@ class eventsCog(commands.Cog):
             commands.CheckFailure,
             commands.NotOwner,
             wikipedia.DisambiguationError,
-            commands.MissingRequiredArgument
+            commands.MissingRequiredArgument,
+            commands.BadArgument
         ]
 
         skip = [
