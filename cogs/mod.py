@@ -67,7 +67,7 @@ class modCog(commands.Cog):
             colour = self.colour,
             description = f'**Author:**\n{unformatted[1]}\n**Message:**\n{unformatted[0]}\n**Created At:**\n{unformatted[2]}'
         )
-        embed.set_author(name=f'Requested by {ctx.message.author.name}#{ctx.message.author.discriminator}', icon_url=ctx.message.author.avatar_url)
+        embed.set_author(name=f'Requested by {ctx.message.author}', icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['devclean', 'botpurge'])
