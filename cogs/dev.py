@@ -5,9 +5,12 @@ from pydactyl import PterodactylClient
 
 import secrets
 
-serverclient = PterodactylClient(secrets.secrets_server_url, secrets.secrets_server_key)
-my_servers = serverclient.client.list_servers()
-srv_id = my_servers[0]['identifier']
+try:
+    serverclient = PterodactylClient(secrets.secrets_server_url, secrets.secrets_server_key)
+    my_servers = serverclient.client.list_servers()
+    srv_id = my_servers[0]['identifier']
+except:
+    pass
 
 class devCog(commands.Cog):
     """Developer commands"""
