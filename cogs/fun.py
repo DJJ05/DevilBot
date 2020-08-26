@@ -5,7 +5,6 @@ import asyncio, aiohttp, io
 from .utils.pokemon import STAT_NAMES, TYPES
 from html import unescape as unes
 
-
 class funCog(commands.Cog):
     """Fun commands"""
 
@@ -17,15 +16,15 @@ class funCog(commands.Cog):
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
         self.text_to_morse = {
-            'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
-            'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
-            'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
-            'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
-            'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---', '3': '...--',
-            '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.',
-            '.': '.-.-.-', ',': '--..--', '?': '..--..', "'": '.----.', '!': '-.-.--', "/": '-..-.',
-            '(': '-.--.', ')': '-.--.-', '&': '.-...', ':': '---...', ';': '-.-.-.', '=': '-...-',
-            '+': '.-.-.', '-': '-....-', '_': '..--.-', '"': '.-..-.', '$': '...-..-', '@': '.--.-.',
+            'A': '.-',     'B': '-...',   'C': '-.-.',   'D': '-..',    'E': '.',       'F': '..-.',
+            'G': '--.',    'H': '....',   'I': '..',     'J': '.---',   'K': '-.-',     'L': '.-..',
+            'M': '--',     'N': '-.',     'O': '---',    'P': '.--.',   'Q': '--.-',    'R': '.-.',
+            'S': '...',    'T': '-',      'U': '..-',    'V': '...-',   'W': '.--',     'X': '-..-',
+            'Y': '-.--',   'Z': '--..',    '0': '-----',  '1': '.----',  '2': '..---',   '3': '...--',
+            '4': '....-',  '5': '.....',  '6': '-....',  '7': '--...',  '8': '---..',   '9': '----.',
+            '.': '.-.-.-', ',': '--..--', '?': '..--..', "'": '.----.', '!': '-.-.--',  "/": '-..-.',
+            '(': '-.--.', ')': '-.--.-', '&': '.-...',  ':': '---...', ';': '-.-.-.',  '=': '-...-',
+            '+': '.-.-.',  '-': '-....-', '_': '..--.-', '"': '.-..-.', '$': '...-..-', '@': '.--.-.',
             ' ': ' '
         }
         self.morse_to_text = {value: key for key, value in self.text_to_morse.items()}
@@ -120,27 +119,19 @@ class funCog(commands.Cog):
                     numlist.append(b['base_stat'])
 
                 types = " ".join(lst[::-1])
-
+                    
                 async with aiohttp.ClientSession() as cs:
                     async with cs.get(f"https://pokeapi.co/api/v2/pokemon-species/{res['id']}/") as r:
                         data = await r.json()
 
-                embed = discord.Embed(title=f"{pokemon.capitalize()}  »  #{res['id']}",
-                                      description=f"{types}\n**Height:** {res['height'] / 10} m\n**Weight:** {res['weight'] / 10} kg\n\n<:highlighted:713555161833930862> **Description:**\n{unes(data['flavor_text_entries'][0]['flavor_text'])}",
-                                      color=0xff9300)
+                embed=discord.Embed(title=f"{pokemon.capitalize()}  »  #{res['id']}", description = f"{types}\n**Height:** {res['height'] / 10} m\n**Weight:** {res['weight'] / 10} kg\n\n<:highlighted:713555161833930862> **Description:**\n{unes(data['flavor_text_entries'][0]['flavor_text'])}", color=0xff9300)
                 embed.set_thumbnail(url=sprite)
                 embed.add_field(name="Abilities:", value="\n".join(abilities[::-1]), inline=False)
-                embed.add_field(name="Stats:", value="\n".join(stats[::-1]) + f"\nTotal: `{sum(numlist)}`",
-                                inline=False)
+                embed.add_field(name="Stats:", value="\n".join(stats[::-1]) + f"\nTotal: `{sum(numlist)}`", inline=False)
                 await ctx.send(embed=embed)
 
         else:
             await ctx.send('`Pokemon` is a required argument that is missing.')
-    @commands.command(aliases=["Fact"])
-    async def fact(self,ctx):
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(f"https://uselessfacts.jsph.pl/random.json?language=en") as r:
-                data = await r.json()
-        await ctx.send(data["text"])
+
 def setup(bot):
     bot.add_cog(funCog(bot))
