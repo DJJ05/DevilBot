@@ -22,6 +22,9 @@ class devCog(commands.Cog):
         self.colour = 0xff9300
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
+        
+    async def cog_check(self, ctx):
+        return ctx.author.id == 670564722218762240 # check for all commands in this cog
 
     @commands.group(invoke_without_command=True, aliases=['bl'])
     async def blacklist(self, ctx):
@@ -31,13 +34,14 @@ class devCog(commands.Cog):
     @blacklist.command(aliases=['addmember'])
     async def adduser(self, ctx, member:typing.Union[discord.Member, int], *, reason:str='None Provided'):
         if not member:
-            return await ctx.send('`Member` is a required argument that is missing.')
+            return await ctx.send('`Member` is a required argument that is missing.') # ???
         if type(member) == int:
             member = self.bot.get_user(member) or await self.bot.fetch_user(member)
         with open('blacklist.json', 'r') as f:
             blacklist = json.load(f)
 
         blacklist['users'][str(member.id)] = reason.capitalize()
+        self.bot.blacklist['users'][str(member.id)] = reason.capitalize()
 
         with open('blacklist.json', 'w') as f:
             json.dump(blacklist, f, indent=4)
@@ -62,6 +66,7 @@ class devCog(commands.Cog):
             blacklist = json.load(f)
 
         try:
+            self.bot.blacklist.pop(str(member.id))
             blacklist['users'].pop(str(member.id))
         except:
             return await ctx.send('`Member` not found in blacklist.')
@@ -96,7 +101,7 @@ class devCog(commands.Cog):
             'guild': ctx.message.guild,
             'channel': ctx.message.channel,
             'author': ctx.message.author,
-            'print': ctx.send
+            'print': ctx.send # ah yes, await print()
         }
         env.update(globals())
 
