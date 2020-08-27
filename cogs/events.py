@@ -148,16 +148,16 @@ class eventsCog(commands.Cog):
         # https://github.com/Daggy1234/dagbot/blob/master/dagbot/extensions/errors.py#L37-#L42
         # Copyright (C) 2020  Daggy1234
         
+        ers = f"{error}"
         etype = type(error)
         trace = error.__traceback__
-        verbosity = 2
+        verbosity = 4
         lines = traceback.format_exception(etype, error, trace, verbosity)
-        traceback_text = "".join(lines)
+        traceback_text = f'```py\n{"".join(lines)}\n```'
 
         _raise = [
             commands.CheckFailure,
             commands.NotOwner,
-            wikipedia.DisambiguationError,
             commands.MissingRequiredArgument,
             commands.BadArgument
         ]
@@ -173,12 +173,14 @@ class eventsCog(commands.Cog):
         if type(error) in skip:
             return
         elif type(error) in _raise:
-            return await ctx.send(f'<@!{ctx.author.id}>, something went wrong that I was expecting.\n`{error}`')
+            return await ctx.send(f':warning: {ctx.author.mention}, a `known error` occured.\n`{error}`')
         elif type(error) in disabled:
-            return await ctx.send(f':warning: <@!{ctx.author.id}> The bot is currently in `maintenance mode.`\nThis means I\'m working on fixing bugs or imperfections and don\'t want you breaking anything. Please be patient.')
+            return await ctx.send(f':warning: {ctx.author.mention}, I am currently in `maintenance mode`. Please be patient, I will be fixed soon!')
         else:
             print(f'{self.btred} ERROR: {self.tred} {traceback_text} {self.endc}——————————————————————————————')
-            return await ctx.send(f'<@!{ctx.author.id}>, something went wrong that I wasn\'t expecting.\n`{error}`')
+            embed = discord.Embed(colour=0xff0033, title=f'Error during `{ctx.command.name}`',
+                                  description=f'My creator has been notified of the error and will endeavour to fix it soon.\n{traceback_text}')
+            return await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(eventsCog(bot))
