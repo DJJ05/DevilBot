@@ -55,11 +55,12 @@ class infoCog(commands.Cog):
     async def ping(self, ctx):
         """Displays latency and response time"""
         begin = time.perf_counter()
-        pong = await ctx.send(f'Latency: `{round(self.bot.latency * 1000)}`ms')
+        embed = discord.Embed(colour=self.colour, description=f'```fix\nLATENCY: {round(self.bot.latency * 1000)}')
+        pong = await ctx.send(embed=embed)
         end = time.perf_counter()
         response = round((end - begin) * 1000)
-        await pong.edit(content=f'Latency: `{round(self.bot.latency * 1000)}` ms\
-                        \nResponse Time: `{response}` ms')
+        embed = discord.Embed(colour=self.colour, description=f'```fix\nLATENCY: {round(self.bot.latency * 1000)}ms\nRESPONSE TIME: {response}ms```')
+        await pong.edit(embed=embed)
 
     @commands.command(aliases=['inv'])
     async def invite(self, ctx):
