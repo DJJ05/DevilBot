@@ -12,6 +12,7 @@ class Bot(commands.Bot):
         super().__init__(command_prefix=self.get_prefix, case_insensitive=True, loop=event_loop,
                          description="Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532")
         self.db_conn = database_conn
+        self.blacklist = self.initialize_blacklist()
         self.colour = 0xff9300
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
@@ -50,6 +51,10 @@ class Bot(commands.Bot):
         await self.change_presence(
             activity=discord.Activity(type=discord.ActivityType.watching, name="the Umbrella Academy"))
         print(f'{self.tgreen}Status changed successfully {self.endc}\n——————————————————————————————')
+        
+    def initialize_blacklist(self) -> dict:
+        with open('blacklist.json', 'r') as f:
+            return json.load(f)
 
     def run(self):
         super().run(secrets.secrets_token)
@@ -85,9 +90,7 @@ def main():
 
     @bot.check
     async def check_blacklist(ctx):
-        with open('blacklist.json', 'r') as f:
-            blacklist = json.load(f)
-        if str(ctx.author.id) in blacklist['users']:
+        if str(ctx.author.id) in bot.blacklist['users']:
             raise commands.CheckFailure(f'You have been blacklisted from using me. Please check you DMs for a reason or contact DevilJamJar#0001 to appeal.')
         else:
             return True
