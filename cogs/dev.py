@@ -2,7 +2,8 @@ import discord
 from discord.ext import commands
 import os
 from pydactyl import PterodactylClient
-
+import traceback
+import textwrap
 import secrets
 
 try:
@@ -22,7 +23,37 @@ class devCog(commands.Cog):
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
-    # {'state': 'on', 'memory': {'current': 111, 'limit': 256}, 'cpu': {'current': 1.539, 'cores': [0.397, 0.137, 0.68, 0, 0, 0.155, 0, 0, 0, 0.169], 'limit': 200}, 'disk': {'current': 50, 'limit': 3000}}
+    @commands.command(name='eval')
+    @commands.is_owner()
+    async def _eval(self, ctx, *, code):
+        if "import os" in code or "import sys" in code:
+            return await ctx.send(f"You Can't Do That!")
+
+        code = code.strip('` ')
+
+        env = {
+            'bot': self.bot,
+            'BOT': self.bot,
+            'client': self.bot,
+            'ctx': ctx,
+            'message': ctx.message,
+            'server': ctx.message.guild,
+            'guild': ctx.message.guild,
+            'channel': ctx.message.channel,
+            'author': ctx.message.author,
+            'print': ctx.send
+        }
+        env.update(globals())
+
+        new_forced_async_code = f'async def code():\n{textwrap.indent(code, "    ")}'
+
+        exec(new_forced_async_code, env)
+        code = env['code']
+        try:
+            await code()
+        except:
+            await ctx.send(f'```{traceback.format_exc()}```')
+
     @commands.command(aliases=['ss'])
     @commands.is_owner()
     async def serverstats(self, ctx):

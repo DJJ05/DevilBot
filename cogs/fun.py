@@ -30,6 +30,13 @@ class funCog(commands.Cog):
         self.morse_to_text = {value: key for key, value in self.text_to_morse.items()}
 
     @commands.command()
+    async def fact(self,ctx):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f"https://uselessfacts.jsph.pl/random.json?language=en") as r:
+                data = await r.json()
+        await ctx.send(data["text"])
+
+    @commands.command()
     async def morse(self, ctx, *, text: commands.clean_content):
         """
         Converts the given text into morse code.
