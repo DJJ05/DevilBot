@@ -32,6 +32,7 @@ class devCog(commands.Cog):
         pass
     
     @blacklist.command(aliases=['addmember'])
+    @commands.is_owner()
     async def adduser(self, ctx, member:typing.Union[discord.Member, int], *, reason:str='None Provided'):
         if not member:
             return await ctx.send('`Member` is a required argument that is missing.') # ???
@@ -55,8 +56,9 @@ class devCog(commands.Cog):
             await ctx.send('DM sent successfully.')
         except:
             await ctx.send('DM failed to send.')
-
+    
     @blacklist.command(aliases=['remmember'])
+    @commands.is_owner()
     async def remuser(self, ctx, member:typing.Union[discord.Member, int]):
         if not member:
             return await ctx.send('`Member` is a required argument that is missing.')
@@ -66,7 +68,7 @@ class devCog(commands.Cog):
             blacklist = json.load(f)
 
         try:
-            self.bot.blacklist.pop(str(member.id))
+            self.bot.blacklist['users'].pop(str(member.id))
             blacklist['users'].pop(str(member.id))
         except:
             return await ctx.send('`Member` not found in blacklist.')
