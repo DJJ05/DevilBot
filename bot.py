@@ -82,6 +82,16 @@ def main():
         sys.exit()
 
     bot = Bot(database_conn=DataBase.db_conn, event_loop=event_loop)
+
+    @bot.check
+    async def check_blacklist(ctx):
+        with open('blacklist.json', 'r') as f:
+            blacklist = json.load(f)
+        if str(ctx.author.id) in blacklist['users']:
+            raise commands.CheckFailure(f'You have been blacklisted from using me. Please check you DMs for a reason or contact DevilJamJar#0001 to appeal.')
+        else:
+            return True
+
     # bot.remove_command('help')
     bot.run()
 

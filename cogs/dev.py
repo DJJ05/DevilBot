@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import os
+import os, json, typing
 from pydactyl import PterodactylClient
 import traceback
 import textwrap
@@ -22,6 +22,61 @@ class devCog(commands.Cog):
         self.colour = 0xff9300
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
+
+    @commands.group(invoke_without_command=True, aliases=['bl'])
+    async def blacklist(self, ctx):
+        """Blacklisting commands"""
+        pass
+    
+    @blacklist.command(aliases=['addmember'])
+    async def adduser(self, ctx, member:typing.Union[discord.Member, int], *, reason:str='None Provided'):
+        if not member:
+            return await ctx.send('`Member` is a required argument that is missing.')
+        if type(member) == int:
+            member = self.bot.get_user(member) or await self.bot.fetch_user(member)
+        with open('blacklist.json', 'r') as f:
+            blacklist = json.load(f)
+
+        blacklist['users'][str(member.id)] = reason.capitalize()
+
+        with open('blacklist.json', 'w') as f:
+            json.dump(blacklist, f, indent=4)
+        
+        await ctx.send('Done.')
+
+        try:
+            embed = discord.Embed(title=f'You have been blacklisted from utilising my commands.', colour=self.colour,
+                                  description=f'Reason: `{reason.capitalize()}`')
+            await member.send(embed=embed)
+            await ctx.send('DM sent successfully.')
+        except:
+            await ctx.send('DM failed to send.')
+
+    @blacklist.command(aliases=['remmember'])
+    async def remuser(self, ctx, member:typing.Union[discord.Member, int]):
+        if not member:
+            return await ctx.send('`Member` is a required argument that is missing.')
+        if type(member) == int:
+            member = self.bot.get_user(member) or await self.bot.fetch_user(member)
+        with open('blacklist.json', 'r') as f:
+            blacklist = json.load(f)
+
+        try:
+            blacklist['users'].pop(str(member.id))
+        except:
+            return await ctx.send('`Member` not found in blacklist.')
+
+        with open('blacklist.json', 'w') as f:
+            json.dump(blacklist, f, indent=4)
+
+        await ctx.send('Done.')
+
+        try:
+            embed = discord.Embed(title=f'You have been unblacklisted from utilising my commands.', colour=self.colour)
+            await member.send(embed=embed)
+            await ctx.send('DM sent successfully.')
+        except:
+            await ctx.send('DM failed to send.')
 
     @commands.command(name='eval')
     @commands.is_owner()

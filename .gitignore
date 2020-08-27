@@ -15,3 +15,5 @@ requirements.txt
 deleted.json
 
 afks.json
+
+blacklist.json
