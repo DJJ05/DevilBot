@@ -148,7 +148,6 @@ class eventsCog(commands.Cog):
         # https://github.com/Daggy1234/dagbot/blob/master/dagbot/extensions/errors.py#L37-#L42
         # Copyright (C) 2020  Daggy1234
         
-        ers = f"{error}"
         etype = type(error)
         trace = error.__traceback__
         verbosity = 4

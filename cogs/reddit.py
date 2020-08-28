@@ -24,22 +24,29 @@ class redditCog(commands.Cog):
     # https://github.com/niztg/CyberTron5000/blob/master/CyberTron5000/cogs/reddit.py#L83-L105
     # Copyright (c) 2020 niztg
 
-    '''@commands.command(aliases=['maymay'])
+    @commands.command(aliases=['maymay'])
     async def meme(self, ctx):
         subreddit = random.choice(
             [
-                'memes', 'dankmemes', 'dankexchange', 'pewdiepiesubmissions'
+                'memes', 'dankmemes', 'dankexchange', 'okbuddyretard', 'wholesomememes'
             ]
         )
-        posts = []
+        memes=[]
         async with ctx.typing():
-            async with aiohttp.ClientSession() as cs:
-                async with cs.get(f"https://www.reddit.com/r/{subreddit}/hot.json", params={'limit': 100}) as r:
-                    res = await r.json()
-                await cs.close()
-                for i in res['data']['children']:
-                    posts.append(i['data'])
-                print(posts)'''
+            subreddit = await reddit.subreddit(subreddit)
+            async for submission in subreddit.hot(limit=50):
+                if not submission.over_18 and not submission.distinguished and not submission.is_self:
+                    memes.append(submission)
+        submission = random.choice(memes)
+        embed=discord.Embed(
+                colour=self.colour,
+                title=submission.title.capitalize(),
+                url=f'https://reddit.com{submission.permalink}',
+                description=f'Posted in r/{subreddit} by u/{submission.author.name}\n\n\
+                              <:upvote:748924744572600450> {submission.score}'
+            )
+        embed.set_image(url=submission.url)
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(redditCog(bot))
