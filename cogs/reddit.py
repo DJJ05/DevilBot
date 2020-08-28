@@ -43,7 +43,7 @@ class redditCog(commands.Cog):
                 title=submission.title.capitalize(),
                 url=f'https://reddit.com{submission.permalink}',
                 description=f'Posted in r/{subreddit} by u/{submission.author.name}\n\n\
-                              <:upvote:748924744572600450> {submission.score}'
+                              <:upvote:748924744572600450> {submission.score}   <:speechbubble:748960649861922877> {submission.num_comments}'
             )
         embed.set_image(url=submission.url)
         await ctx.send(embed=embed)
@@ -61,7 +61,7 @@ class redditCog(commands.Cog):
                 colour=self.colour,
                 title=f'Showerthought by u/{submission.author.name}',
                 url=f'https://reddit.com{submission.permalink}',
-                description=f'```\n{submission.title.capitalize()}\n```\n<:upvote:748924744572600450> {submission.score}'
+                description=f'```\n{submission.title.capitalize()}\n```\n<:upvote:748924744572600450> {submission.score}   <:speechbubble:748960649861922877> {submission.num_comments}'
             )
         embed.set_image(url=submission.url)
         await ctx.send(embed=embed)
