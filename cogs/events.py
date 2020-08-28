@@ -179,7 +179,11 @@ class eventsCog(commands.Cog):
             print(f'{self.btred} ERROR: {self.tred} {traceback_text} {self.endc}——————————————————————————————')
             embed = discord.Embed(colour=0xff0033, title=f'Error during `{ctx.command.name}`',
                                   description=f'My creator has been notified of the error and will endeavour to fix it soon.\n{traceback_text}')
-            return await ctx.send(embed=embed)
+            await ctx.send(embed=embed)
+            errchannel = self.bot.get_channel(748962623487344753)
+            embed = discord.Embed(colour=0xff0033, title=f'Error during `{ctx.command.name}`',
+                                  description=f'{ctx.message.jump_url}\n{traceback_text}')
+            return await errchannel.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(eventsCog(bot))
