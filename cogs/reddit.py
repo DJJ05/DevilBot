@@ -48,5 +48,23 @@ class redditCog(commands.Cog):
         embed.set_image(url=submission.url)
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def showerthought(self, ctx):
+        thoughts=[]
+        async with ctx.typing():
+            subreddit = await reddit.subreddit('showerthoughts')
+            async for submission in subreddit.hot(limit=50):
+                if not submission.over_18 and not submission.distinguished and submission.is_self:
+                    thoughts.append(submission)
+        submission = random.choice(thoughts)
+        embed=discord.Embed(
+                colour=self.colour,
+                title=f'Showerthought by u/{submission.author.name}',
+                url=f'https://reddit.com{submission.permalink}',
+                description=f'```\n{submission.title.capitalize()}\n```\n<:upvote:748924744572600450> {submission.score}'
+            )
+        embed.set_image(url=submission.url)
+        await ctx.send(embed=embed)
+
 def setup(bot):
     bot.add_cog(redditCog(bot))
