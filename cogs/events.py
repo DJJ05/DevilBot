@@ -178,12 +178,29 @@ class eventsCog(commands.Cog):
         else:
             print(f'{self.btred} ERROR: {self.tred} {traceback_text} {self.endc}——————————————————————————————')
             embed = discord.Embed(colour=0xff0033, title=f'Error during `{ctx.command.name}`',
-                                  description=f'My creator has been notified of the error and will endeavour to fix it soon.\n{traceback_text}')
+                                  description=f'ID: {ctx.message.id}\nMy creator has been notified of the error and will endeavour to fix it soon.\n{traceback_text}')
             await ctx.send(embed=embed)
+            await ctx.send(f'If you would like to receive updates on this error, use `{ctx.prefix}error follow {ctx.message.id}`')
+
             errchannel = self.bot.get_channel(748962623487344753)
+
             embed = discord.Embed(colour=0xff0033, title=f'Error during `{ctx.command.name}`',
-                                  description=f'{ctx.message.jump_url}\n{traceback_text}')
-            return await errchannel.send(embed=embed)
+                                  description=f'ID: {ctx.message.id}\n[Jump]({ctx.message.jump_url})\n{traceback_text}')
+            a = await errchannel.send(embed=embed)
+
+            with open('errors.json', 'r') as f:
+                errors = json.load(f)
+
+            errors[str(ctx.message.id)] = {
+                "traceback":traceback_text,
+                "command":ctx.command.name,
+                "author":ctx.author.id,
+                "errormessage":a.id,
+                "followers":[]
+            }
+
+            with open('errors.json', 'w') as f:
+                json.dump(errors, f, indent=4)
 
 def setup(bot):
     bot.add_cog(eventsCog(bot))

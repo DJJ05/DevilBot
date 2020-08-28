@@ -23,8 +23,134 @@ class devCog(commands.Cog):
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
         
-    async def cog_check(self, ctx):
-        return ctx.author.id == 670564722218762240 # check for all commands in this cog
+    #async def cog_check(self, ctx):
+        #return ctx.author.id == 670564722218762240 # check for all commands in this cog
+
+    @commands.group(invoke_without_command=True, aliases=['err'])
+    async def error(self, ctx):
+        """Error commands"""
+        pass
+
+    @error.command(aliases=['res', 'close'])
+    async def resolve(self, ctx, id=None, *, message):
+        """Resolve an error"""
+        await ctx.message.delete()
+        if not id:
+            return await ctx.send('ID is a required argument.')
+        try:
+            id = int(id)
+        except:
+            return await ctx.send('ID must be a number.')
+        if not message:
+            return await ctx.send('Message is a required argument.')
+
+        with open('errors.json', 'r') as f:
+            errors = json.load(f)
+
+        to_dm = errors[str(id)]['followers']
+        if len(to_dm):
+            embed=discord.Embed(
+                title=f'Error `{id}` has been resolved',
+                colour=self.colour,
+                description=f"Command: `{errors[str(id)]['command']}`\nClosure reason: `{message.capitalize()}`\nOriginal traceback: {errors[str(id)]['traceback']}"
+            )
+            for user in to_dm:
+                a = self.bot.get_user(int(user))
+                try:
+                    await a.send(embed=embed)
+                except:
+                    await ctx.send(f'Attempt to DM `<@!{user}>` failed.')
+
+        errchannel = self.bot.get_channel(748962623487344753)
+        await errchannel.send(f'**ERROR {id} HAS BEEN RESOLVED.**')
+        errors.pop(str(id))
+        return await ctx.send('Done.')
+
+    @error.command(aliases=['bc'])
+    async def broadcast(self, ctx, id=None, *, message):
+        """Broadcast an error update"""
+        if not id:
+            return await ctx.send('ID is a required argument.')
+        try:
+            id = int(id)
+        except:
+            return await ctx.send('ID must be a number.')
+        if not message:
+            return await ctx.send('Message is a required argument.')
+
+        with open('errors.json', 'r') as f:
+            errors = json.load(f)
+
+        to_dm = errors[str(id)]['followers']
+        if not len(to_dm):
+            try:
+                await ctx.message.delete()
+            except:
+                pass
+            return await ctx.send(f'Error `{id}` has no active followers.')
+        embed=discord.Embed(
+            title=f'New comment on error `{id}`',
+            colour=self.colour,
+            description=f"Command: `{errors[str(id)]['command']}`\nNew comment: `{message.capitalize()}`\nOriginal traceback: {errors[str(id)]['traceback']}"
+        )
+        for user in to_dm:
+            a = self.bot.get_user(int(user))
+            try:
+                await a.send(embed=embed)
+            except:
+                await ctx.send(f'Attempt to DM `<@!{user}>` failed.')
+        await ctx.send('Done.')
+
+    @error.command()
+    async def follow(self, ctx, id=None):
+        """Follow an error"""
+        if not id:
+            return await ctx.send('ID is a required argument.')
+        try:
+            id = int(id)
+        except:
+            return await ctx.send('ID must be a number.')
+
+        with open('errors.json', 'r') as f:
+            errors = json.load(f)
+
+        try:
+            if str(ctx.author.id) in errors[str(id)]["followers"]:
+                return await ctx.send('You have already followed this error!')
+            errors[str(id)]["followers"].append(str(ctx.author.id))
+        except KeyError:
+            return await ctx.send('Invalid ID. Please check for typos.')
+
+        with open('errors.json', 'w') as f:
+            json.dump(errors, f, indent=4)
+
+        return await ctx.send(f'Successfully followed `{id}.` You can use `{ctx.prefix}error unfollow {id}` at anytime to unfollow this error.')
+
+    @error.command()
+    async def unfollow(self, ctx, id=None):
+        """Unfollow an error"""
+        if not id:
+            return await ctx.send('ID is a required argument.')
+        try:
+            id = int(id)
+        except:
+            return await ctx.send('ID must be a number.')
+
+        with open('errors.json', 'r') as f:
+            errors = json.load(f)
+
+        try:
+            if str(ctx.author.id) in errors[str(id)]["followers"]:
+                errors[str(id)]["followers"].remove(str(ctx.author.id))
+            else:
+                return await ctx.send('You are not following this error!')
+        except KeyError:
+            return await ctx.send('Invalid ID. Please check for typos.')
+
+        with open('errors.json', 'w') as f:
+            json.dump(errors, f, indent=4)
+
+        return await ctx.send(f'Successfully unfollowed `{id}.` You can use `{ctx.prefix}error follow {id}` at anytime to follow this error.')
 
     @commands.group(invoke_without_command=True, aliases=['bl'])
     async def blacklist(self, ctx):

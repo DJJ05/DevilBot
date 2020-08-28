@@ -94,14 +94,20 @@ class infoCog(commands.Cog):
                                   description=':scales: `License:` **[Apache-2.0](https://opensource.org/licenses/Apache-2.0)**')
             return await ctx.send(embed=embed)
 
-        src = f"```py\n{str(__import__('inspect').getsource(self.bot.get_command(command).callback)).replace('```', f'{u}')}```"
+        try:
+            src = f"```py\n{str(__import__('inspect').getsource(self.bot.get_command(command).callback)).replace('```', f'{u}')}```"
+        except:
+            return await ctx.send('Command not found!')
         if len(src) > 2000:
             cmd = self.bot.get_command(command)
             if not cmd:
                 return await ctx.send("Command not found.")
             file = cmd.callback.__code__.co_filename
             location = os.path.relpath(file)
-            total, fl = __import__('inspect').getsourcelines(cmd.callback)
+            try:
+                total, fl = __import__('inspect').getsourcelines(cmd.callback)
+            except:
+                return await ctx.send('Command not found!')
             ll = fl + (len(total) - 1)
             url = f"https://github.com/DevilJamJar/DevilBot/blob/master/{location}#L{fl}-L{ll}"
             if not cmd.aliases:
