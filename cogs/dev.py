@@ -34,7 +34,6 @@ class devCog(commands.Cog):
     @error.command(aliases=['res', 'close'])
     async def resolve(self, ctx, id=None, *, message):
         """Resolve an error"""
-        await ctx.message.delete()
         if not id:
             return await ctx.send('ID is a required argument.')
         try:
