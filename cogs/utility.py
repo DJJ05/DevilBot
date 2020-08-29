@@ -3,8 +3,10 @@ from discord.ext import commands
 
 import wikipedia, asyncio, textwrap, aiohttp, json
 import googletrans
+from PyDictionary import PyDictionary
 
 from unit_convert import UnitConvert
+dictionary=PyDictionary()
 
 def to_emoji(c):
     base = 0x1f1e6
@@ -42,6 +44,25 @@ class utilityCog(commands.Cog):
         await asyncio.sleep(1)
         with open('afks.json', 'w') as f:
             json.dump(afks, f, indent=4)
+
+    @commands.command(aliases=['df', 'dictionary'])
+    async def dict(self, ctx, *, search):
+        """Shows top dictionary result"""
+        async with ctx.typing():
+            meaning = dictionary.meaning(search)
+            iterator = iter(meaning.values())
+            firstmeaning = next(iterator)
+            wordtype = list(meaning.keys())[0]
+            if len(firstmeaning):
+                firstmeaning = firstmeaning[0].capitalize()
+        if not meaning:
+            return await ctx.send('Word not found.')
+        embed=discord.Embed(
+            title=f'{search.capitalize()}',
+            colour=self.colour,
+            description=f'Type: `{wordtype}`\nDefinition:\n```fix\n{firstmeaning}\n```'
+        )
+        return await ctx.send(embed=embed)
 
     @commands.command(aliases=['wiki'])
     async def wikipedia(self, ctx, *, search: str = None):
