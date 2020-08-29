@@ -6,22 +6,11 @@ import os
 import collections
 
 class MyHelpCommand(commands.MinimalHelpCommand):
-    def get_command_signature(self, command):
-        """
-        Code used from Rapptz' R.Danny repository provided by the MIT License
-        https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/meta.py#L125-L135
-        Copyright (c) 2015 Rapptz
-        """
-        parent = command.full_parent_name
-        if len(command.aliases) > 0:
-            aliases = '•'.join(command.aliases)
-            fmt = f'[{command.name}•{aliases}]'
-            if parent:
-                fmt = f'{parent} {fmt}'
-            alias = fmt
-        else:
-            alias = command.name if not parent else f'{parent} {command.name}'
-        return f'{alias} {command.signature}'
+    async def send_pages(self):
+        destination = self.get_destination()
+        for page in self.paginator.pages:
+            emby = discord.Embed(description=page, colour=0xff9300)
+            await destination.send(embed=emby)
 
 class infoCog(commands.Cog):
     """Info and Help commands"""
