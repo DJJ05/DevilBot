@@ -50,13 +50,13 @@ class utilityCog(commands.Cog):
         """Shows top dictionary result"""
         async with ctx.typing():
             meaning = dictionary.meaning(search)
+            if not meaning:
+                return await ctx.send('Word not found.')
             iterator = iter(meaning.values())
             firstmeaning = next(iterator)
             wordtype = list(meaning.keys())[0]
             if len(firstmeaning):
-                firstmeaning = firstmeaning[0].capitalize()
-        if not meaning:
-            return await ctx.send('Word not found.')
+                firstmeaning = firstmeaning[0].replace('(', '').capitalize()
         embed=discord.Embed(
             title=f'{search.capitalize()}',
             colour=self.colour,
