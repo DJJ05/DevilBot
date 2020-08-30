@@ -59,7 +59,7 @@ class modCog(commands.Cog):
         with open('deleted.json', 'r') as f:
             deleted = json.load(f)
         try:
-            snipe = delete[str(ctx.channel.id)]
+            snipe = deleted[str(ctx.channel.id)]
         except:
             return await ctx.send('I do not have any `stored deletions` for this channel.')
         embed = discord.Embed(
