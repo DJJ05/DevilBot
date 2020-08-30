@@ -61,9 +61,37 @@ class redditCog(commands.Cog):
                 colour=self.colour,
                 title=f'Showerthought by u/{submission.author.name}',
                 url=f'https://reddit.com{submission.permalink}',
-                description=f'```\n{submission.title.capitalize()}\n```\n<:upvote:748924744572600450> {submission.score}   <:speechbubble:748960649861922877> {submission.num_comments}'
+                description=f'```fix\n{submission.title.capitalize()}\n```\n<:upvote:748924744572600450> {submission.score}   <:speechbubble:748960649861922877> {submission.num_comments}'
             )
         embed.set_image(url=submission.url)
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def askreddit(self, ctx):
+        qs=[]
+        async with ctx.typing():
+            subreddit = await reddit.subreddit('askreddit')
+            async for submission in subreddit.hot(limit=50):
+                if not submission.over_18 and not submission.distinguished and submission.is_self:
+                    qs.append(submission)
+        submission = random.choice(qs)
+        subcomments = await submission.comments()
+        embed=discord.Embed(
+                title=submission.title.capitalize(),
+                colour=self.colour,
+                url=f'https://reddit.com{submission.permalink}',
+                description=f'<:upvote:748924744572600450> {submission.score}   <:speechbubble:748960649861922877> {submission.num_comments}'
+            )
+        embed.add_field(
+            name=f'Top Comment:',
+            value=f'```fix\n{subcomments[0].body[:1010]}\n```',
+            inline=False
+        )
+        embed.add_field(
+            name=f'Random Comment:',
+            value=f'```fix\n{random.choice(subcomments).body[:1010]}\n```',
+            inline=False
+        )
         await ctx.send(embed=embed)
 
 def setup(bot):
