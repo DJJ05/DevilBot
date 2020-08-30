@@ -59,15 +59,15 @@ class modCog(commands.Cog):
         with open('deleted.json', 'r') as f:
             deleted = json.load(f)
         try:
-            unformatted = deleted[str(ctx.channel.id)].split('«««')
+            snipe = delete[str(ctx.channel.id)]
         except:
             return await ctx.send('I do not have any `stored deletions` for this channel.')
         embed = discord.Embed(
             title = f'Last deleted message in #{ctx.channel.name}',
             colour = self.colour,
-            description = f'**Author:**\n{unformatted[1]}\n**Message:**\n{unformatted[0]}\n**Created At:**\n{unformatted[2]}'
+            description = f'**Author:**\n{snipe["author"]}\n**Message:**\n{snipe["content"]}\n**Created At:**\n{snipe["created_at"]}'
         )
-        embed.set_author(name=f'Requested by {ctx.message.author.name}#{ctx.message.author.discriminator}', icon_url=ctx.message.author.avatar_url)
+        embed.set_author(name=f'Requested by {ctx.author}', icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['devclean', 'botpurge'])
