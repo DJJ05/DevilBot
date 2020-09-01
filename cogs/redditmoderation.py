@@ -25,7 +25,7 @@ class redditModerationCog(commands.Cog):
             return await ctx.send('The limit needs to be between `1` and `14`')
         async with ctx.typing():
             record = await self.db_conn.fetch(
-                'SELECT "Mod_Name", ("Flair_Removals" * 5 + "Regular_Removals") AS Removals FROM "ModStatsAug" ORDER BY Removals DESC LIMIT $1',
+                'SELECT "Mod_Name", ("Flair_Removals" * 5 + "Regular_Removals") AS Removals FROM "ModStats" ORDER BY Removals DESC LIMIT $1',
                 amount)
             embed = discord.Embed(title=f'Monthly Top {amount} Moderator Actions Leaderboard', color=0xff9300)
             for row in record:
@@ -48,7 +48,7 @@ class redditModerationCog(commands.Cog):
         user = user.lower()
         async with ctx.typing():
             record = await self.db_conn.fetch(
-                'SELECT * FROM "ModStatsAug" WHERE "Mod_Name" = $1', user)
+                'SELECT * FROM "ModStats" WHERE "Mod_Name" = $1', user)
         if not len(record):
             return await ctx.send('Specified user `not found.` Please note that the default user is your `nickname` if another user is not specified.')
         embed=discord.Embed(title=f'Monthly Moderator Stats for u/{record[0][0]}', color=self.colour)
