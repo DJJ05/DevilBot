@@ -22,7 +22,6 @@ class dagpiCog(commands.Cog):
             image_url = int(image_url)
             try:
                 a = self.bot.get_user(image_url)
-                await ctx.send(a.avatar_url)
                 image_url = str(a.avatar_url)
             except:
                 raise commands.BadArgument('Unknown User')
