@@ -1,9 +1,10 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, buttons
 
 import wikipedia, asyncio, textwrap, aiohttp, json
 import googletrans
 from PyDictionary import PyDictionary
+from googlesearch import search 
 
 from unit_convert import UnitConvert
 dictionary=PyDictionary()
@@ -11,6 +12,10 @@ dictionary=PyDictionary()
 def to_emoji(c):
     base = 0x1f1e6
     return chr(base + c)
+
+class MyPaginator(buttons.Paginator):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
 class utilityCog(commands.Cog):
     """Utility commands"""
@@ -23,6 +28,23 @@ class utilityCog(commands.Cog):
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
         self.trans = googletrans.Translator()
+
+    @commands.command()
+    async def google(self, ctx, *, term:str):
+        """google a term"""
+        results = []
+        def scour(term):
+            for j in search(term, tld="com", num=10, stop=10, pause=2): 
+                results.append(j)
+        async with ctx.typing():
+            loop = self.bot.loop
+            await loop.run_in_executor(None, scour, term)
+            if not len(results):
+                return await ctx.send('No results found for specified term.')
+            pagey = MyPaginator(title='`Google Search Results`', colour=0xff9300, embed=False, timeout=90, use_defaults=True,
+                                entries=[str(r) for r in results], length=1)
+
+        await pagey.start(ctx)
     
     @commands.command()
     async def afk(self, ctx, *, reason:str='None Provided'):
