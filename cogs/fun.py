@@ -2,8 +2,6 @@ import discord
 from discord.ext import commands
 
 import asyncio, aiohttp, io
-from .utils.pokemon import STAT_NAMES, TYPES
-from html import unescape as unes
 
 class funCog(commands.Cog):
     """Fun commands"""
@@ -28,6 +26,61 @@ class funCog(commands.Cog):
             ' ': ' '
         }
         self.morse_to_text = {value: key for key, value in self.text_to_morse.items()}
+
+    @commands.command(aliases=['dex', 'poke', 'pokemon', 'poké', 'pokémon'])
+    async def pokedex(self, ctx, *, pokemon:str):
+        pokemon=pokemon.lower()
+        base_url = 'https://pokeapi.co/api/v2/pokemon/'
+        async with aiohttp.ClientSession() as cs, ctx.typing():
+            try:
+                async with cs.get(base_url + pokemon) as r:
+                    data = await r.json()
+            except:
+                raise commands.BadArgument('Requested Pokémon not found!')
+        pokename = data["name"]
+        pokenum = f'#{data["id"]}'
+        pokeheight = f'{data["height"]}m'
+        pokeweight = f'{data["weight"]/10}kg'
+        poketypes=[]
+        for i in data['types']:
+            poketypes.append(f"• {(i['type']['name'].capitalize())}")
+        abilities=[]
+        for i in data['abilities']:
+            abilities.append(f"• {(i['ability']['name'].capitalize())}")
+        pokeimg = data['sprites']['other']['official-artwork']['front_default'] or data['sprites']['front_default']
+        pokespecies = data['species']['url']
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(pokespecies) as r:
+                data = await r.json()
+        for i in data['flavor_text_entries']:
+            if i['language']['name'] == 'en':
+                pokedesc = (i['flavor_text']).replace('\n', ' ').lower().capitalize()
+                break
+        is_legendary = data['is_legendary']
+        is_mythical = data['is_mythical']
+        evochain = data['evolution_chain']['url']
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(evochain) as r:
+                data = await r.json()
+        evoline = f'{data["chain"]["species"]["name"].capitalize()}'
+        if len(data['chain']['evolves_to']):
+            evoline+=f' => {data["chain"]["evolves_to"][0]["species"]["name"].capitalize()}'
+            if len(data['chain']['evolves_to'][0]['evolves_to']):
+                evoline+=f' => {data["chain"]["evolves_to"][0]["evolves_to"][0]["species"]["name"].capitalize()}'
+        embed = discord.Embed(
+            title=f'{pokename.capitalize()} {pokenum}',
+            colour=self.colour,
+            description=f'**{pokedesc.capitalize()}**'
+        )
+        embed.add_field(name=f'Weight', value=f'{pokeweight}', inline=True)
+        embed.add_field(name=f'Height', value=f'{pokeheight}', inline=True)
+        embed.add_field(name=f'Type(s)', value="\n".join(poketypes), inline=True)
+        embed.add_field(name=f'Abilities', value="\n".join(abilities), inline=True)
+        embed.add_field(name=f'Evolution Line', value=f'{evoline}', inline=True)
+        embed.add_field(name=f'Legendary', value=is_legendary, inline=True)
+        embed.add_field(name=f'Mythical', value=is_mythical, inline=True)
+        embed.set_image(url=pokeimg)
+        return await ctx.send(embed=embed)
 
     @commands.command()
     async def fact(self,ctx):
@@ -92,53 +145,6 @@ class funCog(commands.Cog):
                             await ctx.send(file=discord.File(fp, filename=filename))
                 else:
                     await ctx.send(embed=discord.Embed(title='Doggo :)', color=self.colour).set_image(url=url))
-
-    @commands.command(aliases=['poke', 'pokeman'], name='pokemon', help='Displays pokemon information')
-    async def pokemon(self, ctx, pokemon=''):
-        # Code used from niztg's CyberTron5000 GitHub Repository Provided by the MIT License
-        # https://github.com/niztg/CyberTron5000/blob/master/CyberTron5000
-        # Copyright (c) 2020 niztg
-        abilities = []
-        lst = []
-        stats = []
-        numlist = []
-        if pokemon:
-            async with aiohttp.ClientSession() as cs:
-                try:
-                    async with cs.get(f'https://pokeapi.co/api/v2/pokemon/{pokemon.lower()}') as r:
-                        res = await r.json()
-                        await cs.close()
-                except:
-                    return await ctx.send('That pokemon doesn\'t exist.')
-
-                sprite = res['sprites']['front_default']
-                abils = res['abilities']
-                s_s = res['stats']
-                ts = res['types']
-
-                for item in s_s:
-                    stats.append(f"**•   {STAT_NAMES[item['stat']['name']]}:** `{item['base_stat']}`")
-                for ability in abils:
-                    abilities.append(f"**•   {ability['ability']['name'].capitalize()}**")
-                for a in ts:
-                    lst.append(TYPES[a['type']['name']])
-                for b in s_s:
-                    numlist.append(b['base_stat'])
-
-                types = " ".join(lst[::-1])
-                    
-                async with aiohttp.ClientSession() as cs:
-                    async with cs.get(f"https://pokeapi.co/api/v2/pokemon-species/{res['id']}/") as r:
-                        data = await r.json()
-
-                embed=discord.Embed(title=f"{pokemon.capitalize()}  »  #{res['id']}", description = f"{types}\n**Height:** {res['height'] / 10} m\n**Weight:** {res['weight'] / 10} kg\n\n<:highlighted:713555161833930862> **Description:**\n{unes(data['flavor_text_entries'][0]['flavor_text'])}", color=0xff9300)
-                embed.set_thumbnail(url=sprite)
-                embed.add_field(name="Abilities:", value="\n".join(abilities[::-1]), inline=False)
-                embed.add_field(name="Stats:", value="\n".join(stats[::-1]) + f"\nTotal: `{sum(numlist)}`", inline=False)
-                await ctx.send(embed=embed)
-
-        else:
-            await ctx.send('`Pokemon` is a required argument that is missing.')
 
 def setup(bot):
     bot.add_cog(funCog(bot))
