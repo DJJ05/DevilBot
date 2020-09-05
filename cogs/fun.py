@@ -27,6 +27,18 @@ class funCog(commands.Cog):
         }
         self.morse_to_text = {value: key for key, value in self.text_to_morse.items()}
 
+    @commands.command(aliases=['inspiro', 'inspirobot', 'motivate'])
+    async def inspire(self, ctx):
+        url = 'https://inspirobot.me/api?generate=true'
+        async with aiohttp.ClientSession() as cs, ctx.typing():
+            async with cs.get(url) as r:
+                data = await r.text()
+        embed = discord.Embed(
+            colour = self.colour
+        )
+        embed.set_image(url=data)
+        await ctx.send(embed=embed)
+
     @commands.command(aliases=['dex', 'poke', 'pokemon', 'poké', 'pokémon'])
     async def pokedex(self, ctx, *, pokemon:str):
         pokemon=pokemon.lower()
