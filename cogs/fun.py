@@ -28,6 +28,15 @@ class funCog(commands.Cog):
         }
         self.morse_to_text = {value: key for key, value in self.text_to_morse.items()}
 
+    @commands.command(aliases=['tronalddump', 'tronald', 'donaldtrump', 'trump'])
+    async def donald(self, ctx):
+        """Collect a random stupid quote from Donald Trump"""
+        url = 'https://www.tronalddump.io/random/quote'
+        async with aiohttp.ClientSession() as cs, ctx.typing():
+            async with cs.get(url) as r:
+                data = await r.json()
+        await ctx.send(f'**Donald Trump:** {data["value"].capitalize()}')
+
     @commands.command(aliases=['yodish'])
     async def yoda(self, ctx, *, text:str):
         """Translates text into yodish"""
