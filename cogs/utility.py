@@ -91,8 +91,11 @@ class utilityCog(commands.Cog):
         """Shows top wikipedia result"""
         if not search:
             return await ctx.send('`Search` is a required argument that is missing.')
+        def scour(search):
+            return wikipedia.search(search)
         async with ctx.typing():
-            results = wikipedia.search(search)
+            loop = self.bot.loop
+            results = await loop.run_in_executor(None, scour, search)
             if not len(results):
                 await ctx.channel.send("Sorry, I didn't find any results.")
                 await asyncio.sleep(5)
