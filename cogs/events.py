@@ -159,7 +159,8 @@ class eventsCog(commands.Cog):
             commands.NotOwner,
             commands.MissingRequiredArgument,
             commands.BadArgument,
-            commands.CommandOnCooldown
+            commands.CommandOnCooldown,
+            commands.MaxConcurrencyReached
         ]
 
         skip = [
