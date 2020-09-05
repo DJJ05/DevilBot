@@ -214,11 +214,6 @@ class utilityCog(commands.Cog):
         for emoji, _ in answers:
             await actual_poll.add_reaction(emoji)
 
-    @commands.command()
-    async def pong(self, ctx):
-        """Reverse ping lmao"""
-        await ctx.send('https://cdn.discordapp.com/attachments/621044091056029698/740265681060364418/unknown.png')
-
     @commands.command(aliases=['emoteurl', 'urlemote', 'emote_url', 'emoji'])
     async def emote(self, ctx, emote:str=None):
         """Returns URL of given emote"""

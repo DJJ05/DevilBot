@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 import time, datetime
-import os
+import os, asyncio
 import collections
 
 class MyHelpCommand(commands.MinimalHelpCommand):
@@ -44,7 +44,7 @@ class infoCog(commands.Cog):
     async def ping(self, ctx):
         """Displays latency and response time"""
         begin = time.perf_counter()
-        embed = discord.Embed(colour=self.colour, description=f'```fix\nLATENCY: {round(self.bot.latency * 1000)}')
+        embed = discord.Embed(colour=self.colour, description=f'```fix\nLATENCY: {round(self.bot.latency * 1000)}\n```')
         pong = await ctx.send(embed=embed)
         end = time.perf_counter()
         response = round((end - begin) * 1000)
