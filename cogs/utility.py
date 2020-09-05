@@ -163,10 +163,16 @@ class utilityCog(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['trans'])
-    async def translate(self, ctx, to:str='en', *, message: commands.clean_content):
+    async def translate(self, ctx, to:str='en', *, message: commands.clean_content=None):
         """Translates text"""
+        if not message:
+            raise commands.BadArgument('Please first provide a code to translate into (e.g en is english) and then a message to translate')
         def trans(message, to):
-            return self.trans.translate(message, dest=to)
+            try:
+                done = self.trans.translate(message, dest=to)
+                return done
+            except:
+                raise commands.BadArgument('Please first provide a valid code to translate into (e.g en is english) and then a message to translate')
         async with ctx.typing():
             loop = self.bot.loop
             ret = await loop.run_in_executor(None, trans, message, to)
