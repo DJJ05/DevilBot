@@ -29,14 +29,27 @@ class dagpiCog(commands.Cog):
         qimg = data['question_image']
         aimg = data['answer_image']
         name = data['pokemon']['name']
+        names = []
         embed = discord.Embed(
-            title='Who\'s That Pokemon!',
+            title='Who\'s That Pokemon! You can skip by saying \'skip\'',
             colour = self.colour 
         )
         embed.set_image(url = qimg)
+
+        base_url = 'https://pokeapi.co/api/v2/pokemon/'
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(base_url + name.lower()) as r:
+                data = await r.json()
+        species = data['species']['url']
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(species) as r:
+                data = await r.json()
+        for i in data['names']:
+            names.append(i['name'].lower())
+
         question = await ctx.send(embed=embed)
         def check(message : discord.Message) -> bool:
-            return message.author == ctx.author and message.content.lower() == name.lower()
+            return message.content.lower() in names or message.content.lower() == 'skip'
         try:
             await self.bot.wait_for('message', timeout=30, check=check)
         except asyncio.TimeoutError:
