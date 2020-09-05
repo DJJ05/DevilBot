@@ -37,15 +37,18 @@ class dagpiCog(commands.Cog):
         embed.set_image(url = qimg)
 
         base_url = 'https://pokeapi.co/api/v2/pokemon/'
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(base_url + name.lower()) as r:
-                data = await r.json()
-        species = data['species']['url']
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(species) as r:
-                data = await r.json()
-        for i in data['names']:
-            names.append(i['name'].lower())
+        try:
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(base_url + name.lower()) as r:
+                    data = await r.json()
+            species = data['species']['url']
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(species) as r:
+                    data = await r.json()
+            for i in data['names']:
+                names.append(i['name'].lower())
+        except:
+            names.append(name.lower())
 
         question = await ctx.send(embed=embed)
         def check(message : discord.Message) -> bool:
