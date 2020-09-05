@@ -32,7 +32,6 @@ class funCog(commands.Cog):
     async def yoda(self, ctx, *, text:str):
         """Translates text into yodish"""
         base_url = 'https://api.funtranslations.com/translate/yoda.json?text='
-        encoded = urllib.parse.quote(text, safe='')
         async with aiohttp.ClientSession() as cs, ctx.typing():
             async with cs.get(base_url + text) as r:
                 data = await r.json()
