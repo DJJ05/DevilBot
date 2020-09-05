@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 
 import asyncio, aiohttp, io
+import urllib.parse
 
 class funCog(commands.Cog):
     """Fun commands"""
@@ -27,8 +28,40 @@ class funCog(commands.Cog):
         }
         self.morse_to_text = {value: key for key, value in self.text_to_morse.items()}
 
-    @commands.command(aliases=['inspiro', 'inspirobot', 'motivate'])
+    @commands.command(aliases=['yodish'])
+    async def yoda(self, ctx, *, text:str):
+        """Translates text into yodish"""
+        base_url = 'https://api.funtranslations.com/translate/yoda.json?text='
+        encoded = urllib.parse.quote(text, safe='')
+        async with aiohttp.ClientSession() as cs, ctx.typing():
+            async with cs.get(base_url + text) as r:
+                data = await r.json()
+        original = data['contents']['text']
+        translated = data['contents']['translated']
+        embed = discord.Embed(
+            title='Yodish Translator',
+            colour = self.colour
+        )
+        embed.add_field(name='Original', value=original.capitalize(), inline=True)
+        embed.add_field(name='Yodish', value=translated, inline=True)
+        await ctx.send(embed=embed)
+
+    @commands.command(aliases=['affirmate', 'affirmation', 'motivate', 'motivation'])
+    async def quote(self, ctx):
+        """Collect a truly motivational quote"""
+        url = 'https://www.affirmations.dev'
+        async with aiohttp.ClientSession() as cs, ctx.typing():
+            async with cs.get(url) as r:
+                data = await r.json()
+        embed = discord.Embed(
+            colour = self.colour,
+            title=data["affirmation"]
+        )
+        await ctx.send(embed=embed)
+
+    @commands.command(aliases=['inspiro', 'inspirobot'])
     async def inspire(self, ctx):
+        """Collect a not so inspiring quote"""
         url = 'https://inspirobot.me/api?generate=true'
         async with aiohttp.ClientSession() as cs, ctx.typing():
             async with cs.get(url) as r:
@@ -41,6 +74,7 @@ class funCog(commands.Cog):
 
     @commands.command(aliases=['dex', 'poke', 'pokemon', 'poké', 'pokémon'])
     async def pokedex(self, ctx, *, pokemon:str):
+        """Return information about specified Pokemon"""
         pokemon=pokemon.lower()
         base_url = 'https://pokeapi.co/api/v2/pokemon/'
         async with aiohttp.ClientSession() as cs, ctx.typing():
