@@ -85,7 +85,6 @@ class funCog(commands.Cog):
         movepower = data['power']
         movename = data['name'].capitalize()
         movedmgclass = data['damage_class']['name'].capitalize()
-        movecontesttype = data['contest_type']['name'].capitalize()
         moveaccuracy = data['accuracy']
         movetargets = data['target']['name'].capitalize()
         movegen = data['generation']['name'].capitalize()
@@ -98,7 +97,6 @@ class funCog(commands.Cog):
         embed.add_field(name=f'PP', value=movepp, inline=True)
         embed.add_field(name=f'Power', value=movepower, inline=True)
         embed.add_field(name=f'Damage Class', value=movedmgclass, inline=True)
-        embed.add_field(name=f'Contest Type', value=movecontesttype, inline=True)
         embed.add_field(name=f'Accuracy', value=moveaccuracy, inline=True)
         embed.add_field(name=f'Targets', value=movetargets, inline=True)
         embed.add_field(name=f'Generation', value=movegen, inline=True)
