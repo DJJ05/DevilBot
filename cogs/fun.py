@@ -67,6 +67,43 @@ class funCog(commands.Cog):
         )
         await ctx.send(embed=embed)
 
+    @commands.command(aliases=['mi', 'move', 'move_info'])
+    async def moveinfo(self, ctx, *, move):
+        """Collects information on a specified pokémon move"""
+        move = move.lower()
+        base_url = 'https://pokeapi.co/api/v2/move/'
+        async with aiohttp.ClientSession() as cs, ctx.typing():
+            try:
+                async with cs.get(base_url + move) as r:
+                    data = await r.json()
+            except:
+                raise commands.BadArgument('Requested move not found!')
+        movedesc = data['effect_entries'][0]['effect'].replace('\n', ' ').replace('  ', ' ').capitalize()
+        movetype = data['type']['name'].capitalize()
+        movepp = data['pp']
+        moveid = data['id']
+        movepower = data['power']
+        movename = data['name'].capitalize()
+        movedmgclass = data['damage_class']['name'].capitalize()
+        movecontesttype = data['contest_type']['name'].capitalize()
+        moveaccuracy = data['accuracy']
+        movetargets = data['target']['name'].capitalize()
+        movegen = data['generation']['name'].capitalize()
+        embed = discord.Embed(
+            title=f'{movename} #{moveid}',
+            colour = self.colour,
+            description = f'**{movedesc}**'
+        )
+        embed.add_field(name=f'Type', value=movetype, inline=True)
+        embed.add_field(name=f'PP', value=movepp, inline=True)
+        embed.add_field(name=f'Power', value=movepower, inline=True)
+        embed.add_field(name=f'Damage Class', value=movedmgclass, inline=True)
+        embed.add_field(name=f'Contest Type', value=movecontesttype, inline=True)
+        embed.add_field(name=f'Accuracy', value=moveaccuracy, inline=True)
+        embed.add_field(name=f'Targets', value=movetargets, inline=True)
+        embed.add_field(name=f'Generation', value=movegen, inline=True)
+        await ctx.send(embed=embed)
+
     @commands.command(aliases=['inspiro', 'inspirobot'])
     async def inspire(self, ctx):
         """Collect a not so inspiring quote"""
