@@ -48,6 +48,7 @@ class dagpiCog(commands.Cog):
             for i in data['names']:
                 names.append(i['name'].lower())
         except:
+            await ctx.send('Unfortunately I was unable to retrieve multi-lingual names for this pokemon, so you will only be able to answer in english on this occasion!')
             names.append(name.lower())
 
         question = await ctx.send(embed=embed)
