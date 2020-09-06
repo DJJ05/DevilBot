@@ -19,6 +19,7 @@ class dagpiCog(commands.Cog):
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
     @commands.command(aliases=['whosthatpokemon'])
+    @commands.cooldown(1,5,BucketType.user) 
     @commands.max_concurrency(1, BucketType.channel)
     async def wtp(self, ctx):
         """Who's that pokemon!"""
