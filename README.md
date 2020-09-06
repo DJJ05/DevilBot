@@ -1,10 +1,9 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Watch on GitHub](https://img.shields.io/github/watchers/DevilJamJar/DevilBot.svg?style=social)](https://github.com/DevilJamJar/DevilBot/watchers)
 [![Star on GitHub](https://img.shields.io/github/stars/DevilJamJar/DevilBot.svg?style=social)](https://github.com/DevilJamJar/DevilBot/stargazers)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/3116e941-beef-4667-9b16-ffb06db4699a/deploy-status)](https://app.netlify.com/sites/devilbot/deploys)
 
 ## DevilBot
-DevilBot is a multi-purpose discord bot made with discord.py, formerly known as the overwatch_memesbot. Feel free to laugh at my code, it's very poor.
+DevilBot is a multi-purpose discord bot made with discord.py, formerly known as the overwatch_memesbot.
 
 ## Credit
 - Massive thanks to [Niztg](https://github.com/niztg) for helping get me started with discord.py and helping me with all my code
@@ -12,4 +11,4 @@ DevilBot is a multi-purpose discord bot made with discord.py, formerly known as 
 - Massive thanks to [Matthew](https://github.com/DankDumpster) for helping me massively with my database things and just generally making my code much better with his pull request :)
 
 ## Contact
-If you want to ask me why my code is so shit, or just generally ask me anything, my Discord is DevilJamJar#0001
+If you want to ask me about my code, or just generally ask me anything, my Discord is DevilJamJar#0001
