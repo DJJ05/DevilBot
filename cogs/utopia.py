@@ -26,8 +26,17 @@ class utopiaCog(commands.Cog):
 
     @commands.command(aliases=['uq', 'utopiaq', 'uquote'])
     async def utopiaquote(self, ctx):
+        full=[]
         with open('nominees.json', 'r') as f:
             nominees = json.load(f)
+        for i in nominees:
+            full.append(i)
+        final = random.choice(full).split('∫√∆')
+        embed=discord.Embed(
+            colour = self.colour,
+            description=f'**Message:**\n{final[0]}\n**Author:**\n{final[1]}\n**Created At:**\n{final[2]}'
+        )
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(utopiaCog(bot))
