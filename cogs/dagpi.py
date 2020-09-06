@@ -54,7 +54,7 @@ class dagpiCog(commands.Cog):
 
         question = await ctx.send(embed=embed)
         def check(message : discord.Message) -> bool:
-            return message.content.lower() in names or message.content.lower() == 'skip'
+            return message.content.lower() in names or message.content.lower() == 'skip' and message.author.id == 670564722218762240
         try:
             await self.bot.wait_for('message', timeout=30, check=check)
         except asyncio.TimeoutError:
