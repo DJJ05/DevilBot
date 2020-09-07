@@ -37,7 +37,8 @@ class utopiaCog(commands.Cog):
             nominees = json.load(f)
         for i in nominees:
             full.append(i)
-        final = random.choice(full).split('∫√∆')
+        final = random.choice(full)
+        final = final.split('∫√∆')
         embed=discord.Embed(
             colour = self.colour,
             description=f'**Message:**\n{final[0]}\n**Author:**\n{final[1]}\n**Created At:**\n{final[2]}'
