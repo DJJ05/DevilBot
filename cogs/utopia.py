@@ -22,6 +22,12 @@ class utopiaCog(commands.Cog):
         nominees[f'{str(message.clean_content)}∫√∆{str(message.author)}∫√∆{str(message.created_at)}'] = str(message.id)
         with open('nominees.json', 'w') as f:
             json.dump(nominees, f, indent=4)
+        channel = self.bot.get_channel(752472138299998238)
+        embed=discord.Embed(
+            colour = self.colour,
+            description=f'**Message:**\n{str(message.clean_content)}\n**Author:**\n{str(message.author)}\n**Created At:**\n{str(message.created_at)}'
+        )
+        await channel.send(embed=embed)
         await ctx.send(f'{ctx.author.mention}, successfully inserted message into nominations. Use {ctx.prefix}utopiaquote for a random one!')
 
     @commands.command(aliases=['uq', 'utopiaq', 'uquote'])
