@@ -2,7 +2,7 @@
 [![Watch on GitHub](https://img.shields.io/github/watchers/DevilJamJar/DevilBot.svg?style=social)](https://github.com/DevilJamJar/DevilBot/watchers)
 [![Star on GitHub](https://img.shields.io/github/stars/DevilJamJar/DevilBot.svg?style=social)](https://github.com/DevilJamJar/DevilBot/stargazers)
 
-<h1>DevilBot</h1>
+<h1 style=font-size:2000px>DevilBot</h1>
 
 ![thumbnail](https://i.imgur.com/Ak6nmwp.png)
 
