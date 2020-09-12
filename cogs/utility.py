@@ -7,6 +7,7 @@ from PyDictionary import PyDictionary
 from googlesearch import search 
 
 from unit_convert import UnitConvert
+from discord.ext.commands.cooldowns import BucketType
 dictionary=PyDictionary()
 
 def to_emoji(c):
@@ -28,6 +29,48 @@ class utilityCog(commands.Cog):
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
         self.trans = googletrans.Translator()
+
+    @commands.command(aliases=['iplookup', 'ipsearch'])
+    @commands.cooldown(1,180,BucketType.user)
+    async def whois(self, ctx, IP:str):
+        """IPLookup and analysis tool"""
+        IP = f'{IP}?lang=en'
+        base_url = 'http://ipwhois.app/json/'
+        async with aiohttp.ClientSession() as cs, ctx.typing():
+            async with cs.get(base_url + IP) as r:
+                data = await r.json()
+        if not data['success']:
+            embed=discord.Embed(
+                title=f'IP: {IP.capitalize()}',
+                colour=self.colour,
+                description=f"Success: `{data['success']}`\nReason: `{data['message'].capitalize()}`"
+            )
+            return await ctx.send(embed=embed)
+        embed=discord.Embed(
+            colour=self.colour,
+            title=f'IP Address: {data["ip"]}'
+        )
+        embed.add_field(name='Type:', value=data['type'] or 'None', inline=True)
+        embed.add_field(name='Continent:', value=data['continent'] or 'None', inline=True)
+        embed.add_field(name='Continent Code:', value=data['continent_code'] or 'None', inline=True)
+        embed.add_field(name='Country:', value=data['country'] or 'None', inline=True)
+        embed.add_field(name='Country Code:', value=data['country_code'] or 'None', inline=True)
+        embed.add_field(name='Country Capital:', value=data['country_capital'] or 'None', inline=True)
+        embed.add_field(name='Country Phone:', value=data['country_phone'] or 'None', inline=True)
+        embed.add_field(name='Region:', value=data['region'] or 'None', inline=True)
+        embed.add_field(name='City:', value=data['city'] or 'None', inline=True)
+        embed.add_field(name='Latitude:', value=data['latitude'] or 'None', inline=True)
+        embed.add_field(name='Longitude:', value=data['longitude'] or 'None', inline=True)
+        embed.add_field(name='ASN:', value=data['asn'] or 'None', inline=True)
+        embed.add_field(name='ORG:', value=data['org'] or 'None', inline=True)
+        embed.add_field(name='ISP:', value=data['isp'] or 'None', inline=True)
+        embed.add_field(name='Timezone:', value=data['timezone'] or 'None', inline=True)
+        embed.add_field(name='Timezone Name:', value=data['timezone_name'] or 'None', inline=True)
+        embed.add_field(name='Timezone GMT:', value=data['timezone_gmtOffset'] or 'None', inline=True)
+        embed.add_field(name='Currency:', value=data['currency'] or 'None', inline=True)
+        embed.add_field(name='Currency Code:', value=data['currency_code'] or 'None', inline=True)
+        embed.set_image(url=data['country_flag'])
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def google(self, ctx, *, term:str):
