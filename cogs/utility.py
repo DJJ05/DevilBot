@@ -5,8 +5,6 @@ import wikipedia, asyncio, textwrap, aiohttp, json
 import googletrans
 from PyDictionary import PyDictionary
 from googlesearch import search 
-from datetime import timezone 
-import datetime 
 
 from unit_convert import UnitConvert
 from discord.ext.commands.cooldowns import BucketType
@@ -106,12 +104,8 @@ class utilityCog(commands.Cog):
         except KeyError:
             pass
         
-        dt = datetime.datetime.now() 
-        utc_time = dt.replace(tzinfo = timezone.utc) 
-        utc_timestamp = utc_time.timestamp() 
 
-
-        afks[str(ctx.author.id)] = {"message":reason, "time": message.created_at()}
+        afks[str(ctx.author.id)] = {"message":reason, "time": message.created_at}
         await ctx.send(f'{ctx.author.mention}, I successfully marked you as AFK.')
         await asyncio.sleep(1)
         with open('afks.json', 'w') as f:
