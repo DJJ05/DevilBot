@@ -19,7 +19,11 @@ class utopiaCog(commands.Cog):
     async def nominate(self, ctx, message:discord.Message):
         with open('nominees.json', 'r') as f:
             nominees = json.load(f)
-        nominees[f'{str(message.clean_content)}∫√∆{str(message.author)}∫√∆{str(message.created_at)}'] = str(message.id)
+        finmsg=message.clean_content
+        if len(message.attachments):
+            for i in message.attachments:
+                finmsg+=f'\n{i.url}'
+        nominees[f'{str(finmsg)}∫√∆{str(message.author)}∫√∆{str(message.created_at)}'] = str(message.id)
         with open('nominees.json', 'w') as f:
             json.dump(nominees, f, indent=4)
         channel = self.bot.get_channel(752472138299998238)
