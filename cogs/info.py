@@ -29,6 +29,14 @@ class infoCog(commands.Cog):
     def cog_unload(self):
         self.bot.help_command = self._original_help_command
 
+    @commands.command(aliases=['guild', 'support'])
+    async def server(self, ctx):
+        """Support server invite"""
+        embed = discord.Embed(title='Join the support server! Come hang out :D',
+                              url='https://discord.gg/ybZ9ZYg',
+                              color=self.colour)
+        await ctx.send(embed=embed)
+
     @commands.command()
     async def cogs(self, ctx):
         """Shows all of the bot's cogs"""
@@ -58,7 +66,6 @@ class infoCog(commands.Cog):
         embed = discord.Embed(title='Invite me to your server! My default prefix is \'ow!\'',
                               url='https://discord.com/api/oauth2/authorize?client_id=720229743974285312&permissions=2113924179&scope=bot',
                               color=self.colour)
-        embed.set_footer(text=self.footer)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['src'])
