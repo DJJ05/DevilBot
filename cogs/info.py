@@ -29,14 +29,6 @@ class infoCog(commands.Cog):
     def cog_unload(self):
         self.bot.help_command = self._original_help_command
 
-    @commands.command(aliases=['guild', 'support'])
-    async def server(self, ctx):
-        """Support server invite"""
-        embed = discord.Embed(title='Join the support server! Come hang out :D',
-                              url='https://discord.gg/ybZ9ZYg',
-                              color=self.colour)
-        await ctx.send(embed=embed)
-
     @commands.command()
     async def cogs(self, ctx):
         """Shows all of the bot's cogs"""
