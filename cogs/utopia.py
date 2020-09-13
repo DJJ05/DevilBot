@@ -60,7 +60,7 @@ class utopiaCog(commands.Cog):
         full=[]
         with open('nominees.json', 'r') as f:
             nominees = json.load(f)
-        choice = random.choice(*[i[1] for i in nominees.items()])
+        choice = random.choice(list(nominees.keys()))
         msg = nominees.get(choice)
         created = dt.strptime(msg['created'], '%Y-%m-%d %H:%M:%S.%f') # an actual datetime object
         embed=discord.Embed(
