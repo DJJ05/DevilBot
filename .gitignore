@@ -21,3 +21,7 @@ blacklist.json
 errors.json
 
 nominees.json
+
+.vscode/
+
+env/

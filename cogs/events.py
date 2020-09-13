@@ -2,6 +2,8 @@ from discord.ext import commands
 import discord, wikipedia
 import json
 import traceback
+from datetime import timezone 
+import datetime
 
 class eventsCog(commands.Cog):
     def __init__(self, bot):
@@ -116,10 +118,17 @@ class eventsCog(commands.Cog):
 
             try:
                 if afks[str(message.author.id)]:
+
+                    dt = datetime.datetime.now() 
+                    utc_time = dt.replace(tzinfo = timezone.utc) 
+                    utc_timestamp = utc_time.timestamp() 
+
+                    #replace the time with python struct, i forgot how it works sorry
+                    await message.channel.send(f'{message.author.mention}, I removed your AFK. You were in afk for {afks[str(message.author.id)]["time"] - message.created_at()/60} mins')
                     afks.pop(str(message.author.id))
                     with open('afks.json', 'w') as f:
                         json.dump(afks, f, indent=4)
-                    await message.channel.send(f'{message.author.mention}, I removed your AFK.')
+                    
             except KeyError:
                 pass
 
