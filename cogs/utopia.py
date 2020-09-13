@@ -29,7 +29,7 @@ class utopiaCog(commands.Cog):
         channel = self.bot.get_channel(752472138299998238)
         embed=discord.Embed(
             colour = self.colour,
-            description=f'**Message:**\n{str(message.clean_content)}\n**Author:**\n{str(message.author)}\n**Created At:**\n{str(message.created_at)}\n**Jump:**\n{str(message.jump_url)}'
+            description=f'**Message:**\n{str(finmsg)}\n**Author:**\n{str(message.author)}\n**Created At:**\n{str(message.created_at)}\n**Jump:**\n{str(message.jump_url)}'
         )
         await channel.send(embed=embed)
         await ctx.send(f'{ctx.author.mention}, successfully inserted message into nominations. Use {ctx.prefix}utopiaquote for a random one!')
