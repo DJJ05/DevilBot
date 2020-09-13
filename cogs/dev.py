@@ -1,17 +1,9 @@
 import discord
 from discord.ext import commands
 import os, json, typing
-from pydactyl import PterodactylClient
 import traceback
 import textwrap
 import secrets
-
-try:
-    serverclient = PterodactylClient(secrets.secrets_server_url, secrets.secrets_server_key)
-    my_servers = serverclient.client.list_servers()
-    srv_id = my_servers[0]['identifier']
-except:
-    pass
 
 class devCog(commands.Cog):
     """Developer commands"""
@@ -240,33 +232,6 @@ class devCog(commands.Cog):
             await code()
         except:
             await ctx.send(f'```{traceback.format_exc()}```')
-
-    @commands.command(aliases=['ss'])
-    @commands.is_owner()
-    async def serverstats(self, ctx):
-        """Retrieves server information"""
-        srv_utilization2 = serverclient.client.get_server_utilization(srv_id)
-        await ctx.send(f'**Server Information**\n\
-State: `{srv_utilization2["state"]}`\n\
-Memory Usage: `{srv_utilization2["memory"]["current"]}MB`\n\
-CPU Usage: `{srv_utilization2["cpu"]["current"]}%`\n\
-Disk Usage: `{srv_utilization2["disk"]["current"]}MB`')
-
-    @commands.command(aliases=['sss'])
-    @commands.is_owner()
-    async def sendserversignal(self, ctx, signal):
-        """Sends signal to py-dactl server"""
-        known = [
-            'stop',
-            'restart',
-            'kill'
-        ]
-        if signal.lower() in known:
-            try:
-                await ctx.send('`Trying...`')
-                serverclient.client.send_power_action(srv_id, signal)
-            except:
-                pass
 
     @commands.command(aliases=['tm'])
     @commands.is_owner()
