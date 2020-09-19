@@ -30,6 +30,29 @@ class utilityCog(commands.Cog):
 
         self.trans = googletrans.Translator()
 
+    @commands.command()
+    async def rtfs(self, ctx, *, search):
+        """Read the fucking source"""
+        base_url = 'https://rtfs.eviee.me/dpy?search='
+        async with aiohttp.ClientSession() as cs, ctx.typing():
+            async with cs.get(base_url + search) as r:
+                data = await r.json()
+        if not data:
+            raise commands.BadArgument('Not found')
+        final = []
+        skip = []
+        for i in data:
+            if not i['url'] in skip:
+                if i['parent']:
+                    pathname = f'{i["parent"]}.{i["object"]}'
+                else:
+                    pathname = f'{i["object"]}'
+                final.append(f'`{pathname}`\n{i["url"]}')
+                skip.append(i['url'])
+        pagey = MyPaginator(colour=0xff9300, embed=True, timeout=180, use_defaults=True,
+                                entries=[i for i in final], length=5)
+        await pagey.start(ctx)
+
     @commands.command(aliases=['iplookup', 'ipsearch'])
     @commands.cooldown(1,180,BucketType.user)
     async def whois(self, ctx, IP:str):
