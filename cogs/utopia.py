@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
-import json, random
+import json, random, typing
+from discord.ext.commands.cooldowns import BucketType
+from utils.checks import check_admin_or_owner
 
 class utopiaCog(commands.Cog):
     """Utopian-only commands"""
@@ -14,6 +16,61 @@ class utopiaCog(commands.Cog):
 
     async def cog_check(self, ctx):
         return ctx.guild.id == 621044091056029696
+
+    @commands.group(invoke_without_command=True, aliases=['reputation'])
+    async def rep(self, ctx, *, member:typing.Union[discord.Member, int]=None):
+        if not member:
+            member = ctx.author
+        elif type(member) == int:
+            try:
+                member = self.bot.get_user(member) or await self.bot.fetch_user(member)
+            except:
+                raise commands.BadArgument('Member not found')
+        with open('rep.json', 'r') as f:
+            data = json.load(f)
+        try:
+            a = data[str(member.id)]
+        except KeyError:
+            send = f'{member} has `0` reputation.'
+        else:
+            send = f'{member} has `{data[str(member.id)]["reputation"]}` reputation.'
+            for i in data[str(member.id)]:
+                if i != 'reputation':
+                    send+=(f'\n`{data[str(member.id)].get(i)}`')
+        return await ctx.send(send)
+
+    @rep.command(aliases=['lb'])
+    async def leaderboard(self, ctx):
+        with open('rep.json', 'r') as f:
+            data = json.load(f)
+        send=f'__**Reputation Leaderboard. Use {ctx.prefix}rep <user> to view their rep breakdown.**__'
+        number = 1
+        for i in data:
+            member = self.bot.get_user(int(i)) or await self.bot.fetch_user(int(i))
+            send+=f'\n{number}) {member} – `{data[i]["reputation"]}`'
+            number += 1
+        await ctx.send(send)
+
+    @rep.command(aliases=['add'])
+    @commands.cooldown(1,120,BucketType.user) 
+    async def give(self, ctx, member:typing.Union[discord.Member, int], *, reason):
+        if type(member) == int:
+            try:
+                member = self.bot.get_user(member) or await self.bot.fetch_user(member)
+            except:
+                raise commands.BadArgument('Member not found')
+        if member == ctx.author:
+            raise commands.BadArgument('Woooooooooow, yeah I\'m not gonna do that bud.')
+        with open('rep.json', 'r') as f:
+            data = json.load(f)
+        try:
+            data[str(member.id)]['reputation'] += 1
+        except KeyError:
+            data[str(member.id)] = {"reputation":1}
+        data[str(member.id)][ctx.message.jump_url] = f'– {reason}'
+        with open('rep.json', 'w') as f:
+            json.dump(data, f, indent=4)
+        await ctx.send(f'Awarded {member} `1` reputation. View their reputation overview with `{ctx.prefix}rep {member.id}`.')
 
     @commands.command()
     async def nominate(self, ctx, message:discord.Message):
