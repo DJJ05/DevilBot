@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import json, random, typing
 from discord.ext.commands.cooldowns import BucketType
-from utils.checks import check_admin_or_owner
+from .utils.checks import check_admin_or_owner
 
 class utopiaCog(commands.Cog):
     """Utopian-only commands"""
