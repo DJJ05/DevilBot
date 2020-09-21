@@ -116,10 +116,13 @@ class eventsCog(commands.Cog):
 
             try:
                 if afks[str(message.author.id)]:
+
+                    #replace the time with python struct, i forgot how it works sorry
+                    await message.channel.send(f'{message.author.mention}, I removed your AFK. You were in afk for {(afks[str(message.author.id)]["time"] - message.created_at)/60} mins')
                     afks.pop(str(message.author.id))
                     with open('afks.json', 'w') as f:
                         json.dump(afks, f, indent=4)
-                    await message.channel.send(f'{message.author.mention}, I removed your AFK.')
+                    
             except KeyError:
                 pass
 

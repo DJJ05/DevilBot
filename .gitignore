@@ -22,4 +22,8 @@ errors.json
 
 nominees.json
 
+.vscode/
+
+env/
+
 rep.json
