@@ -127,8 +127,8 @@ class utilityCog(commands.Cog):
         except KeyError:
             pass
         
-
-        afks[str(ctx.author.id)] = {"message":reason, "time": ctx.message.created_at}
+        finaltime = str(ctx.message.created_at).split(' ')[1].replace(':', '').replace('.', '')
+        afks[str(ctx.author.id)] = {"message":reason, "time": finaltime}
         await ctx.send(f'{ctx.author.mention}, I successfully marked you as AFK.')
         await asyncio.sleep(1)
         with open('afks.json', 'w') as f:

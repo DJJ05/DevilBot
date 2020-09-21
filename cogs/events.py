@@ -118,7 +118,8 @@ class eventsCog(commands.Cog):
                 if afks[str(message.author.id)]:
 
                     #replace the time with python struct, i forgot how it works sorry
-                    await message.channel.send(f'{message.author.mention}, I removed your AFK. You were in afk for {(afks[str(message.author.id)]["time"] - message.created_at)/60} mins')
+                    longmess = int(int(str(message.created_at).split(" ")[1].replace(":", ".").replace(".", "")) - int(afks[str(message.author.id)]["time"])) / 100000000
+                    await message.channel.send(f'{message.author.mention}, I removed your AFK. You were in afk for {round(longmess, 2)} mins')
                     afks.pop(str(message.author.id))
                     with open('afks.json', 'w') as f:
                         json.dump(afks, f, indent=4)
