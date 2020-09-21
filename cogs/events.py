@@ -2,6 +2,7 @@ from discord.ext import commands
 import discord, wikipedia
 import json
 import traceback
+import asyncio
 
 class eventsCog(commands.Cog):
     def __init__(self, bot):
@@ -48,7 +49,12 @@ class eventsCog(commands.Cog):
         with open('deleted.json', 'r') as f:
             deleted = json.load(f)
 
-        deleted[str(message.channel.id)] = f'{message.clean_content} ««« {message.author.name}#{message.author.discriminator} ««« {message.created_at}'
+        deleted[str(message.channel.id)] = {
+            'message': str(message.clean_content),
+            'author': str(message.author),
+            'created': str(message.created_at)
+        }
+        await asyncio.sleep(1)
 
         with open('deleted.json', 'w') as f:
             json.dump(deleted, f, indent=4)
