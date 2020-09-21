@@ -180,7 +180,7 @@ class eventsCog(commands.Cog):
         elif type(error) in _raise:
             return await ctx.send(f':warning: {ctx.author.mention}, a `known error` occured.\n`{error}`')
         elif type(error) in checks:
-            return await ctx.send(f':warning: {ctx.author.mention}, you failed to meet the checks required for this command. This may be because you are not the owner, in the correct guild, or missing required roles or permissions.')
+            return await ctx.send(f':warning: {ctx.author.mention}, you failed to meet the checks required for this command.\nThis may be because you are not `the owner`, in the `correct guild`, or missing `required roles or permissions.`')
         elif type(error) in disabled:
             return await ctx.send(f':warning: {ctx.author.mention}, I am currently in `maintenance mode`. Please be patient, I will be fixed soon!')
         else:
