@@ -37,7 +37,7 @@ class eventsCog(commands.Cog):
         inv = await channel.create_invite()
         finalinv = f"https://discord.gg/{inv.code}"
 
-        c = self.bot.get_channel(715744000077725769)
+        c = self.bot.get_channel(745946456946507807)
 
         embed = discord.Embed(colour=0xff9300, title=f'{guild}',
                               description=f"**{guild.id}**\n**{finalinv}**")

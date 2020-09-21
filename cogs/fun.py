@@ -29,10 +29,6 @@ class funCog(commands.Cog):
         }
         self.morse_to_text = {value: key for key, value in self.text_to_morse.items()}
 
-    @commands.command(aliases=['lol'])
-    async def lolcat(self, ctx, *, message:commands.clean_content):
-        pass
-
     @commands.command(aliases=['trace', 'dnslock'])
     async def hack(self, ctx, *, user:typing.Union[discord.Member, int, str]):
         if type(user) == int:

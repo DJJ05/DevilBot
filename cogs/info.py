@@ -37,6 +37,15 @@ class infoCog(commands.Cog):
             description=('[`Click Me!`](https://discord.gg/KsHgrya)')
         )
         await ctx.send(embed=embed)
+    
+    @commands.command(aliases=['web'])
+    async def website(self, ctx):
+        """Website, duh"""
+        embed=discord.Embed(
+            colour=self.colour,
+            description='[`Click Me!`](https://devilbot-app.herokuapp.com)'
+        )
+        return await ctx.send(embed=embed)
 
     @commands.command()
     async def cogs(self, ctx):
