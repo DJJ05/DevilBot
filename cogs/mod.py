@@ -58,6 +58,11 @@ class modCog(commands.Cog):
         """Returns last deleted message in this channel"""
         with open('deleted.json', 'r') as f:
             deleted = json.load(f)
+        try:
+            a = deleted[str(ctx.channel.id)]
+            a = a
+        except:
+            raise commands.BadArgument('This channel has no stored deletions!')
         embed = discord.Embed(
             title = f'Last deleted message in #{ctx.channel.name}',
             colour = self.colour,
