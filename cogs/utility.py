@@ -8,6 +8,7 @@ from googlesearch import search
 
 from unit_convert import UnitConvert
 from discord.ext.commands.cooldowns import BucketType
+import unicodedata
 dictionary=PyDictionary()
 
 def to_emoji(c):
@@ -29,6 +30,23 @@ class utilityCog(commands.Cog):
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
         self.trans = googletrans.Translator()
+
+    '''
+    Copyright (c) 2020 Rapptz
+    https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/meta.py#L223-L237
+    under the terms of the  MIT LICENSE
+    '''
+    @commands.command()
+    async def charinfo(self, ctx, *, characters: str):
+        """Shows you information about a number of characters."""
+        def to_string(c):
+            digit = f'{ord(c):x}'
+            name = unicodedata.name(c, 'Name not found.')
+            return f'`\\U{digit:>08}`: {name} - {c} \N{EM DASH} <http://www.fileformat.info/info/unicode/char/{digit}>'
+        msg = '\n'.join(map(to_string, characters))
+        if len(msg) > 2000:
+            return await ctx.send('Output too long to display.')
+        await ctx.send(msg)
 
     @commands.command()
     async def rtfs(self, ctx, *, search):
