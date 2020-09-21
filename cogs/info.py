@@ -29,6 +29,15 @@ class infoCog(commands.Cog):
     def cog_unload(self):
         self.bot.help_command = self._original_help_command
 
+    @commands.command(aliases=['server', 'guild'])
+    async def support(self, ctx):
+        """Support server link"""
+        embed=discord.Embed(
+            colour = self.colour,
+            description=('[`Click Me!`](https://discord.gg/KsHgrya)')
+        )
+        await ctx.send(embed=embed)
+
     @commands.command()
     async def cogs(self, ctx):
         """Shows all of the bot's cogs"""
@@ -111,7 +120,7 @@ class infoCog(commands.Cog):
         else:
             await ctx.send(src)
 
-    @commands.command(aliases=['server', 'guildinfo', 'guild', 'gi', 'si'])
+    @commands.command(aliases=['guildinfo','gi', 'si'])
     async def serverinfo(self, ctx):
         '''Get information about the server.'''
 

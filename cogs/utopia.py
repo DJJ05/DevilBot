@@ -39,8 +39,19 @@ class utopiaCog(commands.Cog):
                     send+=(f'\n`{data[str(member.id)].get(i)}`')
         return await ctx.send(send)
 
+    @rep.command(aliases=['remove'])
+    @check_admin_or_owner()
+    async def take(self, ctx, *, reason):
+        """Takes reason as the words provided as the reason, use rep <user> to see the reasons"""
+        with open('rep.json', 'r') as f:
+            data = json.load(f)
+        success = []
+        for i in data:
+            pass
+
     @rep.command(aliases=['lb'])
     async def leaderboard(self, ctx):
+        """Reputation leaderboard"""
         with open('rep.json', 'r') as f:
             data = json.load(f)
         send=f'__**Reputation Leaderboard. Use {ctx.prefix}rep <user> to view their rep breakdown.**__'
@@ -54,6 +65,7 @@ class utopiaCog(commands.Cog):
     @rep.command(aliases=['add'])
     @commands.cooldown(1,120,BucketType.user) 
     async def give(self, ctx, member:typing.Union[discord.Member, int], *, reason):
+        """Give reputation"""
         if type(member) == int:
             try:
                 member = self.bot.get_user(member) or await self.bot.fetch_user(member)
@@ -74,6 +86,7 @@ class utopiaCog(commands.Cog):
 
     @commands.command()
     async def nominate(self, ctx, message:discord.Message):
+        """Nominate a message"""
         with open('nominees.json', 'r') as f:
             nominees = json.load(f)
         finmsg=message.clean_content
@@ -93,6 +106,7 @@ class utopiaCog(commands.Cog):
 
     @commands.command(aliases=['uq', 'utopiaq', 'uquote'])
     async def utopiaquote(self, ctx):
+        """Get a random quote from utopia"""
         full=[]
         with open('nominees.json', 'r') as f:
             nominees = json.load(f)
