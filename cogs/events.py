@@ -133,7 +133,7 @@ class eventsCog(commands.Cog):
                 with open('afks.json', 'r') as f:
                     afks = json.load(f)
                 for i in message.mentions:
-                    if str(i.id) in afks:
+                    if str(i.id) in afks and message.author != message.guild.me:
                         await message.channel.send(f'**{message.author.mention},** `{i.display_name} is currently AFK.`\n**Reason:** `{afks[str(i.id)]["message"].capitalize()}`')
 
     @commands.Cog.listener()
