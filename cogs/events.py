@@ -134,7 +134,7 @@ class eventsCog(commands.Cog):
                     afks = json.load(f)
                 for i in message.mentions:
                     if str(i.id) in afks:
-                        await message.channel.send(f'**{message.author.mention},** `{i.display_name} is currently AFK.`\n**Reason:** `{afks[str(i.id)].capitalize()}`')
+                        await message.channel.send(f'**{message.author.mention},** `{i.display_name} is currently AFK.`\n**Reason:** `{afks[str(i.id)]["reason"].capitalize()}`')
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
