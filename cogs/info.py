@@ -30,7 +30,6 @@ def linecounter():
                 if '#' in l:
                     cm += 1
                 ls += 1
-    # (f"file: {fc}\nline: {ls:,}\nclass: {cl}\nfunction: {fn}\ncoroutine: {cr}\ncomment: {cm:,}")
     linecounts = {
         "files": fc,
         "lines": ls,
@@ -64,6 +63,22 @@ class infoCog(commands.Cog):
 
     def cog_unload(self):
         self.bot.help_command = self._original_help_command
+
+    @commands.command()
+    async def lines(self, ctx):
+        """Linecount and much more"""
+        linecount = linecounter()
+        embed=discord.Embed(
+            title='Detailed code overview',
+            colour=self.colour
+        )
+        for key in linecount:
+            keyy = key.capitalize()
+            embed.add_field(
+                name=f'**{keyy}:**',
+                value=f'`{linecount.get(key)}`'
+            )
+        await ctx.send(embed=embed)
     
     @commands.command()
     async def about(self, ctx):
@@ -76,6 +91,12 @@ class infoCog(commands.Cog):
                             description=f":diamond_shape_with_a_dot_inside: `Guild Prefix:` **{guildpre}**\
                                         \n<:owner:730864906429136907> `Owner:` **<@!{appinfo.owner.id}>**\
                                         \n<:text_channel:703726554018086912> `Description:` **{appinfo.description}**\
+                                        \n\n<:file:758004755342688367> `Files:` **{linecount['files']}**\
+                                        \n<:lines:758005052676898916> `Lines:` **{linecount['lines']:,}**\
+                                        \n<:class:758006436524589056> `Classes:` **{linecount['classes']}**\
+                                        \n<:function:758007026168102922> `Functions:` **{linecount['functions']}**\
+                                        \n<:coroutine:758007164190195754> `Coroutines:` **{linecount['coroutines']}**\
+                                        \n<:comments:758007347615367328> `Comments:` **{linecount['comments']}**\
                                         \n\n**Do** `{guildpre}help` **to view a full command list.**\
                                         \n**Do** `{guildpre}help [command]` **to view specific command help.**")
         embed.set_author(name=f'Requested by {ctx.author.name}#{ctx.author.discriminator}', icon_url=ctx.author.avatar_url)
