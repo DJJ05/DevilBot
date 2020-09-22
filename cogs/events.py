@@ -124,7 +124,7 @@ class eventsCog(commands.Cog):
                 if afks[str(message.author.id)]:
 
                     #replace the time with python struct, i forgot how it works sorry
-                    longmess = int(int(str(message.created_at).split(" ")[1].replace(":", ".").replace(".", "")) - int(afks[str(message.author.id)]["time"])) / 1000000
+                    longmess = int(int(str(message.created_at).split(" ")[1].replace(":", ".").replace(".", "")) - int(afks[str(message.author.id)]["time"])) / 1000000 / 60
                     min, sec = divmod(longmess, 60) 
                     hour, min = divmod(min, 60) 
                     finalmess = "%d:%02d:%02d" % (hour, min, sec)
