@@ -170,7 +170,8 @@ class eventsCog(commands.Cog):
             commands.BadArgument,
             commands.CommandOnCooldown,
             commands.MaxConcurrencyReached,
-            commands.BadUnionArgument
+            commands.BadUnionArgument,
+            commands.TooManyArguments
         ]
 
         skip = [

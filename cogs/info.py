@@ -4,6 +4,7 @@ from discord.ext import commands
 import time, datetime
 import os, asyncio
 import collections
+import pathlib
 
 class MyHelpCommand(commands.MinimalHelpCommand):
     async def send_pages(self):
@@ -28,6 +29,26 @@ class infoCog(commands.Cog):
 
     def cog_unload(self):
         self.bot.help_command = self._original_help_command
+
+    """
+    This code was taken from Dutchy#6127
+    
+    """
+
+    @commands.command()
+    async def about(self, ctx):
+        """All about DevilBot"""
+        guildpre = ctx.prefix
+        appinfo = await self.bot.application_info()
+        embed = discord.Embed(colour=self.colour,
+                            title=f"{appinfo.name} | {appinfo.id}",
+                            description=f":diamond_shape_with_a_dot_inside: `Guild Prefix:` **{guildpre}**\
+                                        \n<:owner:730864906429136907> `Owner:` **<@!{appinfo.owner.id}>**\
+                                        \n<:text_channel:703726554018086912> `Description:` **{appinfo.description}**\
+                                        \n\n**Do** `{guildpre}help` **to view a full command list.**\
+                                        \n**Do** `{guildpre}help [command]` **to view specific command help.**")
+        embed.set_author(name=f'Requested by {ctx.author.name}#{ctx.author.discriminator}', icon_url=ctx.author.avatar_url)
+        await ctx.send(embed=embed)
 
     @commands.command(aliases=['server', 'guild'])
     async def support(self, ctx):
