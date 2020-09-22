@@ -6,6 +6,41 @@ import os, asyncio
 import collections
 import pathlib
 
+def linecounter():
+    """
+    This code was taken from Dutchy#6127 from a
+    tag in discord.gg/dpy, called ?tag linecount,
+    not sure if it is licensed, but here you go.
+    """
+    p = pathlib.Path('./')
+    cm = cr = fn = cl = ls = fc = 0
+    for f in p.rglob('*.py'):
+        if str(f).startswith("venv"):
+            continue
+        fc += 1
+        with f.open() as of:
+            for l in of.readlines():
+                l = l.strip()
+                if l.startswith('class'):
+                    cl += 1
+                if l.startswith('def'):
+                    fn += 1
+                if l.startswith('async def'):
+                    cr += 1
+                if '#' in l:
+                    cm += 1
+                ls += 1
+    # (f"file: {fc}\nline: {ls:,}\nclass: {cl}\nfunction: {fn}\ncoroutine: {cr}\ncomment: {cm:,}")
+    linecounts = {
+        "files": fc,
+        "lines": ls,
+        "classes": cl,
+        "functions": fn,
+        "coroutines": cr,
+        "comments": cm
+    }
+    return linecounts
+
 class MyHelpCommand(commands.MinimalHelpCommand):
     async def send_pages(self):
         destination = self.get_destination()
@@ -29,17 +64,13 @@ class infoCog(commands.Cog):
 
     def cog_unload(self):
         self.bot.help_command = self._original_help_command
-
-    """
-    This code was taken from Dutchy#6127
     
-    """
-
     @commands.command()
     async def about(self, ctx):
         """All about DevilBot"""
         guildpre = ctx.prefix
         appinfo = await self.bot.application_info()
+        linecount = linecounter()
         embed = discord.Embed(colour=self.colour,
                             title=f"{appinfo.name} | {appinfo.id}",
                             description=f":diamond_shape_with_a_dot_inside: `Guild Prefix:` **{guildpre}**\
