@@ -48,6 +48,10 @@ class utilityCog(commands.Cog):
             return await ctx.send('Output too long to display.')
         await ctx.send(msg)
 
+    @commands.command(aliases=['rtfd'])
+    async def rtfm(self, ctx, *, search):
+        """Read the fucking manual"""
+
     @commands.command()
     async def rtfs(self, ctx, *, search):
         """Read the fucking source"""
