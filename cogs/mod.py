@@ -26,14 +26,14 @@ class modCog(commands.Cog):
         else:
             if member.top_role > ctx.guild.me.top_role:
                 return await ctx.send('I am not permitted to `ban` this member.')
-        await ctx.guild.ban(user=member, reason=reason)
-        await ctx.send(f'Successfully `banned` {member.mention} from the guild.')
         embed = discord.Embed(title=f'You have been banned from {ctx.guild.name}', colour=self.colour,
                               description=f'By:\n`{ctx.author.name}`\nBecause:\n`{reason}`')
         try:
             await member.send(embed=embed)
         except:
             await ctx.send(f'Attempt to `message` {member.mention} failed.')
+        await ctx.guild.ban(user=member, reason=reason)
+        await ctx.send(f'Successfully `banned` {member.mention} from the guild.')
 
     @commands.command(aliases=['yeet'])
     @checks.check_mod_or_owner()
@@ -43,14 +43,14 @@ class modCog(commands.Cog):
             return await ctx.send('`Member` is a required argument that is missing.')
         if member.top_role > ctx.guild.me.top_role:
             return await ctx.send('I am not permitted to `kick` this member.')
-        await member.kick(reason=reason)
-        await ctx.send(f'Successfully `kicked` {member.mention} from the guild.')
         embed = discord.Embed(title=f'You have been kicked from {ctx.guild.name}', colour=self.colour,
                               description=f'By:\n`{ctx.author.name}`\nBecause:\n`{reason}`')
         try:
             await member.send(embed=embed)
         except:
             await ctx.send(f'Attempt to `message` {member.mention} failed.')
+        await member.kick(reason=reason)
+        await ctx.send(f'Successfully `kicked` {member.mention} from the guild.')
 
     @commands.command(aliases=['ud'])
     @checks.check_mod_or_owner()
