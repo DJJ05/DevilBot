@@ -128,7 +128,7 @@ class eventsCog(commands.Cog):
                     min, sec = divmod(longmess, 60) 
                     hour, min = divmod(min, 60) 
                     finalmess = "%d:%02d:%02d" % (hour, min, sec)
-                    await message.channel.send(f'{message.author.mention}, I removed your AFK. You were in afk for `{finalmess}`')
+                    await message.channel.send(f'{message.author.mention}, I removed your AFK')
                     afks.pop(str(message.author.id))
                     with open('afks.json', 'w') as f:
                         json.dump(afks, f, indent=4)
