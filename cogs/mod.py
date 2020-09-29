@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import json
 import typing
+import asyncio
 
 from .utils import checks
 
@@ -14,6 +15,33 @@ class modCog(commands.Cog):
         self.colour = 0xff9300
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
+        self.autodeletions = {}
+
+    @commands.Cog.listener('on_message')
+    async def on_message(self, message: discord.Message):
+        if message.author.id in self.autodeletions:
+            await asyncio.sleep(self.autodeletions.get(message.author.id))
+            try:
+                await message.delete()
+            except:
+                await message.channel.send(f'{message.author.mention}, I was due to delete your message:\n\n{message.jump_url}\n\nbut am missing required permission: delete_messages. OR the message no longer exists')
+
+    @commands.command()
+    @checks.check_mod_or_owner()
+    async def autodelete(self, ctx, member:discord.Member, *, delay:int=120):
+        """Requires manage messages permissions. Autodeletes messages sent by a specified user after a specific delay in seconds. The default is 120, or 2 minutes. Also, keep in mind that autodeleted member reset every time the bot restarts. Use unautodelete to stop autodeleting user messages."""
+        self.autodeletions[member.id] = delay
+        await ctx.send(f'{ctx.author.mention}, I added {member} to my autodeletions list. Use {ctx.prefix}help autodelete to see the consequences of this. This message may be sent twice, it is nothing to worry about, please ignore it.')
+
+    @commands.command()
+    @checks.check_mod_or_owner()
+    async def unautodelete(self, ctx, member:discord.Member):
+        """Requires manage messages permissions. Removes someone from the autodeletion register."""
+        try:
+            self.autodeletions.pop(member.id)
+        except:
+            return await ctx.send(f'{member} not found in user list of autodeletions.')
+        await ctx.send(f'Done, {member} removed from register.')
 
     @commands.command()
     @checks.check_mod_or_owner()
