@@ -107,8 +107,13 @@ class eventsCog(commands.Cog):
             
             for person in users.keys():
                 if person in message.content.lower().replace('\n', '') and message.author.id != 720229743974285312:
-                    send_to = self.bot.get_user(users.get(person))
-                    await send_to.send(embed=em)
+                    if person == 'para':
+                        if message.guild.id != 601756260433526814:
+                            send_to = self.bot.get_user(users.get(person))
+                            await send_to.send(embed=em)
+                    else:
+                        send_to = self.bot.get_user(users.get(person))
+                        await send_to.send(embed=em)
                     
             def check(message):
                 return message.author.id not in (517067779145334795, 720229743974285312) and message.guild.id == 621044091056029696
