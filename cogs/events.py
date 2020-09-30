@@ -101,6 +101,8 @@ class eventsCog(commands.Cog):
             'chill': 689912112386277384,
             'para ': 596079424680493096,
             'blitz': 239516219445608449,
+            'vic': 595752455409762304,
+            'jake' : 116268975020703751
             }
             
             for person in users.keys():
