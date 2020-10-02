@@ -7,9 +7,14 @@ import json, os
 import secrets
 import asyncpg
 
+os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
+os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
+
+intents = discord.Intents().all()
+
 class Bot(commands.Bot):
     def __init__(self, database_conn, event_loop):
-        super().__init__(command_prefix=self.get_prefix, case_insensitive=True, loop=event_loop,
+        super().__init__(command_prefix=self.get_prefix, intents=intents, case_insensitive=True, loop=event_loop,
                          description="")
         self.db_conn = database_conn
         self.blacklist = self.initialize_blacklist()
