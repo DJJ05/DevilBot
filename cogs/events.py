@@ -1,8 +1,9 @@
-from discord.ext import commands
+from discord.ext import commands, tasks
 import discord, wikipedia
 import json
 import traceback
 import asyncio
+import aiohttp
 
 class eventsCog(commands.Cog):
     def __init__(self, bot):
@@ -20,6 +21,39 @@ class eventsCog(commands.Cog):
         self.btred = '\033[1;31m'
         self.tred = '\033[31m'
         self.endc = '\033[m'
+
+        self.latest = None
+        self.durl = 'https://pypi.org/pypi/aiodagpi/json'
+        self.checkaiodagpi.start()
+
+    @tasks.loop(seconds=60)
+    async def checkaiodagpi(self):
+        if not self.latest:
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(self.durl) as resp:
+                    data = await resp.json()
+            await cs.close()
+            self.latest = data['info']['version']
+            return
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(self.durl) as resp:
+                data = await resp.json()
+        ver = data['info']['version']
+        if ver == self.latest:
+            return
+        self.latest = ver
+        git = self.bot.get_channel(745946246371475549)
+        desc = ''
+        for i in data['info']['classifiers']:
+            desc+=f'{i}\n'
+        embed=discord.Embed(
+            colour=self.colour,
+            url=data['info']['package_url'],
+            title=f'AioDagpi version {ver} has been released to PyPI!',
+            description=f'**Classifiers:**\n{desc}\n**Check it out now and use `pip3 install aiodagpi` to use it :D**'
+        )
+        embed.set_thumbnail(url='https://static1.squarespace.com/static/59481d6bb8a79b8f7c70ec19/594a49e202d7bcca9e61fe23/59b2ee34914e6b6d89b9241c/1506011023937/pypi_logo.png?format=1500w')
+        await git.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
