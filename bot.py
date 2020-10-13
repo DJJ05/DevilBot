@@ -31,7 +31,7 @@ class Bot(commands.Bot):
         self.endc = '\033[m'
 
         for filename in os.listdir('cogs'):
-            if filename.endswith('.py') and filename != 'secrets.py':
+            if filename.endswith('.py') and filename != 'secrets.py' and filename != 'dagpi.py':
                 self.load_extension('cogs.{}'.format(filename[:-3]))
         self.load_extension(name='jishaku')
         print(self.btmag + r'''
