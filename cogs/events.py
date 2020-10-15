@@ -68,7 +68,7 @@ class eventsCog(commands.Cog):
         c = self.bot.get_channel(745946456946507807)
 
         embed = discord.Embed(colour=0xff9300, title=f'{guild}',
-                              description=f"**{guild.id}**")
+                              description=f"**{guild.id}**\n**Members: **{len(guild.members)}")
         embed.set_thumbnail(url=guild.icon_url)
         await c.send(f"<@!670564722218762240> We joined guild **#{len(self.bot.guilds)}**", embed=embed)
 
