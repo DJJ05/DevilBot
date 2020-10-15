@@ -29,17 +29,6 @@ class funCog(commands.Cog):
         }
         self.morse_to_text = {value: key for key, value in self.text_to_morse.items()}
 
-    @commands.command(aliases=['trace', 'dnslock'])
-    async def hack(self, ctx, *, user:typing.Union[discord.Member, int, str]):
-        if type(user) == int:
-            try:
-                user = self.bot.get_user(user) or await self.bot.fetch_user(user)
-                user = user.display_name
-            except:
-                pass
-        if isinstance(user, discord.Member):
-            user = user.display_name
-
     @commands.command(aliases=['tronalddump', 'tronald', 'donaldtrump', 'trump'])
     async def donald(self, ctx):
         """Collect a random stupid quote from Donald Trump"""

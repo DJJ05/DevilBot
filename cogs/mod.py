@@ -54,6 +54,8 @@ class modCog(commands.Cog):
         else:
             if member.top_role > ctx.guild.me.top_role:
                 return await ctx.send('I am not permitted to `ban` this member.')
+        if not ctx.guild.permissions_for(ctx.guild.me).ban_members:
+            return await ctx.send('I am not permitted to `ban` in this guild.')
         embed = discord.Embed(title=f'You have been banned from {ctx.guild.name}', colour=self.colour,
                               description=f'By:\n`{ctx.author.name}`\nBecause:\n`{reason}`')
         try:
@@ -71,6 +73,8 @@ class modCog(commands.Cog):
             return await ctx.send('`Member` is a required argument that is missing.')
         if member.top_role > ctx.guild.me.top_role:
             return await ctx.send('I am not permitted to `kick` this member.')
+        if not ctx.guild.permissions_for(ctx.guild.me).kick_members:
+            return await ctx.send('I am not permitted to `kick` in this guild.')
         embed = discord.Embed(title=f'You have been kicked from {ctx.guild.name}', colour=self.colour,
                               description=f'By:\n`{ctx.author.name}`\nBecause:\n`{reason}`')
         try:
