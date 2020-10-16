@@ -55,8 +55,9 @@ class utopiaCog(commands.Cog):
         with open('rep.json', 'r') as f:
             data = json.load(f)
         send=f'__**Reputation Leaderboard. Use {ctx.prefix}rep <user> to view their rep breakdown.**__'
+        dsorted = sorted(data.keys(), key=lambda x: (data[x]['reputation']), reverse=True)
         number = 1
-        for i in data:
+        for i in dsorted:
             member = self.bot.get_user(int(i)) or await self.bot.fetch_user(int(i))
             send+=f'\n{number}) {member} – `{data[i]["reputation"]}`'
             number += 1
