@@ -182,6 +182,10 @@ class eventsCog(commands.Cog):
             json.dump(prefixes, f, indent=4)
 
     @commands.Cog.listener()
+    async def on_message_edit(self, before, after):
+        await self.bot.process_commands(after)
+
+    @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         # Error formatting code used from Daggy1234's DagBot GitHub Repository Provided by the GNU Affero General
         # Public License @ https://github.com/Daggy1234/dagbot/blob/master/dagbot/extensions/errors.py#L37-#L42
