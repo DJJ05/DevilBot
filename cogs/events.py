@@ -183,8 +183,8 @@ class eventsCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        # Code used from Daggy1234's DagBot GitHub Repository Provided by the GNU Affero General Public License
-        # https://github.com/Daggy1234/dagbot/blob/master/dagbot/extensions/errors.py#L37-#L42
+        # Error formatting code used from Daggy1234's DagBot GitHub Repository Provided by the GNU Affero General
+        # Public License @ https://github.com/Daggy1234/dagbot/blob/master/dagbot/extensions/errors.py#L37-#L42
         # Copyright (C) 2020  Daggy1234
         
         etype = type(error)
@@ -193,42 +193,94 @@ class eventsCog(commands.Cog):
         lines = traceback.format_exception(etype, error, trace, verbosity)
         traceback_text = f'```py\n{"".join(lines)}\n```'
 
-        _raise = [
-            commands.NotOwner,
-            commands.MissingRequiredArgument,
-            commands.BadArgument,
-            commands.CommandOnCooldown,
-            commands.MaxConcurrencyReached,
-            commands.BadUnionArgument,
-            commands.TooManyArguments
-        ]
+        embyw = discord.Embed(colour=self.colour)
+        embyw.set_thumbnail(url='https://cdn.discordapp.com/attachments/745950521072025714/766734683479998574/attention.png')
 
-        skip = [
-            commands.CommandNotFound
-        ]
+        embye = discord.Embed(colour=self.colour)
+        embye.set_thumbnail(url='https://cdn.discordapp.com/attachments/745950521072025714/766734680371888128/warning.png')
 
-        disabled = [
-            commands.DisabledCommand
-        ]
-
-        checks = [
-            commands.CheckFailure
-        ]
-
-        if type(error) in skip:
+        if etype == commands.CommandNotFound:
             return
-        elif type(error) in _raise:
-            return await ctx.send(f':warning: {ctx.author.mention}, a `known error` occured.\n`{error}`')
-        elif type(error) in checks:
-            return await ctx.send(f':warning: {ctx.author.mention}, you failed to meet the checks required for this command.\nThis may be because you are not `the owner`, in the `correct guild`, or missing `required roles or permissions.`')
-        elif type(error) in disabled:
-            return await ctx.send(f':warning: {ctx.author.mention}, I am currently in `maintenance mode`. Please be patient, I will be fixed soon!')
+
+        elif etype == commands.DisabledCommand:
+            embyw.title = 'This command is disabled!'
+            embyw.description = f'{ctx.author.mention}, `{ctx.prefix}{ctx.command.qualified_name}` has been **temporarily** disabled by my owner. Please check back later.'
+            await ctx.send(embed=embyw)
+
+        elif etype == commands.TooManyArguments:
+            embyw.title = 'You gave me too much info!'
+            embyw.description = f'{ctx.author.mention}, you gave me arguments (values *after* {ctx.prefix}{ctx.command.qualified_name}) that I wasn\'t ready for. Please check the usage with {ctx.prefix}help {ctx.command.qualified_name}.'
+            await ctx.send(embed=embyw)
+
+        elif etype == commands.BadUnionArgument or etype == commands.ConversionError:
+            embye.title = 'Couldn\'t convert to object!'
+            embye.description = f'{ctx.author.mention}, I couldn\'t convert the given argument(s) into objects. This means that I couldn\'t locate the given member, guild, channel etc. Check for typos!'
+            await ctx.send(embed=embye)
+
+        elif etype == commands.BadArgument:
+            embye.title = 'Faulty information detected!'
+            embye.description = f'{ctx.author.mention}, you gave me faulty information! This may mean that a member, guild, channel etc. that I was supposed to use could not be located. Check for typos!'
+            await ctx.send(embed=embye)
+
+        elif etype == commands.MemberNotFound:
+            embyw.title = 'Member not found!'
+            embyw.description = f'{ctx.author.mention}, the member you told me to find ({error.argument}) could not be located! Check for typos.'
+            await ctx.send(embed=embyw)
+
+        elif etype == commands.CommandOnCooldown:
+            seconds = error.retry_after
+            seconds = round(seconds, 2)
+            remainder = divmod(int(seconds), 3600)
+            minutes, seconds = divmod(remainder, 60)
+            embyw.title = 'You are on cooldown!'
+            embyw.description = f'{ctx.author.mention}, you are still on cooldown for a remaining `{minutes} minutes and {seconds} seconds!` Cool it down.'
+            await ctx.send(embed=embyw)
+
+        elif etype == commands.MaxConcurrencyReached:
+            embyw.title = 'This command is too powerful for me!'
+            embyw.description = f'{ctx.author.mention}, this command is too powerful for me and has been limited to only `{error.number}` uses running at the same time in `{str(error.per)}`.'
+            await ctx.send(embed=embyw)
+
+        elif etype == commands.NotOwner:
+            embyw.title = 'This command is restricted!'
+            embyw.description = f'{ctx.author.mention}, this command contains power too immense for you, and has been limited to only my owner! Come back when you own me.'
+            await ctx.send(embed=embyw)
+
+        elif etype == commands.NSFWChannelRequired:
+            embye.title = 'This command is NSFW locked!'
+            embye.description = f'{ctx.author.mention}, the channel #{error.channel.name} is not marked NSFW, which this command requires. If you are a moderator, please mark this channel as such!'
+            await ctx.send(embed=embye)
+
+        elif etype == commands.MissingRole:
+            embyw.title = 'You are missing a role!'
+            embyw.description = f'{ctx.author.mention}, you are missing a role required to perform this command: {error.missing_role.name}. Check your role list!'
+            await ctx.send(embed=embyw)
+
+        elif etype == commands.MissingPermissions:
+            embyw.title = 'You are missing permissions!'
+            embyw.description = f'{ctx.author.mention}, you are missing permissions required to perform this command: {error.missing_perms}. Check your permissions!'
+            await ctx.send(embed=embyw)
+
+        elif etype == commands.BotMissingRole:
+            embyw.title = 'I am missing a role!'
+            embyw.description = f'{ctx.author.mention}, I am missing a role required to perform this command: {error.missing_role.name}. Check my roles!'
+            await ctx.send(embed=embyw)
+
+        elif etype == commands.BotMissingPermissions:
+            embyw.title = 'I am missing permissions!'
+            embyw.description = f'{ctx.author.mention}, I am missing permissions required to perform this command: {error.missing_perms}. Check my permissions!'
+            await ctx.send(embed=embyw)
+
+        elif etype == commands.MissingRequiredArgument:
+            embyw.title = 'You forgot to fill in the blanks!'
+            embyw.description = f'{ctx.author.mention}, you didn\'t enter the required argument: {error.param.name}.'
+            await ctx.send(embed=embyw)
+
         else:
             print(f'{self.btred} ERROR: {self.tred} {traceback_text} {self.endc}——————————————————————————————')
             embed = discord.Embed(colour=0xff0033, title=f'Error during `{ctx.command.name}`',
                                   description=f'ID: {ctx.message.id}\nMy creator has been notified of the error and will endeavour to fix it soon.\n{traceback_text}')
             await ctx.send(embed=embed)
-            await ctx.send(f'If you would like to receive updates on this error, use `{ctx.prefix}error follow {ctx.message.id}`')
 
             errchannel = self.bot.get_channel(748962623487344753)
 
