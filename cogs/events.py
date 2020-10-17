@@ -280,6 +280,11 @@ class eventsCog(commands.Cog):
             embyw.description = f'{ctx.author.mention}, you didn\'t enter the required argument: {error.param.name}.'
             await ctx.send(embed=embyw)
 
+        elif etype == commands.CheckFailure:
+            embyw.title = 'You didn\'t pass the test!'
+            embyw.description = f'{ctx.author.mention}, this command contains a custom check, meaning my owner decided to constrict its usage according to a certain ruleset: `{str(ctx.command.checks[0]).strip("<function").split(".")[0] if len(ctx.command.checks) else ""}`'
+            await ctx.send(embed=embyw)
+
         else:
             print(f'{self.btred} ERROR: {self.tred} {traceback_text} {self.endc}——————————————————————————————')
             embed = discord.Embed(colour=0xff0033, title=f'Error during `{ctx.command.name}`',
