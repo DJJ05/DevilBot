@@ -123,19 +123,20 @@ class eventsCog(commands.Cog):
                             **[Jump]({message.jump_url})**'
             
             users = {
-            'devil': 670564722218762240,
-            'freaglii': 370633705091497985,
-            'petrick': 370633705091497985,
-            'chill': 689912112386277384,
-            'para': 596079424680493096,
-            'blitz' : 239516219445608449,
-            'vic': 595752455409762304,
-            'jake' : 116268975020703751,
-            'asti' : 517067779145334795
+            ' devil ': 670564722218762240,
+            ' freaglii ': 370633705091497985,
+            ' petrick ': 370633705091497985,
+            ' chill ': 689912112386277384,
+            ' para ': 596079424680493096,
+            ' blitz ' : 239516219445608449,
+            ' vic ': 595752455409762304,
+            ' jake ' : 116268975020703751,
+            ' asti ' : 517067779145334795
             }
             
+            concac = ' ' + message.content.lower().replace('\n', '') + ' '
             for person in users.keys():
-                if person in message.content.lower().replace('\n', ''):
+                if person in concac:
                     if not message.author.bot:
                         if message.guild.id == 621044091056029696:
                             send_to = self.bot.get_user(users.get(person))
