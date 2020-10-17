@@ -26,7 +26,7 @@ class eventsCog(commands.Cog):
         self.durl = 'https://pypi.org/pypi/aiodagpi/json'
         self.checkaiodagpi.start()
 
-    @tasks.loop(seconds=60)
+    @tasks.loop(minutes=3)
     async def checkaiodagpi(self):
         if not self.latest:
             async with aiohttp.ClientSession() as cs:
