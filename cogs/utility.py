@@ -56,7 +56,7 @@ class utilityCog(commands.Cog):
                 await a.delete()
             except discord.Forbidden:
                 pass
-        b = await ctx.send('Alright, recorded your embed title. Next, send me the author of the embed. Say "None" to leave this field blank.')
+        b = await ctx.send('Alright, recorded your embed title. Next, send me the author of the embed. Say "None" to leave this field blank. PS: Try avoiding using characters other than a-Z and 0-9 since this can cause errors.')
 
         try:
             msg = await self.bot.wait_for('message', check=check,timeout=30)
@@ -70,7 +70,7 @@ class utilityCog(commands.Cog):
                 await b.delete()
             except discord.Forbidden:
                 pass
-        c = await ctx.send('Alright, next I need the colour of your embed in hex form. This will default to black. Say "None" to leave this field blank.')
+        c = await ctx.send('Alright, next I need the colour of your embed in hex form. This will default to black. Say "None" to leave this field blank. PS: Try avoiding using characters other than a-Z and 0-9 since this can cause errors.')
 
         try:
             msg = await self.bot.wait_for('message', check=check,timeout=30)
