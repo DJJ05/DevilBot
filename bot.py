@@ -12,7 +12,7 @@ os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
 
 intents = discord.Intents().all()
 
-class Bot(commands.Bot):
+class Bot(commands.AutoShardedBot):
     def __init__(self, database_conn, event_loop):
         super().__init__(command_prefix=self.get_prefix, intents=intents, case_insensitive=True, loop=event_loop,
                          description="")

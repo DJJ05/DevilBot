@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands.cooldowns import BucketType
 import json
 import typing
 import asyncio
@@ -29,41 +30,44 @@ class modCog(commands.Cog):
     @commands.command()
     @checks.check_mod_or_owner()
     @commands.bot_has_permissions(manage_channels=True)
-    async def lockdown(self, ctx):
+    @commands.max_concurrency(1, BucketType.channel)
+    async def lockdown(self, ctx, minutes: float= 30):
         """Locks down all channels in the guild and makes them untalkable"""
-
+        seconds = minutes * 60
         overwrites = {
             ctx.guild.default_role: discord.PermissionOverwrite(
                 send_messages=False
             )
         }
-
-        await ctx.send(f"Are you sure you want to lock down this guild? Type 'yes' or 'no'.")
-
+        await ctx.send(f"Are you sure you want to lock down this guild for {minutes}m? Type 'yes' or 'no'.")
         def check(m):
             return m.channel.id == ctx.channel.id and m.author.id == ctx.author.id
-
         try:
             msg = await self.bot.wait_for('message', check=check, timeout=60)
-
         except asyncio.TimeoutError:
             await ctx.send("You took too long to respond, try again.")
-
         else:
-
             if msg.content.lower() in ['yes', 'y',]:
                 channels = []
 
                 for channel in ctx.guild.text_channels:
-                    if channel.overwrites_for(ctx.guild.default_role).read_messages == None:
-                        await channel.edit(overwrites=overwrites)
-                        channels.append(channel)
+                    if channel.overwrites_for(ctx.guild.default_role).read_messages != False:
+                        if channel.overwrites_for(ctx.guild.default_role).send_messages != False:
+                            await channel.edit(overwrites=overwrites)
+                            channels.append(channel)
 
-                await ctx.send('Alright, I removed everyone\'s perms.')
-
+                await ctx.send(f'Alright, I removed everyone\'s perms for the next {minutes}m.')
+                await asyncio.sleep(seconds)
+                overwrites_revert = {
+                    ctx.guild.default_role: discord.PermissionOverwrite(
+                        send_messages=True
+                    )
+                }
+                for channel in channels:
+                    await channel.edit(overwrites=overwrites_revert)
+                return await ctx.send(f'{ctx.author.mention}, this guild is no longer in lockdown.')
             elif msg.content.lower() in ['no', 'n']:
                 return await ctx.send('Alright, lockdown sequence cancelled.')
-
             else:
                 return await ctx.send('That\'s not a valid option, try again.')
 

@@ -80,7 +80,7 @@ class infoCog(commands.Cog):
             )
         await ctx.send(embed=embed)
     
-    @commands.command()
+    @commands.command(aliases=['info', 'botstats'])
     async def about(self, ctx):
         """All about DevilBot"""
         guildpre = ctx.prefix
@@ -90,16 +90,20 @@ class infoCog(commands.Cog):
                             title=f"{appinfo.name} | {appinfo.id}",
                             description=f":diamond_shape_with_a_dot_inside: `Guild Prefix:` **{guildpre}**\
                                         \n<:owner:730864906429136907> `Owner:` **<@!{appinfo.owner.id}>**\
-                                        \n<:text_channel:703726554018086912> `Description:` **{appinfo.description}**\
-                                        \n\n<:file:758004755342688367> `Files:` **{linecount['files']}**\
-                                        \n<:lines:758005052676898916> `Lines:` **{linecount['lines']:,}**\
-                                        \n<:class:758006436524589056> `Classes:` **{linecount['classes']}**\
-                                        \n<:function:758007026168102922> `Functions:` **{linecount['functions']}**\
-                                        \n<:coroutine:758007164190195754> `Coroutines:` **{linecount['coroutines']}**\
-                                        \n<:comments:758007347615367328> `Comments:` **{linecount['comments']}**\
+                                        \n\n__**Watching over:**__\
+                                        \n+ `Guilds:` **{len(self.bot.guilds)}**\
+                                        \n+ `Users:` **{len(self.bot.users)}**\
+                                        \n+ `Channels:` **{len(list(self.bot.get_all_channels()))}**\
+                                        \n\n__**Made with:**__\
+                                        \n˚ `Files:` **{linecount['files']}**\
+                                        \n˚ `Lines:` **{linecount['lines']:,}**\
+                                        \n˚ `Classes:` **{linecount['classes']}**\
+                                        \n˚ `Functions:` **{linecount['functions']}**\
+                                        \n˚ `Coroutines:` **{linecount['coroutines']}**\
+                                        \n˚ `Comments:` **{linecount['comments']}**\
                                         \n\n**Do** `{guildpre}help` **to view a full command list.**\
                                         \n**Do** `{guildpre}help [command]` **to view specific command help.**")
-        embed.set_author(name=f'Requested by {ctx.author.name}#{ctx.author.discriminator}', icon_url=ctx.author.avatar_url)
+        embed.set_author(name=f'Requested by {ctx.author}', icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['server', 'guild'])
