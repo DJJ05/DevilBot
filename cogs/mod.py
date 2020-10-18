@@ -23,12 +23,53 @@ class modCog(commands.Cog):
             await asyncio.sleep(self.autodeletions.get(message.author.id))
             try:
                 await message.delete()
-            except:
-                await message.channel.send(f'{message.author.mention}, I was due to delete your message:\n\n{message.jump_url}\n\nbut am missing required permission: delete_messages. OR the message no longer exists')
+            except discord.NotFound:
+                pass
 
     @commands.command()
     @checks.check_mod_or_owner()
-    async def autodelete(self, ctx, member:discord.Member, *, delay:int=120):
+    @commands.bot_has_permissions(manage_channels=True)
+    async def lockdown(self, ctx):
+        """Locks down all channels in the guild and makes them untalkable"""
+
+        overwrites = {
+            ctx.guild.default_role: discord.PermissionOverwrite(
+                send_messages=False
+            )
+        }
+
+        await ctx.send(f"Are you sure you want to lock down this guild? Type 'yes' or 'no'.")
+
+        def check(m):
+            return m.channel.id == ctx.channel.id and m.author.id == ctx.author.id
+
+        try:
+            msg = await self.bot.wait_for('message', check=check, timeout=60)
+
+        except asyncio.TimeoutError:
+            await ctx.send("You took too long to respond, try again.")
+
+        else:
+
+            if msg.content.lower() in ['yes', 'y',]:
+                channels = []
+
+                for channel in ctx.guild.text_channels:
+                    if channel.overwrites_for(ctx.guild.default_role).read_messages == None:
+                        await channel.edit(overwrites=overwrites)
+                        channels.append(channel)
+
+                await ctx.send('Alright, I removed everyone\'s perms.')
+
+            elif msg.content.lower() in ['no', 'n']:
+                return await ctx.send('Alright, lockdown sequence cancelled.')
+
+            else:
+                return await ctx.send('That\'s not a valid option, try again.')
+
+    @commands.command()
+    @checks.check_mod_or_owner()
+    async def autodelete(self, ctx, member: discord.Member, *, delay: int = 120):
         """Requires manage messages permissions. Autodeletes messages sent by a specified user after a specific delay in seconds. The default is 120, or 2 minutes. Also, keep in mind that autodeleted member reset every time the bot restarts. Use unautodelete to stop autodeleting user messages."""
         self.autodeletions[member.id] = delay
         await ctx.send(f'{ctx.author.mention}, I added {member} to my autodeletions list. Use {ctx.prefix}help autodelete to see the consequences of this. This message may be sent twice, it is nothing to worry about, please ignore it.')

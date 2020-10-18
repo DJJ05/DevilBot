@@ -36,6 +36,85 @@ class utilityCog(commands.Cog):
     https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/meta.py#L223-L237
     under the terms of the  MIT LICENSE
     '''
+
+    @commands.command(aliases=['embedder'])
+    @commands.max_concurrency(1, BucketType.channel)
+    async def embed(self, ctx):
+        """Sends a COPYABLE embed in the channel for you to use anywhere you like"""
+        displayable = 'https://embed.rauf.wtf/'
+        def check(m):
+            return m.channel.id == ctx.channel.id and m.author.id == ctx.author.id
+        try:
+            a = await ctx.send('Alright, send me the embed title text. Note: this is a required argument.')
+            msg = await self.bot.wait_for('message', check=check,timeout=30)
+        except asyncio.TimeoutError:
+            return await ctx.send("You didn't reply in 30 seconds, so the request timed out.")
+        else:
+            displayable += f"{msg.content.replace(' ', '+')}?"
+            try:
+                await msg.delete()
+                await a.delete()
+            except discord.Forbidden:
+                pass
+        b = await ctx.send('Alright, recorded your embed title. Next, send me the author of the embed. Say "None" to leave this field blank.')
+
+        try:
+            msg = await self.bot.wait_for('message', check=check,timeout=30)
+        except asyncio.TimeoutError:
+            return await ctx.send("You didn't reply in 30 seconds, so the request timed out.")
+        else:
+            if not msg.content.lower() == 'none':
+                displayable += f"&author={msg.content.replace(' ', '+')}"
+            try:
+                await msg.delete()
+                await b.delete()
+            except discord.Forbidden:
+                pass
+        c = await ctx.send('Alright, next I need the colour of your embed in hex form. This will default to black. Say "None" to leave this field blank.')
+
+        try:
+            msg = await self.bot.wait_for('message', check=check,timeout=30)
+        except asyncio.TimeoutError:
+            return await ctx.send("You didn't reply in 30 seconds, so the request timed out.")
+        else:
+            if not msg.content.lower() == 'none':
+                displayable += f"&color={msg.content.replace(' ', '+').replace('#', '')}"
+            try:
+                await msg.delete()
+                await c.delete()
+            except discord.Forbidden:
+                pass
+        d = await ctx.send('Alright, next I need the image URL of the embed that will be displayed below the title. Say "None" to leave this field blank.')
+
+        try:
+            msg = await self.bot.wait_for('message', check=check,timeout=30)
+        except asyncio.TimeoutError:
+            return await ctx.send("You didn't reply in 30 seconds, so the request timed out.")
+        else:
+            if not msg.content.lower() == 'none':
+                displayable += f"&image={msg.content.replace(' ', '+')}"
+            try:
+                await msg.delete()
+                await d.delete()
+            except discord.Forbidden:
+                pass
+        e = await ctx.send('Alright, finally I need the redirect URL of the embed, the website users will go to when they click the link. Say "None" to leave this field blank.')
+
+        try:
+            msg = await self.bot.wait_for('message', check=check,timeout=30)
+        except asyncio.TimeoutError:
+            return await ctx.send("You didn't reply in 30 seconds, so the request timed out.")
+        else:
+            if not msg.content.lower() == 'none':
+                displayable += f"&url={msg.content.replace(' ', '+')}"
+            try:
+                await msg.delete()
+                await e.delete()
+            except discord.Forbidden:
+                pass
+            await ctx.send(f'Alright, I have all I need. To send this embed anywhere, copy this link and paste it wherever you want.\n\n```fix\n{displayable}\n```\n\nHere is a visual representation of your embed:')
+        return await ctx.send(displayable)
+
     @commands.command()
     async def charinfo(self, ctx, *, characters: str):
         """Shows you information about a number of characters."""
