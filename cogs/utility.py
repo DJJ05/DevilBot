@@ -45,7 +45,7 @@ class utilityCog(commands.Cog):
         def check(m):
             return m.channel.id == ctx.channel.id and m.author.id == ctx.author.id
         try:
-            a = await ctx.send('Alright, send me the embed title text. Note: this is a required argument.')
+            a = await ctx.send('Alright, send me the embed title text. Note: this is a required argument. PS: Try avoiding using characters other than a-Z and 0-9 since this can cause errors.')
             msg = await self.bot.wait_for('message', check=check,timeout=30)
         except asyncio.TimeoutError:
             return await ctx.send("You didn't reply in 30 seconds, so the request timed out.")
@@ -70,7 +70,7 @@ class utilityCog(commands.Cog):
                 await b.delete()
             except discord.Forbidden:
                 pass
-        c = await ctx.send('Alright, next I need the colour of your embed in hex form. This will default to black. Say "None" to leave this field blank. PS: Try avoiding using characters other than a-Z and 0-9 since this can cause errors.')
+        c = await ctx.send('Alright, next I need the colour of your embed in hex form. This will default to black. Say "None" to leave this field blank.')
 
         try:
             msg = await self.bot.wait_for('message', check=check,timeout=30)
