@@ -131,7 +131,7 @@ class eventsCog(commands.Cog):
             ' blitz ' : 239516219445608449,
             ' vic ': 595752455409762304,
             ' jake ' : 116268975020703751,
-            ' asti ' : 517067779145334795
+            'asti ' : 517067779145334795
             }
             
             concac = ' ' + message.content.lower().replace('\n', '') + ' '
@@ -294,7 +294,7 @@ class eventsCog(commands.Cog):
 
             errchannel = self.bot.get_channel(748962623487344753)
 
-            embed = discord.Embed(colour=0xff0033, title=f'Error during `{ctx.command.name}`',
+            embed = discord.Embed(colour=0xff0033, title=f'Error during `{ctx.command.qualified_name}`',
                                   description=f'ID: {ctx.message.id}\n[Jump]({ctx.message.jump_url})\n{traceback_text}')
             a = await errchannel.send(embed=embed)
 
