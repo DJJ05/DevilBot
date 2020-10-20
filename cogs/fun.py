@@ -118,9 +118,9 @@ class funCog(commands.Cog):
     @commands.command(aliases=['dex', 'poke', 'pokemon', 'poké', 'pokémon'])
     async def pokedex(self, ctx, *, pokemon:str):
         """Return information about specified Pokemon"""
-        votecheck = await checkvoter(ctx.author.id)
+        '''votecheck = await checkvoter(ctx.author.id)
         if not votecheck:
-            return await ctx.send(embed=VOTELOCKTEMP)
+            return await ctx.send(embed=VOTELOCKTEMP)'''
         pokemon=pokemon.lower()
         async with ctx.typing():
             base_url = 'https://pokeapi.co/api/v2/pokemon/'
