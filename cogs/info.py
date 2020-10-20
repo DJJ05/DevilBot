@@ -245,7 +245,7 @@ class infoCog(commands.Cog):
         '''Get information about a member.'''
         if member is None:
             member = ctx.author
-
+        activity = '`None`'
         if len(member.activities) > 0:
             for activity in member.activities:
                 if isinstance(activity, discord.Spotify):
@@ -254,10 +254,6 @@ class infoCog(commands.Cog):
                     activity = f'Playing `{activity.name}``'
                 elif isinstance(activity, discord.Streaming):
                     activity = f'Streaming `{activity.name}`'
-                else:
-                    activity = '`None`'
-        else:
-            activity = '`None`'
         embed = discord.Embed(title=f"{member}", colour=self.colour)
         embed.add_field(name='**General:**',
                         value=f'Name: `{member}`\n'

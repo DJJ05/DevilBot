@@ -145,6 +145,7 @@ class funCog(commands.Cog):
             async with aiohttp.ClientSession() as cs:
                 async with cs.get(pokespecies) as r:
                     data = await r.json()
+            pokedesc = 'No description found.'
             for i in data['flavor_text_entries']:
                 if i['language']['name'] == 'en':
                     pokedesc = (i['flavor_text']).replace('\n', ' ').lower().capitalize()
