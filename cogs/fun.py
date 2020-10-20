@@ -1,9 +1,8 @@
 import discord
 from discord.ext import commands
-
-import asyncio, aiohttp, io
-import urllib.parse
-import secrets, typing, random
+import aiohttp
+import io
+from .dbl import checkvoter, VOTELOCKTEMP
 
 class funCog(commands.Cog):
     """Fun commands"""
@@ -119,6 +118,9 @@ class funCog(commands.Cog):
     @commands.command(aliases=['dex', 'poke', 'pokemon', 'poké', 'pokémon'])
     async def pokedex(self, ctx, *, pokemon:str):
         """Return information about specified Pokemon"""
+        votecheck = await checkvoter(ctx.author.id)
+        if not votecheck:
+            return await ctx.send(embed=VOTELOCKTEMP)
         pokemon=pokemon.lower()
         base_url = 'https://pokeapi.co/api/v2/pokemon/'
         async with aiohttp.ClientSession() as cs, ctx.typing():

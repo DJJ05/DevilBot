@@ -35,6 +35,13 @@ async def updatedbl(bot) -> dict:
                 data = await resp.json()
         return data
 
+VOTELOCKTEMP = discord.Embed(
+    colour=0xff9300,
+    title='This command is votelocked!',
+    description='Apologies, but this command has been **votelocked**. This means that it is only available for people that have voted for **DevilBot on top.gg** to help support its growth! Voting is **quick** and **easy** and helps me out tenfold.\n\n[To use this command please vote](https://bit.ly/vote-devilbot) (it may take up to **10 seconds** to update the bot).'
+)
+VOTELOCKTEMP.set_thumbnail(url='https://cdn.discordapp.com/attachments/745950521072025714/766734683479998574/attention.png')
+
 class dblCog(commands.Cog):
     """Handles interactions with the top.gg API"""
 
@@ -59,7 +66,7 @@ class dblCog(commands.Cog):
         embed = discord.Embed(
             colour=self.colour,
             description=f'Currently you {desc}',
-            title='You can vote at __**http://bit.ly/vote-devilbot**__'
+            title='You can vote at __**https://bit.ly/vote-devilbot**__'
         )
         await ctx.send(embed=embed)
 
