@@ -122,43 +122,44 @@ class funCog(commands.Cog):
         if not votecheck:
             return await ctx.send(embed=VOTELOCKTEMP)
         pokemon=pokemon.lower()
-        base_url = 'https://pokeapi.co/api/v2/pokemon/'
-        async with aiohttp.ClientSession() as cs, ctx.typing():
-            try:
-                async with cs.get(base_url + pokemon) as r:
+        async with ctx.typing():
+            base_url = 'https://pokeapi.co/api/v2/pokemon/'
+            async with aiohttp.ClientSession() as cs, ctx.typing():
+                try:
+                    async with cs.get(base_url + pokemon) as r:
+                        data = await r.json()
+                except:
+                    raise commands.BadArgument('Requested Pokémon not found!')
+            pokename = data["name"]
+            pokenum = f'#{data["id"]}'
+            pokeheight = f'{data["height"]}m'
+            pokeweight = f'{data["weight"]/10}kg'
+            poketypes=[]
+            for i in data['types']:
+                poketypes.append(f"• {(i['type']['name'].capitalize())}")
+            abilities=[]
+            for i in data['abilities']:
+                abilities.append(f"• {(i['ability']['name'].capitalize())}")
+            pokeimg = data['sprites']['other']['official-artwork']['front_default'] or data['sprites']['front_default']
+            pokespecies = data['species']['url']
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(pokespecies) as r:
                     data = await r.json()
-            except:
-                raise commands.BadArgument('Requested Pokémon not found!')
-        pokename = data["name"]
-        pokenum = f'#{data["id"]}'
-        pokeheight = f'{data["height"]}m'
-        pokeweight = f'{data["weight"]/10}kg'
-        poketypes=[]
-        for i in data['types']:
-            poketypes.append(f"• {(i['type']['name'].capitalize())}")
-        abilities=[]
-        for i in data['abilities']:
-            abilities.append(f"• {(i['ability']['name'].capitalize())}")
-        pokeimg = data['sprites']['other']['official-artwork']['front_default'] or data['sprites']['front_default']
-        pokespecies = data['species']['url']
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(pokespecies) as r:
-                data = await r.json()
-        for i in data['flavor_text_entries']:
-            if i['language']['name'] == 'en':
-                pokedesc = (i['flavor_text']).replace('\n', ' ').lower().capitalize()
-                break
-        is_legendary = data['is_legendary']
-        is_mythical = data['is_mythical']
-        evochain = data['evolution_chain']['url']
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(evochain) as r:
-                data = await r.json()
-        evoline = f'{data["chain"]["species"]["name"].capitalize()}'
-        if len(data['chain']['evolves_to']):
-            evoline+=f' => {data["chain"]["evolves_to"][0]["species"]["name"].capitalize()}'
-            if len(data['chain']['evolves_to'][0]['evolves_to']):
-                evoline+=f' => {data["chain"]["evolves_to"][0]["evolves_to"][0]["species"]["name"].capitalize()}'
+            for i in data['flavor_text_entries']:
+                if i['language']['name'] == 'en':
+                    pokedesc = (i['flavor_text']).replace('\n', ' ').lower().capitalize()
+                    break
+            is_legendary = data['is_legendary']
+            is_mythical = data['is_mythical']
+            evochain = data['evolution_chain']['url']
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(evochain) as r:
+                    data = await r.json()
+            evoline = f'{data["chain"]["species"]["name"].capitalize()}'
+            if len(data['chain']['evolves_to']):
+                evoline+=f' => {data["chain"]["evolves_to"][0]["species"]["name"].capitalize()}'
+                if len(data['chain']['evolves_to'][0]['evolves_to']):
+                    evoline+=f' => {data["chain"]["evolves_to"][0]["evolves_to"][0]["species"]["name"].capitalize()}'
         embed = discord.Embed(
             title=f'{pokename.capitalize()} {pokenum}',
             colour=self.colour,
