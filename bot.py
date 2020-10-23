@@ -15,7 +15,7 @@ intents = discord.Intents().all()
 class Bot(commands.AutoShardedBot):
     def __init__(self, database_conn, event_loop):
         super().__init__(command_prefix=self.get_prefix, intents=intents, case_insensitive=True, loop=event_loop,
-                         description="")
+                         description="", shard_count=3)
         self.db_conn = database_conn
         self.blacklist = self.initialize_blacklist()
         self.colour = 0xff9300

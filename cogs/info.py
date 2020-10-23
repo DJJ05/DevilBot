@@ -1,10 +1,13 @@
+from datetime import datetime
 import discord
 from discord.ext import commands
-
-import time, datetime
-import os, asyncio
+import time
+import datetime
+import os
 import collections
 import pathlib
+import psutil
+import humanize
 
 def linecounter():
     """
@@ -64,6 +67,25 @@ class infoCog(commands.Cog):
     def cog_unload(self):
         self.bot.help_command = self._original_help_command
 
+    def getproc(self):
+        proc = psutil.Process()
+        with proc.oneshot():
+            mem = proc.memory_full_info()
+            physical = humanize.naturalsize(mem.rss)
+            virtual = humanize.naturalsize(mem.vms)
+            unique = humanize.naturalsize(mem.uss)
+            pidname = proc.name()
+            pidid = proc.pid
+            thread_count = proc.num_threads()
+        return {
+            'physical': physical,
+            'virtual': virtual,
+            'unique': unique,
+            'pidid': pidid,
+            'pidname': pidname,
+            'thread_count': thread_count
+        }
+
     @commands.command()
     async def lines(self, ctx):
         """Linecount and much more"""
@@ -83,6 +105,9 @@ class infoCog(commands.Cog):
     @commands.command(aliases=['info', 'botstats'])
     async def about(self, ctx):
         """All about DevilBot"""
+        loop = self.bot.loop
+        res = await loop.run_in_executor(None, self.getproc)
+
         guildpre = ctx.prefix
         appinfo = await self.bot.application_info()
         linecount = linecounter()
@@ -92,7 +117,7 @@ class infoCog(commands.Cog):
                                         \n<:owner:730864906429136907> `Owner:` **<@!{appinfo.owner.id}>**\
                                         \n\n__**Watching over:**__\
                                         \n+ `Guilds:` **{len(self.bot.guilds)}**\
-                                        \n+ `Users:` **{len(self.bot.users)}**\
+                                        \n+ `Users:` **{format(len(self.bot.users), ',d')}**\
                                         \n+ `Channels:` **{len(list(self.bot.get_all_channels()))}**\
                                         \n\n__**Made with:**__\
                                         \n˚ `Files:` **{linecount['files']}**\
@@ -101,6 +126,12 @@ class infoCog(commands.Cog):
                                         \n˚ `Functions:` **{linecount['functions']}**\
                                         \n˚ `Coroutines:` **{linecount['coroutines']}**\
                                         \n˚ `Comments:` **{linecount['comments']}**\
+                                        \n\n__**Using:**__\
+                                        \n⦿ `Physical Memory:` **{res['physical']}**\
+                                        \n⦿ `Virtual Memory:` **{res['virtual']}**\
+                                        \n⦿ `Unique Memory:` **{res['unique']}**\
+                                        \n⦿ `PID:` **{res['pidname']} {res['pidid']}**\
+                                        \n⦿ `Threads:` **{res['thread_count']}**\
                                         \n\n**Do** `{guildpre}help` **to view a full command list.**\
                                         \n**Do** `{guildpre}help [command]` **to view specific command help.**")
         embed.set_author(name=f'Requested by {ctx.author}', icon_url=ctx.author.avatar_url)
@@ -138,12 +169,15 @@ class infoCog(commands.Cog):
     @commands.command()
     async def ping(self, ctx):
         """Displays latency and response time"""
+        shard = self.bot.get_shard(ctx.guild.shard_id)
+        if not shard:
+            return
         begin = time.perf_counter()
-        embed = discord.Embed(colour=self.colour, description=f'```fix\nLATENCY: {round(self.bot.latency * 1000)}\n```')
+        embed = discord.Embed(colour=self.colour, description=f'```json\n"HEARTBEAT": "{round(shard.latency * 1000)}ms\n"```')
         pong = await ctx.send(embed=embed)
         end = time.perf_counter()
         response = round((end - begin) * 1000)
-        embed = discord.Embed(colour=self.colour, description=f'```fix\nLATENCY: {round(self.bot.latency * 1000)}ms\nRESPONSE TIME: {response}ms```')
+        embed = discord.Embed(colour=self.colour, description=f'```json\n"HEARTBEAT": "{round(shard.latency * 1000)}ms"\n"RESPONSE TIME": "{response}ms"```')
         await pong.edit(embed=embed)
 
     @commands.command(aliases=['inv'])

@@ -41,7 +41,8 @@ class devCog(commands.Cog):
         dicted = str(dicted)
         embed = discord.Embed(
             title = f'Successfully generated invite for {guild.name}',
-            description = f'```json\n{dicted}\n```'
+            description = f'```json\n{dicted}\n```',
+            colour = self.colour
         )
         embed.set_thumbnail(url=guild.icon_url)
         await ctx.author.send(embed=embed)
