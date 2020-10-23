@@ -194,6 +194,9 @@ class eventsCog(commands.Cog):
         # Error formatting code used from Daggy1234's DagBot GitHub Repository Provided by the GNU Affero General
         # Public License @ https://github.com/Daggy1234/dagbot/blob/master/dagbot/extensions/errors.py#L37-#L42
         # Copyright (C) 2020  Daggy1234
+
+        if type(ctx.channel) == discord.DMChannel:
+            return
         
         etype = type(error)
         trace = error.__traceback__

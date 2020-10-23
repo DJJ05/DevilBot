@@ -1,9 +1,11 @@
 import discord
 from discord.ext import commands
-import os, json, typing
+import asyncio
+import os
+import json
+import typing
 import traceback
 import textwrap
-import secrets
 
 class devCog(commands.Cog):
     """Developer commands"""
@@ -18,12 +20,50 @@ class devCog(commands.Cog):
     #async def cog_check(self, ctx):
         #return ctx.author.id == 670564722218762240 # check for all commands in this cog
 
+    @commands.command(aliases=['invgrab', 'makeinv'])
+    @commands.is_owner()
+    async def grabinv(self, ctx, guild: int= None):
+        guild = self.bot.get_guild(guild) if guild else ctx.guild
+        gchannel = None
+        for channel in guild.text_channels:
+            if ctx.me.permissions_in(channel).create_instant_invite:
+                gchannel = channel
+                break
+        if not gchannel:
+            raise commands.BotMissingPermissions
+        invite = await gchannel.create_invite(reason='Invite for logging and testing purposes. Expires in 1 hour.', max_age=3600)
+        await ctx.send('👍')
+        dicted = {}
+        for i in dir(invite):
+            if not str(i).startswith('__') and not str(getattr(invite, i)).startswith('<'):
+                dicted[i] = str(getattr(invite, i))
+        dicted = json.dumps(dicted, indent=4)
+        dicted = str(dicted)
+        embed = discord.Embed(
+            title = f'Successfully generated invite for {guild.name}',
+            description = f'```json\n{dicted}\n```'
+        )
+        embed.set_thumbnail(url=guild.icon_url)
+        await ctx.author.send(embed=embed)
+        sent = await ctx.author.send('Say "del" or "delete" to delete this invite link')
+        def check(m):
+            return m.author.id == ctx.author.id and type(m.channel) == discord.DMChannel and m.content.lower() in ['del', 'delete']
+        try:
+            await self.bot.wait_for('message', check=check, timeout=3600)
+        except asyncio.TimeoutError:
+            pass
+        else:
+            await sent.delete()
+            await invite.delete()
+            await ctx.author.send('Done!')
+
     @commands.group(invoke_without_command=True, aliases=['err'])
     async def error(self, ctx):
         """Error commands"""
         pass
 
     @error.command(aliases=['res', 'close'])
+    @commands.is_owner()
     async def resolve(self, ctx, id=None, *, message):
         """Resolve an error"""
         if not id:
@@ -58,6 +98,7 @@ class devCog(commands.Cog):
         return await ctx.send('Done.')
 
     @error.command(aliases=['bc'])
+    @commands.is_owner()
     async def broadcast(self, ctx, id=None, *, message):
         """Broadcast an error update"""
         if not id:
@@ -144,6 +185,7 @@ class devCog(commands.Cog):
         return await ctx.send(f'Successfully unfollowed `{id}.` You can use `{ctx.prefix}error follow {id}` at anytime to follow this error.')
 
     @commands.group(invoke_without_command=True, aliases=['bl'])
+    @commands.is_owner()
     async def blacklist(self, ctx):
         """Blacklisting commands"""
         pass

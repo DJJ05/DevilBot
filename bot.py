@@ -50,7 +50,10 @@ class Bot(commands.AutoShardedBot):
     async def get_prefix(self, message: discord.Message) -> str:
         with open('prefixes.json', 'r') as f:
             prefixes = json.load(f)
-        guild_prefix = prefixes.get(str(message.guild.id), "ow!")		
+        if type(message.channel) == discord.TextChannel:
+            guild_prefix = prefixes.get(str(message.guild.id))
+        else:
+            guild_prefix = 'ow!'	
         return commands.when_mentioned_or(guild_prefix)(self, message)
 
     async def on_ready(self) -> None:
@@ -102,6 +105,13 @@ def main():
             raise commands.CheckFailure(f'You have been blacklisted from using me. Please check you DMs for a reason or contact DevilJamJar#0001 to appeal.')
         else:
             return True
+
+    @bot.check
+    async def check_dm(ctx):
+        if type(ctx.channel) == discord.DMChannel:
+            await ctx.send('Sorry, I don\'t allow commands to be ran in DMs! Try using `ow!help` in your server, or use whatever prefix you have configured.')
+            return False
+        return True
 
     # bot.remove_command('help')
     bot.run()
