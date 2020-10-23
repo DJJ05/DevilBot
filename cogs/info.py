@@ -122,6 +122,7 @@ class infoCog(commands.Cog):
                                         \n+ `Guilds:` **{len(self.bot.guilds)}**\
                                         \n+ `Users:` **{format(len(self.bot.users), ',d')}**\
                                         \n+ `Channels:` **{len(list(self.bot.get_all_channels()))}**\
+                                        \n+ `Shards:` **{len(self.bot.shards)}**\
                                         \n\n__**Made with:**__\
                                         \n˚ `Files:` **{linecount['files']}**\
                                         \n˚ `Lines:` **{linecount['lines']:,}**\
@@ -165,10 +166,10 @@ class infoCog(commands.Cog):
         cogs = []
         for cog in self.bot.cogs:
             cogs.append(
-                f"`{cog}` • {self.bot.cogs[cog].__doc__}")  # adds cogs and their description to list. if the cog doesnt have a description it will return as "None"
+                f"`{cog}` • {self.bot.cogs[cog].__doc__}")
         await ctx.send(embed=discord.Embed(colour=self.colour, title=f"All Cogs ({len(self.bot.cogs)})",
                                            description=f"Do `{ctx.prefix}help <cog>` to know more about them!\nhttps://bit.ly/help-command-by-niztg" + "\n\n" + "\n".join(
-                                               cogs)))  # joins each item in the list with a new line
+                                               cogs)))
 
     @commands.command()
     async def ping(self, ctx):
@@ -178,12 +179,12 @@ class infoCog(commands.Cog):
             return
         begin = time.perf_counter()
         embed = discord.Embed(
-            colour=self.colour, description=f'```json\n"HEARTBEAT": "{round(shard.latency * 1000)}ms\n"```')
+            colour=self.colour, description=f'```json\n"SHARD HEARTBEAT": "{round(shard.latency * 1000)}ms\n"```')
         pong = await ctx.send(embed=embed)
         end = time.perf_counter()
         response = round((end - begin) * 1000)
         embed = discord.Embed(
-            colour=self.colour, description=f'```json\n"HEARTBEAT": "{round(shard.latency * 1000)}ms"\n"RESPONSE TIME": "{response}ms"```')
+            colour=self.colour, description=f'```json\n"SHARD HEARTBEAT": "{round(shard.latency * 1000)}ms"\n"RESPONSE TIME": "{response}ms"```')
         await pong.edit(embed=embed)
 
     @commands.command(aliases=['inv'])
