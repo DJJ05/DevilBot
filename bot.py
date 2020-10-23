@@ -1,5 +1,4 @@
 import asyncio
-
 from discord.ext import commands
 import discord
 import sys
@@ -50,10 +49,7 @@ class Bot(commands.AutoShardedBot):
     async def get_prefix(self, message: discord.Message) -> str:
         with open('prefixes.json', 'r') as f:
             prefixes = json.load(f)
-        if type(message.channel) == discord.TextChannel:
-            guild_prefix = prefixes.get(str(message.guild.id))
-        else:
-            guild_prefix = 'ow!'	
+        guild_prefix = 'ow!' if not message.guild else prefixes.get(str(message.guild.id), 'ow!')
         return commands.when_mentioned_or(guild_prefix)(self, message)
 
     async def on_ready(self) -> None:
