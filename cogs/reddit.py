@@ -2,13 +2,16 @@ import discord
 from discord.ext import commands
 import secrets
 
-import asyncpraw, random, aiohttp
+import asyncpraw
+import random
+import aiohttp
 
 reddit = asyncpraw.Reddit(client_id=secrets.secrets_asyncpraw_client_id,
                           client_secret=secrets.secrets_asyncpraw_client_secret,
                           password=secrets.secrets_asyncpraw_password,
                           user_agent=secrets.secrets_asyncpraw_user_agent,
                           username=secrets.secrets_asyncpraw_username)
+
 
 class redditCog(commands.Cog):
     """Reddit commands"""
@@ -31,44 +34,44 @@ class redditCog(commands.Cog):
                 'memes', 'dankmemes', 'dankexchange', 'okbuddyretard', 'wholesomememes'
             ]
         )
-        memes=[]
+        memes = []
         async with ctx.typing():
             subreddit = await reddit.subreddit(subreddit)
             async for submission in subreddit.hot(limit=50):
                 if not submission.over_18 and not submission.distinguished and not submission.is_self:
                     memes.append(submission)
         submission = random.choice(memes)
-        embed=discord.Embed(
-                colour=self.colour,
-                title=submission.title.capitalize(),
-                url=f'https://reddit.com{submission.permalink}',
-                description=f'Posted in r/{subreddit} by u/{submission.author.name}\n\n\
+        embed = discord.Embed(
+            colour=self.colour,
+            title=submission.title.capitalize(),
+            url=f'https://reddit.com{submission.permalink}',
+            description=f'Posted in r/{subreddit} by u/{submission.author.name}\n\n\
                               <:upvote:748924744572600450> {submission.score}   <:speechbubble:748960649861922877> {submission.num_comments}'
-            )
+        )
         embed.set_image(url=submission.url)
         await ctx.send(embed=embed)
 
     @commands.command()
     async def showerthought(self, ctx):
-        thoughts=[]
+        thoughts = []
         async with ctx.typing():
             subreddit = await reddit.subreddit('showerthoughts')
             async for submission in subreddit.hot(limit=50):
                 if not submission.over_18 and not submission.distinguished and submission.is_self:
                     thoughts.append(submission)
         submission = random.choice(thoughts)
-        embed=discord.Embed(
-                colour=self.colour,
-                title=f'Showerthought by u/{submission.author.name}',
-                url=f'https://reddit.com{submission.permalink}',
-                description=f'```fix\n{submission.title.capitalize()}\n```\n<:upvote:748924744572600450> {submission.score}   <:speechbubble:748960649861922877> {submission.num_comments}'
-            )
+        embed = discord.Embed(
+            colour=self.colour,
+            title=f'Showerthought by u/{submission.author.name}',
+            url=f'https://reddit.com{submission.permalink}',
+            description=f'```fix\n{submission.title.capitalize()}\n```\n<:upvote:748924744572600450> {submission.score}   <:speechbubble:748960649861922877> {submission.num_comments}'
+        )
         embed.set_image(url=submission.url)
         await ctx.send(embed=embed)
 
     @commands.command()
     async def askreddit(self, ctx):
-        qs=[]
+        qs = []
         async with ctx.typing():
             subreddit = await reddit.subreddit('askreddit')
             async for submission in subreddit.hot(limit=50):
@@ -76,12 +79,12 @@ class redditCog(commands.Cog):
                     qs.append(submission)
         submission = random.choice(qs)
         subcomments = await submission.comments()
-        embed=discord.Embed(
-                title=submission.title.capitalize(),
-                colour=self.colour,
-                url=f'https://reddit.com{submission.permalink}',
-                description=f'<:upvote:748924744572600450> {submission.score}   <:speechbubble:748960649861922877> {submission.num_comments}'
-            )
+        embed = discord.Embed(
+            title=submission.title.capitalize(),
+            colour=self.colour,
+            url=f'https://reddit.com{submission.permalink}',
+            description=f'<:upvote:748924744572600450> {submission.score}   <:speechbubble:748960649861922877> {submission.num_comments}'
+        )
         embed.add_field(
             name=f'Top Comment:',
             value=f'```fix\n{subcomments[0].body[:1010]}\n```',
@@ -93,6 +96,7 @@ class redditCog(commands.Cog):
             inline=False
         )
         await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(redditCog(bot))

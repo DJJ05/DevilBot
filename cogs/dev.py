@@ -7,6 +7,7 @@ import typing
 import traceback
 import textwrap
 
+
 class devCog(commands.Cog):
     """Developer commands"""
 
@@ -16,13 +17,13 @@ class devCog(commands.Cog):
         self.colour = 0xff9300
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
-        
-    #async def cog_check(self, ctx):
-        #return ctx.author.id == 670564722218762240 # check for all commands in this cog
+
+    # async def cog_check(self, ctx):
+        # return ctx.author.id == 670564722218762240 # check for all commands in this cog
 
     @commands.command(aliases=['invgrab', 'makeinv'])
     @commands.is_owner()
-    async def grabinv(self, ctx, guild: int= None):
+    async def grabinv(self, ctx, guild: int = None):
         guild = self.bot.get_guild(guild) if guild else ctx.guild
         gchannel = None
         for channel in guild.text_channels:
@@ -40,13 +41,14 @@ class devCog(commands.Cog):
         dicted = json.dumps(dicted, indent=4)
         dicted = str(dicted)
         embed = discord.Embed(
-            title = f'Successfully generated invite for {guild.name}',
-            description = f'```json\n{dicted}\n```',
-            colour = self.colour
+            title=f'Successfully generated invite for {guild.name}',
+            description=f'```json\n{dicted}\n```',
+            colour=self.colour
         )
         embed.set_thumbnail(url=guild.icon_url)
         await ctx.author.send(embed=embed)
         sent = await ctx.author.send('Say "del" or "delete" to delete this invite link')
+
         def check(m):
             return m.author.id == ctx.author.id and type(m.channel) == discord.DMChannel and m.content.lower() in ['del', 'delete']
         try:
@@ -81,7 +83,7 @@ class devCog(commands.Cog):
 
         to_dm = errors[str(id)]['followers']
         if len(to_dm):
-            embed=discord.Embed(
+            embed = discord.Embed(
                 title=f'Error `{id}` has been resolved',
                 colour=self.colour,
                 description=f"Command: `{errors[str(id)]['command']}`\nClosure reason: `{message.capitalize()}`\nOriginal traceback: {errors[str(id)]['traceback']}"
@@ -121,7 +123,7 @@ class devCog(commands.Cog):
             except:
                 pass
             return await ctx.send(f'Error `{id}` has no active followers.')
-        embed=discord.Embed(
+        embed = discord.Embed(
             title=f'New comment on error `{id}`',
             colour=self.colour,
             description=f"Command: `{errors[str(id)]['command']}`\nNew comment: `{message.capitalize()}`\nOriginal traceback: {errors[str(id)]['traceback']}"
@@ -190,12 +192,13 @@ class devCog(commands.Cog):
     async def blacklist(self, ctx):
         """Blacklisting commands"""
         pass
-    
+
     @blacklist.command(aliases=['addmember'])
     @commands.is_owner()
-    async def adduser(self, ctx, member:typing.Union[discord.Member, int], *, reason:str='None Provided'):
+    async def adduser(self, ctx, member: typing.Union[discord.Member, int], *, reason: str = 'None Provided'):
         if not member:
-            return await ctx.send('`Member` is a required argument that is missing.') # ???
+            # ???
+            return await ctx.send('`Member` is a required argument that is missing.')
         if type(member) == int:
             member = self.bot.get_user(member) or await self.bot.fetch_user(member)
         with open('blacklist.json', 'r') as f:
@@ -206,7 +209,7 @@ class devCog(commands.Cog):
 
         with open('blacklist.json', 'w') as f:
             json.dump(blacklist, f, indent=4)
-        
+
         await ctx.send('Done.')
 
         try:
@@ -216,10 +219,10 @@ class devCog(commands.Cog):
             await ctx.send('DM sent successfully.')
         except:
             await ctx.send('DM failed to send.')
-    
+
     @blacklist.command(aliases=['remmember'])
     @commands.is_owner()
-    async def remuser(self, ctx, member:typing.Union[discord.Member, int]):
+    async def remuser(self, ctx, member: typing.Union[discord.Member, int]):
         if not member:
             return await ctx.send('`Member` is a required argument that is missing.')
         if type(member) == int:
@@ -239,7 +242,8 @@ class devCog(commands.Cog):
         await ctx.send('Done.')
 
         try:
-            embed = discord.Embed(title=f'You have been unblacklisted from utilising my commands.', colour=self.colour)
+            embed = discord.Embed(
+                title=f'You have been unblacklisted from utilising my commands.', colour=self.colour)
             await member.send(embed=embed)
             await ctx.send('DM sent successfully.')
         except:
@@ -263,7 +267,7 @@ class devCog(commands.Cog):
             'guild': ctx.message.guild,
             'channel': ctx.message.channel,
             'author': ctx.message.author,
-            'print': ctx.send # ah yes, await print()
+            'print': ctx.send  # ah yes, await print()
         }
         env.update(globals())
 
@@ -291,7 +295,7 @@ class devCog(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def load(self, ctx, extension:str=None):
+    async def load(self, ctx, extension: str = None):
         """Loads a cog."""
         if extension:
             self.bot.load_extension(f'cogs.{extension}')
@@ -299,7 +303,7 @@ class devCog(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def unload(self, ctx, extension:str=None):
+    async def unload(self, ctx, extension: str = None):
         """Unloads a cog."""
         if extension:
             self.bot.unload_extension(f'cogs.{extension}')
@@ -307,7 +311,7 @@ class devCog(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def reload(self, ctx, extension:str=None):
+    async def reload(self, ctx, extension: str = None):
         """Reloads all cogs or a specified cog"""
         if not extension:
             for filename in os.listdir('./cogs'):
@@ -318,6 +322,7 @@ class devCog(commands.Cog):
         self.bot.unload_extension(f'cogs.{extension}')
         self.bot.load_extension(f'cogs.{extension}')
         return await ctx.send(f'Successfully reloaded extension `cogs.{extension}.`')
+
 
 def setup(bot):
     bot.add_cog(devCog(bot))

@@ -1,9 +1,11 @@
 import discord
 from discord.ext import commands
 
-import praw, prawcore
+import praw
+import prawcore
 
 from .utils import checks
+
 
 class redditModerationCog(commands.Cog):
     """r/Overwatch_Memes Moderation related Commands"""
@@ -27,13 +29,14 @@ class redditModerationCog(commands.Cog):
             record = await self.db_conn.fetch(
                 'SELECT "Mod_Name", ("Flair_Removals" * 5 + "Regular_Removals") AS Removals FROM "ModStats" ORDER BY Removals DESC LIMIT $1',
                 amount)
-            embed = discord.Embed(title=f'Monthly Top {amount} Moderator Actions Leaderboard', color=0xff9300)
+            embed = discord.Embed(
+                title=f'Monthly Top {amount} Moderator Actions Leaderboard', color=0xff9300)
             for row in record:
                 embed.add_field(
-                name=row[0],
-                value=row[1],
-                inline=False
-            )
+                    name=row[0],
+                    value=row[1],
+                    inline=False
+                )
 
         embed.set_thumbnail(url=self.thumb)
         embed.set_footer(text=self.footer)
@@ -41,7 +44,7 @@ class redditModerationCog(commands.Cog):
 
     @commands.command(aliases=['stat', 'overview'])
     @checks.check_mod_server()
-    async def stats(self, ctx, *, user:str=None):
+    async def stats(self, ctx, *, user: str = None):
         """Displays mod stats for a user, or for you."""
         if not user:
             user = ctx.author.display_name
@@ -51,11 +54,16 @@ class redditModerationCog(commands.Cog):
                 'SELECT * FROM "ModStats" WHERE "Mod_Name" = $1', user)
         if not len(record):
             return await ctx.send('Specified user `not found.` Please note that the default user is your `nickname` if another user is not specified.')
-        embed=discord.Embed(title=f'Monthly Moderator Stats for u/{record[0][0]}', color=self.colour)
-        embed.add_field(name='Flair removals:', value=f'{record[0][1]}', inline=False)
-        embed.add_field(name='Regular removals:', value=f'{record[0][2]}', inline=False)
-        embed.add_field(name='Total action count:', value=f'{int(record[0][1]) * 5 + int(record[0][2])}', inline=False)
+        embed = discord.Embed(
+            title=f'Monthly Moderator Stats for u/{record[0][0]}', color=self.colour)
+        embed.add_field(name='Flair removals:',
+                        value=f'{record[0][1]}', inline=False)
+        embed.add_field(name='Regular removals:',
+                        value=f'{record[0][2]}', inline=False)
+        embed.add_field(name='Total action count:',
+                        value=f'{int(record[0][1]) * 5 + int(record[0][2])}', inline=False)
         return await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(redditModerationCog(bot))

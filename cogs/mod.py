@@ -7,6 +7,7 @@ import asyncio
 
 from .utils import checks
 
+
 class modCog(commands.Cog):
     """Mod commands"""
 
@@ -31,7 +32,7 @@ class modCog(commands.Cog):
     @checks.check_mod_or_owner()
     @commands.bot_has_permissions(manage_channels=True)
     @commands.max_concurrency(1, BucketType.channel)
-    async def lockdown(self, ctx, minutes: float= 30):
+    async def lockdown(self, ctx, minutes: float = 30):
         """Locks down all channels in the guild and makes them untalkable"""
         seconds = minutes * 60
         overwrites = {
@@ -40,6 +41,7 @@ class modCog(commands.Cog):
             )
         }
         await ctx.send(f"Are you sure you want to lock down this guild for {minutes}m? Type 'yes' or 'no'.")
+
         def check(m):
             return m.channel.id == ctx.channel.id and m.author.id == ctx.author.id
         try:
@@ -47,7 +49,7 @@ class modCog(commands.Cog):
         except asyncio.TimeoutError:
             await ctx.send("You took too long to respond, try again.")
         else:
-            if msg.content.lower() in ['yes', 'y',]:
+            if msg.content.lower() in ['yes', 'y', ]:
                 channels = []
 
                 for channel in ctx.guild.text_channels:
@@ -80,7 +82,7 @@ class modCog(commands.Cog):
 
     @commands.command()
     @checks.check_mod_or_owner()
-    async def unautodelete(self, ctx, member:discord.Member):
+    async def unautodelete(self, ctx, member: discord.Member):
         """Requires manage messages permissions. Removes someone from the autodeletion register."""
         try:
             self.autodeletions.pop(member.id)
@@ -90,7 +92,7 @@ class modCog(commands.Cog):
 
     @commands.command()
     @checks.check_mod_or_owner()
-    async def ban(self, ctx, member:typing.Union[discord.Member, int], *, reason:str='None Provided'):
+    async def ban(self, ctx, member: typing.Union[discord.Member, int], *, reason: str = 'None Provided'):
         """Bans a member"""
         if not member:
             return await ctx.send('`Member` is a required argument that is missing.')
@@ -112,7 +114,7 @@ class modCog(commands.Cog):
 
     @commands.command(aliases=['yeet'])
     @checks.check_mod_or_owner()
-    async def kick(self, ctx, member:discord.Member=None, *, reason:str='None Provided'):
+    async def kick(self, ctx, member: discord.Member = None, *, reason: str = 'None Provided'):
         """Kicks a member"""
         if not member:
             return await ctx.send('`Member` is a required argument that is missing.')
@@ -141,11 +143,12 @@ class modCog(commands.Cog):
         except:
             raise commands.BadArgument('This channel has no stored deletions!')
         embed = discord.Embed(
-            title = f'Last deleted message in #{ctx.channel.name}',
-            colour = self.colour,
-            description = f'**Author:**\n{deleted[str(ctx.channel.id)]["author"]}\n**Message:**\n{deleted[str(ctx.channel.id)]["message"]}\n**Created At:**\n{deleted[str(ctx.channel.id)]["created"]}'
+            title=f'Last deleted message in #{ctx.channel.name}',
+            colour=self.colour,
+            description=f'**Author:**\n{deleted[str(ctx.channel.id)]["author"]}\n**Message:**\n{deleted[str(ctx.channel.id)]["message"]}\n**Created At:**\n{deleted[str(ctx.channel.id)]["created"]}'
         )
-        embed.set_author(name=f'Requested by {ctx.author}', icon_url=ctx.message.author.avatar_url)
+        embed.set_author(
+            name=f'Requested by {ctx.author}', icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['devclean', 'botpurge'])
@@ -161,12 +164,13 @@ class modCog(commands.Cog):
 
             if ctx.channel.permissions_for(ctx.me).manage_messages:
                 messages = await ctx.channel.purge(check=lambda m: m.author == ctx.me or m.content.startswith(prefix),
-                                                bulk=True, limit=limit)
+                                                   bulk=True, limit=limit)
             else:
                 messages = await ctx.channel.purge(check=lambda m: m.author == ctx.me, bulk=False, limit=limit)
 
             return await ctx.send(f'I found and deleted `{len(messages)}` of my '
-                                f'message(s) out of the last `{limit}` message(s).', delete_after=3)
+                                  f'message(s) out of the last `{limit}` message(s).', delete_after=3)
+
 
 def setup(bot):
     bot.add_cog(modCog(bot))

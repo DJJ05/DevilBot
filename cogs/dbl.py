@@ -11,6 +11,7 @@ VOTESURL = BASEURL + '/bots/720229743974285312/votes'
 UPDATEURL = BASEURL + '/bots/720229743974285312/stats'
 HEADERS = {'Authorization': SECRETS_DBL}
 
+
 async def checkvoter(userid: int) -> bool:
     params = {'userId': userid}
     async with aiohttp.ClientSession() as cs:
@@ -20,27 +21,31 @@ async def checkvoter(userid: int) -> bool:
         return True
     return False
 
+
 async def checkvotes() -> list:
     async with aiohttp.ClientSession() as cs:
         async with cs.get(VOTESURL, headers=HEADERS) as resp:
             data = await resp.json()
     return data
 
+
 async def updatedbl(bot) -> dict:
-        guilds = len(bot.guilds)
-        shards = len(bot.shards)
-        params = {'server_count': guilds, 'shard_count': shards}
-        async with aiohttp.ClientSession() as cs:
-            async with cs.post(UPDATEURL, headers=HEADERS, data=params) as resp:
-                data = await resp.json()
-        return data
+    guilds = len(bot.guilds)
+    shards = len(bot.shards)
+    params = {'server_count': guilds, 'shard_count': shards}
+    async with aiohttp.ClientSession() as cs:
+        async with cs.post(UPDATEURL, headers=HEADERS, data=params) as resp:
+            data = await resp.json()
+    return data
 
 VOTELOCKTEMP = discord.Embed(
     colour=0xff9300,
     title='This command is votelocked!',
     description='Apologies, but this command has been **votelocked**. This means that it is only available for people that have voted for **DevilBot on top.gg** to help support its growth! Voting is **quick** and **easy** and helps me out tenfold.\n\n[To use this command please vote](https://bit.ly/vote-devilbot) (it may take up to **10 seconds** to update the bot).'
 )
-VOTELOCKTEMP.set_thumbnail(url='https://cdn.discordapp.com/attachments/745950521072025714/766734683479998574/attention.png')
+VOTELOCKTEMP.set_thumbnail(
+    url='https://cdn.discordapp.com/attachments/745950521072025714/766734683479998574/attention.png')
+
 
 class dblCog(commands.Cog):
     """Handles interactions with the top.gg API"""
@@ -75,9 +80,9 @@ class dblCog(commands.Cog):
     async def manual_update(self, ctx):
         resp = await updatedbl(self.bot)
         await ctx.send('Success!') if not len(resp.keys()) else await ctx.send(resp)
-    
+
     @vote.command()
-    async def check(self, ctx, user: discord.Member= None):
+    async def check(self, ctx, user: discord.Member = None):
         if not user:
             user = ctx.author
         voted = await checkvoter(userid=user.id)
@@ -91,6 +96,7 @@ class dblCog(commands.Cog):
             title='Vote Check'
         )
         await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(dblCog(bot))

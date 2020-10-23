@@ -6,6 +6,7 @@ https://github.com/niztg/CyberTron5000
 under the terms of the  MIT LICENSE
 '''
 
+
 def check_admin_or_owner():
     def predicate(ctx):
         if ctx.message.author.id == 670564722218762240:
@@ -14,8 +15,9 @@ def check_admin_or_owner():
             return True
         else:
             return False
-    
+
     return commands.check(predicate)
+
 
 def check_mod_or_owner():
     def predicate(ctx):
@@ -25,8 +27,9 @@ def check_mod_or_owner():
             return True
         else:
             return False
-    
+
     return commands.check(predicate)
+
 
 def check_mod_server():
     def predicate(ctx):
@@ -36,5 +39,5 @@ def check_mod_server():
             return True
         else:
             return False
-    
+
     return commands.check(predicate)

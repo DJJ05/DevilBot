@@ -4,6 +4,7 @@ import aiohttp
 import io
 from .dbl import checkvoter, VOTELOCKTEMP
 
+
 class funCog(commands.Cog):
     """Fun commands"""
 
@@ -26,7 +27,8 @@ class funCog(commands.Cog):
             '+': '.-.-.',  '-': '-....-', '_': '..--.-', '"': '.-..-.', '$': '...-..-', '@': '.--.-.',
             ' ': ' '
         }
-        self.morse_to_text = {value: key for key, value in self.text_to_morse.items()}
+        self.morse_to_text = {value: key for key,
+                              value in self.text_to_morse.items()}
 
     @commands.command(aliases=['tronalddump', 'tronald', 'donaldtrump', 'trump'])
     async def donald(self, ctx):
@@ -38,7 +40,7 @@ class funCog(commands.Cog):
         await ctx.send(f'**Donald Trump:** {data["value"].capitalize()}')
 
     @commands.command(aliases=['yodish'])
-    async def yoda(self, ctx, *, text:str):
+    async def yoda(self, ctx, *, text: str):
         """Translates text into yodish"""
         base_url = 'https://api.funtranslations.com/translate/yoda.json?text='
         async with aiohttp.ClientSession() as cs, ctx.typing():
@@ -48,9 +50,10 @@ class funCog(commands.Cog):
         translated = data['contents']['translated']
         embed = discord.Embed(
             title='Yodish Translator',
-            colour = self.colour
+            colour=self.colour
         )
-        embed.add_field(name='Original', value=original.capitalize(), inline=True)
+        embed.add_field(name='Original',
+                        value=original.capitalize(), inline=True)
         embed.add_field(name='Yodish', value=translated, inline=True)
         await ctx.send(embed=embed)
 
@@ -62,7 +65,7 @@ class funCog(commands.Cog):
             async with cs.get(url) as r:
                 data = await r.json()
         embed = discord.Embed(
-            colour = self.colour,
+            colour=self.colour,
             title=data["affirmation"]
         )
         await ctx.send(embed=embed)
@@ -78,7 +81,8 @@ class funCog(commands.Cog):
                     data = await r.json()
             except:
                 raise commands.BadArgument('Requested move not found!')
-        movedesc = data['effect_entries'][0]['effect'].replace('\n', ' ').replace('  ', ' ').capitalize()
+        movedesc = data['effect_entries'][0]['effect'].replace(
+            '\n', ' ').replace('  ', ' ').capitalize()
         movetype = data['type']['name'].capitalize()
         movepp = data['pp']
         moveid = data['id']
@@ -90,8 +94,8 @@ class funCog(commands.Cog):
         movegen = data['generation']['name'].capitalize()
         embed = discord.Embed(
             title=f'{movename} #{moveid}',
-            colour = self.colour,
-            description = f'**{movedesc}**'
+            colour=self.colour,
+            description=f'**{movedesc}**'
         )
         embed.add_field(name=f'Type', value=movetype, inline=True)
         embed.add_field(name=f'PP', value=movepp, inline=True)
@@ -110,18 +114,18 @@ class funCog(commands.Cog):
             async with cs.get(url) as r:
                 data = await r.text()
         embed = discord.Embed(
-            colour = self.colour
+            colour=self.colour
         )
         embed.set_image(url=data)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['dex', 'poke', 'pokemon', 'poké', 'pokémon'])
-    async def pokedex(self, ctx, *, pokemon:str):
+    async def pokedex(self, ctx, *, pokemon: str):
         """Return information about specified Pokemon"""
         '''votecheck = await checkvoter(ctx.author.id)
         if not votecheck:
             return await ctx.send(embed=VOTELOCKTEMP)'''
-        pokemon=pokemon.lower()
+        pokemon = pokemon.lower()
         async with ctx.typing():
             base_url = 'https://pokeapi.co/api/v2/pokemon/'
             async with aiohttp.ClientSession() as cs, ctx.typing():
@@ -134,10 +138,10 @@ class funCog(commands.Cog):
             pokenum = f'#{data["id"]}'
             pokeheight = f'{data["height"]}m'
             pokeweight = f'{data["weight"]/10}kg'
-            poketypes=[]
+            poketypes = []
             for i in data['types']:
                 poketypes.append(f"• {(i['type']['name'].capitalize())}")
-            abilities=[]
+            abilities = []
             for i in data['abilities']:
                 abilities.append(f"• {(i['ability']['name'].capitalize())}")
             pokeimg = data['sprites']['other']['official-artwork']['front_default'] or data['sprites']['front_default']
@@ -148,7 +152,8 @@ class funCog(commands.Cog):
             pokedesc = 'No description found.'
             for i in data['flavor_text_entries']:
                 if i['language']['name'] == 'en':
-                    pokedesc = (i['flavor_text']).replace('\n', ' ').lower().capitalize()
+                    pokedesc = (i['flavor_text']).replace(
+                        '\n', ' ').lower().capitalize()
                     break
             is_legendary = data['is_legendary']
             is_mythical = data['is_mythical']
@@ -158,9 +163,9 @@ class funCog(commands.Cog):
                     data = await r.json()
             evoline = f'{data["chain"]["species"]["name"].capitalize()}'
             if len(data['chain']['evolves_to']):
-                evoline+=f' => {data["chain"]["evolves_to"][0]["species"]["name"].capitalize()}'
+                evoline += f' => {data["chain"]["evolves_to"][0]["species"]["name"].capitalize()}'
                 if len(data['chain']['evolves_to'][0]['evolves_to']):
-                    evoline+=f' => {data["chain"]["evolves_to"][0]["evolves_to"][0]["species"]["name"].capitalize()}'
+                    evoline += f' => {data["chain"]["evolves_to"][0]["evolves_to"][0]["species"]["name"].capitalize()}'
         embed = discord.Embed(
             title=f'{pokename.capitalize()} {pokenum}',
             colour=self.colour,
@@ -168,16 +173,19 @@ class funCog(commands.Cog):
         )
         embed.add_field(name=f'Weight', value=f'{pokeweight}', inline=True)
         embed.add_field(name=f'Height', value=f'{pokeheight}', inline=True)
-        embed.add_field(name=f'Type(s)', value="\n".join(poketypes), inline=True)
-        embed.add_field(name=f'Abilities', value="\n".join(abilities), inline=True)
-        embed.add_field(name=f'Evolution Line', value=f'{evoline}', inline=True)
+        embed.add_field(name=f'Type(s)', value="\n".join(
+            poketypes), inline=True)
+        embed.add_field(name=f'Abilities',
+                        value="\n".join(abilities), inline=True)
+        embed.add_field(name=f'Evolution Line',
+                        value=f'{evoline}', inline=True)
         embed.add_field(name=f'Legendary', value=is_legendary, inline=True)
         embed.add_field(name=f'Mythical', value=is_mythical, inline=True)
         embed.set_image(url=pokeimg)
         return await ctx.send(embed=embed)
 
     @commands.command()
-    async def fact(self,ctx):
+    async def fact(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f"https://uselessfacts.jsph.pl/random.json?language=en") as r:
                 data = await r.json()
@@ -189,7 +197,8 @@ class funCog(commands.Cog):
         Converts the given text into morse code.
         """
 
-        morse_text = ' '.join([self.text_to_morse.get(letter.upper(), letter) for letter in str(text).strip()])
+        morse_text = ' '.join([self.text_to_morse.get(
+            letter.upper(), letter) for letter in str(text).strip()])
         return await ctx.send(f'`{morse_text}`')
 
     @commands.command()
@@ -200,7 +209,8 @@ class funCog(commands.Cog):
 
         message = []
         for word in str(morse).strip().split('   '):
-            message.append(''.join([self.morse_to_text.get(letter.upper(), letter) for letter in word.split()]))
+            message.append(''.join([self.morse_to_text.get(
+                letter.upper(), letter) for letter in word.split()]))
         message = " ".join(message)
 
         return await ctx.send(f'`{message}`')
@@ -239,6 +249,7 @@ class funCog(commands.Cog):
                             await ctx.send(file=discord.File(fp, filename=filename))
                 else:
                     await ctx.send(embed=discord.Embed(title='Doggo :)', color=self.colour).set_image(url=url))
+
 
 def setup(bot):
     bot.add_cog(funCog(bot))

@@ -3,10 +3,12 @@ from discord.ext import commands
 import secrets
 from asyncdagpi import Client
 from asyncdagpi import exceptions
-import asyncio, aiohttp
+import asyncio
+import aiohttp
 from discord.ext.commands.cooldowns import BucketType
 
 API_CLIENT = Client(secrets.secrets_dagpi_token)
+
 
 class dagpiCog(commands.Cog):
     """Commands that utilise Daggy's API (dagpi.tk)"""
@@ -19,7 +21,7 @@ class dagpiCog(commands.Cog):
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
     @commands.command(aliases=['whosthatpokemon'])
-    @commands.cooldown(1,5,BucketType.user) 
+    @commands.cooldown(1, 5, BucketType.user)
     @commands.max_concurrency(1, BucketType.channel)
     async def wtp(self, ctx):
         """Who's that pokemon!"""
@@ -34,9 +36,9 @@ class dagpiCog(commands.Cog):
         names = []
         embed = discord.Embed(
             title='Who\'s That Pokemon! You can skip by saying \'skip\'',
-            colour = self.colour 
+            colour=self.colour
         )
-        embed.set_image(url = qimg)
+        embed.set_image(url=qimg)
 
         base_url = 'https://pokeapi.co/api/v2/pokemon/'
         try:
@@ -54,7 +56,8 @@ class dagpiCog(commands.Cog):
             names.append(name.lower())
 
         question = await ctx.send(embed=embed)
-        def check(message : discord.Message) -> bool:
+
+        def check(message: discord.Message) -> bool:
             return message.content.lower() in names or message.content.lower() == 'skip' and message.author.id == ctx.author.id
         try:
             await self.bot.wait_for('message', timeout=30, check=check)
@@ -62,7 +65,7 @@ class dagpiCog(commands.Cog):
             await ctx.send(f"Time's up! It was {name}.")
             embed = discord.Embed(
                 title=f'Time\'s Up! It was {name}.',
-                colour = self.colour
+                colour=self.colour
             )
             embed.set_image(url=aimg)
             return await question.edit(embed=embed)
@@ -70,7 +73,7 @@ class dagpiCog(commands.Cog):
             await ctx.send(f'Correct! It was {name}.')
             embed = discord.Embed(
                 title=f'Correct! It was {name}.',
-                colour = self.colour
+                colour=self.colour
             )
             embed.set_image(url=aimg)
             return await question.edit(embed=embed)
@@ -88,10 +91,11 @@ class dagpiCog(commands.Cog):
             if not image_url:
                 image_url = str(ctx.author.avatar_url)
         try:
-            response = await API_CLIENT.staticimage('hitler',image_url)
+            response = await API_CLIENT.staticimage('hitler', image_url)
             await ctx.send(response)
         except Exception as e:
             raise commands.BadArgument(str(e))
+
 
 def setup(bot):
     bot.add_cog(dagpiCog(bot))

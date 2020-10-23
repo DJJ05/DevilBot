@@ -1,9 +1,11 @@
 from discord.ext import commands, tasks
-import discord, wikipedia
+import discord
+import wikipedia
 import json
 import traceback
 import asyncio
 import aiohttp
+
 
 class eventsCog(commands.Cog):
     def __init__(self, bot):
@@ -113,30 +115,32 @@ class eventsCog(commands.Cog):
                                               \n\n**Do** `{guildpre}help` **to view a full command list.**\
                                               \n**Do** `{guildpre}help [command]` **to view specific command help.**")
             embed.set_thumbnail(url=self.thumb)
-            embed.set_author(name=f'Requested by {message.author.name}#{message.author.discriminator}', icon_url=message.author.avatar_url)
+            embed.set_author(
+                name=f'Requested by {message.author.name}#{message.author.discriminator}', icon_url=message.author.avatar_url)
             await message.channel.send(embed=embed)
 
         # ——————————————————
 
         if message.guild:
-            em = discord.Embed(colour=self.colour, title=f'You may have been mentioned in: {message.guild.name}')
+            em = discord.Embed(
+                colour=self.colour, title=f'You may have been mentioned in: {message.guild.name}')
             em.description = f'`Author:` {message.author.mention}\n\
                             `Message:` {message.content}\n\
                             `Created At:` {message.created_at}\n\
                             **[Jump]({message.jump_url})**'
-            
+
             users = {
-            ' devil ': 670564722218762240,
-            ' freaglii ': 370633705091497985,
-            ' petrick ': 370633705091497985,
-            ' chill ': 689912112386277384,
-            ' para ': 596079424680493096,
-            ' blitz ' : 239516219445608449,
-            ' vic ': 595752455409762304,
-            ' jake ' : 116268975020703751,
-            'asti ' : 517067779145334795
+                ' devil ': 670564722218762240,
+                ' freaglii ': 370633705091497985,
+                ' petrick ': 370633705091497985,
+                ' chill ': 689912112386277384,
+                ' para ': 596079424680493096,
+                ' blitz ': 239516219445608449,
+                ' vic ': 595752455409762304,
+                ' jake ': 116268975020703751,
+                'asti ': 517067779145334795
             }
-            
+
             concac = ' ' + message.content.lower().replace('\n', '') + ' '
             for person in users.keys():
                 if person in concac:
@@ -153,21 +157,22 @@ class eventsCog(commands.Cog):
             try:
                 if afks[str(message.author.id)]:
 
-                    #replace the time with python struct, i forgot how it works sorry
-                    longmess = int(int(str(message.created_at).split(" ")[1].replace(":", ".").replace(".", "")) - int(afks[str(message.author.id)]["time"])) / 1000000
-                    min, sec = divmod(longmess, 60) 
-                    hour, min = divmod(min, 60) 
+                    # replace the time with python struct, i forgot how it works sorry
+                    longmess = int(int(str(message.created_at).split(" ")[1].replace(":", ".").replace(
+                        ".", "")) - int(afks[str(message.author.id)]["time"])) / 1000000
+                    min, sec = divmod(longmess, 60)
+                    hour, min = divmod(min, 60)
                     finalmess = "%d:%02d:%02d" % (hour, min, sec)
                     await message.channel.send(f'{message.author.mention}, I removed your AFK')
                     afks.pop(str(message.author.id))
                     with open('afks.json', 'w') as f:
                         json.dump(afks, f, indent=4)
-                    
+
             except KeyError:
                 pass
 
             # —————————————————————————
-            
+
             if len(message.mentions):
                 with open('afks.json', 'r') as f:
                     afks = json.load(f)
@@ -197,7 +202,7 @@ class eventsCog(commands.Cog):
 
         if type(ctx.channel) == discord.DMChannel:
             return
-        
+
         etype = type(error)
         trace = error.__traceback__
         verbosity = 4
@@ -205,10 +210,12 @@ class eventsCog(commands.Cog):
         traceback_text = f'```py\n{"".join(lines)}\n```'
 
         embyw = discord.Embed(colour=self.colour)
-        embyw.set_thumbnail(url='https://cdn.discordapp.com/attachments/745950521072025714/766734683479998574/attention.png')
+        embyw.set_thumbnail(
+            url='https://cdn.discordapp.com/attachments/745950521072025714/766734683479998574/attention.png')
 
         embye = discord.Embed(colour=self.colour)
-        embye.set_thumbnail(url='https://cdn.discordapp.com/attachments/745950521072025714/766734680371888128/warning.png')
+        embye.set_thumbnail(
+            url='https://cdn.discordapp.com/attachments/745950521072025714/766734680371888128/warning.png')
 
         if etype == commands.CommandNotFound:
             return
@@ -293,7 +300,8 @@ class eventsCog(commands.Cog):
             await ctx.send(embed=embyw)
 
         else:
-            print(f'{self.btred} ERROR: {self.tred} {traceback_text} {self.endc}——————————————————————————————')
+            print(
+                f'{self.btred} ERROR: {self.tred} {traceback_text} {self.endc}——————————————————————————————')
             embed = discord.Embed(colour=0xff0033, title=f'Error during `{ctx.command.name}`',
                                   description=f'ID: {ctx.message.id}\nMy creator has been notified of the error and will endeavour to fix it soon.\n{traceback_text}')
             await ctx.send(embed=embed)
@@ -308,15 +316,16 @@ class eventsCog(commands.Cog):
                 errors = json.load(f)
 
             errors[str(ctx.message.id)] = {
-                "traceback":traceback_text,
-                "command":ctx.command.name,
-                "author":ctx.author.id,
-                "errormessage":a.id,
-                "followers":[]
+                "traceback": traceback_text,
+                "command": ctx.command.name,
+                "author": ctx.author.id,
+                "errormessage": a.id,
+                "followers": []
             }
 
             with open('errors.json', 'w') as f:
                 json.dump(errors, f, indent=4)
+
 
 def setup(bot):
     bot.add_cog(eventsCog(bot))

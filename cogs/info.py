@@ -9,6 +9,7 @@ import pathlib
 import psutil
 import humanize
 
+
 def linecounter():
     """
     This code was taken from Dutchy#6127 from a
@@ -43,12 +44,14 @@ def linecounter():
     }
     return linecounts
 
+
 class MyHelpCommand(commands.MinimalHelpCommand):
     async def send_pages(self):
         destination = self.get_destination()
         for page in self.paginator.pages:
             emby = discord.Embed(description=page, colour=0xff9300)
             await destination.send(embed=emby)
+
 
 class infoCog(commands.Cog):
     """Info and Help commands"""
@@ -90,7 +93,7 @@ class infoCog(commands.Cog):
     async def lines(self, ctx):
         """Linecount and much more"""
         linecount = linecounter()
-        embed=discord.Embed(
+        embed = discord.Embed(
             title='Detailed code overview',
             colour=self.colour
         )
@@ -101,7 +104,7 @@ class infoCog(commands.Cog):
                 value=f'`{linecount.get(key)}`'
             )
         await ctx.send(embed=embed)
-    
+
     @commands.command(aliases=['info', 'botstats'])
     async def about(self, ctx):
         """All about DevilBot"""
@@ -112,8 +115,8 @@ class infoCog(commands.Cog):
         appinfo = await self.bot.application_info()
         linecount = linecounter()
         embed = discord.Embed(colour=self.colour,
-                            title=f"{appinfo.name} | {appinfo.id}",
-                            description=f":diamond_shape_with_a_dot_inside: `Guild Prefix:` **{guildpre}**\
+                              title=f"{appinfo.name} | {appinfo.id}",
+                              description=f":diamond_shape_with_a_dot_inside: `Guild Prefix:` **{guildpre}**\
                                         \n<:owner:730864906429136907> `Owner:` **<@!{appinfo.owner.id}>**\
                                         \n\n__**Watching over:**__\
                                         \n+ `Guilds:` **{len(self.bot.guilds)}**\
@@ -134,22 +137,23 @@ class infoCog(commands.Cog):
                                         \n⦿ `Threads:` **{res['thread_count']}**\
                                         \n\n**Do** `{guildpre}help` **to view a full command list.**\
                                         \n**Do** `{guildpre}help [command]` **to view specific command help.**")
-        embed.set_author(name=f'Requested by {ctx.author}', icon_url=ctx.author.avatar_url)
+        embed.set_author(
+            name=f'Requested by {ctx.author}', icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['server', 'guild'])
     async def support(self, ctx):
         """Support server link"""
-        embed=discord.Embed(
-            colour = self.colour,
+        embed = discord.Embed(
+            colour=self.colour,
             description=('[`Click Me!`](https://discord.gg/KsHgrya)')
         )
         await ctx.send(embed=embed)
-    
+
     @commands.command(aliases=['web'])
     async def website(self, ctx):
         """Website, duh"""
-        embed=discord.Embed(
+        embed = discord.Embed(
             colour=self.colour,
             description='[`Click Me!`](https://devilbot-app.herokuapp.com)'
         )
@@ -173,11 +177,13 @@ class infoCog(commands.Cog):
         if not shard:
             return
         begin = time.perf_counter()
-        embed = discord.Embed(colour=self.colour, description=f'```json\n"HEARTBEAT": "{round(shard.latency * 1000)}ms\n"```')
+        embed = discord.Embed(
+            colour=self.colour, description=f'```json\n"HEARTBEAT": "{round(shard.latency * 1000)}ms\n"```')
         pong = await ctx.send(embed=embed)
         end = time.perf_counter()
         response = round((end - begin) * 1000)
-        embed = discord.Embed(colour=self.colour, description=f'```json\n"HEARTBEAT": "{round(shard.latency * 1000)}ms"\n"RESPONSE TIME": "{response}ms"```')
+        embed = discord.Embed(
+            colour=self.colour, description=f'```json\n"HEARTBEAT": "{round(shard.latency * 1000)}ms"\n"RESPONSE TIME": "{response}ms"```')
         await pong.edit(embed=embed)
 
     @commands.command(aliases=['inv'])
@@ -190,24 +196,24 @@ class infoCog(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['src'])
-    async def source(self, ctx, command:str=None):
+    async def source(self, ctx, command: str = None):
         """Shows source code"""
         # Code used from Rapptz' R.Danny repository provided by the MIT License
         # https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/meta.py#L328-L366
         # Copyright (c) 2015 Rapptz
-        
+
         # Code used from niztg's CyberTron5000 GitHub Repository Provided by the MIT License
         # https://github.com/niztg/CyberTron5000/blob/master/CyberTron5000/cogs/meta.py#L95-L140
         # Copyright (c) 2020 niztg
-        
+
         u = '\u200b'
         if not command:
-            embed = discord.Embed(title='View my source code on GitHub!', url='https://github.com/DevilJamJar/DevilBot', colour=self.colour,\
+            embed = discord.Embed(title='View my source code on GitHub!', url='https://github.com/DevilJamJar/DevilBot', colour=self.colour,
                                   description=':scales: `License:` **[Apache-2.0](https://opensource.org/licenses/Apache-2.0)**')
             return await ctx.send(embed=embed)
 
         if command == 'help':
-            embed = discord.Embed(title='View this command on GitHub!', url='https://github.com/DevilJamJar/DevilBot/blob/master/cogs/info.py#L10-L26', colour=self.colour,\
+            embed = discord.Embed(title='View this command on GitHub!', url='https://github.com/DevilJamJar/DevilBot/blob/master/cogs/info.py#L10-L26', colour=self.colour,
                                   description=':scales: `License:` **[Apache-2.0](https://opensource.org/licenses/Apache-2.0)**')
             return await ctx.send(embed=embed)
 
@@ -240,7 +246,7 @@ class infoCog(commands.Cog):
         else:
             await ctx.send(src)
 
-    @commands.command(aliases=['guildinfo','gi', 'si'])
+    @commands.command(aliases=['guildinfo', 'gi', 'si'])
     async def serverinfo(self, ctx):
         '''Get information about the server.'''
 
@@ -266,11 +272,12 @@ class infoCog(commands.Cog):
                         value=f'`AFK timeout:` **{int(ctx.guild.afk_timeout / 60)}m**\n'
                               f'`AFK channel:` **{ctx.guild.afk_channel}**\n'
                               f'`Text channels:` **{len(ctx.guild.text_channels)}**\n'
-                              f'`Voice channels:` **{len(ctx.guild.voice_channels)}**\n', inline = False)
+                              f'`Voice channels:` **{len(ctx.guild.voice_channels)}**\n', inline=False)
 
         embed.set_thumbnail(url=ctx.guild.icon_url)
         embed.set_image(url=ctx.guild.banner_url)
-        embed.set_footer(text=f'Guild ID: {ctx.guild.id}  |  Requested by: {ctx.author.name}#{ctx.author.discriminator}')
+        embed.set_footer(
+            text=f'Guild ID: {ctx.guild.id}  |  Requested by: {ctx.author.name}#{ctx.author.discriminator}')
 
         return await ctx.send(embed=embed)
 
@@ -303,9 +310,11 @@ class infoCog(commands.Cog):
                               f'Top role: {member.top_role.mention}', inline=False)
 
         embed.set_thumbnail(url=member.avatar_url_as(static_format='png'))
-        embed.set_footer(text=f'Member ID: {member.id}  |  Requested by: {ctx.author.name}#{ctx.author.discriminator}')
+        embed.set_footer(
+            text=f'Member ID: {member.id}  |  Requested by: {ctx.author.name}#{ctx.author.discriminator}')
 
         return await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(infoCog(bot))
