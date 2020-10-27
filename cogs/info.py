@@ -192,7 +192,7 @@ class infoCog(commands.Cog):
         """Displays invite link"""
 
         embed = discord.Embed(title='Invite me to your server! My default prefix is \'ow!\'',
-                              url='https://discord.com/api/oauth2/authorize?client_id=720229743974285312&permissions=2113924179&scope=bot',
+                              description='__https://discord.com/api/oauth2/authorize?client_id=720229743974285312&permissions=67464257&scope=bot__',
                               color=self.colour)
         await ctx.send(embed=embed)
 
