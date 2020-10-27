@@ -163,7 +163,7 @@ class eventsCog(commands.Cog):
                     min, sec = divmod(longmess, 60)
                     hour, min = divmod(min, 60)
                     finalmess = "%d:%02d:%02d" % (hour, min, sec)
-                    await message.channel.send(f'{message.author.mention}, I removed your AFK')
+                    await message.channel.send(f'{message.author.mention}, I removed your AFK', delete_after=5)
                     afks.pop(str(message.author.id))
                     with open('afks.json', 'w') as f:
                         json.dump(afks, f, indent=4)
@@ -178,7 +178,7 @@ class eventsCog(commands.Cog):
                     afks = json.load(f)
                 for i in message.mentions:
                     if str(i.id) in afks and message.author != message.guild.me:
-                        await message.channel.send(f'**{message.author.mention},** `{i.display_name} is currently AFK.`\n**Reason:** `{afks[str(i.id)]["message"]}`')
+                        await message.channel.send(f'**{message.author.mention},** `{i.display_name} is currently AFK.`\n**Reason:** `{afks[str(i.id)]["message"]}`', delete_after=5)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
