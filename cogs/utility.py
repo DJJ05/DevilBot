@@ -55,6 +55,10 @@ class utilityCog(commands.Cog):
                     d = await r.json()
 
         e = discord.Embed(color=self.colour, title='OCR Results')
+        if not len(d["ParsedResults"]):
+            e.description = 'OCR couldn\'t generate results fast enough'
+            return await ctx.send(embed=e)
+
         p = d["ParsedResults"][0]
         if d['IsErroredOnProcessing'] == 'true':
             e.description = f'Error on OCR: {p["ErrorMessage"]}: {p["ErrorDetails"]}'
