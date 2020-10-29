@@ -190,9 +190,9 @@ class eventsCog(commands.Cog):
         with open('prefixes.json', 'w') as f:
             json.dump(prefixes, f, indent=4)
 
-    @commands.Cog.listener()
+    '''@commands.Cog.listener()
     async def on_message_edit(self, before, after):
-        await self.bot.process_commands(after)
+        await self.bot.process_commands(after)'''
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):

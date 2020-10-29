@@ -4,15 +4,16 @@ import textwrap
 import unicodedata
 
 import aiohttp
+import cv2
 import discord
 import googletrans
+import pytesseract
 import wikipedia
+from PIL import Image
 from PyDictionary import PyDictionary
 from discord.ext import commands, buttons
 from discord.ext.commands.cooldowns import BucketType
 from googlesearch import search
-
-from .secrets import secrets_ocr
 
 dictionary = PyDictionary()
 
@@ -20,6 +21,20 @@ dictionary = PyDictionary()
 def to_emoji(c):
     base = 0x1f1e6
     return chr(base + c)
+
+
+def imgtess(filename: str, blur=None):
+    image = cv2.imread(filename)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    if blur:
+        gray = cv2.medianBlur(gray, blur)
+
+    filename = "DevilBotOCRFinal.png"
+    cv2.imwrite(filename, gray)
+
+    text = pytesseract.image_to_string(Image.open(filename))
+    return text
 
 
 class MyPaginator(buttons.Paginator):
@@ -40,8 +55,38 @@ class utilityCog(commands.Cog):
         self.trans = googletrans.Translator()
 
     @commands.command(aliases=['ocr', 'itt'])
-    async def imagetotext(self, ctx, url: str = None):
-        """Converts a given image into copy-pastable text"""
+    async def imagetotext(self, ctx, blur: int, url: str = None):
+        """Converts a given image into copy-pastable text using specified blur to hide noise. EMPTY PNG's ARE BUGGY!"""
+        if not url:
+            if len(ctx.message.attachments) == 0:
+                return await ctx.send('I need a valid image attachment to work with!')
+
+            i = ctx.message.attachments[0]
+            await i.save('DevilBotOCR.png')
+
+        else:
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(url) as res:
+                    data = await res.read()
+
+            if res.status != 200:
+                return await ctx.send('Connection to URL was not OK\'d, make sure its a valid image.')
+
+            with open('DevilBotOCR.png', 'wb') as file:
+                file.write(data)
+
+        if blur % 2 == 0:
+            blur += 1
+
+        try:
+            t = imgtess('DevilBotOCR.png', blur)
+        except Exception:
+            return await ctx.send('Not a valid image file, weird sizing or another imaging issue occured.')
+
+        e = discord.Embed(
+            description=f'```fix\n\u200b{t}\n```'
+        )
+        return await ctx.send(embed=e)
 
     @commands.command(aliases=['embedder'])
     @commands.max_concurrency(1, BucketType.channel)
