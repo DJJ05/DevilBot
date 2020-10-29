@@ -42,31 +42,6 @@ class utilityCog(commands.Cog):
     @commands.command(aliases=['ocr', 'itt'])
     async def imagetotext(self, ctx, url: str = None):
         """Converts a given image into copy-pastable text"""
-        if not url:
-            if len(ctx.message.attachments) == 0:
-                return await ctx.send('I need an image url, or a valid image attachment to work!')
-
-            url = str(ctx.message.attachments[0].url)
-
-        u = f'https://api.ocr.space/parse/imageurl?apikey={secrets_ocr}&url={url}'
-        async with ctx.typing():
-            async with aiohttp.ClientSession() as cs:
-                async with cs.get(u) as r:
-                    d = await r.json()
-
-        e = discord.Embed(color=self.colour, title='OCR Results')
-        if not len(d["ParsedResults"]):
-            e.description = 'OCR couldn\'t generate results fast enough'
-            return await ctx.send(embed=e)
-
-        p = d["ParsedResults"][0]
-        if d['IsErroredOnProcessing'] == 'true':
-            e.description = f'Error on OCR: {p["ErrorMessage"]}: {p["ErrorDetails"]}'
-            return await ctx.send(embed=e)
-
-        c = p['ParsedText']
-        e.description = f'```\n{c if len(c) > 0 else "No Text Found"}\n```\n**Processing Time:** {d["ProcessingTimeInMilliseconds"]}ms'
-        return await ctx.send(embed=e)
 
     @commands.command(aliases=['embedder'])
     @commands.max_concurrency(1, BucketType.channel)
