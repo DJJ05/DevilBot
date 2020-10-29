@@ -1,18 +1,19 @@
-import discord
-from discord.ext import commands, buttons
-
-import wikipedia
 import asyncio
-import textwrap
-import aiohttp
 import json
+import textwrap
+import unicodedata
+
+import aiohttp
+import discord
 import googletrans
+import wikipedia
 from PyDictionary import PyDictionary
+from discord.ext import commands, buttons
+from discord.ext.commands.cooldowns import BucketType
 from googlesearch import search
 
-from unit_convert import UnitConvert
-from discord.ext.commands.cooldowns import BucketType
-import unicodedata
+from .secrets import secrets_ocr
+
 dictionary = PyDictionary()
 
 
@@ -38,11 +39,30 @@ class utilityCog(commands.Cog):
 
         self.trans = googletrans.Translator()
 
-    '''
-    Copyright (c) 2020 Rapptz
-    https://github.com/Rapptz/RoboDanny/blob/rewrite/cogs/meta.py#L223-L237
-    under the terms of the  MIT LICENSE
-    '''
+    @commands.command(aliases=['ocr', 'itt'])
+    async def imagetotext(self, ctx, url: str = None):
+        """Converts a given image into copy-pastable text"""
+        if not url:
+            if len(ctx.message.attachments) == 0:
+                return await ctx.send('I need an image url, or a valid image attachment to work!')
+
+            url = str(ctx.message.attachments[0].url)
+
+        u = f'https://api.ocr.space/parse/imageurl?apikey={secrets_ocr}&url={url}'
+        async with ctx.typing():
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(u) as r:
+                    d = await r.json()
+
+        e = discord.Embed(color=self.colour, title='OCR Results')
+        p = d["ParsedResults"][0]
+        if d['IsErroredOnProcessing'] == 'true':
+            e.description = f'Error on OCR: {p["ErrorMessage"]}: {p["ErrorDetails"]}'
+            return await ctx.send(embed=e)
+
+        c = p['ParsedText']
+        e.description = f'```\n{c if len(c) > 0 else "No Text Found"}\n```\n**Processing Time:** {d["ProcessingTimeInMilliseconds"]}ms'
+        return await ctx.send(embed=e)
 
     @commands.command(aliases=['embedder'])
     @commands.max_concurrency(1, BucketType.channel)
@@ -52,8 +72,10 @@ class utilityCog(commands.Cog):
 
         def check(m):
             return m.channel.id == ctx.channel.id and m.author.id == ctx.author.id
+
         try:
-            a = await ctx.send('Alright, send me the embed title text. Note: this is a required argument. PS: Try avoiding using characters other than a-Z and 0-9 since this can cause errors.')
+            a = await ctx.send(
+                'Alright, send me the embed title text. Note: this is a required argument. PS: Try avoiding using characters other than a-Z and 0-9 since this can cause errors.')
             msg = await self.bot.wait_for('message', check=check, timeout=30)
         except asyncio.TimeoutError:
             return await ctx.send("You didn't reply in 30 seconds, so the request timed out.")
@@ -64,7 +86,8 @@ class utilityCog(commands.Cog):
                 await a.delete()
             except discord.Forbidden:
                 pass
-        b = await ctx.send('Alright, recorded your embed title. Next, send me the author of the embed. Say "None" to leave this field blank. PS: Try avoiding using characters other than a-Z and 0-9 since this can cause errors.')
+        b = await ctx.send(
+            'Alright, recorded your embed title. Next, send me the author of the embed. Say "None" to leave this field blank. PS: Try avoiding using characters other than a-Z and 0-9 since this can cause errors.')
 
         try:
             msg = await self.bot.wait_for('message', check=check, timeout=30)
@@ -78,7 +101,8 @@ class utilityCog(commands.Cog):
                 await b.delete()
             except discord.Forbidden:
                 pass
-        c = await ctx.send('Alright, next I need the colour of your embed in hex form. This will default to black. Say "None" to leave this field blank.')
+        c = await ctx.send(
+            'Alright, next I need the colour of your embed in hex form. This will default to black. Say "None" to leave this field blank.')
 
         try:
             msg = await self.bot.wait_for('message', check=check, timeout=30)
@@ -92,7 +116,8 @@ class utilityCog(commands.Cog):
                 await c.delete()
             except discord.Forbidden:
                 pass
-        d = await ctx.send('Alright, next I need the image URL of the embed that will be displayed below the title. Say "None" to leave this field blank.')
+        d = await ctx.send(
+            'Alright, next I need the image URL of the embed that will be displayed below the title. Say "None" to leave this field blank.')
 
         try:
             msg = await self.bot.wait_for('message', check=check, timeout=30)
@@ -106,7 +131,8 @@ class utilityCog(commands.Cog):
                 await d.delete()
             except discord.Forbidden:
                 pass
-        e = await ctx.send('Alright, finally I need the redirect URL of the embed, the website users will go to when they click the link. Say "None" to leave this field blank.')
+        e = await ctx.send(
+            'Alright, finally I need the redirect URL of the embed, the website users will go to when they click the link. Say "None" to leave this field blank.')
 
         try:
             msg = await self.bot.wait_for('message', check=check, timeout=30)
@@ -120,16 +146,19 @@ class utilityCog(commands.Cog):
                 await e.delete()
             except discord.Forbidden:
                 pass
-            await ctx.send(f'Alright, I have all I need. To send this embed anywhere, copy this link and paste it wherever you want.\n\n```fix\n{displayable}\n```\n\nHere is a visual representation of your embed:')
+            await ctx.send(
+                f'Alright, I have all I need. To send this embed anywhere, copy this link and paste it wherever you want.\n\n```fix\n{displayable}\n```\n\nHere is a visual representation of your embed:')
         return await ctx.send(displayable)
 
     @commands.command()
     async def charinfo(self, ctx, *, characters: str):
         """Shows you information about a number of characters."""
+
         def to_string(c):
             digit = f'{ord(c):x}'
             name = unicodedata.name(c, 'Name not found.')
             return f'`\\U{digit:>08}`: {name} - {c} \N{EM DASH} <http://www.fileformat.info/info/unicode/char/{digit}>'
+
         msg = '\n'.join(map(to_string, characters))
         if len(msg) > 2000:
             return await ctx.send('Output too long to display.')
@@ -228,12 +257,14 @@ class utilityCog(commands.Cog):
         def scour(term):
             for j in search(term, tld="com", num=10, stop=10, pause=2):
                 results.append(j)
+
         async with ctx.typing():
             loop = self.bot.loop
             await loop.run_in_executor(None, scour, term)
             if not len(results):
                 return await ctx.send('No results found for specified term.')
-            pagey = MyPaginator(title='`Google Search Results`', colour=0xff9300, embed=False, timeout=90, use_defaults=True,
+            pagey = MyPaginator(title='`Google Search Results`', colour=0xff9300, embed=False, timeout=90,
+                                use_defaults=True,
                                 entries=[str(r) for r in results], length=1)
 
         await pagey.start(ctx)
@@ -288,6 +319,7 @@ class utilityCog(commands.Cog):
 
         def scour(search):
             return wikipedia.search(search)
+
         async with ctx.typing():
             loop = self.bot.loop
             results = await loop.run_in_executor(None, scour, search)
@@ -342,9 +374,9 @@ class utilityCog(commands.Cog):
                 title=f"Resolved Invite: {fetched_inv.code}", colour=0xff9300)
             embed.add_field(name='**General:**',
                             value=f'Name: **{fetched_inv.guild.name}**\n'
-                            f'Description: **{inv_description}**\n'
-                            f'<:member:716339965771907099> **{fetched_inv.approximate_member_count}**\n'
-                            f'<:online:726127263401246832> **{fetched_inv.approximate_presence_count}**\n')
+                                  f'Description: **{inv_description}**\n'
+                                  f'<:member:716339965771907099> **{fetched_inv.approximate_member_count}**\n'
+                                  f'<:online:726127263401246832> **{fetched_inv.approximate_presence_count}**\n')
             embed.add_field(name='**Features:**',
                             value=features_list)
 
@@ -381,6 +413,7 @@ class utilityCog(commands.Cog):
             except:
                 raise commands.BadArgument(
                     'Please first provide a valid code to translate into (e.g en is english) and then a message to translate')
+
         async with ctx.typing():
             loop = self.bot.loop
             ret = await loop.run_in_executor(None, trans, message, to)

@@ -1,9 +1,6 @@
 import discord
 from discord.ext import commands
 
-import praw
-import prawcore
-
 from .utils import checks
 
 
@@ -53,7 +50,8 @@ class redditModerationCog(commands.Cog):
             record = await self.db_conn.fetch(
                 'SELECT * FROM "ModStats" WHERE "Mod_Name" = $1', user)
         if not len(record):
-            return await ctx.send('Specified user `not found.` Please note that the default user is your `nickname` if another user is not specified.')
+            return await ctx.send(
+                'Specified user `not found.` Please note that the default user is your `nickname` if another user is not specified.')
         embed = discord.Embed(
             title=f'Monthly Moderator Stats for u/{record[0][0]}', color=self.colour)
         embed.add_field(name='Flair removals:',
