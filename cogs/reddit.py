@@ -1,10 +1,10 @@
-import discord
-from discord.ext import commands
-import secrets
+import random
 
 import asyncpraw
-import random
-import aiohttp
+import discord
+from discord.ext import commands
+
+import secrets
 
 reddit = asyncpraw.Reddit(client_id=secrets.secrets_asyncpraw_client_id,
                           client_secret=secrets.secrets_asyncpraw_client_secret,

@@ -1,11 +1,13 @@
 import asyncio
-from discord.ext import commands
-import discord
-import sys
 import json
 import os
-import secrets
+import sys
+
 import asyncpg
+import discord
+from discord.ext import commands
+
+import secrets
 
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
@@ -96,7 +98,6 @@ class DataBase:
 
 
 def main():
-
     if not DataBase.initiate_database:
         sys.exit()
 
@@ -117,11 +118,12 @@ def main():
     @bot.check
     async def check_dm(ctx):
         if type(ctx.channel) == discord.DMChannel:
-            await ctx.send('Sorry, I don\'t allow commands to be ran in DMs! Try using `ow!help` in your server, or use whatever prefix you have configured.')
+            await ctx.send(
+                'Sorry, I don\'t allow commands to be ran in DMs! Try using `ow!help` in your server, or use whatever prefix you have configured.')
             return False
         return True
 
-    # bot.remove_command('help')
+    #  bot.remove_command('help')
     bot.run()
 
 

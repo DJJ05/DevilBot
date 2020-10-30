@@ -1,9 +1,11 @@
-import discord
-from discord.ext import commands
 import json
 import random
 import typing
+
+import discord
+from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
+
 from .utils.checks import check_admin_or_owner
 
 
@@ -88,7 +90,8 @@ class utopiaCog(commands.Cog):
         data[str(member.id)][ctx.message.jump_url] = f'– {reason}'
         with open('rep.json', 'w') as f:
             json.dump(data, f, indent=4)
-        await ctx.send(f'Awarded {member} `1` reputation. View their reputation overview with `{ctx.prefix}rep {member.id}`.')
+        await ctx.send(
+            f'Awarded {member} `1` reputation. View their reputation overview with `{ctx.prefix}rep {member.id}`.')
 
     @commands.command()
     async def nominate(self, ctx, message: discord.Message):
@@ -109,7 +112,8 @@ class utopiaCog(commands.Cog):
             description=f'**Message:**\n{str(finmsg)}\n**Author:**\n{str(message.author)}\n**Created At:**\n{str(message.created_at)}\n**Jump:**\n{str(message.jump_url)}'
         )
         await channel.send(embed=embed)
-        await ctx.send(f'{ctx.author.mention}, successfully inserted message into nominations. Use {ctx.prefix}utopiaquote for a random one!')
+        await ctx.send(
+            f'{ctx.author.mention}, successfully inserted message into nominations. Use {ctx.prefix}utopiaquote for a random one!')
 
     @commands.command(aliases=['uq', 'utopiaq', 'uquote'])
     async def utopiaquote(self, ctx):

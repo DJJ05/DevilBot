@@ -1,7 +1,6 @@
-import json
+import aiohttp
 import discord
 from discord.ext import commands, tasks
-import aiohttp
 
 from .secrets import secrets_dbl as SECRETS_DBL
 
@@ -37,6 +36,7 @@ async def updatedbl(bot) -> dict:
         async with cs.post(UPDATEURL, headers=HEADERS, data=params) as resp:
             data = await resp.json()
     return data
+
 
 VOTELOCKTEMP = discord.Embed(
     colour=0xff9300,

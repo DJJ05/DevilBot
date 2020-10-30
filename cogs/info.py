@@ -1,13 +1,14 @@
-from datetime import datetime
-import discord
-from discord.ext import commands
-import time
+import collections
 import datetime
 import os
-import collections
 import pathlib
-import psutil
+import time
+from datetime import datetime
+
+import discord
 import humanize
+import psutil
+from discord.ext import commands
 
 
 def linecounter():
@@ -184,7 +185,8 @@ class infoCog(commands.Cog):
         end = time.perf_counter()
         response = round((end - begin) * 1000)
         embed = discord.Embed(
-            colour=self.colour, description=f'```json\n"SHARD HEARTBEAT": "{round(shard.latency * 1000)}ms"\n"RESPONSE TIME": "{response}ms"```')
+            colour=self.colour,
+            description=f'```json\n"SHARD HEARTBEAT": "{round(shard.latency * 1000)}ms"\n"RESPONSE TIME": "{response}ms"```')
         await pong.edit(embed=embed)
 
     @commands.command(aliases=['inv'])
@@ -209,12 +211,15 @@ class infoCog(commands.Cog):
 
         u = '\u200b'
         if not command:
-            embed = discord.Embed(title='View my source code on GitHub!', url='https://github.com/DevilJamJar/DevilBot', colour=self.colour,
+            embed = discord.Embed(title='View my source code on GitHub!', url='https://github.com/DevilJamJar/DevilBot',
+                                  colour=self.colour,
                                   description=':scales: `License:` **[Apache-2.0](https://opensource.org/licenses/Apache-2.0)**')
             return await ctx.send(embed=embed)
 
         if command == 'help':
-            embed = discord.Embed(title='View this command on GitHub!', url='https://github.com/DevilJamJar/DevilBot/blob/master/cogs/info.py#L10-L26', colour=self.colour,
+            embed = discord.Embed(title='View this command on GitHub!',
+                                  url='https://github.com/DevilJamJar/DevilBot/blob/master/cogs/info.py#L10-L26',
+                                  colour=self.colour,
                                   description=':scales: `License:` **[Apache-2.0](https://opensource.org/licenses/Apache-2.0)**')
             return await ctx.send(embed=embed)
 
@@ -303,7 +308,8 @@ class infoCog(commands.Cog):
                               f'Desktop Status: `{member.desktop_status}`\n'
                               f'Mobile Status: `{member.mobile_status}`\n'
                               f'Browser Status: `{member.web_status}`\n'
-                              f'Created on: `{datetime.datetime.strftime(member.created_at, "%A %d %B %Y at %H:%M")}`', inline=False)
+                              f'Created on: `{datetime.datetime.strftime(member.created_at, "%A %d %B %Y at %H:%M")}`',
+                        inline=False)
 
         embed.add_field(name='**Guild related information:**',
                         value=f'Joined guild: `{datetime.datetime.strftime(member.joined_at, "%A %d %B %Y at %H:%M")}`\n'

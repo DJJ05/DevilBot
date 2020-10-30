@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3411258b-2823-4491-b494-a9920f175dbf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/cogs/utility.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/utility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/afks.json" beforeDir="false" afterPath="$PROJECT_DIR$/afks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/dagpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/dagpi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/dbl.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/dbl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/dev.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/dev.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/events.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/fun.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/fun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/info.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/info.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/mod.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/mod.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/reddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/reddit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/utopia.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/utopia.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,22 +74,30 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1419" height="212" key="GridCell.Tab.0.bottom" timestamp="1604059051680">
+    <state x="354" y="119" key="#Inspections" timestamp="1604068487578">
       <screen x="0" y="23" width="1440" height="821" />
     </state>
-    <state width="1419" height="212" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1604059051680" />
-    <state width="1419" height="212" key="GridCell.Tab.0.center" timestamp="1604059051679">
+    <state x="354" y="119" key="#Inspections/0.23.1440.821@0.23.1440.821" timestamp="1604068487578" />
+    <state x="100" y="123" width="1240" height="621" key="DiffContextDialog" timestamp="1604068281291">
       <screen x="0" y="23" width="1440" height="821" />
     </state>
-    <state width="1419" height="212" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1604059051679" />
-    <state width="1419" height="212" key="GridCell.Tab.0.left" timestamp="1604059051678">
+    <state x="100" y="123" width="1240" height="621" key="DiffContextDialog/0.23.1440.821@0.23.1440.821" timestamp="1604068281291" />
+    <state width="1419" height="212" key="GridCell.Tab.0.bottom" timestamp="1604069061821">
       <screen x="0" y="23" width="1440" height="821" />
     </state>
-    <state width="1419" height="212" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1604059051678" />
-    <state width="1419" height="212" key="GridCell.Tab.0.right" timestamp="1604059051680">
+    <state width="1419" height="212" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1604069061821" />
+    <state width="1419" height="212" key="GridCell.Tab.0.center" timestamp="1604069061819">
       <screen x="0" y="23" width="1440" height="821" />
     </state>
-    <state width="1419" height="212" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1604059051680" />
+    <state width="1419" height="212" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1604069061819" />
+    <state width="1419" height="212" key="GridCell.Tab.0.left" timestamp="1604069061818">
+      <screen x="0" y="23" width="1440" height="821" />
+    </state>
+    <state width="1419" height="212" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1604069061818" />
+    <state width="1419" height="212" key="GridCell.Tab.0.right" timestamp="1604069061820">
+      <screen x="0" y="23" width="1440" height="821" />
+    </state>
+    <state width="1419" height="212" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1604069061820" />
     <state x="170" y="23" width="1039" height="802" key="dock-window-1" timestamp="1604001832134">
       <screen x="0" y="23" width="1440" height="821" />
     </state>

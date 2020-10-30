@@ -1,6 +1,7 @@
+import json
+
 import discord
 from discord.ext import commands
-import json
 
 from .utils import checks
 
@@ -20,7 +21,8 @@ class adminCog(commands.Cog):
     async def leaveguild(self, ctx):
         """Leaves the guild that the command was executed in."""
         embed = discord.Embed(title='Goodbye! Click here if you would like to reinvite me.',
-                              url='https://discord.com/api/oauth2/authorize?client_id=720229743974285312&permissions=2113924179&scope=bot', colour=self.colour)
+                              url='https://discord.com/api/oauth2/authorize?client_id=720229743974285312&permissions=2113924179&scope=bot',
+                              colour=self.colour)
         await ctx.send(embed=embed)
         await self.bot.get_guild(ctx.guild.id).leave()
 

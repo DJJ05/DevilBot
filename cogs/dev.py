@@ -1,11 +1,12 @@
+import asyncio
+import json
+import os
+import textwrap
+import traceback
+import typing
+
 import discord
 from discord.ext import commands
-import asyncio
-import os
-import json
-import typing
-import traceback
-import textwrap
 
 
 class devCog(commands.Cog):
@@ -19,7 +20,7 @@ class devCog(commands.Cog):
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
     # async def cog_check(self, ctx):
-        # return ctx.author.id == 670564722218762240 # check for all commands in this cog
+    # return ctx.author.id == 670564722218762240 # check for all commands in this cog
 
     @commands.command(aliases=['invgrab', 'makeinv'])
     @commands.is_owner()
@@ -32,7 +33,8 @@ class devCog(commands.Cog):
                 break
         if not gchannel:
             raise commands.BotMissingPermissions
-        invite = await gchannel.create_invite(reason='Invite for logging and testing purposes. Expires in 1 hour.', max_age=3600)
+        invite = await gchannel.create_invite(reason='Invite for logging and testing purposes. Expires in 1 hour.',
+                                              max_age=3600)
         await ctx.send('👍')
         dicted = {}
         for i in dir(invite):
@@ -50,7 +52,9 @@ class devCog(commands.Cog):
         sent = await ctx.author.send('Say "del" or "delete" to delete this invite link')
 
         def check(m):
-            return m.author.id == ctx.author.id and type(m.channel) == discord.DMChannel and m.content.lower() in ['del', 'delete']
+            return m.author.id == ctx.author.id and type(m.channel) == discord.DMChannel and m.content.lower() in [
+                'del', 'delete']
+
         try:
             await self.bot.wait_for('message', check=check, timeout=3600)
         except asyncio.TimeoutError:
@@ -159,7 +163,8 @@ class devCog(commands.Cog):
         with open('errors.json', 'w') as f:
             json.dump(errors, f, indent=4)
 
-        return await ctx.send(f'Successfully followed `{id}.` You can use `{ctx.prefix}error unfollow {id}` at anytime to unfollow this error.')
+        return await ctx.send(
+            f'Successfully followed `{id}.` You can use `{ctx.prefix}error unfollow {id}` at anytime to unfollow this error.')
 
     @error.command()
     async def unfollow(self, ctx, id=None):
@@ -185,7 +190,8 @@ class devCog(commands.Cog):
         with open('errors.json', 'w') as f:
             json.dump(errors, f, indent=4)
 
-        return await ctx.send(f'Successfully unfollowed `{id}.` You can use `{ctx.prefix}error follow {id}` at anytime to follow this error.')
+        return await ctx.send(
+            f'Successfully unfollowed `{id}.` You can use `{ctx.prefix}error follow {id}` at anytime to follow this error.')
 
     @commands.group(invoke_without_command=True, aliases=['bl'])
     @commands.is_owner()

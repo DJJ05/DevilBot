@@ -1,8 +1,11 @@
-import discord
-from discord.ext import commands
-import aiohttp
 import io
-from .dbl import checkvoter, VOTELOCKTEMP
+
+import aiohttp
+import discord
+import random
+import string
+from discord.ext import commands
+from captcha.image import ImageCaptcha
 
 
 class funCog(commands.Cog):
@@ -14,21 +17,31 @@ class funCog(commands.Cog):
         self.colour = 0xff9300
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
+        self.image = ImageCaptcha()
 
         self.text_to_morse = {
-            'A': '.-',     'B': '-...',   'C': '-.-.',   'D': '-..',    'E': '.',       'F': '..-.',
-            'G': '--.',    'H': '....',   'I': '..',     'J': '.---',   'K': '-.-',     'L': '.-..',
-            'M': '--',     'N': '-.',     'O': '---',    'P': '.--.',   'Q': '--.-',    'R': '.-.',
-            'S': '...',    'T': '-',      'U': '..-',    'V': '...-',   'W': '.--',     'X': '-..-',
-            'Y': '-.--',   'Z': '--..',    '0': '-----',  '1': '.----',  '2': '..---',   '3': '...--',
-            '4': '....-',  '5': '.....',  '6': '-....',  '7': '--...',  '8': '---..',   '9': '----.',
-            '.': '.-.-.-', ',': '--..--', '?': '..--..', "'": '.----.', '!': '-.-.--',  "/": '-..-.',
-            '(': '-.--.', ')': '-.--.-', '&': '.-...',  ':': '---...', ';': '-.-.-.',  '=': '-...-',
-            '+': '.-.-.',  '-': '-....-', '_': '..--.-', '"': '.-..-.', '$': '...-..-', '@': '.--.-.',
+            'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
+            'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
+            'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
+            'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+            'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---', '3': '...--',
+            '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.',
+            '.': '.-.-.-', ',': '--..--', '?': '..--..', "'": '.----.', '!': '-.-.--', "/": '-..-.',
+            '(': '-.--.', ')': '-.--.-', '&': '.-...', ':': '---...', ';': '-.-.-.', '=': '-...-',
+            '+': '.-.-.', '-': '-....-', '_': '..--.-', '"': '.-..-.', '$': '...-..-', '@': '.--.-.',
             ' ': ' '
         }
         self.morse_to_text = {value: key for key,
-                              value in self.text_to_morse.items()}
+                                             value in self.text_to_morse.items()}
+
+    @commands.command()
+    async def captcha(self, ctx, *, characters: str = None):
+        """Generate a random image captcha with given characters or a random 6 digit one"""
+        if not characters:
+            characters = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+        self.image.write(characters, 'captcha.png')
+        f = discord.File('captcha.png')
+        return await ctx.send(file=f)
 
     @commands.command(aliases=['tronalddump', 'tronald', 'donaldtrump', 'trump'])
     async def donald(self, ctx):
@@ -137,7 +150,7 @@ class funCog(commands.Cog):
             pokename = data["name"]
             pokenum = f'#{data["id"]}'
             pokeheight = f'{data["height"]}m'
-            pokeweight = f'{data["weight"]/10}kg'
+            pokeweight = f'{data["weight"] / 10}kg'
             poketypes = []
             for i in data['types']:
                 poketypes.append(f"• {(i['type']['name'].capitalize())}")

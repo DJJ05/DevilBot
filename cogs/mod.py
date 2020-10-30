@@ -1,9 +1,10 @@
+import asyncio
+import json
+import typing
+
 import discord
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
-import json
-import typing
-import asyncio
 
 from .utils import checks
 
@@ -44,6 +45,7 @@ class modCog(commands.Cog):
 
         def check(m):
             return m.channel.id == ctx.channel.id and m.author.id == ctx.author.id
+
         try:
             msg = await self.bot.wait_for('message', check=check, timeout=60)
         except asyncio.TimeoutError:
@@ -78,7 +80,8 @@ class modCog(commands.Cog):
     async def autodelete(self, ctx, member: discord.Member, *, delay: int = 120):
         """Requires manage messages permissions. Autodeletes messages sent by a specified user after a specific delay in seconds. The default is 120, or 2 minutes. Also, keep in mind that autodeleted member reset every time the bot restarts. Use unautodelete to stop autodeleting user messages."""
         self.autodeletions[member.id] = delay
-        await ctx.send(f'{ctx.author.mention}, I added {member} to my autodeletions list. Use {ctx.prefix}help autodelete to see the consequences of this. This message may be sent twice, it is nothing to worry about, please ignore it.')
+        await ctx.send(
+            f'{ctx.author.mention}, I added {member} to my autodeletions list. Use {ctx.prefix}help autodelete to see the consequences of this. This message may be sent twice, it is nothing to worry about, please ignore it.')
 
     @commands.command()
     @checks.check_mod_or_owner()

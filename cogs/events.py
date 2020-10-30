@@ -1,10 +1,9 @@
-from discord.ext import commands, tasks
-import discord
-import wikipedia
+import asyncio
 import json
 import traceback
-import asyncio
-import aiohttp
+
+import discord
+from discord.ext import commands
 
 
 class eventsCog(commands.Cog):
@@ -116,10 +115,11 @@ class eventsCog(commands.Cog):
                                               \n**Do** `{guildpre}help [command]` **to view specific command help.**")
             embed.set_thumbnail(url=self.thumb)
             embed.set_author(
-                name=f'Requested by {message.author.name}#{message.author.discriminator}', icon_url=message.author.avatar_url)
+                name=f'Requested by {message.author.name}#{message.author.discriminator}',
+                icon_url=message.author.avatar_url)
             await message.channel.send(embed=embed)
 
-        # ——————————————————
+        #  ——————————————————
 
         if message.guild:
             em = discord.Embed(
@@ -156,7 +156,6 @@ class eventsCog(commands.Cog):
 
             try:
                 if afks[str(message.author.id)]:
-
                     # replace the time with python struct, i forgot how it works sorry
                     longmess = int(int(str(message.created_at).split(" ")[1].replace(":", ".").replace(
                         ".", "")) - int(afks[str(message.author.id)]["time"])) / 1000000
@@ -178,7 +177,9 @@ class eventsCog(commands.Cog):
                     afks = json.load(f)
                 for i in message.mentions:
                     if str(i.id) in afks and message.author != message.guild.me:
-                        await message.channel.send(f'**{message.author.mention},** `{i.display_name} is currently AFK.`\n**Reason:** `{afks[str(i.id)]["message"]}`', delete_after=5)
+                        await message.channel.send(
+                            f'**{message.author.mention},** `{i.display_name} is currently AFK.`\n**Reason:** `{afks[str(i.id)]["message"]}`',
+                            delete_after=5)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):

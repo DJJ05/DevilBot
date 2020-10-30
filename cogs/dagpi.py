@@ -1,11 +1,12 @@
-import discord
-from discord.ext import commands
-import secrets
-from asyncdagpi import Client
-from asyncdagpi import exceptions
 import asyncio
+
 import aiohttp
+import discord
+from asyncdagpi import Client
+from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
+
+import secrets
 
 API_CLIENT = Client(secrets.secrets_dagpi_token)
 
@@ -52,13 +53,15 @@ class dagpiCog(commands.Cog):
             for i in data['names']:
                 names.append(i['name'].lower())
         except:
-            await ctx.send('Unfortunately I was unable to retrieve multi-lingual names for this pokemon, so you will only be able to answer in english on this occasion!')
+            await ctx.send(
+                'Unfortunately I was unable to retrieve multi-lingual names for this pokemon, so you will only be able to answer in english on this occasion!')
             names.append(name.lower())
 
         question = await ctx.send(embed=embed)
 
         def check(message: discord.Message) -> bool:
             return message.content.lower() in names or message.content.lower() == 'skip' and message.author.id == ctx.author.id
+
         try:
             await self.bot.wait_for('message', timeout=30, check=check)
         except asyncio.TimeoutError:
