@@ -75,6 +75,8 @@ class utilityCog(commands.Cog):
             with open('DevilBotOCR.png', 'wb') as file:
                 file.write(data)
 
+        await ctx.trigger_typing()
+
         if blur % 2 == 0:
             blur += 1
 
@@ -85,7 +87,8 @@ class utilityCog(commands.Cog):
             return await ctx.send('Not a valid image file, weird sizing or another imaging issue occured.')
 
         e = discord.Embed(
-            description=f'```fix\n\u200b{t}\n```'
+            description=f'```fix\n\u200b{t}\n```',
+            colour=self.colour
         )
         return await ctx.send(embed=e)
 
