@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3411258b-2823-4491-b494-a9920f175dbf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/afks.json" beforeDir="false" afterPath="$PROJECT_DIR$/afks.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/dagpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/dagpi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/dbl.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/dbl.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/dev.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/dev.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/events.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/fun.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/fun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/info.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/info.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/mod.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/mod.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/reddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/reddit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cogs/utopia.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/utopia.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -3,7 +3,6 @@ import datetime
 import os
 import pathlib
 import time
-from datetime import datetime
 
 import discord
 import humanize
