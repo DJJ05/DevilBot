@@ -79,7 +79,8 @@ class utilityCog(commands.Cog):
             blur += 1
 
         try:
-            t = imgtess('DevilBotOCR.png', blur)
+            loop = self.bot.loop
+            t = await loop.run_in_executor(None, imgtess, 'DevilBotOCR.png', blur)
         except Exception:
             return await ctx.send('Not a valid image file, weird sizing or another imaging issue occured.')
 
