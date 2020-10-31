@@ -83,42 +83,6 @@ class funCog(commands.Cog):
         )
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=['mi', 'move', 'move_info'])
-    async def moveinfo(self, ctx, *, move):
-        """Collects information on a specified pokémon move"""
-        move = move.lower()
-        base_url = 'https://pokeapi.co/api/v2/move/'
-        async with aiohttp.ClientSession() as cs, ctx.typing():
-            try:
-                async with cs.get(base_url + move) as r:
-                    data = await r.json()
-            except:
-                raise commands.BadArgument('Requested move not found!')
-        movedesc = data['effect_entries'][0]['effect'].replace(
-            '\n', ' ').replace('  ', ' ').capitalize()
-        movetype = data['type']['name'].capitalize()
-        movepp = data['pp']
-        moveid = data['id']
-        movepower = data['power']
-        movename = data['name'].capitalize()
-        movedmgclass = data['damage_class']['name'].capitalize()
-        moveaccuracy = data['accuracy']
-        movetargets = data['target']['name'].capitalize()
-        movegen = data['generation']['name'].capitalize()
-        embed = discord.Embed(
-            title=f'{movename} #{moveid}',
-            colour=self.colour,
-            description=f'**{movedesc}**'
-        )
-        embed.add_field(name=f'Type', value=movetype, inline=True)
-        embed.add_field(name=f'PP', value=movepp, inline=True)
-        embed.add_field(name=f'Power', value=movepower, inline=True)
-        embed.add_field(name=f'Damage Class', value=movedmgclass, inline=True)
-        embed.add_field(name=f'Accuracy', value=moveaccuracy, inline=True)
-        embed.add_field(name=f'Targets', value=movetargets, inline=True)
-        embed.add_field(name=f'Generation', value=movegen, inline=True)
-        await ctx.send(embed=embed)
-
     @commands.command(aliases=['inspiro', 'inspirobot'])
     async def inspire(self, ctx):
         """Collect a not so inspiring quote"""
@@ -131,71 +95,6 @@ class funCog(commands.Cog):
         )
         embed.set_image(url=data)
         await ctx.send(embed=embed)
-
-    @commands.command(aliases=['dex', 'poke', 'pokemon', 'poké', 'pokémon'])
-    async def pokedex(self, ctx, *, pokemon: str):
-        """Return information about specified Pokemon"""
-        '''votecheck = await checkvoter(ctx.author.id)
-        if not votecheck:
-            return await ctx.send(embed=VOTELOCKTEMP)'''
-        pokemon = pokemon.lower()
-        async with ctx.typing():
-            base_url = 'https://pokeapi.co/api/v2/pokemon/'
-            async with aiohttp.ClientSession() as cs, ctx.typing():
-                try:
-                    async with cs.get(base_url + pokemon) as r:
-                        data = await r.json()
-                except:
-                    raise commands.BadArgument('Requested Pokémon not found!')
-            pokename = data["name"]
-            pokenum = f'#{data["id"]}'
-            pokeheight = f'{data["height"]}m'
-            pokeweight = f'{data["weight"] / 10}kg'
-            poketypes = []
-            for i in data['types']:
-                poketypes.append(f"• {(i['type']['name'].capitalize())}")
-            abilities = []
-            for i in data['abilities']:
-                abilities.append(f"• {(i['ability']['name'].capitalize())}")
-            pokeimg = data['sprites']['other']['official-artwork']['front_default'] or data['sprites']['front_default']
-            pokespecies = data['species']['url']
-            async with aiohttp.ClientSession() as cs:
-                async with cs.get(pokespecies) as r:
-                    data = await r.json()
-            pokedesc = 'No description found.'
-            for i in data['flavor_text_entries']:
-                if i['language']['name'] == 'en':
-                    pokedesc = (i['flavor_text']).replace(
-                        '\n', ' ').lower().capitalize()
-                    break
-            is_legendary = data['is_legendary']
-            is_mythical = data['is_mythical']
-            evochain = data['evolution_chain']['url']
-            async with aiohttp.ClientSession() as cs:
-                async with cs.get(evochain) as r:
-                    data = await r.json()
-            evoline = f'{data["chain"]["species"]["name"].capitalize()}'
-            if len(data['chain']['evolves_to']):
-                evoline += f' => {data["chain"]["evolves_to"][0]["species"]["name"].capitalize()}'
-                if len(data['chain']['evolves_to'][0]['evolves_to']):
-                    evoline += f' => {data["chain"]["evolves_to"][0]["evolves_to"][0]["species"]["name"].capitalize()}'
-        embed = discord.Embed(
-            title=f'{pokename.capitalize()} {pokenum}',
-            colour=self.colour,
-            description=f'**{pokedesc.capitalize()}**'
-        )
-        embed.add_field(name=f'Weight', value=f'{pokeweight}', inline=True)
-        embed.add_field(name=f'Height', value=f'{pokeheight}', inline=True)
-        embed.add_field(name=f'Type(s)', value="\n".join(
-            poketypes), inline=True)
-        embed.add_field(name=f'Abilities',
-                        value="\n".join(abilities), inline=True)
-        embed.add_field(name=f'Evolution Line',
-                        value=f'{evoline}', inline=True)
-        embed.add_field(name=f'Legendary', value=is_legendary, inline=True)
-        embed.add_field(name=f'Mythical', value=is_mythical, inline=True)
-        embed.set_image(url=pokeimg)
-        return await ctx.send(embed=embed)
 
     @commands.command()
     async def fact(self, ctx):
