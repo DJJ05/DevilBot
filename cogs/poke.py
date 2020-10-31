@@ -9,7 +9,7 @@ from .secrets import secrets_dagpi_token
 
 
 class pokeCog(commands.Cog):
-    """Mod commands"""
+    """Pokemon commands"""
 
     def __init__(self, bot):
         self.bot = bot
