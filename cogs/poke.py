@@ -83,7 +83,7 @@ class pokeCog(commands.Cog):
     @commands.command(aliases=['mi'])
     async def moveinfo(self, ctx, *, move):
         """Collects information on a specified pokémon move"""
-        move = move.lower()
+        move = move.lower().replace(' ', '-')
         base_url = 'https://pokeapi.co/api/v2/move/'
         async with aiohttp.ClientSession() as cs, ctx.typing():
             try:

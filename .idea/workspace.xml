@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="3411258b-2823-4491-b494-a9920f175dbf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -68,6 +86,18 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="354" y="119" key="#Inspections" timestamp="1604068487578">
       <screen x="0" y="23" width="1440" height="821" />
@@ -77,22 +107,22 @@
       <screen x="0" y="23" width="1440" height="821" />
     </state>
     <state x="100" y="123" width="1240" height="621" key="DiffContextDialog/0.23.1440.821@0.23.1440.821" timestamp="1604068281291" />
-    <state width="1419" height="221" key="GridCell.Tab.0.bottom" timestamp="1604146913185">
+    <state width="1419" height="221" key="GridCell.Tab.0.bottom" timestamp="1604147034912">
       <screen x="0" y="23" width="1440" height="821" />
     </state>
-    <state width="1419" height="221" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1604146913185" />
-    <state width="1419" height="221" key="GridCell.Tab.0.center" timestamp="1604146913183">
+    <state width="1419" height="221" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1604147034912" />
+    <state width="1419" height="221" key="GridCell.Tab.0.center" timestamp="1604147034910">
       <screen x="0" y="23" width="1440" height="821" />
     </state>
-    <state width="1419" height="221" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1604146913183" />
-    <state width="1419" height="221" key="GridCell.Tab.0.left" timestamp="1604146913182">
+    <state width="1419" height="221" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1604147034910" />
+    <state width="1419" height="221" key="GridCell.Tab.0.left" timestamp="1604147034909">
       <screen x="0" y="23" width="1440" height="821" />
     </state>
-    <state width="1419" height="221" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1604146913182" />
-    <state width="1419" height="221" key="GridCell.Tab.0.right" timestamp="1604146913184">
+    <state width="1419" height="221" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1604147034909" />
+    <state width="1419" height="221" key="GridCell.Tab.0.right" timestamp="1604147034911">
       <screen x="0" y="23" width="1440" height="821" />
     </state>
-    <state width="1419" height="221" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1604146913184" />
+    <state width="1419" height="221" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1604147034911" />
     <state x="170" y="23" width="1039" height="802" key="dock-window-1" timestamp="1604001832134">
       <screen x="0" y="23" width="1440" height="821" />
     </state>
