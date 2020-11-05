@@ -3,7 +3,6 @@ import json
 import os
 import textwrap
 import traceback
-import typing
 
 import discord
 from discord.ext import commands
@@ -64,135 +63,6 @@ class devCog(commands.Cog):
             await invite.delete()
             await ctx.author.send('Done!')
 
-    @commands.group(invoke_without_command=True, aliases=['err'])
-    async def error(self, ctx):
-        """Error commands"""
-        pass
-
-    @error.command(aliases=['res', 'close'])
-    @commands.is_owner()
-    async def resolve(self, ctx, id=None, *, message):
-        """Resolve an error"""
-        if not id:
-            return await ctx.send('ID is a required argument.')
-        try:
-            id = int(id)
-        except:
-            return await ctx.send('ID must be a number.')
-        if not message:
-            return await ctx.send('Message is a required argument.')
-
-        with open('errors.json', 'r') as f:
-            errors = json.load(f)
-
-        to_dm = errors[str(id)]['followers']
-        if len(to_dm):
-            embed = discord.Embed(
-                title=f'Error `{id}` has been resolved',
-                colour=self.colour,
-                description=f"Command: `{errors[str(id)]['command']}`\nClosure reason: `{message.capitalize()}`\nOriginal traceback: {errors[str(id)]['traceback']}"
-            )
-            for user in to_dm:
-                a = self.bot.get_user(int(user))
-                try:
-                    await a.send(embed=embed)
-                except:
-                    await ctx.send(f'Attempt to DM `<@!{user}>` failed.')
-
-        errchannel = self.bot.get_channel(748962623487344753)
-        await errchannel.send(f'**ERROR {id} HAS BEEN RESOLVED.**')
-        errors.pop(str(id))
-        return await ctx.send('Done.')
-
-    @error.command(aliases=['bc'])
-    @commands.is_owner()
-    async def broadcast(self, ctx, id=None, *, message):
-        """Broadcast an error update"""
-        if not id:
-            return await ctx.send('ID is a required argument.')
-        try:
-            id = int(id)
-        except:
-            return await ctx.send('ID must be a number.')
-        if not message:
-            return await ctx.send('Message is a required argument.')
-
-        with open('errors.json', 'r') as f:
-            errors = json.load(f)
-
-        to_dm = errors[str(id)]['followers']
-        if not len(to_dm):
-            try:
-                await ctx.message.delete()
-            except:
-                pass
-            return await ctx.send(f'Error `{id}` has no active followers.')
-        embed = discord.Embed(
-            title=f'New comment on error `{id}`',
-            colour=self.colour,
-            description=f"Command: `{errors[str(id)]['command']}`\nNew comment: `{message.capitalize()}`\nOriginal traceback: {errors[str(id)]['traceback']}"
-        )
-        for user in to_dm:
-            a = self.bot.get_user(int(user))
-            try:
-                await a.send(embed=embed)
-            except:
-                await ctx.send(f'Attempt to DM `<@!{user}>` failed.')
-        await ctx.send('Done.')
-
-    @error.command()
-    async def follow(self, ctx, id=None):
-        """Follow an error"""
-        if not id:
-            return await ctx.send('ID is a required argument.')
-        try:
-            id = int(id)
-        except:
-            return await ctx.send('ID must be a number.')
-
-        with open('errors.json', 'r') as f:
-            errors = json.load(f)
-
-        try:
-            if str(ctx.author.id) in errors[str(id)]["followers"]:
-                return await ctx.send('You have already followed this error!')
-            errors[str(id)]["followers"].append(str(ctx.author.id))
-        except KeyError:
-            return await ctx.send('Invalid ID. Please check for typos.')
-
-        with open('errors.json', 'w') as f:
-            json.dump(errors, f, indent=4)
-
-        return await ctx.send(
-            f'Successfully followed `{id}.` You can use `{ctx.prefix}error unfollow {id}` at anytime to unfollow this error.')
-
-    @error.command()
-    async def unfollow(self, ctx, id=None):
-        """Unfollow an error"""
-        if not id:
-            return await ctx.send('ID is a required argument.')
-        try:
-            id = int(id)
-        except:
-            return await ctx.send('ID must be a number.')
-
-        with open('errors.json', 'r') as f:
-            errors = json.load(f)
-
-        try:
-            if str(ctx.author.id) in errors[str(id)]["followers"]:
-                errors[str(id)]["followers"].remove(str(ctx.author.id))
-            else:
-                return await ctx.send('You are not following this error!')
-        except KeyError:
-            return await ctx.send('Invalid ID. Please check for typos.')
-
-        with open('errors.json', 'w') as f:
-            json.dump(errors, f, indent=4)
-
-        return await ctx.send(
-            f'Successfully unfollowed `{id}.` You can use `{ctx.prefix}error follow {id}` at anytime to follow this error.')
-
     @commands.group(invoke_without_command=True, aliases=['bl'])
     @commands.is_owner()
     async def blacklist(self, ctx):
@@ -201,12 +71,7 @@ class devCog(commands.Cog):
 
     @blacklist.command(aliases=['addmember'])
     @commands.is_owner()
-    async def adduser(self, ctx, member: typing.Union[discord.Member, int], *, reason: str = 'None Provided'):
-        if not member:
-            # ???
-            return await ctx.send('`Member` is a required argument that is missing.')
-        if type(member) == int:
-            member = self.bot.get_user(member) or await self.bot.fetch_user(member)
+    async def adduser(self, ctx, member: discord.Member, *, reason: str = 'None Provided'):
         with open('blacklist.json', 'r') as f:
             blacklist = json.load(f)
 
@@ -228,11 +93,7 @@ class devCog(commands.Cog):
 
     @blacklist.command(aliases=['remmember'])
     @commands.is_owner()
-    async def remuser(self, ctx, member: typing.Union[discord.Member, int]):
-        if not member:
-            return await ctx.send('`Member` is a required argument that is missing.')
-        if type(member) == int:
-            member = self.bot.get_user(member) or await self.bot.fetch_user(member)
+    async def remuser(self, ctx, member: discord.Member):
         with open('blacklist.json', 'r') as f:
             blacklist = json.load(f)
 
@@ -292,7 +153,7 @@ class devCog(commands.Cog):
         """Toggles bot maintenance mode"""
         for c in self.bot.commands:
             if c.name != 'ToggleMaintenance':
-                if c.enabled == False:
+                if not c.enabled:
                     c.enabled = True
                 else:
                     c.enabled = False

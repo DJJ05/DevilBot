@@ -1,6 +1,5 @@
 import asyncio
 import json
-import traceback
 
 import discord
 from discord.ext import commands
@@ -22,39 +21,6 @@ class eventsCog(commands.Cog):
         self.btred = '\033[1;31m'
         self.tred = '\033[31m'
         self.endc = '\033[m'
-
-        self.latest = None
-        self.durl = 'https://pypi.org/pypi/aiodagpi/json'
-        # self.checkaiodagpi.start()
-
-    '''@tasks.loop(minutes=3)
-    async def checkaiodagpi(self):
-        if not self.latest:
-            async with aiohttp.ClientSession() as cs:
-                async with cs.get(self.durl) as resp:
-                    data = await resp.json()
-            await cs.close()
-            self.latest = data['info']['version']
-            return
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(self.durl) as resp:
-                data = await resp.json()
-        ver = data['info']['version']
-        if ver == self.latest:
-            return
-        self.latest = ver
-        git = self.bot.get_channel(745946246371475549)
-        desc = ''
-        for i in data['info']['classifiers']:
-            desc+=f'{i}\n'
-        embed=discord.Embed(
-            colour=self.colour,
-            url=data['info']['package_url'],
-            title=f'AioDagpi version {ver} has been released to PyPI!',
-            description=f'**Classifiers:**\n{desc}\n**Check it out now and use `pip3 install aiodagpi` to use it :D**'
-        )
-        embed.set_thumbnail(url='https://static1.squarespace.com/static/59481d6bb8a79b8f7c70ec19/594a49e202d7bcca9e61fe23/59b2ee34914e6b6d89b9241c/1506011023937/pypi_logo.png?format=1500w')
-        await git.send(embed=embed)'''
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
@@ -194,138 +160,6 @@ class eventsCog(commands.Cog):
     '''@commands.Cog.listener()
     async def on_message_edit(self, before, after):
         await self.bot.process_commands(after)'''
-
-    @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
-        # Error formatting code used from Daggy1234's DagBot GitHub Repository Provided by the GNU Affero General
-        # Public License @ https://github.com/Daggy1234/dagbot/blob/master/dagbot/extensions/errors.py#L37-#L42
-        # Copyright (C) 2020  Daggy1234
-
-        if type(ctx.channel) == discord.DMChannel:
-            return
-
-        etype = type(error)
-        trace = error.__traceback__
-        verbosity = 4
-        lines = traceback.format_exception(etype, error, trace, verbosity)
-        traceback_text = f'```py\n{"".join(lines)}\n```'
-
-        embyw = discord.Embed(colour=self.colour)
-        embyw.set_thumbnail(
-            url='https://cdn.discordapp.com/attachments/745950521072025714/766734683479998574/attention.png')
-
-        embye = discord.Embed(colour=self.colour)
-        embye.set_thumbnail(
-            url='https://cdn.discordapp.com/attachments/745950521072025714/766734680371888128/warning.png')
-
-        if etype == commands.CommandNotFound:
-            return
-
-        elif etype == commands.DisabledCommand:
-            embyw.title = 'This command is disabled!'
-            embyw.description = f'{ctx.author.mention}, `{ctx.prefix}{ctx.command.qualified_name}` has been **temporarily** disabled by my owner. Please check back later.'
-            await ctx.send(embed=embyw)
-
-        elif etype == commands.TooManyArguments:
-            embyw.title = 'You gave me too much info!'
-            embyw.description = f'{ctx.author.mention}, you gave me arguments (values *after* {ctx.prefix}{ctx.command.qualified_name}) that I wasn\'t ready for. Please check the usage with {ctx.prefix}help {ctx.command.qualified_name}.'
-            await ctx.send(embed=embyw)
-
-        elif etype == commands.BadUnionArgument or etype == commands.ConversionError:
-            embye.title = 'Couldn\'t convert to object!'
-            embye.description = f'{ctx.author.mention}, I couldn\'t convert the given argument(s) into objects. This means that I couldn\'t locate the given member, guild, channel etc. Check for typos!'
-            await ctx.send(embed=embye)
-
-        elif etype == commands.BadArgument:
-            embye.title = 'Faulty information detected!'
-            embye.description = f'{ctx.author.mention}, you gave me faulty information! This may mean that a member, guild, channel etc. that I was supposed to use could not be located. Check for typos!'
-            await ctx.send(embed=embye)
-
-        elif etype == commands.MemberNotFound:
-            embyw.title = 'Member not found!'
-            embyw.description = f'{ctx.author.mention}, the member you told me to find ({error.argument}) could not be located! Check for typos.'
-            await ctx.send(embed=embyw)
-
-        elif etype == commands.CommandOnCooldown:
-            seconds = error.retry_after
-            seconds = round(seconds, 2)
-            remainder = divmod(int(seconds), 3600)
-            minutes, seconds = divmod(remainder, 60)
-            embyw.title = 'You are on cooldown!'
-            embyw.description = f'{ctx.author.mention}, you are still on cooldown for a remaining `{minutes} minutes and {seconds} seconds!` Cool it down.'
-            await ctx.send(embed=embyw)
-
-        elif etype == commands.MaxConcurrencyReached:
-            embyw.title = 'This command is too powerful for me!'
-            embyw.description = f'{ctx.author.mention}, this command is too powerful for me and has been limited to only `{error.number}` uses running at the same time in `{str(error.per)}`.'
-            await ctx.send(embed=embyw)
-
-        elif etype == commands.NotOwner:
-            embyw.title = 'This command is restricted!'
-            embyw.description = f'{ctx.author.mention}, this command contains power too immense for you, and has been limited to only my owner! Come back when you own me.'
-            await ctx.send(embed=embyw)
-
-        elif etype == commands.NSFWChannelRequired:
-            embye.title = 'This command is NSFW locked!'
-            embye.description = f'{ctx.author.mention}, the channel #{error.channel.name} is not marked NSFW, which this command requires. If you are a moderator, please mark this channel as such!'
-            await ctx.send(embed=embye)
-
-        elif etype == commands.MissingRole:
-            embyw.title = 'You are missing a role!'
-            embyw.description = f'{ctx.author.mention}, you are missing a role required to perform this command: {error.missing_role.name}. Check your role list!'
-            await ctx.send(embed=embyw)
-
-        elif etype == commands.MissingPermissions:
-            embyw.title = 'You are missing permissions!'
-            embyw.description = f'{ctx.author.mention}, you are missing permissions required to perform this command: {error.missing_perms}. Check your permissions!'
-            await ctx.send(embed=embyw)
-
-        elif etype == commands.BotMissingRole:
-            embyw.title = 'I am missing a role!'
-            embyw.description = f'{ctx.author.mention}, I am missing a role required to perform this command: {error.missing_role.name}. Check my roles!'
-            await ctx.send(embed=embyw)
-
-        elif etype == commands.BotMissingPermissions:
-            embyw.title = 'I am missing permissions!'
-            embyw.description = f'{ctx.author.mention}, I am missing permissions required to perform this command: {error.missing_perms}. Check my permissions!'
-            await ctx.send(embed=embyw)
-
-        elif etype == commands.MissingRequiredArgument:
-            embyw.title = 'You forgot to fill in the blanks!'
-            embyw.description = f'{ctx.author.mention}, you didn\'t enter the required argument: {error.param.name}.'
-            await ctx.send(embed=embyw)
-
-        elif etype == commands.CheckFailure:
-            embyw.title = 'You didn\'t pass the test!'
-            embyw.description = f'{ctx.author.mention}, this command contains a custom check, meaning my owner decided to constrict its usage according to a certain ruleset: `{str(ctx.command.checks[0]).strip("<function").split(".")[0] if len(ctx.command.checks) else ""}`'
-            await ctx.send(embed=embyw)
-
-        else:
-            print(
-                f'{self.btred} ERROR: {self.tred} {traceback_text} {self.endc}——————————————————————————————')
-            embed = discord.Embed(colour=0xff0033, title=f'Error during `{ctx.command.name}`',
-                                  description=f'ID: {ctx.message.id}\nMy creator has been notified of the error and will endeavour to fix it soon.\n{traceback_text}')
-            await ctx.send(embed=embed)
-
-            errchannel = self.bot.get_channel(748962623487344753)
-
-            embed = discord.Embed(colour=0xff0033, title=f'Error during `{ctx.command.qualified_name}`',
-                                  description=f'ID: {ctx.message.id}\n[Jump]({ctx.message.jump_url})\n{traceback_text}')
-            a = await errchannel.send(embed=embed)
-
-            with open('errors.json', 'r') as f:
-                errors = json.load(f)
-
-            errors[str(ctx.message.id)] = {
-                "traceback": traceback_text,
-                "command": ctx.command.name,
-                "author": ctx.author.id,
-                "errormessage": a.id,
-                "followers": []
-            }
-
-            with open('errors.json', 'w') as f:
-                json.dump(errors, f, indent=4)
 
 
 def setup(bot):

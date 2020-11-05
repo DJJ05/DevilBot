@@ -1,5 +1,6 @@
-import aiodagpi
 import asyncio
+
+import aiodagpi
 import aiohttp
 import discord
 from discord.ext import commands
@@ -45,6 +46,7 @@ class pokeCog(commands.Cog):
 
         def check(m):
             return m.channel.id == ctx.channel.id and m.author.id == ctx.author.id
+
         tries = 0
         emb = discord.Embed(
             colour=self.colour,
@@ -53,6 +55,7 @@ class pokeCog(commands.Cog):
         )
         emb.set_image(url=q)
         mes = await ctx.send(embed=emb)
+        emb.description = ''
         while tries < 3:
             try:
                 msg = await self.bot.wait_for('message', check=check, timeout=60)
@@ -73,7 +76,7 @@ class pokeCog(commands.Cog):
                     emb.title = f'You got it! It was {n_e.capitalize()}.'
                     return await mes.edit(embed=emb)
                 tries += 1
-                emb.title = f'Who\'s That Pokemon? You have {3-tries} guesses left.'
+                emb.title = f'Who\'s That Pokemon? You have {3 - tries} guesses left.'
                 await mes.edit(embed=emb)
         await ctx.send(f'You ran out of guessed! It was {n_e.capitalize()}.')
         emb.set_image(url=a)

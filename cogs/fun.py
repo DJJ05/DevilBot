@@ -1,11 +1,11 @@
 import io
+import random
+import string
 
 import aiohttp
 import discord
-import random
-import string
-from discord.ext import commands
 from captcha.image import ImageCaptcha
+from discord.ext import commands
 
 
 class funCog(commands.Cog):

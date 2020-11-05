@@ -20,7 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3411258b-2823-4491-b494-a9920f175dbf" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/dev.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/dev.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/events.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/events.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cogs/fun.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/fun.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cogs/poke.py" beforeDir="false" afterPath="$PROJECT_DIR$/cogs/poke.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +51,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RunManager">
     <configuration name="bot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -107,22 +113,26 @@
       <screen x="0" y="23" width="1440" height="821" />
     </state>
     <state x="100" y="123" width="1240" height="621" key="DiffContextDialog/0.23.1440.821@0.23.1440.821" timestamp="1604068281291" />
-    <state width="1419" height="221" key="GridCell.Tab.0.bottom" timestamp="1604147034912">
+    <state width="1419" height="221" key="GridCell.Tab.0.bottom" timestamp="1604607676474">
       <screen x="0" y="23" width="1440" height="821" />
     </state>
-    <state width="1419" height="221" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1604147034912" />
-    <state width="1419" height="221" key="GridCell.Tab.0.center" timestamp="1604147034910">
+    <state width="1419" height="221" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1604607676474" />
+    <state width="1419" height="221" key="GridCell.Tab.0.center" timestamp="1604607676474">
       <screen x="0" y="23" width="1440" height="821" />
     </state>
-    <state width="1419" height="221" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1604147034910" />
-    <state width="1419" height="221" key="GridCell.Tab.0.left" timestamp="1604147034909">
+    <state width="1419" height="221" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1604607676474" />
+    <state width="1419" height="221" key="GridCell.Tab.0.left" timestamp="1604607676473">
       <screen x="0" y="23" width="1440" height="821" />
     </state>
-    <state width="1419" height="221" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1604147034909" />
-    <state width="1419" height="221" key="GridCell.Tab.0.right" timestamp="1604147034911">
+    <state width="1419" height="221" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1604607676473" />
+    <state width="1419" height="221" key="GridCell.Tab.0.right" timestamp="1604607676474">
       <screen x="0" y="23" width="1440" height="821" />
     </state>
-    <state width="1419" height="221" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1604147034911" />
+    <state width="1419" height="221" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1604607676474" />
+    <state x="221" y="72" key="SettingsEditor" timestamp="1604424574669">
+      <screen x="0" y="23" width="1440" height="821" />
+    </state>
+    <state x="221" y="72" key="SettingsEditor/0.23.1440.821@0.23.1440.821" timestamp="1604424574669" />
     <state x="170" y="23" width="1039" height="802" key="dock-window-1" timestamp="1604001832134">
       <screen x="0" y="23" width="1440" height="821" />
     </state>
