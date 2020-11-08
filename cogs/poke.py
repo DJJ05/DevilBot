@@ -93,7 +93,7 @@ class pokeCog(commands.Cog):
 
         em = discord.Embed(
             color=self.colour,
-            title=f'{name.title() if type(name) != int else n.title()} #{p["number"]}',
+            title=f'{name.title() if type(name) != int else p["name"].title()} #{p["number"]}',
             description=f'**{p["description"].capitalize()}**'
         )
 
