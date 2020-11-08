@@ -23,6 +23,7 @@ class Bot(commands.AutoShardedBot):
         self.db_conn = database_conn
         self.blacklist = self.initialize_blacklist()
         self.pokemon = None
+        self.abilities = None
         self.colour = 0xff9300
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
@@ -71,10 +72,21 @@ class Bot(commands.AutoShardedBot):
         print(
             f'{self.tgreen}Status changed successfully {self.endc}\n——————————————————————————————')
         self.pokemon = await self.load_pokemon()
+        self.abilities = await self.load_abilities()
 
     def initialize_blacklist(self) -> dict:
         with open('blacklist.json', 'r') as f:
             return json.load(f)
+
+    async def load_abilities(self):
+        final = {}
+        with open('abilities.csv') as csv_file:
+            csv_reader = csv.DictReader(csv_file, delimiter=',')
+            for row in csv_reader:
+                r = row
+                r['description'] = r['description'].replace('\n', ' ')
+                final[r['name']] = r
+        return final
 
     async def load_pokemon(self):
         final = {}

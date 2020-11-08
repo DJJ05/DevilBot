@@ -23,6 +23,40 @@ class pokeCog(commands.Cog):
         self.colour = 0xff9300
         self.dagpi = aiodagpi.AioDagpiClient(secrets_dagpi_token)
 
+    @commands.command(aliases=['ai'])
+    async def abilityinfo(self, ctx, *, name=None):
+        """Get ability information. Accepts ID or name, and defaults to a random ability"""
+        if not self.bot.abilities:
+            raise commands.BadArgument('Please wait 2-3 seconds to use this command.')
+
+        if not name:
+            name = random.choice(list(self.bot.abilities.keys()))
+
+        try:
+            name = int(name) - 1
+        except ValueError:
+            ...
+
+        if isinstance(name, int):
+            try:
+                a = list(self.bot.abilities.keys())[name]
+                a = self.bot.abilities.get(a)
+            except:
+                raise commands.BadArgument('Unknown ability number provided.')
+        else:
+            name = name.lower().replace(' ', '-').strip()
+            try:
+                a = self.bot.abilities[name]
+            except:
+                raise commands.BadArgument('Unknown ability name provided.')
+
+        em = discord.Embed(
+            color=self.colour,
+            title=f'{a["name"].replace("-", " ").title()} #{a["id"]}',
+            description=f'__**{a["generation"].capitalize()}**__\n{a["description"]}'
+        )
+        return await ctx.send(embed=em)
+
     @commands.command(aliases=['d', 'dex'])
     async def pokedex(self, ctx, *, name=None):
         """Get pokedex entry for a pokemon. Accepts ID or name, and defaults to a random pokemon"""
@@ -71,9 +105,11 @@ class pokeCog(commands.Cog):
                 n = ' ' + n.replace('alolan', '').replace('alola', '').strip()
                 n += '-alola'
 
+            n = n.strip().replace(' ', '-')
+
             try:
                 p = self.bot.pokemon[n.strip()]
-            except KeyError or IndexError:
+            except:
                 raise commands.BadArgument('Unknown Pokémon name provided.')
 
         typ = p['types'].split('|')
@@ -84,7 +120,7 @@ class pokeCog(commands.Cog):
         abi = p['abilities'].split('|')
         ab = []
         for a in abi:
-            ab.append(f'• {a.capitalize()}')
+            ab.append(f'• {a.replace("-", " ").title()}')
 
         evo = p['evolution'].split('|')
         ev = []
@@ -115,6 +151,50 @@ class pokeCog(commands.Cog):
             em.set_thumbnail(url=p['sprite'])
 
         return await ctx.send(embed=em)
+
+    @commands.command(aliases=['refreshabilities', 'ua'])
+    @commands.is_owner()
+    async def updateabilities(self, ctx):
+        """Updates the abilities csv with the ability list"""
+        fulldata = []
+
+        async with aiohttp.ClientSession() as c, ctx.typing():
+            async with c.get('https://pokeapi.co/api/v2/ability?limit=2000') as r:
+                al = await r.json()
+                if r.status != 200:
+                    return await ctx.send(f'Received {r.status}: {r.reason}')
+
+            ac = al['count']
+            ar = al['results']
+
+            for a in ar:
+                an = a['name']
+                async with c.get(a['url']) as r:
+                    ai = await r.json()
+                    if r.status != 200:
+                        return await ctx.send(f'Received {r.status}: {r.reason}')
+
+                de = 'NULL'
+                for d in ai['effect_entries']:
+                    if d['language']['name'] == 'en':
+                        de = d['effect']
+
+                fd = dict(
+                    name=an,
+                    id=ai['id'],
+                    generation=ai['generation']['name'],
+                    description=de
+                )
+
+                fulldata.append(fd)
+
+        async with aiofiles.open("abilities.csv", mode="w+", encoding="utf-8", newline="") as afp:
+            writer = aiocsv.AsyncDictWriter(afp,
+                                            ["name", "id", "description", "generation"], restval="NULL",
+                                            quoting=csv.QUOTE_ALL)
+            await writer.writeheader()
+            await writer.writerows(fulldata)
+        return await ctx.send(f'{ctx.author.mention}, successfully inserted `{ac}` entries into `abilities.csv`.')
 
     @commands.command(aliases=['refreshpokemon', 'up'])
     @commands.is_owner()
@@ -168,6 +248,7 @@ class pokeCog(commands.Cog):
                     ps = ps.replace('-x', 'x')
                 if ps.endswith('-y'):
                     ps = ps.replace('-y', 'y')
+                ps = ps.replace('-', '')
 
                 fd = dict(
                     name=pn,
