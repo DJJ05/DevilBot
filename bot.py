@@ -1,4 +1,5 @@
 import asyncio
+import csv
 import json
 import os
 import sys
@@ -21,6 +22,7 @@ class Bot(commands.AutoShardedBot):
                          description="", shard_count=2)
         self.db_conn = database_conn
         self.blacklist = self.initialize_blacklist()
+        self.pokemon = None
         self.colour = 0xff9300
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
@@ -68,10 +70,21 @@ class Bot(commands.AutoShardedBot):
             activity=discord.Activity(type=5, name="ow!help"))
         print(
             f'{self.tgreen}Status changed successfully {self.endc}\n——————————————————————————————')
+        self.pokemon = await self.load_pokemon()
 
     def initialize_blacklist(self) -> dict:
         with open('blacklist.json', 'r') as f:
             return json.load(f)
+
+    async def load_pokemon(self):
+        final = {}
+        with open('pokemon.csv') as csv_file:
+            csv_reader = csv.DictReader(csv_file, delimiter=',')
+            for row in csv_reader:
+                r = row
+                r['description'] = r['description'].replace('\n', ' ')
+                final[r['name']] = r
+        return final
 
     def run(self):
         super().run(secrets.secrets_token)
