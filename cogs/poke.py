@@ -93,58 +93,46 @@ class pokeCog(commands.Cog):
 
     @commands.command(aliases=['d', 'dex'])
     async def pokedex(self, ctx, *, name=None):
-        """Get pokedex entry for a pokemon. Accepts ID or name, and defaults to a random pokemon"""
+        """Get pokedex entry for a pokemon. Defaults to a random pokemon"""
         if not self.bot.pokemon:
             raise commands.BadArgument('Please wait 2-3 seconds to use this command.')
 
         if not name:
             name = random.choice(list(self.bot.pokemon.keys()))
 
-        try:
-            name = int(name) - 1
-        except ValueError:
-            ...
-
         sh = False
-        if isinstance(name, int):
-            try:
-                p = list(self.bot.pokemon.keys())[name]
-                p = self.bot.pokemon.get(p)
-            except:
-                raise commands.BadArgument('Unknown Pokémon number provided.')
-        else:
-            name = name.lower()
-            n = ' ' + name.strip()
+        name = name.lower()
+        n = ' ' + name.strip()
 
-            if ' mega ' in n:
-                n = ' ' + n.replace('mega', '').strip()
-                if n.endswith(' x'):
-                    n = ' ' + n.replace(' x', '').strip()
-                    n += '-mega-x'
-                elif n.endswith(' y'):
-                    n = ' ' + n.replace(' y', '').strip()
-                    n += '-mega-y'
-                else:
-                    n += '-mega'
+        if ' mega ' in n:
+            n = ' ' + n.replace('mega', '').strip()
+            if n.endswith(' x'):
+                n = ' ' + n.replace(' x', '').strip()
+                n += '-mega-x'
+            elif n.endswith(' y'):
+                n = ' ' + n.replace(' y', '').strip()
+                n += '-mega-y'
+            else:
+                n += '-mega'
 
-            if ' shiny ' in n:
-                n = ' ' + n.replace('shiny', '').strip()
-                sh = True
+        if ' shiny ' in n:
+            n = ' ' + n.replace('shiny', '').strip()
+            sh = True
 
-            if ' primal ' in n:
-                n = ' ' + n.replace('primal', '').strip()
-                n += '-primal'
+        if ' primal ' in n:
+            n = ' ' + n.replace('primal', '').strip()
+            n += '-primal'
 
-            if ' alola ' in n or ' alolan ' in n:
-                n = ' ' + n.replace('alolan', '').replace('alola', '').strip()
-                n += '-alola'
+        if ' alola ' in n or ' alolan ' in n:
+            n = ' ' + n.replace('alolan', '').replace('alola', '').strip()
+            n += '-alola'
 
-            n = n.strip().replace(' ', '-')
+        n = n.strip().replace(' ', '-')
 
-            try:
-                p = self.bot.pokemon[n.strip()]
-            except:
-                raise commands.BadArgument('Unknown Pokémon name provided.')
+        try:
+            p = self.bot.pokemon[n.strip()]
+        except:
+            raise commands.BadArgument('Unknown Pokémon name provided.')
 
         typ = p['types'].split('|')
         ty = []

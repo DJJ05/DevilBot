@@ -1876,9 +1876,9 @@ drains people’s lives away.","8","20","steel|ghost","no-guard","honedge|doubla
 "doublade","680","The two swords employ a strategy of rapidly
 alternating between offense and defense to
 bring down their prey.","8","45","steel|ghost","no-guard","honedge|doublade|aegislash","False","False","False","90","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/doublade.gif","https://projectpokemon.org/images/shiny-sprite/doublade.gif"
-"aegislash-shield","681","Once upon a time, a king with an Aegislash
+"aegislash","681","Once upon a time, a king with an Aegislash
 reigned over the land. His Pokémon eventually
-drained him of life, and his kingdom fell with him.","17","530","steel|ghost","stance-change","honedge|doublade|aegislash","False","False","False","45","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/aegislashshield.gif","https://projectpokemon.org/images/shiny-sprite/aegislashshield.gif"
+drained him of life, and his kingdom fell with him.","17","530","steel|ghost","stance-change","honedge|doublade|aegislash","False","False","False","45","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/aegislash.gif","https://projectpokemon.org/images/shiny-sprite/aegislash.gif"
 "spritzee","682","The scent its body gives off enraptures those
 who smell it. Noble ladies had no shortage of
 love for Spritzee.","2","5","fairy","healer|aroma-veil","spritzee|aromatisse","False","False","False","200","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/spritzee.gif","https://projectpokemon.org/images/shiny-sprite/spritzee.gif"
@@ -2064,9 +2064,6 @@ they are very seldom seen.","2","5","bug|fairy","honey-gather|shield-dust|sweet-
 "rockruff","744","This Pokémon intimidates opponents by striking
 the ground with the rocks on its neck. The
 moment an opponent flinches, Rockruff attacks.","5","92","rock","keen-eye|vital-spirit|steadfast","rockruff|lycanroc","False","False","False","190","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/rockruff.gif","https://projectpokemon.org/images/shiny-sprite/rockruff.gif"
-"lycanroc-midday","745","With swift movements, this Pokémon gradually
-backs its prey into a corner. Lycanroc’s fangs are
-always aimed toward opponents’ weak spots.","8","250","rock","keen-eye|sand-rush|steadfast","rockruff|lycanroc","False","False","False","90","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/lycanrocmidday.gif","https://projectpokemon.org/images/shiny-sprite/lycanrocmidday.gif"
 "wishiwashi-solo","746","When it senses danger, its eyes tear up.
 The sparkle of its tears signals other
 Wishiwashi to gather.","2","3","water","schooling","wishiwashi","False","False","False","60","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/wishiwashisolo.gif","https://projectpokemon.org/images/shiny-sprite/wishiwashisolo.gif"
@@ -2501,455 +2498,253 @@ them. Its strikes are nonstop, flowing like a river.","19","1050","fighting|dark
 "zarude","893","This Zarude’s special strength stems from its love
 and care for an orphaned human child that the
 Pokémon has raised since the child’s infancy.","18","700","dark|grass","","zeraora","False","True","False","3","NULL","generation-viii","https://projectpokemon.org/images/normal-sprite/zarude.gif","https://projectpokemon.org/images/shiny-sprite/zarude.gif"
-"deoxys-attack","10001","Deoxys emerged from a virus that came from space. It is highly
+"deoxys","386","Deoxys emerged from a virus that came from space. It is highly
 intelligent and wields psychokinetic powers. This Pokémon
-shoots lasers from the crystalline organ on its chest.","17","608","psychic","pressure","deoxys","False","True","False","3","rare","generation-iii","https://projectpokemon.org/images/normal-sprite/deoxysattack.gif","https://projectpokemon.org/images/shiny-sprite/deoxysattack.gif"
-"deoxys-defense","10002","Deoxys emerged from a virus that came from space. It is highly
-intelligent and wields psychokinetic powers. This Pokémon
-shoots lasers from the crystalline organ on its chest.","17","608","psychic","pressure","deoxys","False","True","False","3","rare","generation-iii","https://projectpokemon.org/images/normal-sprite/deoxysdefense.gif","https://projectpokemon.org/images/shiny-sprite/deoxysdefense.gif"
-"deoxys-speed","10003","Deoxys emerged from a virus that came from space. It is highly
-intelligent and wields psychokinetic powers. This Pokémon
-shoots lasers from the crystalline organ on its chest.","17","608","psychic","pressure","deoxys","False","True","False","3","rare","generation-iii","https://projectpokemon.org/images/normal-sprite/deoxysspeed.gif","https://projectpokemon.org/images/shiny-sprite/deoxysspeed.gif"
-"wormadam-sandy","10004","When Burmy evolved, its cloak became a part of
-this Pokémon’s body. The cloak is never shed.","5","65","bug|ground","anticipation|overcoat","burmy|wormadam","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/wormadamsandy.gif","https://projectpokemon.org/images/shiny-sprite/wormadamsandy.gif"
-"wormadam-trash","10005","When Burmy evolved, its cloak became a part of
-this Pokémon’s body. The cloak is never shed.","5","65","bug|steel","anticipation|overcoat","burmy|wormadam","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/wormadamtrash.gif","https://projectpokemon.org/images/shiny-sprite/wormadamtrash.gif"
-"shaymin-sky","10006","The blooming of Gracidea flowers confers the
+shoots lasers from the crystalline organ on its chest.","17","608","psychic","pressure","deoxys","False","True","False","3","rare","generation-iii","https://projectpokemon.org/images/normal-sprite/deoxys.gif","https://projectpokemon.org/images/shiny-sprite/deoxys.gif"
+"wormadam","413","When Burmy evolved, its cloak became a part of
+this Pokémon’s body. The cloak is never shed.","5","65","bug|ground","anticipation|overcoat","burmy|wormadam","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/wormadam.gif","https://projectpokemon.org/images/shiny-sprite/wormadam.gif"
+"shaymin","492","The blooming of Gracidea flowers confers the
 power of flight upon it. Feelings of gratitude are
-the message it delivers.","4","52","grass|flying","serene-grace","shaymin","False","True","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/shayminsky.gif","https://projectpokemon.org/images/shiny-sprite/shayminsky.gif"
-"giratina-origin","10007","It was banished for its violence. It silently gazed
-upon the old world from the Distortion World.","69","6500","ghost|dragon","levitate","giratina","True","False","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/giratinaorigin.gif","https://projectpokemon.org/images/shiny-sprite/giratinaorigin.gif"
-"rotom-heat","10008","With a body made of plasma, it can inhabit all
-sorts of machines. It loves to surprise others.","3","3","electric|fire","levitate","rotom","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/rotomheat.gif","https://projectpokemon.org/images/shiny-sprite/rotomheat.gif"
-"rotom-wash","10009","With a body made of plasma, it can inhabit all
-sorts of machines. It loves to surprise others.","3","3","electric|water","levitate","rotom","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/rotomwash.gif","https://projectpokemon.org/images/shiny-sprite/rotomwash.gif"
-"rotom-frost","10010","With a body made of plasma, it can inhabit all
-sorts of machines. It loves to surprise others.","3","3","electric|ice","levitate","rotom","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/rotomfrost.gif","https://projectpokemon.org/images/shiny-sprite/rotomfrost.gif"
-"rotom-fan","10011","With a body made of plasma, it can inhabit all
-sorts of machines. It loves to surprise others.","3","3","electric|flying","levitate","rotom","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/rotomfan.gif","https://projectpokemon.org/images/shiny-sprite/rotomfan.gif"
-"rotom-mow","10012","With a body made of plasma, it can inhabit all
-sorts of machines. It loves to surprise others.","3","3","electric|grass","levitate","rotom","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/rotommow.gif","https://projectpokemon.org/images/shiny-sprite/rotommow.gif"
-"castform-sunny","10013","Its form changes depending on the weather.
-The rougher conditions get, the rougher
-Castform’s disposition!","3","8","fire","forecast","castform","False","False","False","45","grassland","generation-iii","https://projectpokemon.org/images/normal-sprite/castformsunny.gif","https://projectpokemon.org/images/shiny-sprite/castformsunny.gif"
-"castform-rainy","10014","Its form changes depending on the weather.
-The rougher conditions get, the rougher
-Castform’s disposition!","3","8","water","forecast","castform","False","False","False","45","grassland","generation-iii","https://projectpokemon.org/images/normal-sprite/castformrainy.gif","https://projectpokemon.org/images/shiny-sprite/castformrainy.gif"
-"castform-snowy","10015","Its form changes depending on the weather.
-The rougher conditions get, the rougher
-Castform’s disposition!","3","8","ice","forecast","castform","False","False","False","45","grassland","generation-iii","https://projectpokemon.org/images/normal-sprite/castformsnowy.gif","https://projectpokemon.org/images/shiny-sprite/castformsnowy.gif"
-"basculin-blue-striped","10016","Known for their violence, these Pokémon
+the message it delivers.","4","52","grass|flying","serene-grace","shaymin","False","True","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/shaymin.gif","https://projectpokemon.org/images/shiny-sprite/shaymin.gif"
+"giratina","487","It was banished for its violence. It silently gazed
+upon the old world from the Distortion World.","69","6500","ghost|dragon","levitate","giratina","True","False","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/giratina.gif","https://projectpokemon.org/images/shiny-sprite/giratina.gif"
+"basculin","550","Known for their violence, these Pokémon
 have the most fights with schools of red-
-striped Basculin.","10","180","water","rock-head|adaptability|mold-breaker","basculin","False","False","False","25","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/basculinbluestriped.gif","https://projectpokemon.org/images/shiny-sprite/basculinbluestriped.gif"
-"darmanitan-zen","10017","When wounded, it stops moving. It goes as
+striped Basculin.","10","180","water","rock-head|adaptability|mold-breaker","basculin","False","False","False","25","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/basculin.gif","https://projectpokemon.org/images/shiny-sprite/basculin.gif"
+"darmanitan","555","When wounded, it stops moving. It goes as
 still as stone to meditate, sharpening its mind
-and spirit.","13","929","fire|psychic","sheer-force|zen-mode","darumaka|darmanitan","False","False","False","60","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/darmanitanzen.gif","https://projectpokemon.org/images/shiny-sprite/darmanitanzen.gif"
-"meloetta-pirouette","10018","Its melodies are sung with a special vocalization
+and spirit.","13","929","fire|psychic","sheer-force|zen-mode","darumaka|darmanitan","False","False","False","60","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/darmanitan.gif","https://projectpokemon.org/images/shiny-sprite/darmanitan.gif"
+"meloetta","648","Its melodies are sung with a special vocalization
 method that can control the feelings of those who
-hear it.","6","65","normal|fighting","serene-grace","meloetta","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/meloettapirouette.gif","https://projectpokemon.org/images/shiny-sprite/meloettapirouette.gif"
-"tornadus-therian","10019","Tornadus expels massive energy from its tail,
+hear it.","6","65","normal|fighting","serene-grace","meloetta","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/meloetta.gif","https://projectpokemon.org/images/shiny-sprite/meloetta.gif"
+"tornadus","641","Tornadus expels massive energy from its tail,
 causing severe storms. Its power is great enough
-to blow houses away.","14","630","flying","regenerator","tornadus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/tornadustherian.gif","https://projectpokemon.org/images/shiny-sprite/tornadustherian.gif"
-"thundurus-therian","10020","As it flies around, it shoots lightning all over
+to blow houses away.","14","630","flying","regenerator","tornadus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/tornadus.gif","https://projectpokemon.org/images/shiny-sprite/tornadus.gif"
+"thundurus","642","As it flies around, it shoots lightning all over
 the place and causes forest fires. It is
-therefore disliked.","30","610","electric|flying","volt-absorb","thundurus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/thundurustherian.gif","https://projectpokemon.org/images/shiny-sprite/thundurustherian.gif"
-"landorus-therian","10021","From the forces of lightning and wind, it creates
+therefore disliked.","30","610","electric|flying","volt-absorb","thundurus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/thundurus.gif","https://projectpokemon.org/images/shiny-sprite/thundurus.gif"
+"landorus","645","From the forces of lightning and wind, it creates
 energy to give nutrients to the soil and make the
-land abundant.","13","680","ground|flying","intimidate","landorus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/landorustherian.gif","https://projectpokemon.org/images/shiny-sprite/landorustherian.gif"
-"kyurem-black","10022","The sameness of Zekrom’s and Kyurem’s genes
-allowed Kyurem to absorb Zekrom. Kyurem can
-now use the power of both electricity and ice.","33","3250","dragon|ice","teravolt","kyurem","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/kyuremblack.gif","https://projectpokemon.org/images/shiny-sprite/kyuremblack.gif"
-"kyurem-white","10023","The sameness of Zekrom’s and Kyurem’s genes
-allowed Kyurem to absorb Zekrom. Kyurem can
-now use the power of both electricity and ice.","36","3250","dragon|ice","turboblaze","kyurem","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/kyuremwhite.gif","https://projectpokemon.org/images/shiny-sprite/kyuremwhite.gif"
-"keldeo-resolute","10024","When it is resolute, its body fills with power and it
+land abundant.","13","680","ground|flying","intimidate","landorus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/landorus.gif","https://projectpokemon.org/images/shiny-sprite/landorus.gif"
+"keldeo","647","When it is resolute, its body fills with power and it
 becomes swifter. Its jumps are then too fast
-to follow.","14","485","water|fighting","justified","keldeo","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/keldeoresolute.gif","https://projectpokemon.org/images/shiny-sprite/keldeoresolute.gif"
-"meowstic-female","10025","The defensive instinct of the males is strong.
+to follow.","14","485","water|fighting","justified","keldeo","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/keldeo.gif","https://projectpokemon.org/images/shiny-sprite/keldeo.gif"
+"meowstic","678","The defensive instinct of the males is strong.
 It’s when they’re protecting themselves or their
-partners that they unleash their full power.","6","85","psychic","keen-eye|infiltrator|competitive","espurr|meowstic","False","False","False","75","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/meowsticfemale.gif","https://projectpokemon.org/images/shiny-sprite/meowsticfemale.gif"
-"aegislash-blade","10026","Once upon a time, a king with an Aegislash
-reigned over the land. His Pokémon eventually
-drained him of life, and his kingdom fell with him.","17","530","steel|ghost","stance-change","honedge|doublade|aegislash","False","False","False","45","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/aegislashblade.gif","https://projectpokemon.org/images/shiny-sprite/aegislashblade.gif"
-"pumpkaboo-small","10027","The light that streams out from the holes in the
+partners that they unleash their full power.","6","85","psychic","keen-eye|infiltrator|competitive","espurr|meowstic","False","False","False","75","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/meowstic.gif","https://projectpokemon.org/images/shiny-sprite/meowstic.gif"
+"pumpkaboo","710","The light that streams out from the holes in the
 pumpkin can hypnotize and control the people
-and Pokémon that see it.","3","35","ghost|grass","pickup|frisk|insomnia","pumpkaboo|gourgeist","False","False","False","120","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/pumpkaboosmall.gif","https://projectpokemon.org/images/shiny-sprite/pumpkaboosmall.gif"
-"pumpkaboo-large","10028","The light that streams out from the holes in the
-pumpkin can hypnotize and control the people
-and Pokémon that see it.","5","75","ghost|grass","pickup|frisk|insomnia","pumpkaboo|gourgeist","False","False","False","120","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/pumpkaboolarge.gif","https://projectpokemon.org/images/shiny-sprite/pumpkaboolarge.gif"
-"pumpkaboo-super","10029","The light that streams out from the holes in the
-pumpkin can hypnotize and control the people
-and Pokémon that see it.","8","150","ghost|grass","pickup|frisk|insomnia","pumpkaboo|gourgeist","False","False","False","120","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/pumpkaboosuper.gif","https://projectpokemon.org/images/shiny-sprite/pumpkaboosuper.gif"
-"gourgeist-small","10030","In the darkness of a new-moon night, Gourgeist
+and Pokémon that see it.","3","35","ghost|grass","pickup|frisk|insomnia","pumpkaboo|gourgeist","False","False","False","120","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/pumpkaboo.gif","https://projectpokemon.org/images/shiny-sprite/pumpkaboo.gif"
+"gourgeist","711","In the darkness of a new-moon night, Gourgeist
 will come knocking. Whoever answers the door
-will be swept off to the afterlife.","7","95","ghost|grass","pickup|frisk|insomnia","pumpkaboo|gourgeist","False","False","False","60","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/gourgeistsmall.gif","https://projectpokemon.org/images/shiny-sprite/gourgeistsmall.gif"
-"gourgeist-large","10031","In the darkness of a new-moon night, Gourgeist
-will come knocking. Whoever answers the door
-will be swept off to the afterlife.","11","140","ghost|grass","pickup|frisk|insomnia","pumpkaboo|gourgeist","False","False","False","60","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/gourgeistlarge.gif","https://projectpokemon.org/images/shiny-sprite/gourgeistlarge.gif"
-"gourgeist-super","10032","In the darkness of a new-moon night, Gourgeist
-will come knocking. Whoever answers the door
-will be swept off to the afterlife.","17","390","ghost|grass","pickup|frisk|insomnia","pumpkaboo|gourgeist","False","False","False","60","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/gourgeistsuper.gif","https://projectpokemon.org/images/shiny-sprite/gourgeistsuper.gif"
-"venusaur-mega","10033","Huge amounts of pollen burst from it with the
+will be swept off to the afterlife.","7","95","ghost|grass","pickup|frisk|insomnia","pumpkaboo|gourgeist","False","False","False","60","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/gourgeist.gif","https://projectpokemon.org/images/shiny-sprite/gourgeist.gif"
+"venusaur-mega","3","Huge amounts of pollen burst from it with the
 force of a volcanic eruption. Breathing in too
 much of the pollen can cause fainting.","24","1555","grass|poison","thick-fat","bulbasaur|ivysaur|venusaur","False","False","False","45","grassland","generation-i","https://projectpokemon.org/images/normal-sprite/venusaurmega.gif","https://projectpokemon.org/images/shiny-sprite/venusaurmega.gif"
-"charizard-mega-x","10034","The flame inside its body burns hotter than
+"charizard-mega-x","6","The flame inside its body burns hotter than
 3,600 degrees Fahrenheit. When Charizard
 roars, that temperature climbs even higher.","17","1105","fire|dragon","tough-claws","charmander|charmeleon|charizard","False","False","False","45","mountain","generation-i","https://projectpokemon.org/images/normal-sprite/charizardmegax.gif","https://projectpokemon.org/images/shiny-sprite/charizardmegax.gif"
-"charizard-mega-y","10035","The flame inside its body burns hotter than
+"charizard-mega-y","6","The flame inside its body burns hotter than
 3,600 degrees Fahrenheit. When Charizard
 roars, that temperature climbs even higher.","17","1005","fire|flying","drought","charmander|charmeleon|charizard","False","False","False","45","mountain","generation-i","https://projectpokemon.org/images/normal-sprite/charizardmegay.gif","https://projectpokemon.org/images/shiny-sprite/charizardmegay.gif"
-"blastoise-mega","10036","Water fired from this Pokémon’s central main
+"blastoise-mega","9","Water fired from this Pokémon’s central main
 cannon has enough power to blast a hole into
 a mountain.","16","1011","water","mega-launcher","squirtle|wartortle|blastoise","False","False","False","45","waters-edge","generation-i","https://projectpokemon.org/images/normal-sprite/blastoisemega.gif","https://projectpokemon.org/images/shiny-sprite/blastoisemega.gif"
-"alakazam-mega","10037","Alakazam wields potent psychic powers. It’s said
+"alakazam-mega","65","Alakazam wields potent psychic powers. It’s said
 that this Pokémon used these powers to create
 the spoons it holds.","12","480","psychic","trace","abra|kadabra|alakazam","False","False","False","50","urban","generation-i","https://projectpokemon.org/images/normal-sprite/alakazammega.gif","https://projectpokemon.org/images/shiny-sprite/alakazammega.gif"
-"gengar-mega","10038","It lays traps, hoping to steal the lives of those it
+"gengar-mega","94","It lays traps, hoping to steal the lives of those it
 catches. If you stand in front of its mouth, you’ll
 hear your loved ones’ voices calling out to you.","14","405","ghost|poison","shadow-tag","gastly|haunter|gengar","False","False","False","45","cave","generation-i","https://projectpokemon.org/images/normal-sprite/gengarmega.gif","https://projectpokemon.org/images/shiny-sprite/gengarmega.gif"
-"kangaskhan-mega","10039","There are records of a lost human child being
+"kangaskhan-mega","115","There are records of a lost human child being
 raised by a childless Kangaskhan.","22","1000","normal","parental-bond","kangaskhan","False","False","False","45","grassland","generation-i","https://projectpokemon.org/images/normal-sprite/kangaskhanmega.gif","https://projectpokemon.org/images/shiny-sprite/kangaskhanmega.gif"
-"pinsir-mega","10040","This Pokémon clamps its pincers down on its prey
+"pinsir-mega","127","This Pokémon clamps its pincers down on its prey
 and then either splits the prey in half or flings
 it away.","17","590","bug|flying","aerilate","pinsir","False","False","False","45","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pinsirmega.gif","https://projectpokemon.org/images/shiny-sprite/pinsirmega.gif"
-"gyarados-mega","10041","Once it begins to rampage, a Gyarados will burn
+"gyarados-mega","130","Once it begins to rampage, a Gyarados will burn
 everything down, even in a harsh storm.","65","3050","water|dark","mold-breaker","magikarp|gyarados","False","False","False","45","waters-edge","generation-i","https://projectpokemon.org/images/normal-sprite/gyaradosmega.gif","https://projectpokemon.org/images/shiny-sprite/gyaradosmega.gif"
-"aerodactyl-mega","10042","The power of Mega Evolution has completely
+"aerodactyl-mega","142","The power of Mega Evolution has completely
 restored its genes. The rocks on its body are
 harder than diamond.","21","790","rock|flying","tough-claws","aerodactyl","False","False","False","45","mountain","generation-i","https://projectpokemon.org/images/normal-sprite/aerodactylmega.gif","https://projectpokemon.org/images/shiny-sprite/aerodactylmega.gif"
-"mewtwo-mega-x","10043","Psychic power has augmented its muscles.
+"mewtwo-mega-x","150","Psychic power has augmented its muscles.
 It has a grip strength of one ton and can sprint
 a hundred meters in two seconds flat!","23","1270","psychic|fighting","steadfast","mewtwo","True","False","False","3","rare","generation-i","https://projectpokemon.org/images/normal-sprite/mewtwomegax.gif","https://projectpokemon.org/images/shiny-sprite/mewtwomegax.gif"
-"mewtwo-mega-y","10044","Psychic power has augmented its muscles.
+"mewtwo-mega-y","150","Psychic power has augmented its muscles.
 It has a grip strength of one ton and can sprint
 a hundred meters in two seconds flat!","15","330","psychic","insomnia","mewtwo","True","False","False","3","rare","generation-i","https://projectpokemon.org/images/normal-sprite/mewtwomegay.gif","https://projectpokemon.org/images/shiny-sprite/mewtwomegay.gif"
-"ampharos-mega","10045","Its tail shines bright and strong. It has been
+"ampharos-mega","181","Its tail shines bright and strong. It has been
 prized since long ago as a beacon for sailors.","14","615","electric|dragon","mold-breaker","mareep|flaaffy|ampharos","False","False","False","45","grassland","generation-ii","https://projectpokemon.org/images/normal-sprite/ampharosmega.gif","https://projectpokemon.org/images/shiny-sprite/ampharosmega.gif"
-"scizor-mega","10046","Though its body is slim, Scizor has tremendous
+"scizor-mega","212","Though its body is slim, Scizor has tremendous
 attacking power. Even Scizor’s muscles are made
 of metal.","20","1250","bug|steel","technician","scyther|scizor","False","False","False","25","grassland","generation-ii","https://projectpokemon.org/images/normal-sprite/scizormega.gif","https://projectpokemon.org/images/shiny-sprite/scizormega.gif"
-"heracross-mega","10047","This Pokémon takes pride in its strength, which
+"heracross-mega","214","This Pokémon takes pride in its strength, which
 allows it to lift things 100 times heavier than
 itself with no trouble at all.","17","625","bug|fighting","skill-link","heracross","False","False","False","45","forest","generation-ii","https://projectpokemon.org/images/normal-sprite/heracrossmega.gif","https://projectpokemon.org/images/shiny-sprite/heracrossmega.gif"
-"houndoom-mega","10048","Identifiable by its eerie howls, people a long
+"houndoom-mega","229","Identifiable by its eerie howls, people a long
 time ago thought it was the grim reaper and
 feared it.","19","495","dark|fire","solar-power","houndour|houndoom","False","False","False","45","rough-terrain","generation-ii","https://projectpokemon.org/images/normal-sprite/houndoommega.gif","https://projectpokemon.org/images/shiny-sprite/houndoommega.gif"
-"tyranitar-mega","10049","The quakes caused when it walks make even
+"tyranitar-mega","248","The quakes caused when it walks make even
 great mountains crumble and change
 the surrounding terrain.","25","2550","rock|dark","sand-stream","larvitar|pupitar|tyranitar","False","False","False","45","mountain","generation-ii","https://projectpokemon.org/images/normal-sprite/tyranitarmega.gif","https://projectpokemon.org/images/shiny-sprite/tyranitarmega.gif"
-"blaziken-mega","10050","Blaziken has incredibly strong legs—it can easily clear a
+"blaziken-mega","257","Blaziken has incredibly strong legs—it can easily clear a
 30-story building in one leap. This Pokémon’s blazing punches
 leave its foes scorched and blackened.","19","520","fire|fighting","speed-boost","torchic|combusken|blaziken","False","False","False","45","grassland","generation-iii","https://projectpokemon.org/images/normal-sprite/blazikenmega.gif","https://projectpokemon.org/images/shiny-sprite/blazikenmega.gif"
-"gardevoir-mega","10051","To protect its Trainer, it will expend all its psychic
+"gardevoir-mega","282","To protect its Trainer, it will expend all its psychic
 power to create a small black hole.","16","484","psychic|fairy","pixilate","ralts|kirlia|gardevoir","False","False","False","45","urban","generation-iii","https://projectpokemon.org/images/normal-sprite/gardevoirmega.gif","https://projectpokemon.org/images/shiny-sprite/gardevoirmega.gif"
-"mawile-mega","10052","It chomps with its gaping mouth. Its huge jaws are
+"mawile-mega","303","It chomps with its gaping mouth. Its huge jaws are
 actually steel horns that have been transformed.","10","235","steel|fairy","huge-power","mawile","False","False","False","45","cave","generation-iii","https://projectpokemon.org/images/normal-sprite/mawilemega.gif","https://projectpokemon.org/images/shiny-sprite/mawilemega.gif"
-"aggron-mega","10053","Aggron is protective of its environment. If its mountain is
+"aggron-mega","306","Aggron is protective of its environment. If its mountain is
 ravaged by a landslide or a fire, this Pokémon will haul
 topsoil to the area, plant trees, and beautifully restore its
 own territory.","22","3950","steel","filter","aron|lairon|aggron","False","False","False","45","mountain","generation-iii","https://projectpokemon.org/images/normal-sprite/aggronmega.gif","https://projectpokemon.org/images/shiny-sprite/aggronmega.gif"
-"medicham-mega","10054","Through the power of meditation, Medicham developed its
+"medicham-mega","308","Through the power of meditation, Medicham developed its
 sixth sense. It gained the ability to use psychokinetic powers.
 This Pokémon is known to meditate for a whole month
 without eating.","13","315","fighting|psychic","pure-power","meditite|medicham","False","False","False","90","mountain","generation-iii","https://projectpokemon.org/images/normal-sprite/medichammega.gif","https://projectpokemon.org/images/shiny-sprite/medichammega.gif"
-"manectric-mega","10055","It rarely appears before people. It is said to nest
+"manectric-mega","310","It rarely appears before people. It is said to nest
 where lightning has fallen.","18","440","electric","intimidate","electrike|manectric","False","False","False","45","grassland","generation-iii","https://projectpokemon.org/images/normal-sprite/manectricmega.gif","https://projectpokemon.org/images/shiny-sprite/manectricmega.gif"
-"banette-mega","10056","Resentment at being cast off made it spring into
+"banette-mega","354","Resentment at being cast off made it spring into
 being. Some say that treating it well will satisfy
 it, and it will once more become a stuffed toy.","12","130","ghost","prankster","shuppet|banette","False","False","False","45","urban","generation-iii","https://projectpokemon.org/images/normal-sprite/banettemega.gif","https://projectpokemon.org/images/shiny-sprite/banettemega.gif"
-"absol-mega","10057","The elderly call it the disaster Pokémon and
+"absol-mega","359","The elderly call it the disaster Pokémon and
 detest it, but interest in its power to predict
 disasters is on the rise.","12","490","dark","magic-bounce","absol","False","False","False","30","mountain","generation-iii","https://projectpokemon.org/images/normal-sprite/absolmega.gif","https://projectpokemon.org/images/shiny-sprite/absolmega.gif"
-"garchomp-mega","10058","Its fine scales don’t just reduce wind
+"garchomp-mega","445","Its fine scales don’t just reduce wind
 resistance—their sharp edges also cause injury
 to any opponent who attacks it.","19","950","dragon|ground","sand-force","gible|gabite|garchomp","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/garchompmega.gif","https://projectpokemon.org/images/shiny-sprite/garchompmega.gif"
-"lucario-mega","10059","It can tell what people are thinking. Only Trainers
+"lucario-mega","448","It can tell what people are thinking. Only Trainers
 who have justice in their hearts can earn this
 Pokémon’s trust.","13","575","fighting|steel","adaptability","riolu|lucario","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/lucariomega.gif","https://projectpokemon.org/images/shiny-sprite/lucariomega.gif"
-"abomasnow-mega","10060","This Pokémon is known to bring blizzards.
+"abomasnow-mega","460","This Pokémon is known to bring blizzards.
 A shake of its massive body is enough to
 cause whiteout conditions.","27","1850","grass|ice","snow-warning","snover|abomasnow","False","False","False","60","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/abomasnowmega.gif","https://projectpokemon.org/images/shiny-sprite/abomasnowmega.gif"
-"floette-eternal","10061","It gives its own power to flowers, pouring its
-heart into caring for them. Floette never forgives
-anyone who messes up a flower bed.","2","9","fairy","flower-veil|symbiosis","flabebe|floette|florges","False","False","False","120","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/floetteeternal.gif","https://projectpokemon.org/images/shiny-sprite/floetteeternal.gif"
-"latias-mega","10062","Latias is highly intelligent and capable of understanding
+"latias-mega","380","Latias is highly intelligent and capable of understanding
 human speech. It is covered with a glass-like down.
 The Pokémon enfolds its body with its down and refracts
 light to alter its appearance.","18","520","dragon|psychic","levitate","latias","True","False","False","3","waters-edge","generation-iii","https://projectpokemon.org/images/normal-sprite/latiasmega.gif","https://projectpokemon.org/images/shiny-sprite/latiasmega.gif"
-"latios-mega","10063","Latios will only open its heart to a Trainer with a
+"latios-mega","381","Latios will only open its heart to a Trainer with a
 compassionate spirit. This Pokémon can fly faster than a
 jet plane by folding its forelegs to minimize air resistance.","23","700","dragon|psychic","levitate","latios","True","False","False","3","waters-edge","generation-iii","https://projectpokemon.org/images/normal-sprite/latiosmega.gif","https://projectpokemon.org/images/shiny-sprite/latiosmega.gif"
-"swampert-mega","10064","Swampert predicts storms by sensing subtle differences in the
+"swampert-mega","260","Swampert predicts storms by sensing subtle differences in the
 sounds of waves and tidal winds with its fins. If a storm is
 approaching, it piles up boulders to protect itself.","19","1020","water|ground","swift-swim","mudkip|marshtomp|swampert","False","False","False","45","waters-edge","generation-iii","https://projectpokemon.org/images/normal-sprite/swampertmega.gif","https://projectpokemon.org/images/shiny-sprite/swampertmega.gif"
-"sceptile-mega","10065","Sceptile has seeds growing on its back. They are said to be
+"sceptile-mega","254","Sceptile has seeds growing on its back. They are said to be
 bursting with nutrients that revitalize trees. This Pokémon
 raises the trees in a forest with loving care.","19","552","grass|dragon","lightning-rod","treecko|grovyle|sceptile","False","False","False","45","forest","generation-iii","https://projectpokemon.org/images/normal-sprite/sceptilemega.gif","https://projectpokemon.org/images/shiny-sprite/sceptilemega.gif"
-"sableye-mega","10066","It feeds on gemstone crystals. In darkness, its
+"sableye-mega","302","It feeds on gemstone crystals. In darkness, its
 eyes sparkle with the glitter of jewels.","5","1610","dark|ghost","magic-bounce","sableye","False","False","False","45","cave","generation-iii","https://projectpokemon.org/images/normal-sprite/sableyemega.gif","https://projectpokemon.org/images/shiny-sprite/sableyemega.gif"
-"altaria-mega","10067","Altaria sings in a gorgeous soprano. Its wings are like cotton
+"altaria-mega","334","Altaria sings in a gorgeous soprano. Its wings are like cotton
 clouds. This Pokémon catches updrafts with its buoyant wings
 and soars way up into the wild blue yonder.","15","206","dragon|fairy","pixilate","swablu|altaria","False","False","False","45","forest","generation-iii","https://projectpokemon.org/images/normal-sprite/altariamega.gif","https://projectpokemon.org/images/shiny-sprite/altariamega.gif"
-"gallade-mega","10068","Sharply attuned to others’ wishes for help, this
+"gallade-mega","475","Sharply attuned to others’ wishes for help, this
 Pokémon seeks out those in need and aids them
 in battle.","16","564","psychic|fighting","inner-focus","ralts|kirlia|gardevoir","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/gallademega.gif","https://projectpokemon.org/images/shiny-sprite/gallademega.gif"
-"audino-mega","10069","It touches others with the feelers on its ears, using
+"audino-mega","531","It touches others with the feelers on its ears, using
 the sound of their heartbeats to tell how they
 are feeling.","15","320","normal|fairy","healer","audino","False","False","False","255","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/audinomega.gif","https://projectpokemon.org/images/shiny-sprite/audinomega.gif"
-"sharpedo-mega","10070","This Pokémon is known as the Bully of the Sea.
+"sharpedo-mega","319","This Pokémon is known as the Bully of the Sea.
 Any ship entering the waters Sharpedo calls
 home will be attacked—no exceptions.","25","1303","water|dark","strong-jaw","carvanha|sharpedo","False","False","False","60","sea","generation-iii","https://projectpokemon.org/images/normal-sprite/sharpedomega.gif","https://projectpokemon.org/images/shiny-sprite/sharpedomega.gif"
-"slowbro-mega","10071","If this Pokémon squeezes the tongue of the
+"slowbro-mega","80","If this Pokémon squeezes the tongue of the
 Shellder biting it, the Shellder will launch a toxic
 liquid from the tip of its shell.","20","1200","water|psychic","shell-armor","slowpoke|slowbro","False","False","False","75","waters-edge","generation-i","https://projectpokemon.org/images/normal-sprite/slowbromega.gif","https://projectpokemon.org/images/shiny-sprite/slowbromega.gif"
-"steelix-mega","10072","It is thought its body transformed as a result of
+"steelix-mega","208","It is thought its body transformed as a result of
 iron accumulating internally from swallowing soil.","105","7400","steel|ground","sand-force","onix|steelix","False","False","False","25","cave","generation-ii","https://projectpokemon.org/images/normal-sprite/steelixmega.gif","https://projectpokemon.org/images/shiny-sprite/steelixmega.gif"
-"pidgeot-mega","10073","With its muscular strength now greatly
+"pidgeot-mega","18","With its muscular strength now greatly
 increased, it can fly continuously for two weeks
 without resting.","22","505","normal|flying","no-guard","pidgey|pidgeotto|pidgeot","False","False","False","45","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pidgeotmega.gif","https://projectpokemon.org/images/shiny-sprite/pidgeotmega.gif"
-"glalie-mega","10074","It can instantly freeze moisture in the
+"glalie-mega","362","It can instantly freeze moisture in the
 atmosphere. It uses this power to freeze its foes.","21","3502","ice","refrigerate","snorunt|glalie","False","False","False","75","cave","generation-iii","https://projectpokemon.org/images/normal-sprite/glaliemega.gif","https://projectpokemon.org/images/shiny-sprite/glaliemega.gif"
-"diancie-mega","10075","It can instantly create many diamonds
+"diancie-mega","719","It can instantly create many diamonds
 by compressing the carbon in the air
 between its hands.","11","278","rock|fairy","magic-bounce","diancie","False","True","False","3","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/dianciemega.gif","https://projectpokemon.org/images/shiny-sprite/dianciemega.gif"
-"metagross-mega","10076","It analyzes its opponents with more accuracy
+"metagross-mega","376","It analyzes its opponents with more accuracy
 than a supercomputer, which enables it to
 calmly back them into a corner.","25","9429","steel|psychic","tough-claws","beldum|metang|metagross","False","False","False","3","rough-terrain","generation-iii","https://projectpokemon.org/images/normal-sprite/metagrossmega.gif","https://projectpokemon.org/images/shiny-sprite/metagrossmega.gif"
-"kyogre-primal","10077","Kyogre is said to be the personification of the sea itself.
+"kyogre-primal","382","Kyogre is said to be the personification of the sea itself.
 Legends tell of its many clashes against Groudon,
 as each sought to gain the power of nature.","98","4300","water","primordial-sea","kyogre","True","False","False","3","sea","generation-iii","https://projectpokemon.org/images/normal-sprite/kyogreprimal.gif","https://projectpokemon.org/images/shiny-sprite/kyogreprimal.gif"
-"groudon-primal","10078","Through Primal Reversion and with nature’s full power,
+"groudon-primal","383","Through Primal Reversion and with nature’s full power,
 it will take back its true form. It can cause magma to
 erupt and expand the landmass of the world.","50","9997","ground|fire","desolate-land","groudon","True","False","False","3","rough-terrain","generation-iii","https://projectpokemon.org/images/normal-sprite/groudonprimal.gif","https://projectpokemon.org/images/shiny-sprite/groudonprimal.gif"
-"rayquaza-mega","10079","It flies forever through the ozone layer, consuming
+"rayquaza-mega","384","It flies forever through the ozone layer, consuming
 meteoroids for sustenance. The many meteoroids
 in its body provide the energy it needs to Mega Evolve.","108","3920","dragon|flying","delta-stream","rayquaza","True","False","False","45","rare","generation-iii","https://projectpokemon.org/images/normal-sprite/rayquazamega.gif","https://projectpokemon.org/images/shiny-sprite/rayquazamega.gif"
-"pikachu-rock-star","10080","When it smashes its opponents with its bolt-
-shaped tail, it delivers a surge of electricity
-equivalent to a lightning strike.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachurockstar.gif","https://projectpokemon.org/images/shiny-sprite/pikachurockstar.gif"
-"pikachu-belle","10081","When it smashes its opponents with its bolt-
-shaped tail, it delivers a surge of electricity
-equivalent to a lightning strike.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachubelle.gif","https://projectpokemon.org/images/shiny-sprite/pikachubelle.gif"
-"pikachu-pop-star","10082","When it smashes its opponents with its bolt-
-shaped tail, it delivers a surge of electricity
-equivalent to a lightning strike.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachupopstar.gif","https://projectpokemon.org/images/shiny-sprite/pikachupopstar.gif"
-"pikachu-phd","10083","When it smashes its opponents with its bolt-
-shaped tail, it delivers a surge of electricity
-equivalent to a lightning strike.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachuphd.gif","https://projectpokemon.org/images/shiny-sprite/pikachuphd.gif"
-"pikachu-libre","10084","When it smashes its opponents with its bolt-
-shaped tail, it delivers a surge of electricity
-equivalent to a lightning strike.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachulibre.gif","https://projectpokemon.org/images/shiny-sprite/pikachulibre.gif"
-"pikachu-cosplay","10085","When it smashes its opponents with its bolt-
-shaped tail, it delivers a surge of electricity
-equivalent to a lightning strike.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachucosplay.gif","https://projectpokemon.org/images/shiny-sprite/pikachucosplay.gif"
-"hoopa-unbound","10086","It is said to be able to seize anything it desires
-with its six rings and six huge arms. With its power
-sealed, it is transformed into a much smaller form.","65","4900","psychic|dark","magician","hoopa","False","True","False","3","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/hoopaunbound.gif","https://projectpokemon.org/images/shiny-sprite/hoopaunbound.gif"
-"camerupt-mega","10087","The humps on Camerupt’s back are formed by a transformation
+"camerupt-mega","323","The humps on Camerupt’s back are formed by a transformation
 of its bones. They sometimes blast out molten magma.
 This Pokémon apparently erupts often when it is enraged.","25","3205","fire|ground","sheer-force","numel|camerupt","False","False","False","150","mountain","generation-iii","https://projectpokemon.org/images/normal-sprite/cameruptmega.gif","https://projectpokemon.org/images/shiny-sprite/cameruptmega.gif"
-"lopunny-mega","10088","Once hot seasons are over, Lopunny’s coat will
+"lopunny-mega","428","Once hot seasons are over, Lopunny’s coat will
 be replaced with fur that holds a lot of insulating
 air in preparation for colder weather.","13","283","normal|fighting","scrappy","buneary|lopunny","False","False","False","60","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/lopunnymega.gif","https://projectpokemon.org/images/shiny-sprite/lopunnymega.gif"
-"salamence-mega","10089","Thanks to its fervent wishes, the cells in its
+"salamence-mega","373","Thanks to its fervent wishes, the cells in its
 body finally mutated, and at last it has its
 heart’s desire—wings.","18","1126","dragon|flying","aerilate","bagon|shelgon|salamence","False","False","False","45","rough-terrain","generation-iii","https://projectpokemon.org/images/normal-sprite/salamencemega.gif","https://projectpokemon.org/images/shiny-sprite/salamencemega.gif"
-"beedrill-mega","10090","Its legs have become poison stingers. It stabs its
+"beedrill-mega","15","Its legs have become poison stingers. It stabs its
 prey repeatedly with the stingers on its limbs,
 dealing the final blow with the stinger on its rear.","14","405","bug|poison","adaptability","weedle|kakuna|beedrill","False","False","False","45","forest","generation-i","https://projectpokemon.org/images/normal-sprite/beedrillmega.gif","https://projectpokemon.org/images/shiny-sprite/beedrillmega.gif"
-"rattata-alola","10091","Will chew on anything with its fangs. If you
+"rattata-alola","19","Will chew on anything with its fangs. If you
 see one, you can be certain that 40 more
 live in the area.","3","38","dark|normal","gluttony|hustle|thick-fat","rattata|raticate","False","False","False","255","grassland","generation-i","https://projectpokemon.org/images/normal-sprite/rattataalola.gif","https://projectpokemon.org/images/shiny-sprite/rattataalola.gif"
-"raticate-alola","10092","Its hind feet are webbed. They act as flippers,
+"raticate-alola","20","Its hind feet are webbed. They act as flippers,
 so it can swim in rivers and hunt for prey.","7","255","dark|normal","gluttony|hustle|thick-fat","rattata|raticate","False","False","False","127","grassland","generation-i","https://projectpokemon.org/images/normal-sprite/raticatealola.gif","https://projectpokemon.org/images/shiny-sprite/raticatealola.gif"
-"raticate-totem-alola","10093","Its hind feet are webbed. They act as flippers,
-so it can swim in rivers and hunt for prey.","14","1050","dark|normal","gluttony|hustle|thick-fat","rattata|raticate","False","False","False","127","grassland","generation-i","https://projectpokemon.org/images/normal-sprite/raticatetotemalola.gif","https://projectpokemon.org/images/shiny-sprite/raticatetotemalola.gif"
-"pikachu-original-cap","10094","When it smashes its opponents with its bolt-
-shaped tail, it delivers a surge of electricity
-equivalent to a lightning strike.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachuoriginalcap.gif","https://projectpokemon.org/images/shiny-sprite/pikachuoriginalcap.gif"
-"pikachu-hoenn-cap","10095","When it smashes its opponents with its bolt-
-shaped tail, it delivers a surge of electricity
-equivalent to a lightning strike.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachuhoenncap.gif","https://projectpokemon.org/images/shiny-sprite/pikachuhoenncap.gif"
-"pikachu-sinnoh-cap","10096","When it smashes its opponents with its bolt-
-shaped tail, it delivers a surge of electricity
-equivalent to a lightning strike.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachusinnohcap.gif","https://projectpokemon.org/images/shiny-sprite/pikachusinnohcap.gif"
-"pikachu-unova-cap","10097","When it smashes its opponents with its bolt-
-shaped tail, it delivers a surge of electricity
-equivalent to a lightning strike.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachuunovacap.gif","https://projectpokemon.org/images/shiny-sprite/pikachuunovacap.gif"
-"pikachu-kalos-cap","10098","When it smashes its opponents with its bolt-
-shaped tail, it delivers a surge of electricity
-equivalent to a lightning strike.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachukaloscap.gif","https://projectpokemon.org/images/shiny-sprite/pikachukaloscap.gif"
-"pikachu-alola-cap","10099","When it smashes its opponents with its bolt-
-shaped tail, it delivers a surge of electricity
-equivalent to a lightning strike.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachualolacap.gif","https://projectpokemon.org/images/shiny-sprite/pikachualolacap.gif"
-"raichu-alola","10100","This Pokémon rides on its tail while it uses
+"raichu-alola","26","This Pokémon rides on its tail while it uses
 its psychic powers to levitate. It attacks with
 star-shaped thunderbolts.","7","210","electric|psychic","surge-surfer","pichu|pikachu|raichu","False","False","False","75","forest","generation-i","https://projectpokemon.org/images/normal-sprite/raichualola.gif","https://projectpokemon.org/images/shiny-sprite/raichualola.gif"
-"sandshrew-alola","10101","It lives in snowy mountains on southern islands.
+"sandshrew-alola","27","It lives in snowy mountains on southern islands.
 When a blizzard rolls in, this Pokémon hunkers
 down in the snow to avoid getting blown away.","7","400","ice|steel","snow-cloak|slush-rush","sandshrew|sandslash","False","False","False","255","rough-terrain","generation-i","https://projectpokemon.org/images/normal-sprite/sandshrewalola.gif","https://projectpokemon.org/images/shiny-sprite/sandshrewalola.gif"
-"sandslash-alola","10102","Many people climb snowy mountains, hoping to
+"sandslash-alola","28","Many people climb snowy mountains, hoping to
 see the icy spikes of these Pokémon glistening
 in the light of dawn.","12","550","ice|steel","snow-cloak|slush-rush","sandshrew|sandslash","False","False","False","90","rough-terrain","generation-i","https://projectpokemon.org/images/normal-sprite/sandslashalola.gif","https://projectpokemon.org/images/shiny-sprite/sandslashalola.gif"
-"vulpix-alola","10103","If you observe its curly hairs through
+"vulpix-alola","37","If you observe its curly hairs through
 a microscope, you’ll see small ice
 particles springing up.","6","99","ice","snow-cloak|snow-warning","vulpix|ninetales","False","False","False","190","grassland","generation-i","https://projectpokemon.org/images/normal-sprite/vulpixalola.gif","https://projectpokemon.org/images/shiny-sprite/vulpixalola.gif"
-"ninetales-alola","10104","While it will guide travelers who get lost on a
+"ninetales-alola","38","While it will guide travelers who get lost on a
 snowy mountain down to the mountain’s base,
 it won’t forgive anyone who harms nature.","11","199","ice|fairy","snow-cloak|snow-warning","vulpix|ninetales","False","False","False","75","grassland","generation-i","https://projectpokemon.org/images/normal-sprite/ninetalesalola.gif","https://projectpokemon.org/images/shiny-sprite/ninetalesalola.gif"
-"diglett-alola","10105","Its three hairs change shape depending on
+"diglett-alola","50","Its three hairs change shape depending on
 Diglett’s mood. They’re a useful communication
 tool among these Pokémon.","2","10","ground|steel","sand-veil|tangling-hair|sand-force","diglett|dugtrio","False","False","False","255","cave","generation-i","https://projectpokemon.org/images/normal-sprite/diglettalola.gif","https://projectpokemon.org/images/shiny-sprite/diglettalola.gif"
-"dugtrio-alola","10106","These Diglett triplets dig over 60 miles below sea
+"dugtrio-alola","51","These Diglett triplets dig over 60 miles below sea
 level. No one knows what it’s like underground.","7","666","ground|steel","sand-veil|tangling-hair|sand-force","diglett|dugtrio","False","False","False","50","cave","generation-i","https://projectpokemon.org/images/normal-sprite/dugtrioalola.gif","https://projectpokemon.org/images/shiny-sprite/dugtrioalola.gif"
-"meowth-alola","10107","These daring Pokémon have coins on their
+"meowth-alola","52","These daring Pokémon have coins on their
 foreheads. Darker coins are harder, and harder
 coins garner more respect among Meowth.","4","42","dark","pickup|technician|rattled","meowth|persian","False","False","False","255","urban","generation-i","https://projectpokemon.org/images/normal-sprite/meowthalola.gif","https://projectpokemon.org/images/shiny-sprite/meowthalola.gif"
-"persian-alola","10108","This Pokémon is one tough opponent. Not only
+"persian-alola","53","This Pokémon is one tough opponent. Not only
 does it have formidable physical abilities, but it’s
 also not above fighting dirty.","11","330","dark","fur-coat|technician|rattled","meowth|persian","False","False","False","90","urban","generation-i","https://projectpokemon.org/images/normal-sprite/persianalola.gif","https://projectpokemon.org/images/shiny-sprite/persianalola.gif"
-"geodude-alola","10109","Its stone head is imbued with electricity and
+"geodude-alola","74","Its stone head is imbued with electricity and
 magnetism. If you carelessly step on one,
 you’ll be in for a painful shock.","4","203","rock|electric","magnet-pull|sturdy|galvanize","geodude|graveler|golem","False","False","False","255","mountain","generation-i","https://projectpokemon.org/images/normal-sprite/geodudealola.gif","https://projectpokemon.org/images/shiny-sprite/geodudealola.gif"
-"graveler-alola","10110","When it comes rolling down a mountain path,
+"graveler-alola","75","When it comes rolling down a mountain path,
 anything in its way gets zapped by electricity
 and sent flying.","10","1100","rock|electric","magnet-pull|sturdy|galvanize","geodude|graveler|golem","False","False","False","120","mountain","generation-i","https://projectpokemon.org/images/normal-sprite/graveleralola.gif","https://projectpokemon.org/images/shiny-sprite/graveleralola.gif"
-"golem-alola","10111","Once it sheds its skin, its body turns tender
+"golem-alola","76","Once it sheds its skin, its body turns tender
 and whitish. Its hide hardens when it’s
 exposed to air.","17","3160","rock|electric","magnet-pull|sturdy|galvanize","geodude|graveler|golem","False","False","False","45","mountain","generation-i","https://projectpokemon.org/images/normal-sprite/golemalola.gif","https://projectpokemon.org/images/shiny-sprite/golemalola.gif"
-"grimer-alola","10112","Made of congealed sludge. It smells too putrid
+"grimer-alola","88","Made of congealed sludge. It smells too putrid
 to touch. Even weeds won’t grow in its path.","7","420","poison|dark","poison-touch|gluttony|power-of-alchemy","grimer|muk","False","False","False","190","urban","generation-i","https://projectpokemon.org/images/normal-sprite/grimeralola.gif","https://projectpokemon.org/images/shiny-sprite/grimeralola.gif"
-"muk-alola","10113","Smells so awful, it can cause fainting.
+"muk-alola","89","Smells so awful, it can cause fainting.
 Through degeneration of its nose,
 it lost its sense of smell.","10","520","poison|dark","poison-touch|gluttony|power-of-alchemy","grimer|muk","False","False","False","75","urban","generation-i","https://projectpokemon.org/images/normal-sprite/mukalola.gif","https://projectpokemon.org/images/shiny-sprite/mukalola.gif"
-"exeggutor-alola","10114","When they work together, Exeggutor’s three
+"exeggutor-alola","103","When they work together, Exeggutor’s three
 heads can put out powerful psychic energy.
 Cloudy days make this Pokémon sluggish.","109","4156","grass|dragon","frisk|harvest","exeggcute|exeggutor","False","False","False","45","forest","generation-i","https://projectpokemon.org/images/normal-sprite/exeggutoralola.gif","https://projectpokemon.org/images/shiny-sprite/exeggutoralola.gif"
-"marowak-alola","10115","When this Pokémon evolved, the skull of its
+"marowak-alola","105","When this Pokémon evolved, the skull of its
 mother fused to it. Marowak’s temperament also
 turned vicious at the same time.","10","340","fire|ghost","cursed-body|lightning-rod|rock-head","cubone|marowak","False","False","False","75","mountain","generation-i","https://projectpokemon.org/images/normal-sprite/marowakalola.gif","https://projectpokemon.org/images/shiny-sprite/marowakalola.gif"
-"greninja-battle-bond","10116","It appears and vanishes with a ninja’s grace.
-It toys with its enemies using swift movements, while
-slicing them with throwing stars of sharpest water.","15","400","water|dark","battle-bond","froakie|frogadier|greninja","False","False","False","45","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/greninjabattlebond.gif","https://projectpokemon.org/images/shiny-sprite/greninjabattlebond.gif"
-"greninja-ash","10117","It appears and vanishes with a ninja’s grace.
-It toys with its enemies using swift movements, while
-slicing them with throwing stars of sharpest water.","15","400","water|dark","battle-bond","froakie|frogadier|greninja","False","False","False","45","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/greninjaash.gif","https://projectpokemon.org/images/shiny-sprite/greninjaash.gif"
-"zygarde-10","10118","Some say it can change to an even more
-powerful form when battling those who threaten
-the ecosystem.","12","335","dragon|ground","power-construct","zygarde","True","False","False","3","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/zygarde10.gif","https://projectpokemon.org/images/shiny-sprite/zygarde10.gif"
-"zygarde-50","10119","Some say it can change to an even more
-powerful form when battling those who threaten
-the ecosystem.","50","3050","dragon|ground","power-construct","zygarde","True","False","False","3","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/zygarde50.gif","https://projectpokemon.org/images/shiny-sprite/zygarde50.gif"
-"zygarde-complete","10120","Some say it can change to an even more
-powerful form when battling those who threaten
-the ecosystem.","45","6100","dragon|ground","power-construct","zygarde","True","False","False","3","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/zygardecomplete.gif","https://projectpokemon.org/images/shiny-sprite/zygardecomplete.gif"
-"gumshoos-totem","10121","Patient by nature, this Pokémon loses control of
-itself and pounces when it spots its favorite
-meal—Rattata!","14","600","normal","stakeout|strong-jaw|adaptability","yungoos|gumshoos","False","False","False","127","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/gumshoostotem.gif","https://projectpokemon.org/images/shiny-sprite/gumshoostotem.gif"
-"vikavolt-totem","10122","If it carries a Charjabug to use as a spare battery,
-a flying Vikavolt can rapidly fire high-powered
-beams of electricity.","26","1475","bug|electric","levitate","grubbin|charjabug|vikavolt","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/vikavolttotem.gif","https://projectpokemon.org/images/shiny-sprite/vikavolttotem.gif"
-"oricorio-pom-pom","10123","This Oricorio has drunk red nectar. If its Trainer
+"oricorio","741","This Oricorio has drunk red nectar. If its Trainer
 gives the wrong order, this passionate Pokémon
-becomes fiercely angry.","6","34","electric|flying","dancer","oricorio","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/oricoriopompom.gif","https://projectpokemon.org/images/shiny-sprite/oricoriopompom.gif"
-"oricorio-pau","10124","This Oricorio has drunk red nectar. If its Trainer
-gives the wrong order, this passionate Pokémon
-becomes fiercely angry.","6","34","psychic|flying","dancer","oricorio","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/oricoriopau.gif","https://projectpokemon.org/images/shiny-sprite/oricoriopau.gif"
-"oricorio-sensu","10125","This Oricorio has drunk red nectar. If its Trainer
-gives the wrong order, this passionate Pokémon
-becomes fiercely angry.","6","34","ghost|flying","dancer","oricorio","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/oricoriosensu.gif","https://projectpokemon.org/images/shiny-sprite/oricoriosensu.gif"
-"lycanroc-midnight","10126","With swift movements, this Pokémon gradually
-backs its prey into a corner. Lycanroc’s fangs are
-always aimed toward opponents’ weak spots.","11","250","rock","keen-eye|vital-spirit|no-guard","rockruff|lycanroc","False","False","False","90","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/lycanrocmidnight.gif","https://projectpokemon.org/images/shiny-sprite/lycanrocmidnight.gif"
-"wishiwashi-school","10127","When it senses danger, its eyes tear up.
+becomes fiercely angry.","6","34","electric|flying","dancer","oricorio","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/oricorio.gif","https://projectpokemon.org/images/shiny-sprite/oricorio.gif"
+"wishiwashi","746","When it senses danger, its eyes tear up.
 The sparkle of its tears signals other
-Wishiwashi to gather.","82","786","water","schooling","wishiwashi","False","False","False","60","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/wishiwashischool.gif","https://projectpokemon.org/images/shiny-sprite/wishiwashischool.gif"
-"lurantis-totem","10128","The petals on this Pokémon’s arms are thin and
-super sharp, and they can fire laser beams if
-Lurantis gathers light first.","15","580","grass","leaf-guard|contrary","fomantis|lurantis","False","False","False","75","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/lurantistotem.gif","https://projectpokemon.org/images/shiny-sprite/lurantistotem.gif"
-"salazzle-totem","10129","The winner of competitions between Salazzle
-is decided by which one has the most male
-Salandit with it.","21","810","poison|fire","corrosion|oblivious","salandit|salazzle","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/salazzletotem.gif","https://projectpokemon.org/images/shiny-sprite/salazzletotem.gif"
-"minior-orange-meteor","10130","Although its outer shell is uncommonly durable,
+Wishiwashi to gather.","82","786","water","schooling","wishiwashi","False","False","False","60","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/wishiwashi.gif","https://projectpokemon.org/images/shiny-sprite/wishiwashi.gif"
+"minior","774","Although its outer shell is uncommonly durable,
 the shock of falling to the ground smashes the
-shell to smithereens.","3","400","rock|flying","shields-down","minior","False","False","False","30","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/miniororangemeteor.gif","https://projectpokemon.org/images/shiny-sprite/miniororangemeteor.gif"
-"minior-yellow-meteor","10131","Although its outer shell is uncommonly durable,
-the shock of falling to the ground smashes the
-shell to smithereens.","3","400","rock|flying","shields-down","minior","False","False","False","30","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/minioryellowmeteor.gif","https://projectpokemon.org/images/shiny-sprite/minioryellowmeteor.gif"
-"minior-green-meteor","10132","Although its outer shell is uncommonly durable,
-the shock of falling to the ground smashes the
-shell to smithereens.","3","400","rock|flying","shields-down","minior","False","False","False","30","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/miniorgreenmeteor.gif","https://projectpokemon.org/images/shiny-sprite/miniorgreenmeteor.gif"
-"minior-blue-meteor","10133","Although its outer shell is uncommonly durable,
-the shock of falling to the ground smashes the
-shell to smithereens.","3","400","rock|flying","shields-down","minior","False","False","False","30","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/miniorbluemeteor.gif","https://projectpokemon.org/images/shiny-sprite/miniorbluemeteor.gif"
-"minior-indigo-meteor","10134","Although its outer shell is uncommonly durable,
-the shock of falling to the ground smashes the
-shell to smithereens.","3","400","rock|flying","shields-down","minior","False","False","False","30","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/miniorindigometeor.gif","https://projectpokemon.org/images/shiny-sprite/miniorindigometeor.gif"
-"minior-violet-meteor","10135","Although its outer shell is uncommonly durable,
-the shock of falling to the ground smashes the
-shell to smithereens.","3","400","rock|flying","shields-down","minior","False","False","False","30","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/miniorvioletmeteor.gif","https://projectpokemon.org/images/shiny-sprite/miniorvioletmeteor.gif"
-"minior-red","10136","Although its outer shell is uncommonly durable,
-the shock of falling to the ground smashes the
-shell to smithereens.","3","3","rock|flying","shields-down","minior","False","False","False","30","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/miniorred.gif","https://projectpokemon.org/images/shiny-sprite/miniorred.gif"
-"minior-orange","10137","Although its outer shell is uncommonly durable,
-the shock of falling to the ground smashes the
-shell to smithereens.","3","3","rock|flying","shields-down","minior","False","False","False","30","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/miniororange.gif","https://projectpokemon.org/images/shiny-sprite/miniororange.gif"
-"minior-yellow","10138","Although its outer shell is uncommonly durable,
-the shock of falling to the ground smashes the
-shell to smithereens.","3","3","rock|flying","shields-down","minior","False","False","False","30","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/minioryellow.gif","https://projectpokemon.org/images/shiny-sprite/minioryellow.gif"
-"minior-green","10139","Although its outer shell is uncommonly durable,
-the shock of falling to the ground smashes the
-shell to smithereens.","3","3","rock|flying","shields-down","minior","False","False","False","30","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/miniorgreen.gif","https://projectpokemon.org/images/shiny-sprite/miniorgreen.gif"
-"minior-blue","10140","Although its outer shell is uncommonly durable,
-the shock of falling to the ground smashes the
-shell to smithereens.","3","3","rock|flying","shields-down","minior","False","False","False","30","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/miniorblue.gif","https://projectpokemon.org/images/shiny-sprite/miniorblue.gif"
-"minior-indigo","10141","Although its outer shell is uncommonly durable,
-the shock of falling to the ground smashes the
-shell to smithereens.","3","3","rock|flying","shields-down","minior","False","False","False","30","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/miniorindigo.gif","https://projectpokemon.org/images/shiny-sprite/miniorindigo.gif"
-"minior-violet","10142","Although its outer shell is uncommonly durable,
-the shock of falling to the ground smashes the
-shell to smithereens.","3","3","rock|flying","shields-down","minior","False","False","False","30","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/miniorviolet.gif","https://projectpokemon.org/images/shiny-sprite/miniorviolet.gif"
-"mimikyu-busted","10143","There was a scientist who peeked under
+shell to smithereens.","3","400","rock|flying","shields-down","minior","False","False","False","30","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/minior.gif","https://projectpokemon.org/images/shiny-sprite/minior.gif"
+"mimikyu","778","There was a scientist who peeked under
 Mimikyu’s old rag in the name of research.
-The scientist died of a mysterious disease.","2","7","ghost|fairy","disguise","mimikyu","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/mimikyubusted.gif","https://projectpokemon.org/images/shiny-sprite/mimikyubusted.gif"
-"mimikyu-totem-disguised","10144","There was a scientist who peeked under
-Mimikyu’s old rag in the name of research.
-The scientist died of a mysterious disease.","4","28","ghost|fairy","disguise","mimikyu","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/mimikyutotemdisguised.gif","https://projectpokemon.org/images/shiny-sprite/mimikyutotemdisguised.gif"
-"mimikyu-totem-busted","10145","There was a scientist who peeked under
-Mimikyu’s old rag in the name of research.
-The scientist died of a mysterious disease.","4","28","ghost|fairy","disguise","mimikyu","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/mimikyutotembusted.gif","https://projectpokemon.org/images/shiny-sprite/mimikyutotembusted.gif"
-"kommo-o-totem","10146","Certain ruins have paintings of ancient warriors
-wearing armor made of Kommo-o scales.","24","2075","dragon|fighting","bulletproof|soundproof|overcoat","jangmo-o|hakamo-o|kommo-o","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/kommoototem.gif","https://projectpokemon.org/images/shiny-sprite/kommoototem.gif"
-"magearna-original","10147","Built roughly 500 years ago by a scientist,
-the part called the Soul-Heart is the
-actual life-form.","10","805","steel|fairy","soul-heart","magearna","False","True","False","3","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/magearnaoriginal.gif","https://projectpokemon.org/images/shiny-sprite/magearnaoriginal.gif"
-"pikachu-partner-cap","10148","When it smashes its opponents with its bolt-
-shaped tail, it delivers a surge of electricity
-equivalent to a lightning strike.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachupartnercap.gif","https://projectpokemon.org/images/shiny-sprite/pikachupartnercap.gif"
-"marowak-totem","10149","When this Pokémon evolved, the skull of its
-mother fused to it. Marowak’s temperament also
-turned vicious at the same time.","17","980","fire|ghost","cursed-body|lightning-rod|rock-head","cubone|marowak","False","False","False","75","mountain","generation-i","https://projectpokemon.org/images/normal-sprite/marowaktotem.gif","https://projectpokemon.org/images/shiny-sprite/marowaktotem.gif"
-"ribombee-totem","10150","Ribombee absolutely hate getting wet or
-rained on. In the cloudy Galar region,
-they are very seldom seen.","4","20","bug|fairy","honey-gather|shield-dust|sweet-veil","cutiefly|ribombee","False","False","False","75","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/ribombeetotem.gif","https://projectpokemon.org/images/shiny-sprite/ribombeetotem.gif"
-"rockruff-own-tempo","10151","This Pokémon intimidates opponents by striking
-the ground with the rocks on its neck. The
-moment an opponent flinches, Rockruff attacks.","5","92","rock","own-tempo","rockruff|lycanroc","False","False","False","190","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/rockruffowntempo.gif","https://projectpokemon.org/images/shiny-sprite/rockruffowntempo.gif"
-"lycanroc-dusk","10152","With swift movements, this Pokémon gradually
+The scientist died of a mysterious disease.","2","7","ghost|fairy","disguise","mimikyu","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/mimikyu.gif","https://projectpokemon.org/images/shiny-sprite/mimikyu.gif"
+"lycanroc","745","With swift movements, this Pokémon gradually
 backs its prey into a corner. Lycanroc’s fangs are
-always aimed toward opponents’ weak spots.","8","250","rock","tough-claws","rockruff|lycanroc","False","False","False","90","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/lycanrocdusk.gif","https://projectpokemon.org/images/shiny-sprite/lycanrocdusk.gif"
-"araquanid-totem","10153","It acts as a caretaker for Dewpider, putting them
-inside its bubble and letting them eat any
-leftover food.","31","2175","water|bug","water-bubble|water-absorb","dewpider|araquanid","False","False","False","100","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/araquanidtotem.gif","https://projectpokemon.org/images/shiny-sprite/araquanidtotem.gif"
-"togedemaru-totem","10154","When it’s in trouble, it curls up into a ball, makes
-its fur spikes stand on end, and then discharges
-electricity indiscriminately.","6","130","electric|steel","iron-barbs|lightning-rod|sturdy","togedemaru","False","False","False","180","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/togedemarutotem.gif","https://projectpokemon.org/images/shiny-sprite/togedemarutotem.gif"
-"necrozma-dusk","10155","When Necrozma latches on to Lunala, it becomes
-vicious, seeing enemies everywhere it looks.
-It will burn the world with lasers.","38","4600","psychic|steel","prism-armor","necrozma","True","False","False","255","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/necrozmadusk.gif","https://projectpokemon.org/images/shiny-sprite/necrozmadusk.gif"
-"necrozma-dawn","10156","When Necrozma latches on to Lunala, it becomes
-vicious, seeing enemies everywhere it looks.
-It will burn the world with lasers.","42","3500","psychic|ghost","prism-armor","necrozma","True","False","False","255","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/necrozmadawn.gif","https://projectpokemon.org/images/shiny-sprite/necrozmadawn.gif"
-"necrozma-ultra","10157","When Necrozma latches on to Lunala, it becomes
-vicious, seeing enemies everywhere it looks.
-It will burn the world with lasers.","75","2300","psychic|dragon","neuroforce","necrozma","True","False","False","255","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/necrozmaultra.gif","https://projectpokemon.org/images/shiny-sprite/necrozmaultra.gif"
+always aimed toward opponents’ weak spots.","8","250","rock","tough-claws","rockruff|lycanroc","False","False","False","90","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/lycanroc.gif","https://projectpokemon.org/images/shiny-sprite/lycanroc.gif"
