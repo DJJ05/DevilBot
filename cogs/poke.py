@@ -23,6 +23,40 @@ class pokeCog(commands.Cog):
         self.colour = 0xff9300
         self.dagpi = aiodagpi.AioDagpiClient(secrets_dagpi_token)
 
+    @commands.command(aliases=['mi'])
+    async def moveinfo(self, ctx, *, name=None):
+        """Get move information. Accepts ID or name, and defaults to a random move"""
+        if not self.bot.moves:
+            raise commands.BadArgument('Please wait 2-3 seconds to use this command.')
+
+        if not name:
+            name = random.choice(list(self.bot.moves.keys()))
+
+        try:
+            name = int(name) - 1
+        except ValueError:
+            ...
+
+        if isinstance(name, int):
+            try:
+                m = list(self.bot.moves.keys())[name]
+                m = self.bot.moves.get(m)
+            except:
+                raise commands.BadArgument('Unknown move number provided.')
+        else:
+            name = name.lower().replace(' ', '-').strip()
+            try:
+                m = self.bot.moves[name]
+            except:
+                raise commands.BadArgument('Unknown move name provided.')
+
+        em = discord.Embed(
+            color=self.colour,
+            title=f'Command is WIP, finished soon.',
+            description=f''
+        )
+        return await ctx.send(embed=em)
+
     @commands.command(aliases=['ai'])
     async def abilityinfo(self, ctx, *, name=None):
         """Get ability information. Accepts ID or name, and defaults to a random ability"""
@@ -151,6 +185,61 @@ class pokeCog(commands.Cog):
             em.set_thumbnail(url=p['sprite'])
 
         return await ctx.send(embed=em)
+
+    @commands.command(aliases=['refreshmoves', 'um'])
+    @commands.is_owner()
+    async def updatemoves(self, ctx):
+        """Updates the moves csv with the move list"""
+        fulldata = []
+
+        async with aiohttp.ClientSession() as c, ctx.typing():
+            async with c.get('https://pokeapi.co/api/v2/move?limit=2000') as r:
+                ml = await r.json()
+                if r.status != 200:
+                    return await ctx.send(f'Received {r.status}: {r.reason}')
+
+            mc = ml['count']
+            mr = ml['results']
+
+            for m in mr:
+                mn = m['name']
+                async with c.get(m['url']) as r:
+                    mi = await r.json()
+                    if r.status != 200:
+                        return await ctx.send(f'Received {r.status}: {r.reason}')
+
+                dei = mi['flavor_text_entries']
+                de = []
+                for du in dei:
+                    if du['language']['name'] == 'en':
+                        de.append(du['flavor_text'])
+                de.sort(key=len)
+                de.reverse()
+
+                fd = dict(
+                    name=mn,
+                    id=mi['id'],
+                    accuracy=mi['accuracy'],
+                    power=mi['power'],
+                    pp=mi['pp'],
+                    priority=mi['priority'],
+                    target=mi['target']['name'],
+                    type=mi['type']['name'],
+                    description=de[0] if len(de) else "NULL",
+                    damageclass=mi['damage_class']['name'] if mi['damage_class'] else "NULL",
+                    generation=mi['generation']['name']
+                )
+
+                fulldata.append(fd)
+
+            async with aiofiles.open("moves.csv", mode="w+", encoding="utf-8", newline="") as afp:
+                writer = aiocsv.AsyncDictWriter(afp,
+                                                ["name", "id", "accuracy", "power", "pp", "priority", "target", "type",
+                                                 "description", "damageclass", "generation"], restval="NULL",
+                                                quoting=csv.QUOTE_ALL)
+                await writer.writeheader()
+                await writer.writerows(fulldata)
+            return await ctx.send(f'{ctx.author.mention}, successfully inserted `{mc}` entries into `moves.csv`.')
 
     @commands.command(aliases=['refreshabilities', 'ua'])
     @commands.is_owner()

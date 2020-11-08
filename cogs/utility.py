@@ -8,6 +8,7 @@ import cv2
 import discord
 import googletrans
 import pytesseract
+import re
 import wikipedia
 from PIL import Image
 from PyDictionary import PyDictionary
@@ -42,6 +43,25 @@ class MyPaginator(buttons.Paginator):
         super().__init__(*args, **kwargs)
 
 
+time_regex = re.compile("(?:(\d{1,5})(h|s|m|d))+?")
+time_dict = {"h": 3600, "s": 1, "m": 60, "d": 86400}
+
+
+class TimeConverter(commands.Converter):
+    async def convert(self, ctx, argument):
+        args = argument.lower()
+        matches = re.findall(time_regex, args)
+        time = 0
+        for v, k in matches:
+            try:
+                time += time_dict[k] * float(v)
+            except KeyError:
+                raise commands.BadArgument(f"{k} is an invalid time-key! h/m/s/d are valid!")
+            except ValueError:
+                raise commands.BadArgument(f"{v} is not a number!")
+        return [argument, time]
+
+
 class utilityCog(commands.Cog):
     """Utility commands"""
 
@@ -53,6 +73,13 @@ class utilityCog(commands.Cog):
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
         self.trans = googletrans.Translator()
+
+    @commands.command(aliases=['remindme', 'reminder', 'timer'])
+    async def remind(self, ctx, time: TimeConverter, *, event='None Provided'):
+        """Reminds you about something. Example usage: `remind 2h vote DevilBot`"""
+        await ctx.send(f'Alright, I\'ll remind you in `{time[0]}` because: **{event}**.')
+        await asyncio.sleep(time[1])
+        await ctx.send(f'{ctx.author.mention}, reminder from `{time[0]}` ago: **{event}**.')
 
     @commands.command(aliases=['ocr', 'itt'])
     async def imagetotext(self, ctx, blur: int, url: str = None):
