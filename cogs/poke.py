@@ -38,7 +38,7 @@ class pokeCog(commands.Cog):
             try:
                 p = list(self.bot.pokemon.keys())[name]
                 p = self.bot.pokemon.get(p)
-            except KeyError or IndexError:
+            except:
                 raise commands.BadArgument('Unknown Pokémon number provided.')
         else:
             name = name.lower()
