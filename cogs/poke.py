@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import asyncio
 import csv
+import random
 
 import aiocsv
 import aiodagpi
@@ -23,10 +24,13 @@ class pokeCog(commands.Cog):
         self.dagpi = aiodagpi.AioDagpiClient(secrets_dagpi_token)
 
     @commands.command(aliases=['d', 'dex'])
-    async def pokedex(self, ctx, *, name):
-        """Get pokedex entry for a pokemon"""
+    async def pokedex(self, ctx, *, name=None):
+        """Get pokedex entry for a pokemon. Accepts ID or name, and defaults to a random pokemon"""
         if not self.bot.pokemon:
             raise commands.BadArgument('Please wait 2-3 seconds to use this command.')
+
+        if not name:
+            name = random.choice(list(self.bot.pokemon.keys()))
 
         try:
             name = int(name) - 1
@@ -63,10 +67,6 @@ class pokeCog(commands.Cog):
                 n = ' ' + n.replace('primal', '').strip()
                 n += '-primal'
 
-            if ' totem ' in n:
-                n = ' ' + n.replace('totem', '').strip()
-                n += '-totem'
-
             if ' alola ' in n or ' alolan ' in n:
                 n = ' ' + n.replace('alolan', '').replace('alola', '').strip()
                 n += '-alola'
@@ -98,7 +98,7 @@ class pokeCog(commands.Cog):
         )
 
         em.add_field(name='Height', value=f'{p["height"]}m')
-        em.add_field(name='Weight', value=f'{int(p["weight"])/10}kg')
+        em.add_field(name='Weight', value=f'{int(p["weight"]) / 10}kg')
         em.add_field(name='Habitat', value=p['habitat'].capitalize())
         em.add_field(name='Type(s)', value='\n'.join(ty))
         em.add_field(name='Abilitites', value='\n'.join(ab))
@@ -106,15 +106,13 @@ class pokeCog(commands.Cog):
         em.add_field(name='Baby', value=p['baby'])
         em.add_field(name='Legendary', value=p['legendary'])
         em.add_field(name='Mythical', value=p['mythical'])
-        em.add_field(name='Capture Rate', value=f'{int(p["capture"])/2}%')
+        em.add_field(name='Capture Rate', value=f'{int(p["capture"]) / 2}%')
         em.add_field(name='Generation', value=p['generation'].capitalize())
 
         if sh:
-            if not p['shiny']:
-                raise commands.BadArgument('This Pokémon does not have a shiny sprite.')
             em.set_thumbnail(url=p['shiny'])
         else:
-            em.set_image(url=p['sprite'])
+            em.set_thumbnail(url=p['sprite'])
 
         return await ctx.send(embed=em)
 
@@ -165,6 +163,12 @@ class pokeCog(commands.Cog):
                         if len(ei["evolves_to"][0]["evolves_to"]):
                             pe += f'|{ei["evolves_to"][0]["evolves_to"][0]["species"]["name"]}'
 
+                ps = pn
+                if ps.endswith('-x'):
+                    ps = ps.replace('-x', 'x')
+                if ps.endswith('-y'):
+                    ps = ps.replace('-y', 'y')
+
                 fd = dict(
                     name=pn,
                     number=pi['id'],
@@ -180,8 +184,8 @@ class pokeCog(commands.Cog):
                     capture=si['capture_rate'],
                     habitat=si['habitat']['name'] if si['habitat'] else 'NULL',
                     generation=si['generation']['name'],
-                    sprite=pi['sprites']['other']['official-artwork']['front_default'] or pi['sprites']['front_default'],
-                    shiny=pi['sprites']['front_shiny']
+                    sprite=f'https://projectpokemon.org/images/normal-sprite/{ps}.gif',
+                    shiny=f'https://projectpokemon.org/images/shiny-sprite/{ps}.gif'
                 )
 
                 fulldata.append(fd)
