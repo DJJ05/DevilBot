@@ -277,6 +277,7 @@ class pokeCog(commands.Cog):
     @commands.is_owner()
     async def updatepokemon(self, ctx):
         """Updates the pokemon csv with the pokemon list"""
+        return
         fulldata = []
 
         async with aiohttp.ClientSession() as c, ctx.typing():
