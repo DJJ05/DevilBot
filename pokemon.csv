@@ -312,7 +312,7 @@ As this Pokémon cruises through the ocean, it
 absorbs tiny plankton.","11","800","water|psychic","illuminate|natural-cure|analytic","staryu|starmie","False","False","False","60","sea","generation-i","https://projectpokemon.org/images/normal-sprite/starmie.gif","https://projectpokemon.org/images/shiny-sprite/starmie.gif"
 "mr-mime","122","It’s known for its top-notch pantomime skills.
 It protects itself from all sorts of attacks by
-emitting auras from its fingers to create walls.","13","545","psychic|fairy","soundproof|filter|technician","mime-jr|mr-mime","False","False","False","45","urban","generation-i","https://projectpokemon.org/images/normal-sprite/mrmime.gif","https://projectpokemon.org/images/shiny-sprite/mrmime.gif"
+emitting auras from its fingers to create walls.","13","545","psychic|fairy","soundproof|filter|technician","mime-jr|mr-mime","False","False","False","45","urban","generation-i","https://projectpokemon.org/images/normal-sprite/mr.mime.gif","https://projectpokemon.org/images/shiny-sprite/mr.mime.gif"
 "scyther","123","If you come across an area in a forest where a lot
 of the trees have been cut down, what you’ve
 found is a Scyther’s territory.","15","560","bug|flying","swarm|technician|steadfast","scyther|scizor","False","False","False","45","grassland","generation-i","https://projectpokemon.org/images/normal-sprite/scyther.gif","https://projectpokemon.org/images/shiny-sprite/scyther.gif"
@@ -669,7 +669,7 @@ Pokémon chooses to live out of sight deep under the sea.","52","2160","psychic|
 "ho-oh","250","Ho-Oh’s feathers glow in seven colors depending on the angle
 at which they are struck by light. These feathers are said to
 bring happiness to the bearers. This Pokémon is said to live at
-the foot of a rainbow.","38","1990","fire|flying","pressure|regenerator","ho-oh","True","False","False","3","rare","generation-ii","https://projectpokemon.org/images/normal-sprite/hooh.gif","https://projectpokemon.org/images/shiny-sprite/hooh.gif"
+the foot of a rainbow.","38","1990","fire|flying","pressure|regenerator","ho-oh","True","False","False","3","rare","generation-ii","https://projectpokemon.org/images/normal-sprite/ho-oh.gif","https://projectpokemon.org/images/shiny-sprite/ho-oh.gif"
 "celebi","251","This Pokémon traveled through time to come
 from the future. It bolsters grass and trees with
 its own strength, and it can heal wounds, too.","6","50","psychic|grass","natural-cure","celebi","False","True","False","45","forest","generation-ii","https://projectpokemon.org/images/normal-sprite/celebi.gif","https://projectpokemon.org/images/shiny-sprite/celebi.gif"
@@ -1192,7 +1192,7 @@ the patterns on its body.","13","1870","steel|psychic","levitate|heatproof|heavy
 green spheres dry out, their dull luster increases.","5","150","rock","sturdy|rock-head|rattled","bonsly|sudowoodo","False","False","True","255","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/bonsly.gif","https://projectpokemon.org/images/shiny-sprite/bonsly.gif"
 "mime-jr","439","It looks for a Mr. Rime that’s a good dancer
 and carefully copies the Mr. Rime’s steps
-like an apprentice.","6","130","psychic|fairy","soundproof|filter|technician","mime-jr|mr-mime","False","False","True","145","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/mimejr.gif","https://projectpokemon.org/images/shiny-sprite/mimejr.gif"
+like an apprentice.","6","130","psychic|fairy","soundproof|filter|technician","mime jr|mr mime","False","False","True","145","NULL","generation-iv","https://img.pokemondb.net/sprites/black-white/anim/normal/mime-jr.gif","https://img.pokemondb.net/sprites/black-white/anim/shiny/mime-jr.gif"
 "happiny","440","Happiny’s willing to lend its precious round stone
 to those it’s friendly with, but if the stone isn’t
 returned, Happiny will cry and throw a tantrum.","6","244","normal","natural-cure|serene-grace|friend-guard","happiny|chansey|blissey","False","False","True","130","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/happiny.gif","https://projectpokemon.org/images/shiny-sprite/happiny.gif"
@@ -1291,7 +1291,7 @@ As the weather grows colder, its ice tusks
 grow longer, thicker, and more impressive.","25","2910","ice|ground","oblivious|snow-cloak|thick-fat","swinub|piloswine|mamoswine","False","False","False","50","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/mamoswine.gif","https://projectpokemon.org/images/shiny-sprite/mamoswine.gif"
 "porygon-z","474","Some say an additional program made this
 Pokémon evolve, but even academics can’t agree
-on whether Porygon-Z is really an evolution.","9","340","normal","adaptability|download|analytic","porygon|porygon2|porygon-z","False","False","False","30","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/porygonz.gif","https://projectpokemon.org/images/shiny-sprite/porygonz.gif"
+on whether Porygon-Z is really an evolution.","9","340","normal","adaptability|download|analytic","porygon|porygon2|porygon-z","False","False","False","30","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/porygon-z.gif","https://projectpokemon.org/images/shiny-sprite/porygon-z.gif"
 "gallade","475","Sharply attuned to others’ wishes for help, this
 Pokémon seeks out those in need and aids them
 in battle.","16","520","psychic|fighting","steadfast|justified","ralts|kirlia|gardevoir","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/gallade.gif","https://projectpokemon.org/images/shiny-sprite/gallade.gif"
@@ -2173,12 +2173,12 @@ gale and flattens everything around.","30","1850","normal|dragon","berserk|sap-s
 catches large Wailord and drains their life-force.","39","2100","ghost|grass","steelworker","dhelmise","False","False","False","25","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/dhelmise.gif","https://projectpokemon.org/images/shiny-sprite/dhelmise.gif"
 "jangmo-o","782","Jangmo-o strikes its scales to communicate with
 others of its kind. Its scales are actually fur that’s
-become as hard as metal.","6","297","dragon","bulletproof|soundproof|overcoat","jangmo-o|hakamo-o|kommo-o","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/jangmoo.gif","https://projectpokemon.org/images/shiny-sprite/jangmoo.gif"
+become as hard as metal.","6","297","dragon","bulletproof|soundproof|overcoat","jangmo-o|hakamo-o|kommo-o","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/jangmo-o.gif","https://projectpokemon.org/images/shiny-sprite/jangmo-o.gif"
 "hakamo-o","783","Before attacking its enemies, it clashes its
 scales together and roars. Its sharp claws
-shred the opposition.","12","470","dragon|fighting","bulletproof|soundproof|overcoat","jangmo-o|hakamo-o|kommo-o","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/hakamoo.gif","https://projectpokemon.org/images/shiny-sprite/hakamoo.gif"
+shred the opposition.","12","470","dragon|fighting","bulletproof|soundproof|overcoat","jangmo-o|hakamo-o|kommo-o","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/hakamo-o.gif","https://projectpokemon.org/images/shiny-sprite/hakamo-o.gif"
 "kommo-o","784","Certain ruins have paintings of ancient warriors
-wearing armor made of Kommo-o scales.","16","782","dragon|fighting","bulletproof|soundproof|overcoat","jangmo-o|hakamo-o|kommo-o","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/kommoo.gif","https://projectpokemon.org/images/shiny-sprite/kommoo.gif"
+wearing armor made of Kommo-o scales.","16","782","dragon|fighting","bulletproof|soundproof|overcoat","jangmo-o|hakamo-o|kommo-o","False","False","False","45","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/kommo-o.gif","https://projectpokemon.org/images/shiny-sprite/kommo-o.gif"
 "tapu-koko","785","The lightning-wielding guardian deity of
 Melemele, Tapu Koko is brimming with curiosity
 and appears before people from time to time.","18","205","electric|fairy","electric-surge|telepathy","tapu-koko","True","False","False","3","NULL","generation-vii","https://projectpokemon.org/images/normal-sprite/tapukoko.gif","https://projectpokemon.org/images/shiny-sprite/tapukoko.gif"
