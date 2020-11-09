@@ -8,6 +8,7 @@ import aiodagpi
 import aiofiles
 import aiohttp
 import discord
+import time
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 
@@ -97,6 +98,8 @@ class pokeCog(commands.Cog):
         if not self.bot.pokemon:
             raise commands.BadArgument('Please wait 2-3 seconds to use this command.')
 
+        begin = time.perf_counter()
+
         if not name:
             name = random.choice(list(self.bot.pokemon.keys()))
 
@@ -157,6 +160,9 @@ class pokeCog(commands.Cog):
         if sh:
             name = '⭐ ' + name
 
+        end = time.perf_counter()
+        rt = round(end - begin, 3) * 1000
+
         em = discord.Embed(
             color=self.colour,
             title=f'{name} #{p["number"]}',
@@ -174,7 +180,7 @@ class pokeCog(commands.Cog):
         em.add_field(name='Mythical', value=p['mythical'], inline=True)
         em.add_field(name='Capture Rate', value=p["capture"], inline=True)
         em.add_field(name='Generation', value=p['generation'].capitalize(), inline=True)
-        em.add_field(name='\u200b', value='\u200b', inline=True)
+        em.add_field(name='Response Time', value=str(rt) + 'ms', inline=True)
 
         if sh:
             em.set_thumbnail(url=p['shiny'])
