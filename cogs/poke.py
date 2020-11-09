@@ -91,7 +91,7 @@ class pokeCog(commands.Cog):
         )
         return await ctx.send(embed=em)
 
-    @commands.command(aliases=['d', 'dex'])
+    @commands.command(aliases=['d', 'dex', 'pokeinfo', 'pokemoninfo', 'pi'])
     async def pokedex(self, ctx, *, name=None):
         """Get pokedex entry for a pokemon. Defaults to a random pokemon"""
         if not self.bot.pokemon:
@@ -149,9 +149,17 @@ class pokeCog(commands.Cog):
         for e in evo:
             ev.append(f'• {e.capitalize()}')
 
+        name = name.strip().title()
+        if ' Shiny ' in name:
+            name = name.replace(' Shiny ', ' ')
+        if name.startswith('Shiny '):
+            name = name.replace('Shiny ', '')
+        if sh:
+            name = '⭐ ' + name
+
         em = discord.Embed(
             color=self.colour,
-            title=f'{name.title() if type(name) != int else p["name"].title()} #{p["number"]}',
+            title=f'{name} #{p["number"]}',
             description=f'**{p["description"].capitalize()}**'
         )
 
@@ -326,7 +334,6 @@ class pokeCog(commands.Cog):
                     ps = ps.replace('-x', 'x')
                 if ps.endswith('-y'):
                     ps = ps.replace('-y', 'y')
-                ps = ps.replace('-', '')
 
                 fd = dict(
                     name=pn,
