@@ -1057,9 +1057,9 @@ in its body provide the energy it needs to Mega Evolve.","70","2065","dragon|fly
 "jirachi","385","It’s believed that when this Pokémon wakes from
 its 1,000-year slumber, it will grant any wishes
 written on the notes attached to its head.","3","11","steel|psychic","serene-grace","jirachi","False","True","False","3","mountain","generation-iii","https://projectpokemon.org/images/normal-sprite/jirachi.gif","https://projectpokemon.org/images/shiny-sprite/jirachi.gif"
-"deoxys-normal","386","Deoxys emerged from a virus that came from space. It is highly
+"deoxys","386","Deoxys emerged from a virus that came from space. It is highly
 intelligent and wields psychokinetic powers. This Pokémon
-shoots lasers from the crystalline organ on its chest.","17","608","psychic","pressure","deoxys","False","True","False","3","rare","generation-iii","https://projectpokemon.org/images/normal-sprite/deoxysnormal.gif","https://projectpokemon.org/images/shiny-sprite/deoxysnormal.gif"
+shoots lasers from the crystalline organ on its chest.","17","608","psychic","pressure","deoxys","False","True","False","3","rare","generation-iii","https://projectpokemon.org/images/normal-sprite/deoxys.gif","https://projectpokemon.org/images/shiny-sprite/deoxys.gif"
 "turtwig","387","It undertakes photosynthesis with its body, making
 oxygen. The leaf on its head wilts if it is thirsty.","4","102","grass","overgrow|shell-armor","turtwig|grotle|torterra","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/turtwig.gif","https://projectpokemon.org/images/shiny-sprite/turtwig.gif"
 "grotle","388","It knows where pure water wells up. It carries fellow
@@ -1122,8 +1122,8 @@ ago. Its terrifyingly tough face is harder
 than steel.","13","1495","rock|steel","sturdy|soundproof","shieldon|bastiodon","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/bastiodon.gif","https://projectpokemon.org/images/shiny-sprite/bastiodon.gif"
 "burmy","412","If its cloak is broken in battle, it quickly remakes
 the cloak with materials nearby.","2","34","bug","shed-skin|overcoat","burmy|wormadam","False","False","False","120","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/burmy.gif","https://projectpokemon.org/images/shiny-sprite/burmy.gif"
-"wormadam-plant","413","When Burmy evolved, its cloak became a part of
-this Pokémon’s body. The cloak is never shed.","5","65","bug|grass","anticipation|overcoat","burmy|wormadam","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/wormadamplant.gif","https://projectpokemon.org/images/shiny-sprite/wormadamplant.gif"
+"wormadam","413","When Burmy evolved, its cloak became a part of
+this Pokémon’s body. The cloak is never shed.","5","65","bug|ground","anticipation|overcoat","burmy|wormadam","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/wormadam.gif","https://projectpokemon.org/images/shiny-sprite/wormadam.gif"
 "mothim","414","It flutters around at night and steals honey from
 the Combee hive.","9","233","bug|flying","swarm|tinted-lens","burmy|wormadam","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/mothim.gif","https://projectpokemon.org/images/shiny-sprite/mothim.gif"
 "combee","415","It ceaselessly gathers nectar from sunrise to
@@ -1320,8 +1320,8 @@ a deity in Sinnoh-region mythology.","42","3360","water|dragon","pressure|telepa
 body. It makes its dwelling place in volcanic caves.","17","4300","fire|steel","flash-fire|flame-body","heatran","True","False","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/heatran.gif","https://projectpokemon.org/images/shiny-sprite/heatran.gif"
 "regigigas","486","There is an enduring legend that states this
 Pokémon towed continents with ropes.","37","4200","normal","slow-start","regigigas","True","False","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/regigigas.gif","https://projectpokemon.org/images/shiny-sprite/regigigas.gif"
-"giratina-altered","487","It was banished for its violence. It silently gazed
-upon the old world from the Distortion World.","45","7500","ghost|dragon","pressure|telepathy","giratina","True","False","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/giratinaaltered.gif","https://projectpokemon.org/images/shiny-sprite/giratinaaltered.gif"
+"giratina","487","It was banished for its violence. It silently gazed
+upon the old world from the Distortion World.","69","6500","ghost|dragon","levitate","giratina","True","False","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/giratina.gif","https://projectpokemon.org/images/shiny-sprite/giratina.gif"
 "cresselia","488","Those who sleep holding Cresselia’s feather are
 assured of joyful dreams. It is said to represent
 the crescent moon.","15","856","psychic","levitate","cresselia","True","False","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/cresselia.gif","https://projectpokemon.org/images/shiny-sprite/cresselia.gif"
@@ -1331,9 +1331,9 @@ was born, no matter how far it may have drifted.","4","31","water","hydration","
 it to bond with any kind of Pokémon.","3","14","water","hydration","phione|manaphy","False","True","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/manaphy.gif","https://projectpokemon.org/images/shiny-sprite/manaphy.gif"
 "darkrai","491","It can lull people to sleep and make them dream.
 It is active during nights of the new moon.","15","505","dark","bad-dreams","darkrai","False","True","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/darkrai.gif","https://projectpokemon.org/images/shiny-sprite/darkrai.gif"
-"shaymin-land","492","The blooming of Gracidea flowers confers the
+"shaymin","492","The blooming of Gracidea flowers confers the
 power of flight upon it. Feelings of gratitude are
-the message it delivers.","2","21","grass","natural-cure","shaymin","False","True","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/shayminland.gif","https://projectpokemon.org/images/shiny-sprite/shayminland.gif"
+the message it delivers.","4","52","grass|flying","serene-grace","shaymin","False","True","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/shaymin.gif","https://projectpokemon.org/images/shiny-sprite/shaymin.gif"
 "arceus","493","It is told in mythology that this Pokémon was born
 before the universe even existed.","32","3200","normal","multitype","arceus","False","True","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/arceus.gif","https://projectpokemon.org/images/shiny-sprite/arceus.gif"
 "victini","494","When it shares the infinite energy it creates,
@@ -1494,9 +1494,9 @@ its home in a well-tended field or flowerbed.","5","66","grass","chlorophyll|own
 "lilligant","549","Essential oils made from Lilligant flowers
 have a sublime scent, but they’re also
 staggeringly expensive.","11","163","grass","chlorophyll|own-tempo|leaf-guard","petilil|lilligant","False","False","False","75","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/lilligant.gif","https://projectpokemon.org/images/shiny-sprite/lilligant.gif"
-"basculin-red-striped","550","Known for their violence, these Pokémon
+"basculin","550","Known for their violence, these Pokémon
 have the most fights with schools of red-
-striped Basculin.","10","180","water","reckless|adaptability|mold-breaker","basculin","False","False","False","25","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/basculinredstriped.gif","https://projectpokemon.org/images/shiny-sprite/basculinredstriped.gif"
+striped Basculin.","10","180","water","rock-head|adaptability|mold-breaker","basculin","False","False","False","25","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/basculin.gif","https://projectpokemon.org/images/shiny-sprite/basculin.gif"
 "sandile","551","Sandile is small, but its legs and lower body are
 powerful. Pushing sand aside as it goes, Sandile
 moves through the desert as if it’s swimming.","7","152","ground|dark","intimidate|moxie|anger-point","sandile|krokorok|krookodile","False","False","False","180","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/sandile.gif","https://projectpokemon.org/images/shiny-sprite/sandile.gif"
@@ -1509,9 +1509,9 @@ lying in wait for prey.","15","963","ground|dark","intimidate|moxie|anger-point"
 "darumaka","554","This popular symbol of good fortune will never
 fall over in its sleep, no matter how it’s pushed
 or pulled.","6","375","fire","hustle|inner-focus","darumaka|darmanitan","False","False","False","120","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/darumaka.gif","https://projectpokemon.org/images/shiny-sprite/darumaka.gif"
-"darmanitan-standard","555","When wounded, it stops moving. It goes as
+"darmanitan","555","When wounded, it stops moving. It goes as
 still as stone to meditate, sharpening its mind
-and spirit.","13","929","fire","sheer-force|zen-mode","darumaka|darmanitan","False","False","False","60","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/darmanitanstandard.gif","https://projectpokemon.org/images/shiny-sprite/darmanitanstandard.gif"
+and spirit.","13","929","fire|psychic","sheer-force|zen-mode","darumaka|darmanitan","False","False","False","60","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/darmanitan.gif","https://projectpokemon.org/images/shiny-sprite/darmanitan.gif"
 "maractus","556","Once each year, this Pokémon scatters its seeds.
 They’re jam-packed with nutrients, making them
 a precious food source out in the desert.","10","280","grass","water-absorb|chlorophyll|storm-drain","maractus","False","False","False","255","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/maractus.gif","https://projectpokemon.org/images/shiny-sprite/maractus.gif"
@@ -1761,30 +1761,30 @@ phenomenal power to destroy a castle in its effort
 to protect Pokémon.","19","2600","rock|fighting","justified","terrakion","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/terrakion.gif","https://projectpokemon.org/images/shiny-sprite/terrakion.gif"
 "virizion","640","Legends say this Pokémon confounded opponents
 with its swift movements.","20","2000","grass|fighting","justified","virizion","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/virizion.gif","https://projectpokemon.org/images/shiny-sprite/virizion.gif"
-"tornadus-incarnate","641","Tornadus expels massive energy from its tail,
+"tornadus","641","Tornadus expels massive energy from its tail,
 causing severe storms. Its power is great enough
-to blow houses away.","15","630","flying","prankster|defiant","tornadus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/tornadusincarnate.gif","https://projectpokemon.org/images/shiny-sprite/tornadusincarnate.gif"
-"thundurus-incarnate","642","As it flies around, it shoots lightning all over
+to blow houses away.","14","630","flying","regenerator","tornadus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/tornadus.gif","https://projectpokemon.org/images/shiny-sprite/tornadus.gif"
+"thundurus","642","As it flies around, it shoots lightning all over
 the place and causes forest fires. It is
-therefore disliked.","15","610","electric|flying","prankster|defiant","thundurus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/thundurusincarnate.gif","https://projectpokemon.org/images/shiny-sprite/thundurusincarnate.gif"
+therefore disliked.","30","610","electric|flying","volt-absorb","thundurus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/thundurus.gif","https://projectpokemon.org/images/shiny-sprite/thundurus.gif"
 "reshiram","643","According to myth, if people ignore truth and
 let themselves become consumed by greed,
 Reshiram will arrive to burn their kingdoms down.","32","3300","dragon|fire","turboblaze","reshiram","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/reshiram.gif","https://projectpokemon.org/images/shiny-sprite/reshiram.gif"
 "zekrom","644","Mythology tells us that if people lose the
 righteousness in their hearts, their kingdoms
 will be razed by Zekrom’s lightning.","29","3450","dragon|electric","teravolt","zekrom","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/zekrom.gif","https://projectpokemon.org/images/shiny-sprite/zekrom.gif"
-"landorus-incarnate","645","From the forces of lightning and wind, it creates
+"landorus","645","From the forces of lightning and wind, it creates
 energy to give nutrients to the soil and make the
-land abundant.","15","680","ground|flying","sand-force|sheer-force","landorus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/landorusincarnate.gif","https://projectpokemon.org/images/shiny-sprite/landorusincarnate.gif"
+land abundant.","13","680","ground|flying","intimidate","landorus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/landorus.gif","https://projectpokemon.org/images/shiny-sprite/landorus.gif"
 "kyurem","646","The sameness of Zekrom’s and Kyurem’s genes
 allowed Kyurem to absorb Zekrom. Kyurem can
 now use the power of both electricity and ice.","30","3250","dragon|ice","pressure","kyurem","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/kyurem.gif","https://projectpokemon.org/images/shiny-sprite/kyurem.gif"
 "keldeo-ordinary","647","When it is resolute, its body fills with power and it
 becomes swifter. Its jumps are then too fast
 to follow.","14","485","water|fighting","justified","keldeo","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/keldeoordinary.gif","https://projectpokemon.org/images/shiny-sprite/keldeoordinary.gif"
-"meloetta-aria","648","Its melodies are sung with a special vocalization
+"meloetta","648","Its melodies are sung with a special vocalization
 method that can control the feelings of those who
-hear it.","6","65","normal|psychic","serene-grace","meloetta","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/meloettaaria.gif","https://projectpokemon.org/images/shiny-sprite/meloettaaria.gif"
+hear it.","6","65","normal|fighting","serene-grace","meloetta","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/meloetta.gif","https://projectpokemon.org/images/shiny-sprite/meloetta.gif"
 "genesect","649","This Pokémon existed 300 million years ago. Team
 Plasma altered it and attached a cannon to its back.","15","825","bug|steel","download","genesect","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/genesect.gif","https://projectpokemon.org/images/shiny-sprite/genesect.gif"
 "chespin","650","Such a thick shell of wood covers its head and back
@@ -1960,12 +1960,12 @@ among the trees.","4","70","ghost|grass","natural-cure|frisk|harvest","phantump|
 "trevenant","709","Small roots that extend from the tips of this
 Pokémon’s feet can tie into the trees of the
 forest and give Trevenant control over them.","15","710","ghost|grass","natural-cure|frisk|harvest","phantump|trevenant","False","False","False","60","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/trevenant.gif","https://projectpokemon.org/images/shiny-sprite/trevenant.gif"
-"pumpkaboo-average","710","The light that streams out from the holes in the
+"pumpkaboo","710","The light that streams out from the holes in the
 pumpkin can hypnotize and control the people
-and Pokémon that see it.","4","50","ghost|grass","pickup|frisk|insomnia","pumpkaboo|gourgeist","False","False","False","120","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/pumpkabooaverage.gif","https://projectpokemon.org/images/shiny-sprite/pumpkabooaverage.gif"
-"gourgeist-average","711","In the darkness of a new-moon night, Gourgeist
+and Pokémon that see it.","3","35","ghost|grass","pickup|frisk|insomnia","pumpkaboo|gourgeist","False","False","False","120","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/pumpkaboo.gif","https://projectpokemon.org/images/shiny-sprite/pumpkaboo.gif"
+"gourgeist","711","In the darkness of a new-moon night, Gourgeist
 will come knocking. Whoever answers the door
-will be swept off to the afterlife.","9","125","ghost|grass","pickup|frisk|insomnia","pumpkaboo|gourgeist","False","False","False","60","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/gourgeistaverage.gif","https://projectpokemon.org/images/shiny-sprite/gourgeistaverage.gif"
+will be swept off to the afterlife.","7","95","ghost|grass","pickup|frisk|insomnia","pumpkaboo|gourgeist","False","False","False","60","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/gourgeist.gif","https://projectpokemon.org/images/shiny-sprite/gourgeist.gif"
 "bergmite","712","This Pokémon lives in areas of frigid cold.
 It secures itself to the back of an Avalugg
 by freezing its feet in place.","10","995","ice","own-tempo|ice-body|sturdy","bergmite|avalugg","False","False","False","190","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/bergmite.gif","https://projectpokemon.org/images/shiny-sprite/bergmite.gif"
@@ -2498,46 +2498,12 @@ them. Its strikes are nonstop, flowing like a river.","19","1050","fighting|dark
 "zarude","893","This Zarude’s special strength stems from its love
 and care for an orphaned human child that the
 Pokémon has raised since the child’s infancy.","18","700","dark|grass","","zeraora","False","True","False","3","NULL","generation-viii","https://projectpokemon.org/images/normal-sprite/zarude.gif","https://projectpokemon.org/images/shiny-sprite/zarude.gif"
-"deoxys","386","Deoxys emerged from a virus that came from space. It is highly
-intelligent and wields psychokinetic powers. This Pokémon
-shoots lasers from the crystalline organ on its chest.","17","608","psychic","pressure","deoxys","False","True","False","3","rare","generation-iii","https://projectpokemon.org/images/normal-sprite/deoxys.gif","https://projectpokemon.org/images/shiny-sprite/deoxys.gif"
-"wormadam","413","When Burmy evolved, its cloak became a part of
-this Pokémon’s body. The cloak is never shed.","5","65","bug|ground","anticipation|overcoat","burmy|wormadam","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/wormadam.gif","https://projectpokemon.org/images/shiny-sprite/wormadam.gif"
-"shaymin","492","The blooming of Gracidea flowers confers the
-power of flight upon it. Feelings of gratitude are
-the message it delivers.","4","52","grass|flying","serene-grace","shaymin","False","True","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/shaymin.gif","https://projectpokemon.org/images/shiny-sprite/shaymin.gif"
-"giratina","487","It was banished for its violence. It silently gazed
-upon the old world from the Distortion World.","69","6500","ghost|dragon","levitate","giratina","True","False","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/giratina.gif","https://projectpokemon.org/images/shiny-sprite/giratina.gif"
-"basculin","550","Known for their violence, these Pokémon
-have the most fights with schools of red-
-striped Basculin.","10","180","water","rock-head|adaptability|mold-breaker","basculin","False","False","False","25","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/basculin.gif","https://projectpokemon.org/images/shiny-sprite/basculin.gif"
-"darmanitan","555","When wounded, it stops moving. It goes as
-still as stone to meditate, sharpening its mind
-and spirit.","13","929","fire|psychic","sheer-force|zen-mode","darumaka|darmanitan","False","False","False","60","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/darmanitan.gif","https://projectpokemon.org/images/shiny-sprite/darmanitan.gif"
-"meloetta","648","Its melodies are sung with a special vocalization
-method that can control the feelings of those who
-hear it.","6","65","normal|fighting","serene-grace","meloetta","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/meloetta.gif","https://projectpokemon.org/images/shiny-sprite/meloetta.gif"
-"tornadus","641","Tornadus expels massive energy from its tail,
-causing severe storms. Its power is great enough
-to blow houses away.","14","630","flying","regenerator","tornadus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/tornadus.gif","https://projectpokemon.org/images/shiny-sprite/tornadus.gif"
-"thundurus","642","As it flies around, it shoots lightning all over
-the place and causes forest fires. It is
-therefore disliked.","30","610","electric|flying","volt-absorb","thundurus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/thundurus.gif","https://projectpokemon.org/images/shiny-sprite/thundurus.gif"
-"landorus","645","From the forces of lightning and wind, it creates
-energy to give nutrients to the soil and make the
-land abundant.","13","680","ground|flying","intimidate","landorus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/landorus.gif","https://projectpokemon.org/images/shiny-sprite/landorus.gif"
 "keldeo","647","When it is resolute, its body fills with power and it
 becomes swifter. Its jumps are then too fast
 to follow.","14","485","water|fighting","justified","keldeo","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/keldeo.gif","https://projectpokemon.org/images/shiny-sprite/keldeo.gif"
 "meowstic","678","The defensive instinct of the males is strong.
 It’s when they’re protecting themselves or their
 partners that they unleash their full power.","6","85","psychic","keen-eye|infiltrator|competitive","espurr|meowstic","False","False","False","75","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/meowstic.gif","https://projectpokemon.org/images/shiny-sprite/meowstic.gif"
-"pumpkaboo","710","The light that streams out from the holes in the
-pumpkin can hypnotize and control the people
-and Pokémon that see it.","3","35","ghost|grass","pickup|frisk|insomnia","pumpkaboo|gourgeist","False","False","False","120","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/pumpkaboo.gif","https://projectpokemon.org/images/shiny-sprite/pumpkaboo.gif"
-"gourgeist","711","In the darkness of a new-moon night, Gourgeist
-will come knocking. Whoever answers the door
-will be swept off to the afterlife.","7","95","ghost|grass","pickup|frisk|insomnia","pumpkaboo|gourgeist","False","False","False","60","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/gourgeist.gif","https://projectpokemon.org/images/shiny-sprite/gourgeist.gif"
 "venusaur-mega","3","Huge amounts of pollen burst from it with the
 force of a volcanic eruption. Breathing in too
 much of the pollen can cause fainting.","24","1555","grass|poison","thick-fat","bulbasaur|ivysaur|venusaur","False","False","False","45","grassland","generation-i","https://projectpokemon.org/images/normal-sprite/venusaur-mega.gif","https://projectpokemon.org/images/shiny-sprite/venusaur-mega.gif"
