@@ -28,7 +28,7 @@ class eh(commands.Cog):
             return
 
         if isinstance(error, commands.DisabledCommand):
-            await ctx.send(f'{ctx.command} has been disabled by my owner. Please check back later.')
+            await ctx.send(f'{str(ctx.command).capitalize()} has been disabled by my owner. Please check back later.')
 
         elif isinstance(error, commands.NoPrivateMessage):
             try:
