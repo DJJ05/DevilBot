@@ -169,7 +169,7 @@ class pokeCog(commands.Cog):
             description=f'**{p["description"].capitalize()}**'
         )
 
-        em.add_field(name='Height', value=f'{p["height"]}m', inline=True)
+        em.add_field(name='Height', value=f'{int(p["height"]) / 10}m', inline=True)
         em.add_field(name='Weight', value=f'{int(p["weight"]) / 10}kg', inline=True)
         em.add_field(name='Habitat', value=p['habitat'].capitalize(), inline=True)
         em.add_field(name='Type(s)', value='\n'.join(ty), inline=True)
