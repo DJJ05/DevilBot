@@ -66,6 +66,14 @@ equivalent to a lightning strike.","4","60","electric","static|lightning-rod","p
 "popstar-pikachu","25","Cosplay Pikachu is a variant female Pikachu that is able to be dressed up into five different costumes corresponding to each of the five Contest conditions (Coolness, Beauty, Cuteness, Cleverness, and Toughness), and learn exclusive moves, which are linked to these costumes.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachu-popstar.gif","https://projectpokemon.org/images/shiny-sprite/pikachu-popstar.gif"
 "phd-pikachu","25","Cosplay Pikachu is a variant female Pikachu that is able to be dressed up into five different costumes corresponding to each of the five Contest conditions (Coolness, Beauty, Cuteness, Cleverness, and Toughness), and learn exclusive moves, which are linked to these costumes.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachu-phd.gif","https://projectpokemon.org/images/shiny-sprite/pikachu-phd.gif"
 "libre-pikachu","25","Cosplay Pikachu is a variant female Pikachu that is able to be dressed up into five different costumes corresponding to each of the five Contest conditions (Coolness, Beauty, Cuteness, Cleverness, and Toughness), and learn exclusive moves, which are linked to these costumes.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachu-libre.gif","https://projectpokemon.org/images/shiny-sprite/pikachu-libre.gif"
+"pikachu-cosplay","25","Cosplay Pikachu is a variant female Pikachu that is able to be dressed up into five different costumes corresponding to each of the five Contest conditions (Coolness, Beauty, Cuteness, Cleverness, and Toughness), and learn exclusive moves, which are linked to these costumes.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachu-cosplay.gif","https://projectpokemon.org/images/shiny-sprite/pikachu-cosplay.gif"
+"pikachu-rockstar","25","Cosplay Pikachu is a variant female Pikachu that is able to be dressed up into five different costumes corresponding to each of the five Contest conditions (Coolness, Beauty, Cuteness, Cleverness, and Toughness), and learn exclusive moves, which are linked to these costumes.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachu-rockstar.gif","https://projectpokemon.org/images/shiny-sprite/pikachu-rockstar.gif"
+"pikachu-belle","25","Cosplay Pikachu is a variant female Pikachu that is able to be dressed up into five different costumes corresponding to each of the five Contest conditions (Coolness, Beauty, Cuteness, Cleverness, and Toughness), and learn exclusive moves, which are linked to these costumes.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachu-belle.gif","https://projectpokemon.org/images/shiny-sprite/pikachu-belle.gif"
+"pikachu-popstar","25","Cosplay Pikachu is a variant female Pikachu that is able to be dressed up into five different costumes corresponding to each of the five Contest conditions (Coolness, Beauty, Cuteness, Cleverness, and Toughness), and learn exclusive moves, which are linked to these costumes.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachu-popstar.gif","https://projectpokemon.org/images/shiny-sprite/pikachu-popstar.gif"
+"pikachu-phd","25","Cosplay Pikachu is a variant female Pikachu that is able to be dressed up into five different costumes corresponding to each of the five Contest conditions (Coolness, Beauty, Cuteness, Cleverness, and Toughness), and learn exclusive moves, which are linked to these costumes.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachu-phd.gif","https://projectpokemon.org/images/shiny-sprite/pikachu-phd.gif"
+"pikachu-libre","25","Cosplay Pikachu is a variant female Pikachu that is able to be dressed up into five different costumes corresponding to each of the five Contest conditions (Coolness, Beauty, Cuteness, Cleverness, and Toughness), and learn exclusive moves, which are linked to these costumes.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachu-libre.gif","https://projectpokemon.org/images/shiny-sprite/pikachu-libre.gif"
+"pikachu-cap","25","This special Pikachu is based on Ash's Pikachu during the original series. The level of Pikachu corresponds to both the original series debuting in the first year of the Pokémon anime and the first movie in the original series being the first Pokémon movie overall.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachu-kantocap.gif","https://projectpokemon.org/images/shiny-sprite/pikachu-kantocap.gif"
+"cap-pikachu","25","This special Pikachu is based on Ash's Pikachu during the original series. The level of Pikachu corresponds to both the original series debuting in the first year of the Pokémon anime and the first movie in the original series being the first Pokémon movie overall.","4","60","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","190","forest","generation-i","https://projectpokemon.org/images/normal-sprite/pikachu-kantocap.gif","https://projectpokemon.org/images/shiny-sprite/pikachu-kantocap.gif"
 "raichu","26","This Pokémon rides on its tail while it uses
 its psychic powers to levitate. It attacks with
 star-shaped thunderbolts.","8","300","electric","static|lightning-rod","pichu|pikachu|raichu","False","False","False","75","forest","generation-i","https://projectpokemon.org/images/normal-sprite/raichu.gif","https://projectpokemon.org/images/shiny-sprite/raichu.gif"
@@ -963,6 +971,15 @@ will calm any hostile emotions you’re feeling.","62","1620","water","marvel-sc
 "castform","351","Its form changes depending on the weather.
 The rougher conditions get, the rougher
 Castform’s disposition!","3","8","normal","forecast","castform","False","False","False","45","grassland","generation-iii","https://projectpokemon.org/images/normal-sprite/castform.gif","https://projectpokemon.org/images/shiny-sprite/castform.gif"
+"sunny-castform","351","Its form changes depending on the weather.
+The rougher conditions get, the rougher
+Castform’s disposition!","3","8","normal","forecast","castform","False","False","False","45","grassland","generation-iii","https://projectpokemon.org/images/normal-sprite/castform-sunny.gif","https://projectpokemon.org/images/shiny-sprite/castform-sunny.gif"
+"rainy-castform","351","Its form changes depending on the weather.
+The rougher conditions get, the rougher
+Castform’s disposition!","3","8","normal","forecast","castform","False","False","False","45","grassland","generation-iii","https://projectpokemon.org/images/normal-sprite/castform-rainy.gif","https://projectpokemon.org/images/shiny-sprite/castform-rainy.gif"
+"snowy-castform","351","Its form changes depending on the weather.
+The rougher conditions get, the rougher
+Castform’s disposition!","3","8","normal","forecast","castform","False","False","False","45","grassland","generation-iii","https://projectpokemon.org/images/normal-sprite/castform-snowy.gif","https://projectpokemon.org/images/shiny-sprite/castform-snowy.gif"
 "kecleon","352","Its color changes for concealment and also
 when its mood or health changes. The darker
 the color, the healthier it is.","10","220","normal","color-change|protean","kecleon","False","False","False","200","forest","generation-iii","https://projectpokemon.org/images/normal-sprite/kecleon.gif","https://projectpokemon.org/images/shiny-sprite/kecleon.gif"
@@ -1142,6 +1159,10 @@ than steel.","13","1495","rock|steel","sturdy|soundproof","shieldon|bastiodon","
 the cloak with materials nearby.","2","34","bug","shed-skin|overcoat","burmy|wormadam","False","False","False","120","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/burmy.gif","https://projectpokemon.org/images/shiny-sprite/burmy.gif"
 "wormadam","413","When Burmy evolved, its cloak became a part of
 this Pokémon’s body. The cloak is never shed.","5","65","bug|ground","anticipation|overcoat","burmy|wormadam","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/wormadam.gif","https://projectpokemon.org/images/shiny-sprite/wormadam.gif"
+"sandy-wormadam","413","When Burmy evolved, its cloak became a part of
+this Pokémon’s body. The cloak is never shed.","5","65","bug|ground","anticipation|overcoat","burmy|wormadam","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/wormadam-sandy.gif","https://projectpokemon.org/images/shiny-sprite/wormadam-sandy.gif"
+"trash-wormadam","413","When Burmy evolved, its cloak became a part of
+this Pokémon’s body. The cloak is never shed.","5","65","bug|ground","anticipation|overcoat","burmy|wormadam","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/wormadam-trash.gif","https://projectpokemon.org/images/shiny-sprite/wormadam-trash.gif"
 "mothim","414","It flutters around at night and steals honey from
 the Combee hive.","9","233","bug|flying","swarm|tinted-lens","burmy|wormadam","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/mothim.gif","https://projectpokemon.org/images/shiny-sprite/mothim.gif"
 "combee","415","It ceaselessly gathers nectar from sunrise to
@@ -1161,12 +1182,20 @@ has stockpiled in its body. And the sweeter and
 tastier its small ball!","4","33","grass","chlorophyll","cherubi|cherrim","False","False","False","190","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/cherubi.gif","https://projectpokemon.org/images/shiny-sprite/cherubi.gif"
 "cherrim","421","The faint scent that emanates from its full
 blossom entices bug Pokémon to it.","5","93","grass","flower-gift","cherubi|cherrim","False","False","False","75","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/cherrim.gif","https://projectpokemon.org/images/shiny-sprite/cherrim.gif"
+"sunshine-cherrim","421","The faint scent that emanates from its full
+blossom entices bug Pokémon to it.","5","93","grass","flower-gift","cherubi|cherrim","False","False","False","75","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/cherrim-sunshine.gif","https://projectpokemon.org/images/shiny-sprite/cherrim-sunshine.gif"
 "shellos","422","Subjecting this Pokémon to a strong force
 causes it to secrete a strange purple fluid.
 Though harmless, the fluid is awfully sticky.","3","63","water","sticky-hold|storm-drain|sand-force","shellos|gastrodon","False","False","False","190","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/shellos.gif","https://projectpokemon.org/images/shiny-sprite/shellos.gif"
+"shellos-east","422","Subjecting this Pokémon to a strong force
+causes it to secrete a strange purple fluid.
+Though harmless, the fluid is awfully sticky.","3","63","water","sticky-hold|storm-drain|sand-force","shellos|gastrodon","False","False","False","190","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/shellos-east.gif","https://projectpokemon.org/images/shiny-sprite/shellos-east.gif"
 "gastrodon","423","The softness of its body helps disperse the force
 of impacts, so although its body is uncommonly
 squishy, it’s also surprisingly resilient.","9","299","water|ground","sticky-hold|storm-drain|sand-force","shellos|gastrodon","False","False","False","75","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/gastrodon.gif","https://projectpokemon.org/images/shiny-sprite/gastrodon.gif"
+"gastrodon-east","423","The softness of its body helps disperse the force
+of impacts, so although its body is uncommonly
+squishy, it’s also surprisingly resilient.","9","299","water|ground","sticky-hold|storm-drain|sand-force","shellos|gastrodon","False","False","False","75","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/gastrodon-east.gif","https://projectpokemon.org/images/shiny-sprite/gastrodon-east.gif"
 "ambipom","424","It uses its tails for everything. If it wraps both
 of its tails around you and gives you a squeeze,
 that’s proof it really likes you.","12","203","normal","technician|pickup|skill-link","aipom|ambipom","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/ambipom.gif","https://projectpokemon.org/images/shiny-sprite/ambipom.gif"
@@ -1324,6 +1353,16 @@ Fahrenheit to freeze its quarry. It brings frozen
 prey back to its lair and neatly lines them up.","13","266","ice|ghost","snow-cloak|cursed-body","snorunt|glalie","False","False","False","75","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/froslass.gif","https://projectpokemon.org/images/shiny-sprite/froslass.gif"
 "rotom","479","With a body made of plasma, it can inhabit all
 sorts of machines. It loves to surprise others.","3","3","electric|ghost","levitate","rotom","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/rotom.gif","https://projectpokemon.org/images/shiny-sprite/rotom.gif"
+"heat-rotom","479","With a body made of plasma, it can inhabit all
+sorts of machines. It loves to surprise others.","3","3","electric|ghost","levitate","rotom","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/rotom-heat.gif","https://projectpokemon.org/images/shiny-sprite/rotom-heat.gif"
+"wash-rotom","479","With a body made of plasma, it can inhabit all
+sorts of machines. It loves to surprise others.","3","3","electric|ghost","levitate","rotom","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/rotom-wash.gif","https://projectpokemon.org/images/shiny-sprite/rotom-wash.gif"
+"frost-rotom","479","With a body made of plasma, it can inhabit all
+sorts of machines. It loves to surprise others.","3","3","electric|ghost","levitate","rotom","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/rotom-frost.gif","https://projectpokemon.org/images/shiny-sprite/rotom-frost.gif"
+"fan-rotom","479","With a body made of plasma, it can inhabit all
+sorts of machines. It loves to surprise others.","3","3","electric|ghost","levitate","rotom","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/rotom-fan.gif","https://projectpokemon.org/images/shiny-sprite/rotom-fan.gif"
+"mow-rotom","479","With a body made of plasma, it can inhabit all
+sorts of machines. It loves to surprise others.","3","3","electric|ghost","levitate","rotom","False","False","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/rotom-mow.gif","https://projectpokemon.org/images/shiny-sprite/rotom-mow.gif"
 "uxie","480","It is said that its emergence gave humans the
 intelligence to improve their quality of life.","3","3","psychic","levitate","uxie","True","False","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/uxie.gif","https://projectpokemon.org/images/shiny-sprite/uxie.gif"
 "mesprit","481","It sleeps at the bottom of a lake. Its spirit is said to
@@ -1340,6 +1379,8 @@ body. It makes its dwelling place in volcanic caves.","17","4300","fire|steel","
 Pokémon towed continents with ropes.","37","4200","normal","slow-start","regigigas","True","False","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/regigigas.gif","https://projectpokemon.org/images/shiny-sprite/regigigas.gif"
 "giratina","487","It was banished for its violence. It silently gazed
 upon the old world from the Distortion World.","69","6500","ghost|dragon","levitate","giratina","True","False","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/giratina.gif","https://projectpokemon.org/images/shiny-sprite/giratina.gif"
+"origin-giratina","487","It was banished for its violence. It silently gazed
+upon the old world from the Distortion World.","69","6500","ghost|dragon","levitate","giratina","True","False","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/giratina-origin.gif","https://projectpokemon.org/images/shiny-sprite/giratina-origin.gif"
 "cresselia","488","Those who sleep holding Cresselia’s feather are
 assured of joyful dreams. It is said to represent
 the crescent moon.","15","856","psychic","levitate","cresselia","True","False","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/cresselia.gif","https://projectpokemon.org/images/shiny-sprite/cresselia.gif"
@@ -1352,6 +1393,9 @@ It is active during nights of the new moon.","15","505","dark","bad-dreams","dar
 "shaymin","492","The blooming of Gracidea flowers confers the
 power of flight upon it. Feelings of gratitude are
 the message it delivers.","4","52","grass|flying","serene-grace","shaymin","False","True","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/shaymin.gif","https://projectpokemon.org/images/shiny-sprite/shaymin.gif"
+"sky-shaymin","492","The blooming of Gracidea flowers confers the
+power of flight upon it. Feelings of gratitude are
+the message it delivers.","4","52","grass|flying","serene-grace","shaymin","False","True","False","45","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/shaymin-sky.gif","https://projectpokemon.org/images/shiny-sprite/shaymin-sky.gif"
 "arceus","493","It is told in mythology that this Pokémon was born
 before the universe even existed.","32","3200","normal","multitype","arceus","False","True","False","3","NULL","generation-iv","https://projectpokemon.org/images/normal-sprite/arceus.gif","https://projectpokemon.org/images/shiny-sprite/arceus.gif"
 "victini","494","When it shares the infinite energy it creates,
@@ -1513,8 +1557,11 @@ its home in a well-tended field or flowerbed.","5","66","grass","chlorophyll|own
 have a sublime scent, but they’re also
 staggeringly expensive.","11","163","grass","chlorophyll|own-tempo|leaf-guard","petilil|lilligant","False","False","False","75","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/lilligant.gif","https://projectpokemon.org/images/shiny-sprite/lilligant.gif"
 "basculin","550","Known for their violence, these Pokémon
-have the most fights with schools of red-
+have the most fights with schools of blue-
 striped Basculin.","10","180","water","rock-head|adaptability|mold-breaker","basculin","False","False","False","25","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/basculin.gif","https://projectpokemon.org/images/shiny-sprite/basculin.gif"
+"blue-basculin","550","Known for their violence, these Pokémon
+have the most fights with schools of red-
+striped Basculin.","10","180","water","rock-head|adaptability|mold-breaker","basculin","False","False","False","25","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/basculin-blue.gif","https://projectpokemon.org/images/shiny-sprite/basculin-blue.gif"
 "sandile","551","Sandile is small, but its legs and lower body are
 powerful. Pushing sand aside as it goes, Sandile
 moves through the desert as if it’s swimming.","7","152","ground|dark","intimidate|moxie|anger-point","sandile|krokorok|krookodile","False","False","False","180","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/sandile.gif","https://projectpokemon.org/images/shiny-sprite/sandile.gif"
@@ -1530,6 +1577,9 @@ or pulled.","6","375","fire","hustle|inner-focus","darumaka|darmanitan","False",
 "darmanitan","555","When wounded, it stops moving. It goes as
 still as stone to meditate, sharpening its mind
 and spirit.","13","929","fire|psychic","sheer-force|zen-mode","darumaka|darmanitan","False","False","False","60","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/darmanitan.gif","https://projectpokemon.org/images/shiny-sprite/darmanitan.gif"
+"zen-darmanitan","555","When wounded, it stops moving. It goes as
+still as stone to meditate, sharpening its mind
+and spirit.","13","929","fire|psychic","sheer-force|zen-mode","darumaka|darmanitan","False","False","False","60","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/darmanitan-zen.gif","https://projectpokemon.org/images/shiny-sprite/darmanitan-zen.gif"
 "maractus","556","Once each year, this Pokémon scatters its seeds.
 They’re jam-packed with nutrients, making them
 a precious food source out in the desert.","10","280","grass","water-absorb|chlorophyll|storm-drain","maractus","False","False","False","255","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/maractus.gif","https://projectpokemon.org/images/shiny-sprite/maractus.gif"
@@ -1782,9 +1832,15 @@ with its swift movements.","20","2000","grass|fighting","justified","virizion","
 "tornadus","641","Tornadus expels massive energy from its tail,
 causing severe storms. Its power is great enough
 to blow houses away.","14","630","flying","regenerator","tornadus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/tornadus.gif","https://projectpokemon.org/images/shiny-sprite/tornadus.gif"
+"therian-tornadus","641","Tornadus expels massive energy from its tail,
+causing severe storms. Its power is great enough
+to blow houses away.","14","630","flying","regenerator","tornadus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/tornadus-therian.gif","https://projectpokemon.org/images/shiny-sprite/tornadus-therian.gif"
 "thundurus","642","As it flies around, it shoots lightning all over
 the place and causes forest fires. It is
 therefore disliked.","30","610","electric|flying","volt-absorb","thundurus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/thundurus.gif","https://projectpokemon.org/images/shiny-sprite/thundurus.gif"
+"therian-thundurus","642","As it flies around, it shoots lightning all over
+the place and causes forest fires. It is
+therefore disliked.","30","610","electric|flying","volt-absorb","thundurus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/thundurus-therian.gif","https://projectpokemon.org/images/shiny-sprite/thundurus-therian.gif"
 "reshiram","643","According to myth, if people ignore truth and
 let themselves become consumed by greed,
 Reshiram will arrive to burn their kingdoms down.","32","3300","dragon|fire","turboblaze","reshiram","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/reshiram.gif","https://projectpokemon.org/images/shiny-sprite/reshiram.gif"
@@ -1794,15 +1850,30 @@ will be razed by Zekrom’s lightning.","29","3450","dragon|electric","teravolt"
 "landorus","645","From the forces of lightning and wind, it creates
 energy to give nutrients to the soil and make the
 land abundant.","13","680","ground|flying","intimidate","landorus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/landorus.gif","https://projectpokemon.org/images/shiny-sprite/landorus.gif"
+"therian-landorus","645","From the forces of lightning and wind, it creates
+energy to give nutrients to the soil and make the
+land abundant.","13","680","ground|flying","intimidate","landorus","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/landorus-therian.gif","https://projectpokemon.org/images/shiny-sprite/landorus-therian.gif"
 "kyurem","646","The sameness of Zekrom’s and Kyurem’s genes
 allowed Kyurem to absorb Zekrom. Kyurem can
 now use the power of both electricity and ice.","30","3250","dragon|ice","pressure","kyurem","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/kyurem.gif","https://projectpokemon.org/images/shiny-sprite/kyurem.gif"
-"keldeo-ordinary","647","When it is resolute, its body fills with power and it
+"white-kyurem","646","The sameness of Zekrom’s and Kyurem’s genes
+allowed Kyurem to absorb Zekrom. Kyurem can
+now use the power of both electricity and ice.","30","3250","dragon|ice","pressure","kyurem","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/kyurem-white.gif","https://projectpokemon.org/images/shiny-sprite/kyurem-white.gif"
+"black-kyurem","646","The sameness of Zekrom’s and Kyurem’s genes
+allowed Kyurem to absorb Zekrom. Kyurem can
+now use the power of both electricity and ice.","30","3250","dragon|ice","pressure","kyurem","True","False","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/kyurem-black.gif","https://projectpokemon.org/images/shiny-sprite/kyurem-black.gif"
+"keldeo","647","When it is resolute, its body fills with power and it
 becomes swifter. Its jumps are then too fast
-to follow.","14","485","water|fighting","justified","keldeo","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/keldeoordinary.gif","https://projectpokemon.org/images/shiny-sprite/keldeoordinary.gif"
+to follow.","14","485","water|fighting","justified","keldeo","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/keldeo.gif","https://projectpokemon.org/images/shiny-sprite/keldeo.gif"
+"resolute-keldeo","647","When it is resolute, its body fills with power and it
+becomes swifter. Its jumps are then too fast
+to follow.","14","485","water|fighting","justified","keldeo","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/keldeo-resolute.gif","https://projectpokemon.org/images/shiny-sprite/keldeo-resolute.gif"
 "meloetta","648","Its melodies are sung with a special vocalization
 method that can control the feelings of those who
 hear it.","6","65","normal|fighting","serene-grace","meloetta","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/meloetta.gif","https://projectpokemon.org/images/shiny-sprite/meloetta.gif"
+"pirouette-meloetta","648","Its melodies are sung with a special vocalization
+method that can control the feelings of those who
+hear it.","6","65","normal|fighting","serene-grace","meloetta","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/meloetta-pirouette.gif","https://projectpokemon.org/images/shiny-sprite/meloetta-pirouette.gif"
 "genesect","649","This Pokémon existed 300 million years ago. Team
 Plasma altered it and attached a cannon to its back.","15","825","bug|steel","download","genesect","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/genesect.gif","https://projectpokemon.org/images/shiny-sprite/genesect.gif"
 "chespin","650","Such a thick shell of wood covers its head and back
@@ -1830,6 +1901,9 @@ than 2,000 feet in a minute’s time.","6","109","water","torrent|protean","froa
 "greninja","658","It appears and vanishes with a ninja’s grace.
 It toys with its enemies using swift movements, while
 slicing them with throwing stars of sharpest water.","15","400","water|dark","torrent|protean","froakie|frogadier|greninja","False","False","False","45","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/greninja.gif","https://projectpokemon.org/images/shiny-sprite/greninja.gif"
+"ash-greninja","658","It appears and vanishes with a ninja’s grace.
+It toys with its enemies using swift movements, while
+slicing them with throwing stars of sharpest water.","15","400","water|dark","torrent|protean","froakie|frogadier|greninja","False","False","False","45","NULL","generation-vi","https://static.wikia.nocookie.net/pokemon/images/f/f7/Greninja-ash.gif/revision/latest/top-crop/width/450/height/450?cb=20170103171951","https://static.wikia.nocookie.net/pokemon/images/f/f7/Greninja-ash.gif/revision/latest/top-crop/width/450/height/450?cb=20170103171951"
 "bunnelby","659","It’s very sensitive to danger. The sound of
 Corviknight’s flapping will have Bunnelby
 digging a hole to hide underground in moments.","4","50","normal","pickup|cheek-pouch|huge-power","bunnelby|diggersby","False","False","False","255","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/bunnelby.gif","https://projectpokemon.org/images/shiny-sprite/bunnelby.gif"
@@ -2518,9 +2592,6 @@ them. Its strikes are nonstop, flowing like a river.","19","1050","fighting|dark
 "zarude","893","This Zarude’s special strength stems from its love
 and care for an orphaned human child that the
 Pokémon has raised since the child’s infancy.","18","700","dark|grass","","zeraora","False","True","False","3","NULL","generation-viii","https://projectpokemon.org/images/normal-sprite/zarude.gif","https://projectpokemon.org/images/shiny-sprite/zarude.gif"
-"keldeo","647","When it is resolute, its body fills with power and it
-becomes swifter. Its jumps are then too fast
-to follow.","14","485","water|fighting","justified","keldeo","False","True","False","3","NULL","generation-v","https://projectpokemon.org/images/normal-sprite/keldeo.gif","https://projectpokemon.org/images/shiny-sprite/keldeo.gif"
 "meowstic","678","The defensive instinct of the males is strong.
 It’s when they’re protecting themselves or their
 partners that they unleash their full power.","6","85","psychic","keen-eye|infiltrator|competitive","espurr|meowstic","False","False","False","75","NULL","generation-vi","https://projectpokemon.org/images/normal-sprite/meowstic.gif","https://projectpokemon.org/images/shiny-sprite/meowstic.gif"
