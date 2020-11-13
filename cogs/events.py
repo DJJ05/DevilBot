@@ -58,14 +58,14 @@ class eventsCog(commands.Cog):
             json.dump(deleted, f, indent=4)
 
     @commands.Cog.listener(name="on_message")
-    async def on_user_mention(self, message):
+    async def on_message(self, message):
         if message.content in ("<@!720229743974285312>", "<@720229743974285312>"):
             guildpre = await self.bot.get_prefix(message)
             guildpre = f'{guildpre[2]}'
             appinfo = await self.bot.application_info()
             _commands = []
             for c in self.bot.commands:
-                if c.enabled == True:
+                if c.enabled:
                     _commands.append(c.name)
             if len(_commands) == len(self.bot.commands):
                 currentstatus = f'<:status_online:596576749790429200> `Status:` The Bot is currently **active.**'
@@ -128,9 +128,9 @@ class eventsCog(commands.Cog):
                     # replace the time with python struct, i forgot how it works sorry
                     longmess = int(int(str(message.created_at).split(" ")[1].replace(":", ".").replace(
                         ".", "")) - int(afks[str(message.author.id)]["time"])) / 1000000
-                    min, sec = divmod(longmess, 60)
-                    hour, min = divmod(min, 60)
-                    finalmess = "%d:%02d:%02d" % (hour, min, sec)
+                    _min, sec = divmod(longmess, 60)
+                    hour, _min = divmod(_min, 60)
+                    finalmess = "%d:%02d:%02d" % (hour, _min, sec)
                     await message.channel.send(f'{message.author.mention}, I removed your AFK', delete_after=5)
                     afks.pop(str(message.author.id))
                     with open('afks.json', 'w') as f:
@@ -149,6 +149,18 @@ class eventsCog(commands.Cog):
                         await message.channel.send(
                             f'**{message.author.mention},** `{i.display_name} is currently AFK.`\n**Reason:** `{afks[str(i.id)]["message"]}`',
                             delete_after=5)
+
+            # —————————————————————————
+
+            if message.guild.id == 696343847210319924 and message.author.id == 716390085896962058 and len(message.embeds) > 0:
+                if message.embeds[0].title == 'A wild pokémon has appeared!':
+                    owner = self.bot.get_user(670564722218762240)
+                    emby = discord.Embed(
+                        title='New Pokémon spawn in the Grove.',
+                        description=f'[Message URL]({message.jump_url})',
+                        colour=self.colour
+                    )
+                    await owner.send(embed=emby)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
