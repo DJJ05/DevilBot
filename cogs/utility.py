@@ -457,6 +457,7 @@ class utilityCog(commands.Cog):
     @commands.command(aliases=['trans'])
     async def translate(self, ctx, to: str = 'en', *, message: commands.clean_content = None):
         """Translates text"""
+        return await ctx.send('Command is broken rn, check back later please.')
         if not message:
             raise commands.BadArgument(
                 'Please first provide a code to translate into (e.g en is english) and then a message to translate')
