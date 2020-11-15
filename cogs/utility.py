@@ -1,5 +1,6 @@
 import asyncio
 import json
+import re
 import textwrap
 import unicodedata
 
@@ -8,13 +9,13 @@ import cv2
 import discord
 import googletrans
 import pytesseract
-import re
 import wikipedia
 from PIL import Image
 from PyDictionary import PyDictionary
 from discord.ext import commands, buttons
 from discord.ext.commands.cooldowns import BucketType
 from googlesearch import search
+from .secrets import *
 
 dictionary = PyDictionary()
 
@@ -413,9 +414,47 @@ class utilityCog(commands.Cog):
         except discord.errors.Forbidden:
             pass
 
+    @commands.command(aliases=['imdb', 'movieinfo', 'tvinfo', 'tv', 'tvshow'])
+    async def movie(self, ctx, *, moviename: str):
+        """Fetch movie information from IMDB"""
+        async with aiohttp.ClientSession() as cs, ctx.typing():
+            async with cs.get(f'http://www.omdbapi.com/?apikey={secrets_moviedb}&t={moviename.lower().title().replace(" ", "+")}') as resp:
+                data = await resp.json()
+
+        if data['Response'] == 'False':
+            raise commands.BadArgument('Invalid movie title provided, no results found.')
+
+        embed = discord.Embed(
+            colour=self.colour,
+            title=f"__{data['Title']}__",
+            description=f'**Plot Line:**\n||{data["Plot"]}||'
+        )
+
+        prod = 'N/A'
+        try:
+            prod = data['Production']
+        except:
+            ...
+
+        embed.add_field(name='Released', value=data['Released'])
+        embed.add_field(name='Rated', value=data['Rated'])
+        embed.add_field(name='Runtime', value=data['Runtime'])
+        embed.add_field(name='Genre(s)', value=data['Genre'])
+        embed.add_field(name='Director', value=data['Director'])
+        embed.add_field(name='Writer(s)', value=data['Writer'])
+        embed.add_field(name='Language(s)', value=data['Language'])
+        embed.add_field(name='Awards', value=data['Awards'])
+        embed.add_field(name='IMDB Rating', value=f"{data['imdbRating']}/10")
+        embed.add_field(name='IMDB Votes', value=data['imdbVotes'])
+        embed.add_field(name='IMDB ID', value=data['imdbID'])
+        embed.add_field(name='Production', value=prod)
+        embed.set_thumbnail(url=data['Poster'])
+
+        return await ctx.send(embed=embed)
+
     @commands.command(aliases=['invinfo', 'inviteinfo', 'fetchinvite'])
     async def fetchinv(self, ctx, *, inv: str = None):
-        '''Provides limited information about any invite link.'''
+        """Provides limited information about any invite link."""
         if inv == None:
             return await ctx.send('Missing argument: `inv.` Please provide an `invite link` or `invite code.`')
         if 'discord.gg/' in inv:
@@ -455,12 +494,9 @@ class utilityCog(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['trans'])
-    async def translate(self, ctx, to: str = 'en', *, message: commands.clean_content = None):
+    async def translate(self, ctx, to, *, message: commands.clean_content):
         """Translates text"""
         return await ctx.send('Command is broken rn, check back later please.')
-        if not message:
-            raise commands.BadArgument(
-                'Please first provide a code to translate into (e.g en is english) and then a message to translate')
 
         def trans(message, to):
             try:
