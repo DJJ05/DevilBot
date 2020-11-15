@@ -450,7 +450,11 @@ class utilityCog(commands.Cog):
         embed.add_field(name='Production', value=prod)
         embed.set_thumbnail(url=data['Poster'])
 
-        return await ctx.send(embed=embed)
+        try:
+            return await ctx.send(embed=embed)
+        except:
+            embed.set_thumbnail(url='https://m.media-amazon.com/images/G/01/imdb/images/social/imdb_logo._CB410901634_.png')
+            return await ctx.send(embed=embed)
 
     @commands.command(aliases=['invinfo', 'inviteinfo', 'fetchinvite'])
     async def fetchinv(self, ctx, *, inv: str = None):
