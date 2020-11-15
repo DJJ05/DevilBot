@@ -433,7 +433,7 @@ class pokeCog(commands.Cog):
                 tries += 1
                 emb.title = f'Who\'s That Pokemon? You have {3 - tries} guesses left.'
                 await mes.edit(embed=emb)
-        await ctx.send(f'You ran out of guessed! It was {n_e.capitalize()}.')
+        await ctx.send(f'You ran out of guesses! It was {n_e.capitalize()}.')
         emb.set_image(url=a)
         emb.title = f'Out of guesses! It was {n_e.capitalize()}.'
         return await mes.edit(embed=emb)

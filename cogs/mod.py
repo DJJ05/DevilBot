@@ -94,7 +94,7 @@ class modCog(commands.Cog):
         await ctx.send(f'Done, {member} removed from register.')
 
     @commands.command()
-    @checks.check_mod_or_owner()
+    @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member: typing.Union[discord.Member, int], *, reason: str = 'None Provided'):
         """Bans a member"""
         if not member:
@@ -104,7 +104,7 @@ class modCog(commands.Cog):
         else:
             if member.top_role > ctx.guild.me.top_role:
                 return await ctx.send('I am not permitted to `ban` this member.')
-        if not ctx.guild.permissions_for(ctx.guild.me).ban_members:
+        if not ctx.channel.permissions_for(ctx.guild.me).ban_members:
             return await ctx.send('I am not permitted to `ban` in this guild.')
         embed = discord.Embed(title=f'You have been banned from {ctx.guild.name}', colour=self.colour,
                               description=f'By:\n`{ctx.author.name}`\nBecause:\n`{reason}`')
@@ -116,14 +116,14 @@ class modCog(commands.Cog):
         await ctx.send(f'Successfully `banned` {member.mention} from the guild.')
 
     @commands.command(aliases=['yeet'])
-    @checks.check_mod_or_owner()
+    @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member = None, *, reason: str = 'None Provided'):
         """Kicks a member"""
         if not member:
             return await ctx.send('`Member` is a required argument that is missing.')
         if member.top_role > ctx.guild.me.top_role:
             return await ctx.send('I am not permitted to `kick` this member.')
-        if not ctx.guild.permissions_for(ctx.guild.me).kick_members:
+        if not ctx.channel.permissions_for(ctx.guild.me).kick_members:
             return await ctx.send('I am not permitted to `kick` in this guild.')
         embed = discord.Embed(title=f'You have been kicked from {ctx.guild.name}', colour=self.colour,
                               description=f'By:\n`{ctx.author.name}`\nBecause:\n`{reason}`')
