@@ -58,7 +58,7 @@ class eventsCog(commands.Cog):
             json.dump(deleted, f, indent=4)
 
     @commands.Cog.listener(name="on_message")
-    async def on_message(self, message):
+    async def on_devilbot_ping(self, message):
         if message.content in ("<@!720229743974285312>", "<@720229743974285312>"):
             guildpre = await self.bot.get_prefix(message)
             guildpre = f'{guildpre[2]}'
@@ -85,7 +85,8 @@ class eventsCog(commands.Cog):
                 icon_url=message.author.avatar_url)
             await message.channel.send(embed=embed)
 
-        #  ——————————————————
+    @commands.Cog.listener(name="on_message")
+    async def on_name_say(self, message):
 
         if message.guild:
             em = discord.Embed(
@@ -118,8 +119,10 @@ class eventsCog(commands.Cog):
                             send_to = self.bot.get_user(users.get(person))
                             await send_to.send(embed=em)
 
-            # ——————————————————————————
+    @commands.Cog.listener(name="on_message")
+    async def on_afk_say(self, message):
 
+        if message.guild:
             with open('afks.json', 'r') as f:
                 afks = json.load(f)
 
@@ -139,28 +142,17 @@ class eventsCog(commands.Cog):
             except KeyError:
                 pass
 
-            # —————————————————————————
+    @commands.Cog.listener(name="on_message")
+    async def on_afk_ping(self, message):
 
-            if len(message.mentions):
-                with open('afks.json', 'r') as f:
-                    afks = json.load(f)
-                for i in message.mentions:
-                    if str(i.id) in afks and message.author != message.guild.me:
-                        await message.channel.send(
-                            f'**{message.author.mention},** `{i.display_name} is currently AFK.`\n**Reason:** `{afks[str(i.id)]["message"]}`',
-                            delete_after=5)
-
-            # —————————————————————————
-
-            if message.guild.id == 696343847210319924 and message.author.id == 716390085896962058 and len(message.embeds) > 0:
-                if message.embeds[0].title == 'A wild pokémon has appeared!':
-                    owner = self.bot.get_user(670564722218762240)
-                    emby = discord.Embed(
-                        title='New Pokémon spawn in the Grove.',
-                        description=f'[Message URL]({message.jump_url})',
-                        colour=self.colour
-                    )
-                    await owner.send(embed=emby)
+        if len(message.mentions):
+            with open('afks.json', 'r') as f:
+                afks = json.load(f)
+            for i in message.mentions:
+                if str(i.id) in afks and message.author != message.guild.me:
+                    await message.channel.send(
+                        f'**{message.author.mention},** `{i.display_name} is currently AFK.`\n**Reason:** `{afks[str(i.id)]["message"]}`',
+                        delete_after=5)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
@@ -172,9 +164,9 @@ class eventsCog(commands.Cog):
         with open('prefixes.json', 'w') as f:
             json.dump(prefixes, f, indent=4)
 
-    '''@commands.Cog.listener()
+    @commands.Cog.listener()
     async def on_message_edit(self, before, after):
-        await self.bot.process_commands(after)'''
+        await self.bot.process_commands(after)
 
 
 def setup(bot):
