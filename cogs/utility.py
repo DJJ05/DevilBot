@@ -5,9 +5,9 @@ import textwrap
 import unicodedata
 
 import aiohttp
+import googletrans
 import cv2
 import discord
-import googletrans
 import pytesseract
 import wikipedia
 from PIL import Image
@@ -72,7 +72,6 @@ class utilityCog(commands.Cog):
         self.colour = 0xff9300
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
-
         self.trans = googletrans.Translator()
 
     @commands.command(aliases=['remindme', 'reminder', 'timer'])
@@ -219,10 +218,6 @@ class utilityCog(commands.Cog):
         if len(msg) > 2000:
             return await ctx.send('Output too long to display.')
         await ctx.send(msg)
-
-    @commands.command(aliases=['rtfd'])
-    async def rtfm(self, ctx, *, search):
-        """Read the fucking manual"""
 
     @commands.command()
     async def rtfs(self, ctx, *, search):
@@ -418,7 +413,8 @@ class utilityCog(commands.Cog):
     async def movie(self, ctx, *, moviename: str):
         """Fetch movie information from IMDB"""
         async with aiohttp.ClientSession() as cs, ctx.typing():
-            async with cs.get(f'http://www.omdbapi.com/?apikey={secrets_moviedb}&t={moviename.lower().title().replace(" ", "+")}') as resp:
+            async with cs.get(
+                    f'http://www.omdbapi.com/?apikey={secrets_moviedb}&t={moviename.lower().title().replace(" ", "+")}') as resp:
                 data = await resp.json()
 
         if data['Response'] == 'False':
@@ -453,7 +449,8 @@ class utilityCog(commands.Cog):
         try:
             return await ctx.send(embed=embed)
         except:
-            embed.set_thumbnail(url='https://m.media-amazon.com/images/G/01/imdb/images/social/imdb_logo._CB410901634_.png')
+            embed.set_thumbnail(
+                url='https://m.media-amazon.com/images/G/01/imdb/images/social/imdb_logo._CB410901634_.png')
             return await ctx.send(embed=embed)
 
     @commands.command(aliases=['invinfo', 'inviteinfo', 'fetchinvite'])
@@ -500,26 +497,9 @@ class utilityCog(commands.Cog):
     @commands.command(aliases=['trans'])
     async def translate(self, ctx, to, *, message: commands.clean_content):
         """Translates text"""
-        return await ctx.send('Command is broken rn, check back later please.')
-
-        def trans(message, to):
-            try:
-                done = self.trans.translate(message, dest=to)
-                return done
-            except:
-                raise commands.BadArgument(
-                    'Please first provide a valid code to translate into (e.g en is english) and then a message to translate')
-
-        async with ctx.typing():
-            loop = self.bot.loop
-            ret = await loop.run_in_executor(None, trans, message, to)
-
-            embed = discord.Embed(title='Translator', colour=self.colour)
-            src = googletrans.LANGUAGES.get(ret.src, '(auto-detected)').title()
-            dest = googletrans.LANGUAGES.get(ret.dest, 'Unknown').title()
-            embed.add_field(name=f'From {src}', value=ret.origin, inline=True)
-            embed.add_field(name=f'To {dest}', value=ret.text, inline=True)
-        await ctx.send(embed=embed)
+        return await ctx.send('The googletrans API is broken atm, its not my fault sorry.')
+        result = await self.bot.loop.run_in_executor(None, self.trans.translate, message, to)
+        await ctx.send(result)
 
     @commands.command()
     async def poll(self, ctx, *, question):
