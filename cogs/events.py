@@ -116,7 +116,7 @@ class eventsCog(commands.Cog):
                         if message.guild.id == 621044091056029696:
                             send_to = self.bot.get_user(users.get(person))
                             await send_to.send(embed=em)
-                        elif message.guild.id == 696343847210319924 and person in [' jake ', ' devil ', ' spooky ']:
+                        elif message.guild.id == 696343847210319924 and person in [' jake ', ' devil ', ' spooky ', ' freaglii ', ' petrick ']:
                             send_to = self.bot.get_user(users.get(person))
                             await send_to.send(embed=em)
 
