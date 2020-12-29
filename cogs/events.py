@@ -105,7 +105,8 @@ class eventsCog(commands.Cog):
                 ' blitz ': 239516219445608449,
                 ' vic ': 595752455409762304,
                 ' jake ': 116268975020703751,
-                'asti ': 517067779145334795
+                'asti ': 517067779145334795,
+                ' spooky ': 253223928393236480
             }
 
             concac = ' ' + message.content.lower().replace('\n', '') + ' '
