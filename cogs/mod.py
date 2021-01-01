@@ -161,7 +161,7 @@ class modCog(commands.Cog):
         Cleans up the bots messages.
         """
 
-        prefix = ctx.prefix
+        prefix = ctx.prefix if ctx.prefix != '' else 'ow!'
 
         async with ctx.typing():
 
