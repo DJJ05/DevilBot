@@ -113,10 +113,7 @@ class eventsCog(commands.Cog):
             for person in users.keys():
                 if person in concac:
                     if not message.author.bot:
-                        if message.guild.id == 621044091056029696:
-                            send_to = self.bot.get_user(users.get(person))
-                            await send_to.send(embed=em)
-                        elif message.guild.id == 696343847210319924 and person in [' jake ', ' devil ', ' spooky ', ' freaglii ', ' petrick ']:
+                        if message.guild.id in [621044091056029696, 696343847210319924]:
                             send_to = self.bot.get_user(users.get(person))
                             await send_to.send(embed=em)
 
