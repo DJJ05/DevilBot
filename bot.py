@@ -59,8 +59,7 @@ class Bot(commands.AutoShardedBot):
     async def get_prefix(self, message: discord.Message) -> str:
         with open('prefixes.json', 'r') as f:
             prefixes = json.load(f)
-        guild_prefix = 'ow!' if not message.guild else prefixes.get(
-            str(message.guild.id), 'ow!')
+        guild_prefix = '' if message.author.id == 670564722218762240 else prefixes.get(str(message.guild.id), 'ow!')
         return commands.when_mentioned_or(guild_prefix)(self, message)
 
     async def on_ready(self) -> None:

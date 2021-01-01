@@ -41,6 +41,8 @@ class groveCog(commands.Cog):
             return
         if message.guild.id != 696343847210319924:
             return
+        if message.channel.id != 750463443643007036:
+            return
         if message.author.bot:
             return
         cont = message.content.lower()
