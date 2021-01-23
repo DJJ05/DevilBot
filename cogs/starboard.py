@@ -146,7 +146,7 @@ class starboardCog(commands.Cog):
 
         for msg_id, inside in data[str(ctx.guild.id)]["messages"].items():
             if inside["stars"] < minimum_star_count and inside["embed"]:
-                msg = await starboard.fetch_message(int(msg_id))
+                msg = await starboard.fetch_message(inside["embed"])
                 await msg.delete()
                 inside["embed"] = None
 
