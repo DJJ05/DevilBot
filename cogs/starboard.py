@@ -123,6 +123,32 @@ class starboardCog(commands.Cog):
         """Starboard command group, see subcommands for setup. Requires administrator."""
         await ctx.send_help(ctx.command)
 
+    @starboard.command(aliases=['lb'])
+    async def leaderboard(self, ctx):
+        """Displays a leaderboard from most to least stars per person"""
+        people = {}
+
+        with open('starboard.json', 'r') as f:
+            data = json.load(f)
+
+        if data.get(str(ctx.guild.id)) is None:
+            raise commands.BadArgument(
+                f'There is no starboard in this server. Use `{ctx.prefix}starboard create` to create one.')
+
+        if len(list(data[str(ctx.guild.id)]["messages"].keys())) < 1:
+            raise commands.BadArgument('There have been so stars in this server.')
+
+        for m_id, inside in data[str(ctx.guild.id)]["messages"].items():
+            channel = ctx.guild.get_channel(inside["channel"])
+            msg = await channel.fetch_message(int(m_id))
+            if people.get(str(msg.author)) is not None:
+                people[str(msg.author)] += inside["stars"]
+            else:
+                people[str(msg.author)] = inside["stars"]
+
+        people = dict(sorted(people.items(), key=lambda item: item[1], reverse=True))
+        await ctx.reply(people)
+
     @starboard.command(aliases=['star'])
     @checks.check_admin_or_owner()
     async def stars(self, ctx, minimum_star_count: int = 4):
