@@ -6,6 +6,7 @@ import json
 
 from .utils import checks
 
+
 class starboardCog(commands.Cog):
     """Starboard commands"""
 
@@ -58,12 +59,17 @@ class starboardCog(commands.Cog):
 
         if data[str(guild.id)]["messages"][str(message.id)]["stars"] == data[str(guild.id)]["stars"]:
             embed = discord.Embed(
-                colour = self.colour,
-                description = message.content,
+                colour=self.colour,
+                description=message.content,
                 timestamp=message.created_at
             )
             embed.add_field(name='Original', value=f'[Jump!]({message.jump_url})')
             embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
+            if len(message.attachments) > 0:
+                try:
+                    embed.set_image(url=message.attachments[0].url)
+                except:
+                    pass
             msg = await starboard.send(f'**{data[str(guild.id)]["stars"]}** :star:', embed=embed)
             data[str(guild.id)]["messages"][str(message.id)]["embed"] = msg.id
 
@@ -125,7 +131,8 @@ class starboardCog(commands.Cog):
             data = json.load(f)
 
         if data.get(str(ctx.guild.id)) is None:
-            raise commands.BadArgument(f'There is no starboard in this server. Use `{ctx.prefix}starboard create` to create one.')
+            raise commands.BadArgument(
+                f'There is no starboard in this server. Use `{ctx.prefix}starboard create` to create one.')
 
         if minimum_star_count < 1:
             raise commands.BadArgument('You need a minimum number greater than 0.')
@@ -163,7 +170,8 @@ class starboardCog(commands.Cog):
             data = json.load(f)
 
         if data.get(str(ctx.guild.id)) is None:
-            raise commands.BadArgument(f'There is no starboard in this server. Use `{ctx.prefix}starboard create` to create one.')
+            raise commands.BadArgument(
+                f'There is no starboard in this server. Use `{ctx.prefix}starboard create` to create one.')
 
         data.pop(str(ctx.guild.id))
 
@@ -183,7 +191,8 @@ class starboardCog(commands.Cog):
             data = json.load(f)
 
         if data.get(str(ctx.guild.id)) is not None:
-            raise commands.BadArgument(f'There is already a starboard in this server. Use `{ctx.prefix}starboard close` to remove it.')
+            raise commands.BadArgument(
+                f'There is already a starboard in this server. Use `{ctx.prefix}starboard close` to remove it.')
 
         if not channel.permissions_for(ctx.me).send_messages:
             raise commands.BadArgument(f'I need send_messages permissions in {channel.mention} to send messages there.')
@@ -197,7 +206,8 @@ class starboardCog(commands.Cog):
         with open('starboard.json', 'w') as f:
             json.dump(data, f, indent=4)
 
-        return await ctx.reply(f'Alright, I activated a starboard in {channel.mention} with a minimum star count of {minimum_star_count}. The allowed emoji is :star: and bots, self-starrers and embeds are not allowed to star. Use `{ctx.prefix}starboard` to view all of the available config commands.')
+        return await ctx.reply(
+            f'Alright, I activated a starboard in {channel.mention} with a minimum star count of {minimum_star_count}. The allowed emoji is :star: and bots, self-starrers and embeds are not allowed to star. Use `{ctx.prefix}starboard` to view all of the available config commands.')
 
 
 def setup(bot):
