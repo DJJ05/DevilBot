@@ -138,6 +138,9 @@ class starboardCog(commands.Cog):
     @checks.check_admin_or_owner()
     async def create(self, ctx, channel: discord.TextChannel, minimum_star_count: int = 5):
         """Creates an active starboard in a specified channel, with specified minimum star count. Bot requires send_messages permissions in starboard channel, and it is recommended to disallow @ everyone from talking there."""
+        if minimum_star_count < 1:
+            raise commands.BadArgument('You need a minimum number greater than 0.')
+
         with open('starboard.json', 'r') as f:
             data = json.load(f)
 
