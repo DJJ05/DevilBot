@@ -147,7 +147,7 @@ class starboardCog(commands.Cog):
                 people[str(msg.author)] = inside["stars"]
 
         people = dict(sorted(people.items(), key=lambda item: item[1], reverse=True))
-        people = {x: people[x] for x in list(people.keys)[:10]}
+        people = {x: people[x] for x in list(people.keys())[:10]}
 
         leaderboard = ''
         lbnum = 1
