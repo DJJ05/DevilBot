@@ -117,6 +117,44 @@ class starboardCog(commands.Cog):
         """Starboard command group, see subcommands for setup. Requires administrator."""
         await ctx.send_help(ctx.command)
 
+    @starboard.command(aliases=['star'])
+    @checks.check_admin_or_owner()
+    async def stars(self, ctx, minimum_star_count: int = 4):
+        """Sets the minimum star count of a guild to a new value greater than 0. Defaults to 4."""
+        with open('starboard.json', 'r') as f:
+            data = json.load(f)
+
+        if data.get(str(ctx.guild.id)) is None:
+            raise commands.BadArgument(f'There is no starboard in this server. Use `{ctx.prefix}starboard create` to create one.')
+
+        if minimum_star_count < 1:
+            raise commands.BadArgument('You need a minimum number greater than 0.')
+
+        old = data[str(ctx.guild.id)]["stars"]
+        data[str(ctx.guild.id)]["stars"] = minimum_star_count
+
+        with open('starboard.json', 'w') as f:
+            json.dump(data, f, indent=4)
+
+        if minimum_star_count < old:
+            return await ctx.reply('Done.')
+        if len(list(data[str(ctx.guild.id)]["messages"].keys())) < 1:
+            return await ctx.reply('Done.')
+
+        await ctx.reply('Purging messages that do not fit the new requirement...')
+        starboard = ctx.guild.get_channel(data[str(ctx.guild.id)]["channel"])
+
+        for msg_id, inside in data[str(ctx.guild.id)]["messages"].items():
+            if inside["stars"] < minimum_star_count and inside["embed"]:
+                msg = await starboard.fetch_message(int(msg_id))
+                await msg.delete()
+                inside["embed"] = None
+
+        with open('starboard.json', 'w') as f:
+            json.dump(data, f, indent=4)
+
+        return await ctx.reply('Done.')
+
     @starboard.command(aliases=['stop', 'exit', 'cancel'])
     @checks.check_admin_or_owner()
     async def close(self, ctx):
