@@ -153,7 +153,7 @@ class starboardCog(commands.Cog):
         lbnum = 1
 
         for person, stars in people.items():
-            leaderboard += f'{lbnum}) **{person[:-5]}** – {stars} :star:'
+            leaderboard += f'{lbnum}) **{person[:-5]}** – {stars} :star:\n'
             lbnum += 1
 
         embed = discord.Embed(
