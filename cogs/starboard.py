@@ -147,7 +147,23 @@ class starboardCog(commands.Cog):
                 people[str(msg.author)] = inside["stars"]
 
         people = dict(sorted(people.items(), key=lambda item: item[1], reverse=True))
-        await ctx.reply(people)
+        people = {x: people[x] for x in list(people.keys)[:10]}
+
+        leaderboard = ''
+        lbnum = 1
+
+        for person, stars in people.items():
+            leaderboard += f'{lbnum}) **{person[:-5]}** – {stars} :star:'
+            lbnum += 1
+
+        embed = discord.Embed(
+            colour=self.colour,
+            title='Star Leaderboard',
+            description=leaderboard,
+            timestamp=ctx.message.created_at
+        )
+
+        return await ctx.reply(embed=embed)
 
     @starboard.command(aliases=['star'])
     @checks.check_admin_or_owner()
