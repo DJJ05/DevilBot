@@ -117,6 +117,23 @@ class starboardCog(commands.Cog):
         """Starboard command group, see subcommands for setup. Requires administrator."""
         await ctx.send_help(ctx.command)
 
+    @starboard.command(aliases=['stop', 'exit', 'cancel'])
+    @checks.check_admin_or_owner()
+    async def close(self, ctx):
+        """Closes an active starboard, but DOES NOT delete the channel. Bot will simply stop tracking stars."""
+        with open('starboard.json', 'r') as f:
+            data = json.load(f)
+
+        if data.get(str(ctx.guild.id)) is None:
+            raise commands.BadArgument(f'There is no starboard in this server. Use `{ctx.prefix}starboard create` to create one.')
+
+        data.pop(str(ctx.guild.id))
+
+        with open('starboard.json', 'w') as f:
+            json.dump(data, f, indent=4)
+
+        await ctx.reply('Done.')
+
     @starboard.command(aliases=['make', 'start'])
     @checks.check_admin_or_owner()
     async def create(self, ctx, channel: discord.TextChannel, minimum_star_count: int = 5):
@@ -139,7 +156,7 @@ class starboardCog(commands.Cog):
         with open('starboard.json', 'w') as f:
             json.dump(data, f, indent=4)
 
-        return await ctx.reply(f'Alright, I activated a starboard in {channel.mention} with a minimum star count of {minimum_star_count}. Allowed emojis are :star: and :star2: and bots, self-starrers and embeds are not allowed to star. Use `{ctx.prefix}starboard` to view all of the available config commands.')
+        return await ctx.reply(f'Alright, I activated a starboard in {channel.mention} with a minimum star count of {minimum_star_count}. The allowed emoji is :star: and bots, self-starrers and embeds are not allowed to star. Use `{ctx.prefix}starboard` to view all of the available config commands.')
 
 
 def setup(bot):
