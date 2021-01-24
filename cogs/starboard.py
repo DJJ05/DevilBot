@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import discord
-from discord.ext import commands
 import json
 
-from .utils import checks
+import discord
+from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
+
+from .utils import checks
 
 
 class starboardCog(commands.Cog):
@@ -128,7 +129,7 @@ class starboardCog(commands.Cog):
     @checks.check_admin_or_owner()
     @commands.cooldown(1, 30, BucketType.user)
     async def update(self, ctx, message: discord.Message, star_count: int):
-        """Updates the star count of a message."""
+        """Updates the star count of a message with a new star count. This is updated internally, so keep in mind that the message reaction count and the stars in the starboard channel may not match. You must be in the same channel as the original message to use this command."""
         with open('starboard.json', 'r') as f:
             data = json.load(f)
 
@@ -149,7 +150,8 @@ class starboardCog(commands.Cog):
                     data[str(ctx.guild.id)]["messages"][str(message.id)]["embed"] = None
 
                 else:
-                    await msg.edit(content=f'**{data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"]}** :star:')
+                    await msg.edit(
+                        content=f'**{data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"]}** :star:')
             else:
                 if data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"] >= data[str(ctx.guild.id)]["stars"]:
                     embed = discord.Embed(
@@ -166,7 +168,8 @@ class starboardCog(commands.Cog):
                         except:
                             pass
 
-                    msg = await starboard.send(f'**{data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"]}** :star:', embed=embed)
+                    msg = await starboard.send(
+                        f'**{data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"]}** :star:', embed=embed)
                     data[str(ctx.guild.id)]["messages"][str(message.id)]["embed"] = msg.id
         else:
             data[str(ctx.guild.id)]["messages"][str(message.id)] = {
