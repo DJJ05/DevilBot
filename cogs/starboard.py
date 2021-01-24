@@ -137,6 +137,12 @@ class starboardCog(commands.Cog):
             raise commands.BadArgument(
                 f'There is no starboard in this server. Use `{ctx.prefix}starboard create` to create one.')
 
+        if message.author.bot:
+            raise commands.BadArgument('Bots are hard configured to be ignored by the starbord.')
+
+        if len(message.embeds) > 0:
+            raise commands.BadArgument('Messages with embeds are hard configured to be ignored by the starboard.')
+
         starboard = ctx.guild.get_channel(data[str(ctx.guild.id)]["channel"])
 
         if data[str(ctx.guild.id)]["messages"].get(str(message.id)) is not None:
