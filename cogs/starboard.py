@@ -192,6 +192,11 @@ class starboardCog(commands.Cog):
                 msg = await starboard.send(f'**{data[str(ctx.guild.id)]["stars"]}** :star:', embed=embed)
                 data[str(ctx.guild.id)]["messages"][str(message.id)]["embed"] = msg.id
 
+        with open('starboard.json', 'w') as f:
+            json.dump(data, f, indent=4)
+
+        return await ctx.reply("Updated star count successfully.")
+
     @starboard.command(aliases=['lb'])
     async def leaderboard(self, ctx):
         """Displays a leaderboard from most to least stars per person"""
