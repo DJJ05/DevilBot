@@ -166,7 +166,7 @@ class starboardCog(commands.Cog):
                         except:
                             pass
 
-                    msg = await starboard.send(f'**{data[str(ctx.guild.id)]["stars"]}** :star:', embed=embed)
+                    msg = await starboard.send(f'**{data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"]}** :star:', embed=embed)
                     data[str(ctx.guild.id)]["messages"][str(message.id)]["embed"] = msg.id
         else:
             data[str(ctx.guild.id)]["messages"][str(message.id)] = {
