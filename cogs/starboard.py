@@ -5,6 +5,7 @@ from discord.ext import commands
 import json
 
 from .utils import checks
+from discord.ext.commands.cooldowns import BucketType
 
 
 class starboardCog(commands.Cog):
@@ -122,6 +123,74 @@ class starboardCog(commands.Cog):
     async def starboard(self, ctx):
         """Starboard command group, see subcommands for setup. Requires administrator."""
         await ctx.send_help(ctx.command)
+
+    @starboard.command()
+    @checks.check_admin_or_owner()
+    @commands.cooldown(1, 30, BucketType.user)
+    async def update(self, ctx, message: discord.Message, star_count: int):
+        """Updates the star count of a message."""
+        with open('starboard.json', 'r') as f:
+            data = json.load(f)
+
+        if data.get(str(ctx.guild.id)) is None:
+            raise commands.BadArgument(
+                f'There is no starboard in this server. Use `{ctx.prefix}starboard create` to create one.')
+
+        starboard = ctx.guild.get_channel(data[str(ctx.guild.id)]["channel"])
+
+        if data[str(ctx.guild.id)]["messages"].get(str(message.id)) is not None:
+            data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"] = star_count
+
+            if data[str(ctx.guild.id)]["messages"][str(message.id)]["embed"] is not None:
+                msg = await starboard.fetch_message(data[str(ctx.guild.id)]["messages"][str(message.id)]["embed"])
+
+                if data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"] < data[str(ctx.guild.id)]["stars"]:
+                    await msg.delete()
+                    data[str(ctx.guild.id)]["messages"][str(message.id)]["embed"] = None
+
+                else:
+                    await msg.edit(content=f'**{data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"]}** :star:')
+            else:
+                if data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"] >= data[str(ctx.guild.id)]["stars"]:
+                    embed = discord.Embed(
+                        colour=self.colour,
+                        description=message.content,
+                        timestamp=message.created_at
+                    )
+                    embed.add_field(name='Original', value=f'[Jump!]({message.jump_url})')
+                    embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
+
+                    if len(message.attachments) > 0:
+                        try:
+                            embed.set_image(url=message.attachments[0].url)
+                        except:
+                            pass
+
+                    msg = await starboard.send(f'**{data[str(ctx.guild.id)]["stars"]}** :star:', embed=embed)
+                    data[str(ctx.guild.id)]["messages"][str(message.id)]["embed"] = msg.id
+        else:
+            data[str(ctx.guild.id)]["messages"][str(message.id)] = {
+                "stars": star_count,
+                "channel": message.channel.id,
+                "embed": None
+            }
+            if data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"] >= data[str(ctx.guild.id)]["stars"]:
+                embed = discord.Embed(
+                    colour=self.colour,
+                    description=message.content,
+                    timestamp=message.created_at
+                )
+                embed.add_field(name='Original', value=f'[Jump!]({message.jump_url})')
+                embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
+
+                if len(message.attachments) > 0:
+                    try:
+                        embed.set_image(url=message.attachments[0].url)
+                    except:
+                        pass
+
+                msg = await starboard.send(f'**{data[str(ctx.guild.id)]["stars"]}** :star:', embed=embed)
+                data[str(ctx.guild.id)]["messages"][str(message.id)]["embed"] = msg.id
 
     @starboard.command(aliases=['lb'])
     async def leaderboard(self, ctx):
