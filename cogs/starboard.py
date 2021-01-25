@@ -221,23 +221,24 @@ class starboardCog(commands.Cog):
         if len(list(data[str(ctx.guild.id)]["messages"].keys())) < 1:
             raise commands.BadArgument('There have been so stars in this server.')
 
-        for m_id, inside in data[str(ctx.guild.id)]["messages"].items():
-            channel = ctx.guild.get_channel(inside["channel"])
-            msg = await channel.fetch_message(int(m_id))
-            if people.get(str(msg.author)) is not None:
-                people[str(msg.author)] += inside["stars"]
-            else:
-                people[str(msg.author)] = inside["stars"]
+        async with ctx.typing():
+            for m_id, inside in data[str(ctx.guild.id)]["messages"].items():
+                channel = ctx.guild.get_channel(inside["channel"])
+                msg = await channel.fetch_message(int(m_id))
+                if people.get(str(msg.author)) is not None:
+                    people[str(msg.author)] += inside["stars"]
+                else:
+                    people[str(msg.author)] = inside["stars"]
 
-        people = dict(sorted(people.items(), key=lambda item: item[1], reverse=True))
-        people = {x: people[x] for x in list(people.keys())[:10]}
+            people = dict(sorted(people.items(), key=lambda item: item[1], reverse=True))
+            people = {x: people[x] for x in list(people.keys())[:10]}
 
-        leaderboard = ''
-        lbnum = 1
+            leaderboard = ''
+            lbnum = 1
 
-        for person, stars in people.items():
-            leaderboard += f'{lbnum}) **{person[:-5]}** – {stars} :star:\n'
-            lbnum += 1
+            for person, stars in people.items():
+                leaderboard += f'{lbnum}) **{person[:-5]}** – {stars} :star:\n'
+                lbnum += 1
 
         embed = discord.Embed(
             colour=self.colour,
