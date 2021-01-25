@@ -224,11 +224,14 @@ class starboardCog(commands.Cog):
         async with ctx.typing():
             for m_id, inside in data[str(ctx.guild.id)]["messages"].items():
                 channel = ctx.guild.get_channel(inside["channel"])
-                msg = await channel.fetch_message(int(m_id))
-                if people.get(str(msg.author)) is not None:
-                    people[str(msg.author)] += inside["stars"]
-                else:
-                    people[str(msg.author)] = inside["stars"]
+                try:
+                    msg = await channel.fetch_message(int(m_id))
+                    if people.get(str(msg.author)) is not None:
+                        people[str(msg.author)] += inside["stars"]
+                    else:
+                        people[str(msg.author)] = inside["stars"]
+                except discord.NotFound:
+                    pass
 
             people = dict(sorted(people.items(), key=lambda item: item[1], reverse=True))
             people = {x: people[x] for x in list(people.keys())[:10]}
@@ -279,9 +282,12 @@ class starboardCog(commands.Cog):
 
         for msg_id, inside in data[str(ctx.guild.id)]["messages"].items():
             if inside["stars"] < minimum_star_count and inside["embed"]:
-                msg = await starboard.fetch_message(inside["embed"])
-                await msg.delete()
-                inside["embed"] = None
+                try:
+                    msg = await starboard.fetch_message(inside["embed"])
+                    await msg.delete()
+                    inside["embed"] = None
+                except discord.NotFound:
+                    pass
 
         with open('starboard.json', 'w') as f:
             json.dump(data, f, indent=4)
