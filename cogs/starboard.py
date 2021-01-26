@@ -198,11 +198,11 @@ class starboardCog(commands.Cog):
                 embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
 
                 if len(message.attachments) > 0:
-                    try:
+                    if message.attachments[0].filename[-4:] in ('.png', '.jpg', '.jpeg', '.gif'):
                         embed.set_image(url=message.attachments[0].url)
                         msg = await starboard.send(
                             f'**{data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"]}** :star:', embed=embed)
-                    except:
+                    else:
                         attach = message.attachments[0]
                         file = await attach.to_file()
                         msg = await starboard.send(f'**{data[str(ctx.guild.id)]["stars"]}** :star:', embed=embed,
