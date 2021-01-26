@@ -75,6 +75,10 @@ class starboardCog(commands.Cog):
                     attach = message.attachments[0]
                     file = await attach.to_file()
                     msg = await starboard.send(f'**{data[str(guild.id)]["stars"]}** :star:', embed=embed, file=file)
+            else:
+                msg = await starboard.send(
+                    f'**{data[str(guild.id)]["messages"][str(message.id)]["stars"]}** :star:',
+                    embed=embed)
             data[str(guild.id)]["messages"][str(message.id)]["embed"] = msg.id
 
         with open('starboard.json', 'w') as f:
@@ -180,6 +184,10 @@ class starboardCog(commands.Cog):
                             attach = message.attachments[0]
                             file = await attach.to_file()
                             msg = await starboard.send(f'**{data[str(ctx.guild.id)]["stars"]}** :star:', embed=embed, file=file)
+                    else:
+                        msg = await starboard.send(
+                            f'**{data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"]}** :star:',
+                            embed=embed)
 
                     data[str(ctx.guild.id)]["messages"][str(message.id)]["embed"] = msg.id
         else:
@@ -207,6 +215,10 @@ class starboardCog(commands.Cog):
                         file = await attach.to_file()
                         msg = await starboard.send(f'**{data[str(ctx.guild.id)]["stars"]}** :star:', embed=embed,
                                                    file=file)
+                else:
+                    msg = await starboard.send(
+                        f'**{data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"]}** :star:',
+                        embed=embed)
 
                 data[str(ctx.guild.id)]["messages"][str(message.id)]["embed"] = msg.id
 
