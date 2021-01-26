@@ -70,9 +70,11 @@ class starboardCog(commands.Cog):
             if len(message.attachments) > 0:
                 try:
                     embed.set_image(url=message.attachments[0].url)
+                    msg = await starboard.send(f'**{data[str(guild.id)]["stars"]}** :star:', embed=embed)
                 except:
-                    pass
-            msg = await starboard.send(f'**{data[str(guild.id)]["stars"]}** :star:', embed=embed)
+                    attach = message.attachments[0]
+                    file = await attach.to_file()
+                    msg = await starboard.send(f'**{data[str(guild.id)]["stars"]}** :star:', embed=embed, file=file)
             data[str(guild.id)]["messages"][str(message.id)]["embed"] = msg.id
 
         with open('starboard.json', 'w') as f:
@@ -171,11 +173,14 @@ class starboardCog(commands.Cog):
                     if len(message.attachments) > 0:
                         try:
                             embed.set_image(url=message.attachments[0].url)
+                            msg = await starboard.send(
+                                f'**{data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"]}** :star:',
+                                embed=embed)
                         except:
-                            pass
+                            attach = message.attachments[0]
+                            file = await attach.to_file()
+                            msg = await starboard.send(f'**{data[str(ctx.guild.id)]["stars"]}** :star:', embed=embed, file=file)
 
-                    msg = await starboard.send(
-                        f'**{data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"]}** :star:', embed=embed)
                     data[str(ctx.guild.id)]["messages"][str(message.id)]["embed"] = msg.id
         else:
             data[str(ctx.guild.id)]["messages"][str(message.id)] = {
@@ -195,10 +200,14 @@ class starboardCog(commands.Cog):
                 if len(message.attachments) > 0:
                     try:
                         embed.set_image(url=message.attachments[0].url)
+                        msg = await starboard.send(
+                            f'**{data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"]}** :star:', embed=embed)
                     except:
-                        pass
+                        attach = message.attachments[0]
+                        file = await attach.to_file()
+                        msg = await starboard.send(f'**{data[str(ctx.guild.id)]["stars"]}** :star:', embed=embed,
+                                                   file=file)
 
-                msg = await starboard.send(f'**{data[str(ctx.guild.id)]["messages"][str(message.id)]["stars"]}** :star:', embed=embed)
                 data[str(ctx.guild.id)]["messages"][str(message.id)]["embed"] = msg.id
 
         with open('starboard.json', 'w') as f:
