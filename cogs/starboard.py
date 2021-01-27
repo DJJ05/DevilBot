@@ -125,8 +125,6 @@ class starboardCog(commands.Cog):
             return
         if message.author.bot:
             return
-        if len(message.embeds) > 0:
-            return
 
         starboard = guild.get_channel(data[str(guild.id)]["channel"])
 
@@ -163,9 +161,6 @@ class starboardCog(commands.Cog):
 
         if message.author.bot:
             raise commands.BadArgument('Bots are hard configured to be ignored by the starbord.')
-
-        if len(message.embeds) > 0:
-            raise commands.BadArgument('Messages with embeds are hard configured to be ignored by the starboard.')
 
         starboard = ctx.guild.get_channel(data[str(ctx.guild.id)]["channel"])
 
