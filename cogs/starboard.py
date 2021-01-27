@@ -31,14 +31,12 @@ class starboardCog(commands.Cog):
         channel = guild.get_channel(payload.channel_id)
         message = await channel.fetch_message(payload.message_id)
         member = payload.member
+        skip = False
 
         with open('starboard.json', 'r') as f:
             data = json.load(f)
 
         if not data.get(str(guild.id)):
-            return
-
-        if message.author == member:
             return
         if message.author.bot:
             return
@@ -47,39 +45,59 @@ class starboardCog(commands.Cog):
 
         starboard = guild.get_channel(data[str(guild.id)]["channel"])
 
-        if data[str(guild.id)]["messages"].get(str(message.id)) is not None:
-            data[str(guild.id)]["messages"][str(message.id)]["stars"] += 1
-            if data[str(guild.id)]["messages"][str(message.id)]["embed"] is not None:
-                msg = await starboard.fetch_message(data[str(guild.id)]["messages"][str(message.id)]["embed"])
-                await msg.edit(content=f'**{data[str(guild.id)]["messages"][str(message.id)]["stars"]}** :star:')
-        else:
-            data[str(guild.id)]["messages"][str(message.id)] = {
-                "stars": 1,
-                "channel": channel.id,
-                "embed": None
-            }
-
-        if data[str(guild.id)]["messages"][str(message.id)]["stars"] == data[str(guild.id)]["stars"]:
-            embed = discord.Embed(
-                colour=self.colour,
-                description=message.content,
-                timestamp=message.created_at
-            )
-            embed.add_field(name='Original', value=f'[Jump!]({message.jump_url})')
-            embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
-            if len(message.attachments) > 0:
-                if message.attachments[0].filename[-4:] in ('.png', '.jpg', '.jpeg', '.gif'):
-                    embed.set_image(url=message.attachments[0].url)
-                    msg = await starboard.send(f'**{data[str(guild.id)]["stars"]}** :star:', embed=embed)
-                else:
-                    attach = message.attachments[0]
-                    file = await attach.to_file()
-                    msg = await starboard.send(f'**{data[str(guild.id)]["stars"]}** :star:', embed=embed, file=file)
+        if message.author == member:
+            if data[str(guild.id)]["messages"].get(str(message.id)) is not None:
+                data[str(guild.id)]["messages"][str(message.id)]["stars"] -= 1
+                if data[str(guild.id)]["messages"][str(message.id)]["embed"] is not None:
+                    msg = await starboard.fetch_message(data[str(guild.id)]["messages"][str(message.id)]["embed"])
+                    if data[str(guild.id)]["messages"][str(message.id)]["stars"] < data[str(guild.id)]["stars"]:
+                        await msg.delete()
+                        data[str(guild.id)]["messages"][str(message.id)]["embed"] = None
+                    else:
+                        await msg.edit(
+                            content=f'**{data[str(guild.id)]["messages"][str(message.id)]["stars"]}** :star:')
             else:
-                msg = await starboard.send(
-                    f'**{data[str(guild.id)]["messages"][str(message.id)]["stars"]}** :star:',
-                    embed=embed)
-            data[str(guild.id)]["messages"][str(message.id)]["embed"] = msg.id
+                data[str(guild.id)]["messages"][str(message.id)] = {
+                    "stars": -1,
+                    "channel": channel.id,
+                    "embed": None
+                }
+            skip = True
+
+        if skip is not True:
+            if data[str(guild.id)]["messages"].get(str(message.id)) is not None:
+                data[str(guild.id)]["messages"][str(message.id)]["stars"] += 1
+                if data[str(guild.id)]["messages"][str(message.id)]["embed"] is not None:
+                    msg = await starboard.fetch_message(data[str(guild.id)]["messages"][str(message.id)]["embed"])
+                    await msg.edit(content=f'**{data[str(guild.id)]["messages"][str(message.id)]["stars"]}** :star:')
+            else:
+                data[str(guild.id)]["messages"][str(message.id)] = {
+                    "stars": 1,
+                    "channel": channel.id,
+                    "embed": None
+                }
+
+            if data[str(guild.id)]["messages"][str(message.id)]["stars"] == data[str(guild.id)]["stars"]:
+                embed = discord.Embed(
+                    colour=self.colour,
+                    description=message.content,
+                    timestamp=message.created_at
+                )
+                embed.add_field(name='Original', value=f'[Jump!]({message.jump_url})')
+                embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
+                if len(message.attachments) > 0:
+                    if message.attachments[0].filename[-4:] in ('.png', '.jpg', '.jpeg', '.gif'):
+                        embed.set_image(url=message.attachments[0].url)
+                        msg = await starboard.send(f'**{data[str(guild.id)]["stars"]}** :star:', embed=embed)
+                    else:
+                        attach = message.attachments[0]
+                        file = await attach.to_file()
+                        msg = await starboard.send(f'**{data[str(guild.id)]["stars"]}** :star:', embed=embed, file=file)
+                else:
+                    msg = await starboard.send(
+                        f'**{data[str(guild.id)]["messages"][str(message.id)]["stars"]}** :star:',
+                        embed=embed)
+                data[str(guild.id)]["messages"][str(message.id)]["embed"] = msg.id
 
         with open('starboard.json', 'w') as f:
             json.dump(data, f, indent=4)
