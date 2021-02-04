@@ -39,7 +39,7 @@ class Bot(commands.AutoShardedBot):
 
         print('——————————————————————————————')
         for filename in os.listdir('cogs'):
-            if filename.endswith('.py') and filename != 'secrets.py' and filename != 'dagpi.py':
+            if filename.endswith('.py') and filename != 'secrets.py':
                 self.load_extension('cogs.{}'.format(filename[:-3]))
                 print(f'{self.tgreen}[LOADED]{self.endc} cogs.{filename}')
         self.load_extension(name='jishaku')
