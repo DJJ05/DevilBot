@@ -257,14 +257,14 @@ class starboardCog(commands.Cog):
 
         async with ctx.typing():
             for m_id, inside in data[str(ctx.guild.id)]["messages"].items():
-                channel = ctx.guild.get_channel(inside["channel"])
                 try:
+                    channel = ctx.guild.get_channel(inside["channel"])
                     msg = await channel.fetch_message(int(m_id))
                     if people.get(str(msg.author)) is not None:
                         people[str(msg.author)] += inside["stars"]
                     else:
                         people[str(msg.author)] = inside["stars"]
-                except discord.NotFound:
+                except:
                     pass
 
             people = dict(sorted(people.items(), key=lambda item: item[1], reverse=True))
