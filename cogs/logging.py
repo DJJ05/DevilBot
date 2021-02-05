@@ -695,6 +695,7 @@ class loggingCog(commands.Cog):
         await ctx.reply('Disabled all log filters.')
 
     @logging.command(aliases=['start', 'make'])
+    @checks.check_admin_or_owner()
     async def create(self, ctx, logging_channel: discord.TextChannel):
         """Initialize logging"""
         if str(ctx.guild.id) in list(self.logging_dict.keys()):
@@ -730,6 +731,20 @@ class loggingCog(commands.Cog):
             json.dump(self.logging_dict, f, indent=4)
 
         await ctx.reply(f'Initiated logging in {logging_channel.mention}.')
+
+    @logging.command(aliases=['quit', 'cancel', 'quit', 'stop'])
+    @checks.check_admin_or_owner()
+    async def close(self, ctx):
+        """Stop logging"""
+        if str(ctx.guild.id) not in list(self.logging_dict.keys()):
+            raise commands.BadArgument("This guild does not have logging set up.")
+
+        self.logging_dict.pop(str(ctx.guild.id))
+
+        with open('logging.json', 'w') as f:
+            json.dump(self.logging_dict, f, indent=4)
+
+        await ctx.reply(f'Stopped logging.')
 
 
 def setup(bot):
