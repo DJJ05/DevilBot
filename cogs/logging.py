@@ -732,7 +732,7 @@ class loggingCog(commands.Cog):
 
         await ctx.reply(f'Initiated logging in {logging_channel.mention}.')
 
-    @logging.command(aliases=['quit', 'cancel', 'quit', 'stop'])
+    @logging.command(aliases=['quit', 'cancel', 'stop'])
     @checks.check_admin_or_owner()
     async def close(self, ctx):
         """Stop logging"""
