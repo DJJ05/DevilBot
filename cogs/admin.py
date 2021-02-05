@@ -16,16 +16,6 @@ class adminCog(commands.Cog):
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
-    @commands.command()
-    @checks.check_admin_or_owner()
-    async def leaveguild(self, ctx):
-        """Leaves the guild that the command was executed in."""
-        embed = discord.Embed(title='Goodbye! Click here if you would like to reinvite me.',
-                              url='https://discord.com/api/oauth2/authorize?client_id=720229743974285312&permissions=2113924179&scope=bot',
-                              colour=self.colour)
-        await ctx.send(embed=embed)
-        await self.bot.get_guild(ctx.guild.id).leave()
-
     @commands.command(aliases=["pre", "prefix", "changpre", "prechange", "prefixchange"])
     @checks.check_admin_or_owner()
     async def changeprefix(self, ctx, prefix: str = 'ow!'):
