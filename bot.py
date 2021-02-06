@@ -17,10 +17,10 @@ intents = discord.Intents().all()
 
 
 class Bot(commands.AutoShardedBot):
-    def __init__(self, database_conn, event_loop):
+    def __init__(self, event_loop):
         super().__init__(command_prefix=self.get_prefix, intents=intents, case_insensitive=True, loop=event_loop,
                          description="", shard_count=2)
-        self.db_conn = database_conn
+        self.db_conn = None
         self.blacklist = self.initialize_blacklist()
         self.pokemon = None
         self.abilities = None
@@ -113,35 +113,11 @@ class Bot(commands.AutoShardedBot):
         super().run(secrets.secrets_token)
 
 
-class DataBase:
-    db_conn = None
-
-    @staticmethod
-    async def initiate_database() -> bool:
-        try:
-            DataBase.db_conn = await asyncpg.create_pool(user=secrets.secrets_pg_user,
-                                                         password=secrets.secrets_pg_password,
-                                                         host=secrets.secrets_pg_host,
-                                                         port=secrets.secrets_pg_port,
-                                                         database=secrets.secrets_pg_database,
-                                                         )
-            return True
-
-        except Exception as err:
-            print(f'\033[31m Failed to connect to database \033[1;31m',
-                  err, '\033[m \n——————————————————————————————')
-            raise
-
-
 def main():
-    if not DataBase.initiate_database:
-        sys.exit()
 
     event_loop = asyncio.get_event_loop()
-    if not event_loop.run_until_complete(DataBase.initiate_database()):
-        sys.exit()
 
-    bot = Bot(database_conn=DataBase.db_conn, event_loop=event_loop)
+    bot = Bot(event_loop=event_loop)
 
     @bot.check
     async def check_blacklist(ctx):
@@ -159,7 +135,6 @@ def main():
             return False
         return True
 
-    #  bot.remove_command('help')
     bot.run()
 
 
