@@ -14,7 +14,6 @@ class starboardCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.db_conn = bot.db_conn
         self.colour = 0xff9300
 
     @commands.Cog.listener(name='on_raw_reaction_add')

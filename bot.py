@@ -2,9 +2,6 @@ import asyncio
 import csv
 import json
 import os
-import sys
-
-import asyncpg
 import discord
 from discord.ext import commands
 
@@ -20,7 +17,6 @@ class Bot(commands.AutoShardedBot):
     def __init__(self, event_loop):
         super().__init__(command_prefix=self.get_prefix, intents=intents, case_insensitive=True, loop=event_loop,
                          description="", shard_count=2)
-        self.db_conn = None
         self.blacklist = self.initialize_blacklist()
         self.pokemon = None
         self.abilities = None
@@ -38,39 +34,41 @@ class Bot(commands.AutoShardedBot):
         self.endc = '\033[m'
 
         print('——————————————————————————————')
+
         for filename in os.listdir('cogs'):
             if filename.endswith('.py') and filename != 'secrets.py':
                 self.load_extension('cogs.{}'.format(filename[:-3]))
                 print(f'{self.tgreen}[LOADED]{self.endc} cogs.{filename}')
+
         self.load_extension(name='jishaku')
+
         print(
             f'{self.tgreen}[LOADED]{self.endc} jishaku\n——————————————————————————————')
-        print(self.btmag + r'''
-██████╗ ███████╗██╗   ██╗██╗██╗     ██████╗  ██████╗ ████████╗
-██╔══██╗██╔════╝██║   ██║██║██║     ██╔══██╗██╔═══██╗╚══██╔══╝
-██║  ██║█████╗  ██║   ██║██║██║     ██████╔╝██║   ██║   ██║   
-██║  ██║██╔══╝  ╚██╗ ██╔╝██║██║     ██╔══██╗██║   ██║   ██║   
-██████╔╝███████╗ ╚████╔╝ ██║███████╗██████╔╝╚██████╔╝   ██║   
-╚═════╝ ╚══════╝  ╚═══╝  ╚═╝╚══════╝╚═════╝  ╚═════╝    ╚═╝   
-        ''' + self.endc)
+
         print(
             f'{self.tgreen}Cogs are loaded, logging in...{self.endc}\n——————————————————————————————')
 
     async def get_prefix(self, message: discord.Message) -> str:
         with open('prefixes.json', 'r') as f:
             prefixes = json.load(f)
+
         guild_prefix = '' if message.author.id == 670564722218762240 else prefixes.get(str(message.guild.id), 'ow!')
+
         return commands.when_mentioned_or(guild_prefix)(self, message)
 
     async def on_ready(self) -> None:
         print(
             f'{self.btgreen}Logged in as: {self.endc}{self.user.name}#{self.user.discriminator}')
+
         print(
             f'{self.btgreen}With ID: {self.endc}{self.user.id}\n——————————————————————————————')
+
         await self.change_presence(
             activity=discord.Activity(type=5, name="ow!help"))
+
         print(
             f'{self.tgreen}Status changed successfully {self.endc}\n——————————————————————————————')
+
         self.pokemon = await self.load_pokemon()
         self.abilities = await self.load_abilities()
         self.moves = await self.load_moves()
@@ -81,32 +79,38 @@ class Bot(commands.AutoShardedBot):
 
     async def load_moves(self):
         final = {}
+
         with open('moves.csv') as csv_file:
             csv_reader = csv.DictReader(csv_file, delimiter=',')
             for row in csv_reader:
                 r = row
                 r['description'] = r['description'].replace('\n', ' ')
                 final[r['name']] = r
+
         return final
 
     async def load_abilities(self):
         final = {}
+
         with open('abilities.csv') as csv_file:
             csv_reader = csv.DictReader(csv_file, delimiter=',')
             for row in csv_reader:
                 r = row
                 r['description'] = r['description'].replace('\n', ' ')
                 final[r['name']] = r
+
         return final
 
     async def load_pokemon(self):
         final = {}
+
         with open('pokemon.csv') as csv_file:
             csv_reader = csv.DictReader(csv_file, delimiter=',')
             for row in csv_reader:
                 r = row
                 r['description'] = r['description'].replace('\n', ' ')
                 final[r['name']] = r
+
         return final
 
     def run(self):
@@ -118,6 +122,7 @@ def main():
     event_loop = asyncio.get_event_loop()
 
     bot = Bot(event_loop=event_loop)
+    bot.db = bot.get_cog('mongoCog')
 
     @bot.check
     async def check_blacklist(ctx):

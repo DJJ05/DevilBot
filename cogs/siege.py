@@ -11,7 +11,6 @@ class siegeCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.db_conn = bot.db_conn
         self.colour = 0xff9300
         self.auth = r6sapi.Auth(secrets_siege_email, secrets_siege_password)
 

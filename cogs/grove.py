@@ -10,7 +10,6 @@ class groveCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.db_conn = bot.db_conn
         self.colour = 0xff9300
         self.cooldowns = {}
         self.poke = {
