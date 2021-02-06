@@ -44,24 +44,20 @@ class loggingCog(commands.Cog):
             "invite_create",
             "invite_delete"
         ]
-        with open('logging.json', 'r') as f:
-            self.logging_dict = json.load(f)
 
     @commands.Cog.listener(name="on_message_delete")
     async def logging_message_delete(self, message):
         if not message.guild:
             return
-        if message.is_system:
+        res = await self.bot.db.logging.find_one({"guild": message.guild.id})
+        if not res:
             return
-        if str(message.guild.id) not in list(self.logging_dict.keys()):
-            return
-        logging_dict = self.logging_dict[str(message.guild.id)]
-        if not logging_dict["message_delete"]:
+        if not res["message_delete"]:
             return
         if message.author == message.guild.me and len(message.embeds) > 0:
             return
         try:
-            logging_channel = message.guild.get_channel(logging_dict["channel"])
+            logging_channel = message.guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -83,17 +79,17 @@ class loggingCog(commands.Cog):
     async def logging_message_edit(self, before, after):
         if not after.guild:
             return
-        if str(after.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": after.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(after.guild.id)]
-        if not logging_dict["message_edit"]:
+        if not res["message_edit"]:
             return
         if after.author == after.guild.me and len(after.embeds) > 0:
             return
         if before.content == after.content:
             return
         try:
-            logging_channel = after.guild.get_channel(logging_dict["channel"])
+            logging_channel = after.guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -112,13 +108,13 @@ class loggingCog(commands.Cog):
         message = reaction.message
         if not message.guild:
             return
-        if str(message.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": message.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(message.guild.id)]
-        if not logging_dict["reaction_add"]:
+        if not res["reaction_add"]:
             return
         try:
-            logging_channel = message.guild.get_channel(logging_dict["channel"])
+            logging_channel = message.guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -135,13 +131,13 @@ class loggingCog(commands.Cog):
         message = reaction.message
         if not message.guild:
             return
-        if str(message.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": message.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(message.guild.id)]
-        if not logging_dict["reaction_remove"]:
+        if not res["reaction_remove"]:
             return
         try:
-            logging_channel = message.guild.get_channel(logging_dict["channel"])
+            logging_channel = message.guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -157,13 +153,13 @@ class loggingCog(commands.Cog):
     async def logging_reaction_clear(self, message, reactions):
         if not message.guild:
             return
-        if str(message.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": message.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(message.guild.id)]
-        if not logging_dict["reaction_clear"]:
+        if not res["reaction_clear"]:
             return
         try:
-            logging_channel = message.guild.get_channel(logging_dict["channel"])
+            logging_channel = message.guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -179,13 +175,13 @@ class loggingCog(commands.Cog):
     async def logging_channel_delete(self, channel):
         if not channel.guild:
             return
-        if str(channel.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": channel.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(channel.guild.id)]
-        if not logging_dict["channel_delete"]:
+        if not res["channel_delete"]:
             return
         try:
-            logging_channel = channel.guild.get_channel(logging_dict["channel"])
+            logging_channel = channel.guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -204,13 +200,13 @@ class loggingCog(commands.Cog):
     async def logging_channel_create(self, channel):
         if not channel.guild:
             return
-        if str(channel.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": channel.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(channel.guild.id)]
-        if not logging_dict["channel_create"]:
+        if not res["channel_create"]:
             return
         try:
-            logging_channel = channel.guild.get_channel(logging_dict["channel"])
+            logging_channel = channel.guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -229,13 +225,13 @@ class loggingCog(commands.Cog):
     async def logging_channel_webhook(self, channel):
         if not channel.guild:
             return
-        if str(channel.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": channel.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(channel.guild.id)]
-        if not logging_dict["channel_webhook"]:
+        if not res["channel_webhook"]:
             return
         try:
-            logging_channel = channel.guild.get_channel(logging_dict["channel"])
+            logging_channel = channel.guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -249,13 +245,13 @@ class loggingCog(commands.Cog):
     async def logging_channel_edit(self, before, after):
         if not after.guild:
             return
-        if str(after.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": after.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(after.guild.id)]
-        if not logging_dict["channel_edit"]:
+        if not res["channel_edit"]:
             return
         try:
-            logging_channel = after.guild.get_channel(logging_dict["channel"])
+            logging_channel = after.guild.get_channel(res["channel"])
         except:
             return
         before_dir = getallcustoms(before)
@@ -286,13 +282,13 @@ class loggingCog(commands.Cog):
     async def logging_channel_pin(self, channel, last_pin):
         if not channel.guild:
             return
-        if str(channel.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": channel.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(channel.guild.id)]
-        if not logging_dict["channel_pin"]:
+        if not res["channel_pin"]:
             return
         try:
-            logging_channel = channel.guild.get_channel(logging_dict["channel"])
+            logging_channel = channel.guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -306,13 +302,13 @@ class loggingCog(commands.Cog):
     async def logging_guild_integration(self, guild):
         if not guild:
             return
-        if str(guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(guild.id)]
-        if not logging_dict["guild_integration"]:
+        if not res["guild_integration"]:
             return
         try:
-            logging_channel = guild.get_channel(logging_dict["channel"])
+            logging_channel = guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -326,13 +322,13 @@ class loggingCog(commands.Cog):
     async def logging_member_join(self, member):
         if not member.guild:
             return
-        if str(member.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": member.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(member.guild.id)]
-        if not logging_dict["member_join"]:
+        if not res["member_join"]:
             return
         try:
-            logging_channel = member.guild.get_channel(logging_dict["channel"])
+            logging_channel = member.guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -346,13 +342,13 @@ class loggingCog(commands.Cog):
     async def logging_member_leave(self, member):
         if not member.guild:
             return
-        if str(member.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": member.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(member.guild.id)]
-        if not logging_dict["member_leave"]:
+        if not res["member_leave"]:
             return
         try:
-            logging_channel = member.guild.get_channel(logging_dict["channel"])
+            logging_channel = member.guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -366,13 +362,13 @@ class loggingCog(commands.Cog):
     async def logging_member_edit(self, before, after):
         if not after.guild:
             return
-        if str(after.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": after.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(after.guild.id)]
-        if not logging_dict["member_edit"]:
+        if not res["member_edit"]:
             return
         try:
-            logging_channel = after.guild.get_channel(logging_dict["channel"])
+            logging_channel = after.guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -398,13 +394,13 @@ class loggingCog(commands.Cog):
     async def logging_member_ban(self, guild, user):
         if not guild:
             return
-        if str(guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(guild.id)]
-        if not logging_dict["member_ban"]:
+        if not res["member_ban"]:
             return
         try:
-            logging_channel = guild.get_channel(logging_dict["channel"])
+            logging_channel = guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -426,13 +422,13 @@ class loggingCog(commands.Cog):
     async def logging_member_unban(self, guild, user):
         if not guild:
             return
-        if str(guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(guild.id)]
-        if not logging_dict["member_unban"]:
+        if not res["member_unban"]:
             return
         try:
-            logging_channel = guild.get_channel(logging_dict["channel"])
+            logging_channel = guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -452,13 +448,13 @@ class loggingCog(commands.Cog):
         guild = role.guild
         if not guild:
             return
-        if str(guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": role.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(guild.id)]
-        if not logging_dict["role_create"]:
+        if not res["role_create"]:
             return
         try:
-            logging_channel = guild.get_channel(logging_dict["channel"])
+            logging_channel = guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -478,13 +474,13 @@ class loggingCog(commands.Cog):
         guild = role.guild
         if not guild:
             return
-        if str(guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": role.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(guild.id)]
-        if not logging_dict["role_delete"]:
+        if not res["role_delete"]:
             return
         try:
-            logging_channel = guild.get_channel(logging_dict["channel"])
+            logging_channel = guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -504,13 +500,13 @@ class loggingCog(commands.Cog):
         guild = after.guild
         if not guild:
             return
-        if str(guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": after.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(guild.id)]
-        if not logging_dict["role_edit"]:
+        if not res["role_edit"]:
             return
         try:
-            logging_channel = guild.get_channel(logging_dict["channel"])
+            logging_channel = guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -541,13 +537,13 @@ class loggingCog(commands.Cog):
     async def emoji_edit(self, guild, before, after):
         if not guild:
             return
-        if str(guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": after.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(guild.id)]
-        if not logging_dict["emoji_edit"]:
+        if not res["emoji_edit"]:
             return
         try:
-            logging_channel = guild.get_channel(logging_dict["channel"])
+            logging_channel = guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -572,13 +568,13 @@ class loggingCog(commands.Cog):
         guild = invite.guild
         if not guild:
             return
-        if str(guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": invite.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(guild.id)]
-        if not logging_dict["invite_create"]:
+        if not res["invite_create"]:
             return
         try:
-            logging_channel = guild.get_channel(logging_dict["channel"])
+            logging_channel = guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -594,13 +590,13 @@ class loggingCog(commands.Cog):
         guild = invite.guild
         if not guild:
             return
-        if str(guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": invite.guild.id})
+        if not res:
             return
-        logging_dict = self.logging_dict[str(guild.id)]
-        if not logging_dict["invite_delete"]:
+        if not res["invite_delete"]:
             return
         try:
-            logging_channel = guild.get_channel(logging_dict["channel"])
+            logging_channel = guild.get_channel(res["channel"])
         except:
             return
         embed = discord.Embed(
@@ -620,44 +616,49 @@ class loggingCog(commands.Cog):
     @checks.check_admin_or_owner()
     async def settings(self, ctx):
         """Displays settings for current logger. Use settings toggle to change settings."""
-        if str(ctx.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
+
+        if not res:
             raise commands.BadArgument("This guild does not have logging set up.")
 
-        log_dict = self.logging_dict[str(ctx.guild.id)]
         logstr = ''
-        for name, option in log_dict.items():
-            if name != 'channel':
+        for name, option in res.items():
+            if name not in ("channel", "guild", "_id"):
                 logstr += f'• {name} — **{"On" if option else "Off"}**\n'
+
         embed = discord.Embed(
             colour=self.colour,
             description=logstr,
             title='Event Log Filter Settings'
         )
+
         embed.set_footer(text=ctx.guild.name)
         embed.set_thumbnail(url=ctx.guild.icon_url)
         await ctx.reply(embed=embed)
 
     @settings.command(aliases=['set', 'change'])
     @checks.check_admin_or_owner()
-    async def toggle(self, ctx, setting):
+    async def toggle(self, ctx, *, setting):
         """Toggles specified log setting for your guild."""
-        if str(ctx.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
+
+        if not res:
             raise commands.BadArgument("This guild does not have logging set up.")
 
         setting = setting.replace(' ', '_').lower()
 
-        if self.logging_dict[str(ctx.guild.id)].get(setting) is None:
+        if res.get(setting) is None or setting in ("channel", "guild", "_id"):
             raise commands.BadArgument('Couldn\'t find a setting with that name')
 
-        if not self.logging_dict[str(ctx.guild.id)][setting]:
-            self.logging_dict[str(ctx.guild.id)][setting] = True
-            result = 'on'
-        else:
-            self.logging_dict[str(ctx.guild.id)][setting] = False
+        if res[setting]:
             result = 'off'
+        else:
+            result = 'on'
 
-        with open('logging.json', 'w') as f:
-            json.dump(self.logging_dict, f, indent=4)
+        await self.bot.db.logging.update_one(
+            {"guild": ctx.guild.id},
+            {"$set": {setting: True if result == "on" else False}}
+        )
 
         await ctx.reply(f'{setting} is now turned {result}.')
 
@@ -665,31 +666,79 @@ class loggingCog(commands.Cog):
     @checks.check_admin_or_owner()
     async def allon(self, ctx):
         """Turns every log filter on"""
-        if str(ctx.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
+
+        if not res:
             raise commands.BadArgument("This guild does not have logging set up.")
 
-        for x, y in self.logging_dict[str(ctx.guild.id)].items():
-            if x != 'channel':
-                self.logging_dict[str(ctx.guild.id)][x] = True
-
-        with open('logging.json', 'w') as f:
-            json.dump(self.logging_dict, f, indent=4)
+        await self.bot.db.logging.update_one(
+            {"guild": ctx.guild.id},
+            {"$set": {
+                "message_delete": True,
+                "message_edit": True,
+                "reaction_add": True,
+                "reaction_remove": True,
+                "reaction_clear": True,
+                "channel_delete": True,
+                "channel_create": True,
+                "channel_edit": True,
+                "channel_pin": True,
+                "channel_webhook": True,
+                "guild_integration": True,
+                "member_join": True,
+                "member_leave": True,
+                "member_edit": True,
+                "member_ban": True,
+                "member_unban": True,
+                "role_create": True,
+                "role_delete": True,
+                "role_edit": True,
+                "emoji_edit": True,
+                "invite_create": True,
+                "invite_delete": True
+                }
+            }
+        )
 
         await ctx.reply('Enabled all log filters.')
 
     @settings.command(aliases=['allfalse'])
     @checks.check_admin_or_owner()
     async def alloff(self, ctx):
-        """Turns every log filter on"""
-        if str(ctx.guild.id) not in list(self.logging_dict.keys()):
+        """Turns every log filter off"""
+        res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
+
+        if not res:
             raise commands.BadArgument("This guild does not have logging set up.")
 
-        for x, y in self.logging_dict[str(ctx.guild.id)].items():
-            if x != 'channel':
-                self.logging_dict[str(ctx.guild.id)][x] = False
-
-        with open('logging.json', 'w') as f:
-            json.dump(self.logging_dict, f, indent=4)
+        await self.bot.db.logging.update_one(
+            {"guild": ctx.guild.id},
+            {"$set": {
+                "message_delete": False,
+                "message_edit": False,
+                "reaction_add": False,
+                "reaction_remove": False,
+                "reaction_clear": False,
+                "channel_delete": False,
+                "channel_create": False,
+                "channel_edit": False,
+                "channel_pin": False,
+                "channel_webhook": False,
+                "guild_integration": False,
+                "member_join": False,
+                "member_leave": False,
+                "member_edit": False,
+                "member_ban": False,
+                "member_unban": False,
+                "role_create": False,
+                "role_delete": False,
+                "role_edit": False,
+                "emoji_edit": False,
+                "invite_create": False,
+                "invite_delete": False
+                }
+            }
+        )
 
         await ctx.reply('Disabled all log filters.')
 
@@ -697,10 +746,13 @@ class loggingCog(commands.Cog):
     @checks.check_admin_or_owner()
     async def create(self, ctx, logging_channel: discord.TextChannel):
         """Initialize logging"""
-        if str(ctx.guild.id) in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
+
+        if res:
             raise commands.BadArgument("This guild already has logging set up.")
 
-        self.logging_dict[str(ctx.guild.id)] = {
+        to_insert = {
+            "guild": ctx.guild.id,
             "channel": logging_channel.id,
             "message_delete": True,
             "message_edit": True,
@@ -711,10 +763,10 @@ class loggingCog(commands.Cog):
             "channel_create": True,
             "channel_edit": True,
             "channel_pin": False,
-            "channel_webhook": False,
-            "guild_integration": False,
-            "member_join": True,
-            "member_leave": True,
+            "channel_webhook": True,
+            "guild_integration": True,
+            "member_join": False,
+            "member_leave": False,
             "member_edit": False,
             "member_ban": True,
             "member_unban": True,
@@ -726,8 +778,7 @@ class loggingCog(commands.Cog):
             "invite_delete": False
         }
 
-        with open('logging.json', 'w') as f:
-            json.dump(self.logging_dict, f, indent=4)
+        await self.bot.db.logging.insert_one(to_insert)
 
         await ctx.reply(f'Initiated logging in {logging_channel.mention}.')
 
@@ -735,13 +786,12 @@ class loggingCog(commands.Cog):
     @checks.check_admin_or_owner()
     async def close(self, ctx):
         """Stop logging"""
-        if str(ctx.guild.id) not in list(self.logging_dict.keys()):
+        res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
+
+        if not res:
             raise commands.BadArgument("This guild does not have logging set up.")
 
-        self.logging_dict.pop(str(ctx.guild.id))
-
-        with open('logging.json', 'w') as f:
-            json.dump(self.logging_dict, f, indent=4)
+        await self.bot.db.logging.delete_one({"guild": ctx.guild.id})
 
         await ctx.reply(f'Stopped logging.')
 

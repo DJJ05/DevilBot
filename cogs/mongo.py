@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import pymongo
-
 from motor.motor_asyncio import AsyncIOMotorClient
 from discord.ext import commands
 
@@ -18,6 +16,7 @@ class mongoCog(commands.Cog):
             secrets_mongo_uri,
             io_loop=bot.loop
         )[secrets_mongo_dbname]
+        self.logging = self.db_conn["Logging"]
 
 
 def setup(bot):
