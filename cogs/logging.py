@@ -537,7 +537,7 @@ class loggingCog(commands.Cog):
     async def emoji_edit(self, guild, before, after):
         if not guild:
             return
-        res = await self.bot.db.logging.find_one({"guild": after.guild.id})
+        res = await self.bot.db.logging.find_one({"guild": guild.id})
         if not res:
             return
         if not res["emoji_edit"]:
@@ -616,15 +616,16 @@ class loggingCog(commands.Cog):
     @checks.check_admin_or_owner()
     async def settings(self, ctx):
         """Displays settings for current logger. Use settings toggle to change settings."""
-        res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
+        async with ctx.typing():
+            res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
 
-        if not res:
-            raise commands.BadArgument("This guild does not have logging set up.")
+            if not res:
+                raise commands.BadArgument("This guild does not have logging set up.")
 
-        logstr = ''
-        for name, option in res.items():
-            if name not in ("channel", "guild", "_id"):
-                logstr += f'• {name} — **{"On" if option else "Off"}**\n'
+            logstr = ''
+            for name, option in res.items():
+                if name not in ("channel", "guild", "_id"):
+                    logstr += f'• {name} — **{"On" if option else "Off"}**\n'
 
         embed = discord.Embed(
             colour=self.colour,
@@ -640,25 +641,26 @@ class loggingCog(commands.Cog):
     @checks.check_admin_or_owner()
     async def toggle(self, ctx, *, setting):
         """Toggles specified log setting for your guild."""
-        res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
+        async with ctx.typing():
+            res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
 
-        if not res:
-            raise commands.BadArgument("This guild does not have logging set up.")
+            if not res:
+                raise commands.BadArgument("This guild does not have logging set up.")
 
-        setting = setting.replace(' ', '_').lower()
+            setting = setting.replace(' ', '_').lower()
 
-        if res.get(setting) is None or setting in ("channel", "guild", "_id"):
-            raise commands.BadArgument('Couldn\'t find a setting with that name')
+            if res.get(setting) is None or setting in ("channel", "guild", "_id"):
+                raise commands.BadArgument('Couldn\'t find a setting with that name')
 
-        if res[setting]:
-            result = 'off'
-        else:
-            result = 'on'
+            if res[setting]:
+                result = 'off'
+            else:
+                result = 'on'
 
-        await self.bot.db.logging.update_one(
-            {"guild": ctx.guild.id},
-            {"$set": {setting: True if result == "on" else False}}
-        )
+            await self.bot.db.logging.update_one(
+                {"guild": ctx.guild.id},
+                {"$set": {setting: True if result == "on" else False}}
+            )
 
         await ctx.reply(f'{setting} is now turned {result}.')
 
@@ -666,39 +668,40 @@ class loggingCog(commands.Cog):
     @checks.check_admin_or_owner()
     async def allon(self, ctx):
         """Turns every log filter on"""
-        res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
+        async with ctx.typing():
+            res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
 
-        if not res:
-            raise commands.BadArgument("This guild does not have logging set up.")
+            if not res:
+                raise commands.BadArgument("This guild does not have logging set up.")
 
-        await self.bot.db.logging.update_one(
-            {"guild": ctx.guild.id},
-            {"$set": {
-                "message_delete": True,
-                "message_edit": True,
-                "reaction_add": True,
-                "reaction_remove": True,
-                "reaction_clear": True,
-                "channel_delete": True,
-                "channel_create": True,
-                "channel_edit": True,
-                "channel_pin": True,
-                "channel_webhook": True,
-                "guild_integration": True,
-                "member_join": True,
-                "member_leave": True,
-                "member_edit": True,
-                "member_ban": True,
-                "member_unban": True,
-                "role_create": True,
-                "role_delete": True,
-                "role_edit": True,
-                "emoji_edit": True,
-                "invite_create": True,
-                "invite_delete": True
+            await self.bot.db.logging.update_one(
+                {"guild": ctx.guild.id},
+                {"$set": {
+                    "message_delete": True,
+                    "message_edit": True,
+                    "reaction_add": True,
+                    "reaction_remove": True,
+                    "reaction_clear": True,
+                    "channel_delete": True,
+                    "channel_create": True,
+                    "channel_edit": True,
+                    "channel_pin": True,
+                    "channel_webhook": True,
+                    "guild_integration": True,
+                    "member_join": True,
+                    "member_leave": True,
+                    "member_edit": True,
+                    "member_ban": True,
+                    "member_unban": True,
+                    "role_create": True,
+                    "role_delete": True,
+                    "role_edit": True,
+                    "emoji_edit": True,
+                    "invite_create": True,
+                    "invite_delete": True
+                    }
                 }
-            }
-        )
+            )
 
         await ctx.reply('Enabled all log filters.')
 
@@ -706,39 +709,40 @@ class loggingCog(commands.Cog):
     @checks.check_admin_or_owner()
     async def alloff(self, ctx):
         """Turns every log filter off"""
-        res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
+        async with ctx.typing():
+            res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
 
-        if not res:
-            raise commands.BadArgument("This guild does not have logging set up.")
+            if not res:
+                raise commands.BadArgument("This guild does not have logging set up.")
 
-        await self.bot.db.logging.update_one(
-            {"guild": ctx.guild.id},
-            {"$set": {
-                "message_delete": False,
-                "message_edit": False,
-                "reaction_add": False,
-                "reaction_remove": False,
-                "reaction_clear": False,
-                "channel_delete": False,
-                "channel_create": False,
-                "channel_edit": False,
-                "channel_pin": False,
-                "channel_webhook": False,
-                "guild_integration": False,
-                "member_join": False,
-                "member_leave": False,
-                "member_edit": False,
-                "member_ban": False,
-                "member_unban": False,
-                "role_create": False,
-                "role_delete": False,
-                "role_edit": False,
-                "emoji_edit": False,
-                "invite_create": False,
-                "invite_delete": False
+            await self.bot.db.logging.update_one(
+                {"guild": ctx.guild.id},
+                {"$set": {
+                    "message_delete": False,
+                    "message_edit": False,
+                    "reaction_add": False,
+                    "reaction_remove": False,
+                    "reaction_clear": False,
+                    "channel_delete": False,
+                    "channel_create": False,
+                    "channel_edit": False,
+                    "channel_pin": False,
+                    "channel_webhook": False,
+                    "guild_integration": False,
+                    "member_join": False,
+                    "member_leave": False,
+                    "member_edit": False,
+                    "member_ban": False,
+                    "member_unban": False,
+                    "role_create": False,
+                    "role_delete": False,
+                    "role_edit": False,
+                    "emoji_edit": False,
+                    "invite_create": False,
+                    "invite_delete": False
+                    }
                 }
-            }
-        )
+            )
 
         await ctx.reply('Disabled all log filters.')
 
@@ -746,39 +750,40 @@ class loggingCog(commands.Cog):
     @checks.check_admin_or_owner()
     async def create(self, ctx, logging_channel: discord.TextChannel):
         """Initialize logging"""
-        res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
+        async with ctx.typing():
+            res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
 
-        if res:
-            raise commands.BadArgument("This guild already has logging set up.")
+            if res:
+                raise commands.BadArgument("This guild already has logging set up.")
 
-        to_insert = {
-            "guild": ctx.guild.id,
-            "channel": logging_channel.id,
-            "message_delete": True,
-            "message_edit": True,
-            "reaction_add": False,
-            "reaction_remove": False,
-            "reaction_clear": True,
-            "channel_delete": True,
-            "channel_create": True,
-            "channel_edit": True,
-            "channel_pin": False,
-            "channel_webhook": True,
-            "guild_integration": True,
-            "member_join": False,
-            "member_leave": False,
-            "member_edit": False,
-            "member_ban": True,
-            "member_unban": True,
-            "role_create": True,
-            "role_delete": True,
-            "role_edit": True,
-            "emoji_edit": False,
-            "invite_create": False,
-            "invite_delete": False
-        }
+            to_insert = {
+                "guild": ctx.guild.id,
+                "channel": logging_channel.id,
+                "message_delete": True,
+                "message_edit": True,
+                "reaction_add": False,
+                "reaction_remove": False,
+                "reaction_clear": True,
+                "channel_delete": True,
+                "channel_create": True,
+                "channel_edit": True,
+                "channel_pin": False,
+                "channel_webhook": True,
+                "guild_integration": True,
+                "member_join": False,
+                "member_leave": False,
+                "member_edit": False,
+                "member_ban": True,
+                "member_unban": True,
+                "role_create": True,
+                "role_delete": True,
+                "role_edit": True,
+                "emoji_edit": False,
+                "invite_create": False,
+                "invite_delete": False
+            }
 
-        await self.bot.db.logging.insert_one(to_insert)
+            await self.bot.db.logging.insert_one(to_insert)
 
         await ctx.reply(f'Initiated logging in {logging_channel.mention}.')
 
@@ -786,12 +791,13 @@ class loggingCog(commands.Cog):
     @checks.check_admin_or_owner()
     async def close(self, ctx):
         """Stop logging"""
-        res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
+        async with ctx.typing():
+            res = await self.bot.db.logging.find_one({"guild": ctx.guild.id})
 
-        if not res:
-            raise commands.BadArgument("This guild does not have logging set up.")
+            if not res:
+                raise commands.BadArgument("This guild does not have logging set up.")
 
-        await self.bot.db.logging.delete_one({"guild": ctx.guild.id})
+            await self.bot.db.logging.delete_one({"guild": ctx.guild.id})
 
         await ctx.reply(f'Stopped logging.')
 
