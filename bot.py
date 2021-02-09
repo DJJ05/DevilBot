@@ -16,7 +16,7 @@ intents = discord.Intents().all()
 class Bot(commands.AutoShardedBot):
     def __init__(self, event_loop):
         super().__init__(command_prefix=self.get_prefix, intents=intents, case_insensitive=True, loop=event_loop,
-                         description="", shard_count=2)
+                         description="", shard_count=2, activity=discord.Activity(type=1, name="@DevilBot help"))
         self.blacklist = self.initialize_blacklist()
         self.pokemon = None
         self.abilities = None
@@ -62,12 +62,6 @@ class Bot(commands.AutoShardedBot):
 
         print(
             f'{self.btgreen}With ID: {self.endc}{self.user.id}\n——————————————————————————————')
-
-        await self.change_presence(
-            activity=discord.Activity(type=1, name="@DevilBot help"))
-
-        print(
-            f'{self.tgreen}Status changed successfully {self.endc}\n——————————————————————————————')
 
         self.pokemon = await self.load_pokemon()
         self.abilities = await self.load_abilities()
@@ -123,6 +117,9 @@ def main():
 
     bot = Bot(event_loop=event_loop)
     bot.db = bot.get_cog('mongoCog')
+
+    print(
+        f'{bot.tgreen}Status changed successfully {bot.endc}\n——————————————————————————————')
 
     @bot.check
     async def check_blacklist(ctx):
