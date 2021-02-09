@@ -148,10 +148,10 @@ class devCog(commands.Cog):
 
     @commands.command(aliases=['tm'])
     @commands.is_owner()
-    async def ToggleMaintenance(self, ctx):
+    async def togglemaintenance(self, ctx):
         """Toggles bot maintenance mode"""
-        for c in self.bot.commands:
-            if c.name != 'ToggleMaintenance':
+        for c in self.bot.qualified_commands():
+            if c.name != 'togglemaintenance':
                 if not c.enabled:
                     c.enabled = True
                 else:
