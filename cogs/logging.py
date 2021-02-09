@@ -657,12 +657,12 @@ class loggingCog(commands.Cog):
             else:
                 result = 'on'
 
-            await self.bot.db.logging.update_one(
-                {"guild": ctx.guild.id},
-                {"$set": {setting: True if result == "on" else False}}
-            )
+            await ctx.reply(f'{setting} is now turned {result}. Please wait a minute or two for it to update.')
 
-        await ctx.reply(f'{setting} is now turned {result}.')
+        await self.bot.db.logging.update_one(
+            {"guild": ctx.guild.id},
+            {"$set": {setting: True if result == "on" else False}}
+        )
 
     @settings.command(aliases=['alltrue'])
     @checks.check_admin_or_owner()
@@ -674,36 +674,36 @@ class loggingCog(commands.Cog):
             if not res:
                 raise commands.BadArgument("This guild does not have logging set up.")
 
-            await self.bot.db.logging.update_one(
-                {"guild": ctx.guild.id},
-                {"$set": {
-                    "message_delete": True,
-                    "message_edit": True,
-                    "reaction_add": True,
-                    "reaction_remove": True,
-                    "reaction_clear": True,
-                    "channel_delete": True,
-                    "channel_create": True,
-                    "channel_edit": True,
-                    "channel_pin": True,
-                    "channel_webhook": True,
-                    "guild_integration": True,
-                    "member_join": True,
-                    "member_leave": True,
-                    "member_edit": True,
-                    "member_ban": True,
-                    "member_unban": True,
-                    "role_create": True,
-                    "role_delete": True,
-                    "role_edit": True,
-                    "emoji_edit": True,
-                    "invite_create": True,
-                    "invite_delete": True
-                    }
-                }
-            )
+            await ctx.reply('Enabled all log filters. Please wait a minute or two for it to update.')
 
-        await ctx.reply('Enabled all log filters.')
+        await self.bot.db.logging.update_one(
+            {"guild": ctx.guild.id},
+            {"$set": {
+                "message_delete": True,
+                "message_edit": True,
+                "reaction_add": True,
+                "reaction_remove": True,
+                "reaction_clear": True,
+                "channel_delete": True,
+                "channel_create": True,
+                "channel_edit": True,
+                "channel_pin": True,
+                "channel_webhook": True,
+                "guild_integration": True,
+                "member_join": True,
+                "member_leave": True,
+                "member_edit": True,
+                "member_ban": True,
+                "member_unban": True,
+                "role_create": True,
+                "role_delete": True,
+                "role_edit": True,
+                "emoji_edit": True,
+                "invite_create": True,
+                "invite_delete": True
+            }
+            }
+        )
 
     @settings.command(aliases=['allfalse'])
     @checks.check_admin_or_owner()
@@ -715,36 +715,36 @@ class loggingCog(commands.Cog):
             if not res:
                 raise commands.BadArgument("This guild does not have logging set up.")
 
-            await self.bot.db.logging.update_one(
-                {"guild": ctx.guild.id},
-                {"$set": {
-                    "message_delete": False,
-                    "message_edit": False,
-                    "reaction_add": False,
-                    "reaction_remove": False,
-                    "reaction_clear": False,
-                    "channel_delete": False,
-                    "channel_create": False,
-                    "channel_edit": False,
-                    "channel_pin": False,
-                    "channel_webhook": False,
-                    "guild_integration": False,
-                    "member_join": False,
-                    "member_leave": False,
-                    "member_edit": False,
-                    "member_ban": False,
-                    "member_unban": False,
-                    "role_create": False,
-                    "role_delete": False,
-                    "role_edit": False,
-                    "emoji_edit": False,
-                    "invite_create": False,
-                    "invite_delete": False
-                    }
-                }
-            )
+            await ctx.reply('Disabled all log filters. Please wait a minute or two for it to update.')
 
-        await ctx.reply('Disabled all log filters.')
+        await self.bot.db.logging.update_one(
+            {"guild": ctx.guild.id},
+            {"$set": {
+                "message_delete": False,
+                "message_edit": False,
+                "reaction_add": False,
+                "reaction_remove": False,
+                "reaction_clear": False,
+                "channel_delete": False,
+                "channel_create": False,
+                "channel_edit": False,
+                "channel_pin": False,
+                "channel_webhook": False,
+                "guild_integration": False,
+                "member_join": False,
+                "member_leave": False,
+                "member_edit": False,
+                "member_ban": False,
+                "member_unban": False,
+                "role_create": False,
+                "role_delete": False,
+                "role_edit": False,
+                "emoji_edit": False,
+                "invite_create": False,
+                "invite_delete": False
+            }
+            }
+        )
 
     @logging.command(aliases=['start', 'make'])
     @checks.check_admin_or_owner()
@@ -756,36 +756,36 @@ class loggingCog(commands.Cog):
             if res:
                 raise commands.BadArgument("This guild already has logging set up.")
 
-            to_insert = {
-                "guild": ctx.guild.id,
-                "channel": logging_channel.id,
-                "message_delete": True,
-                "message_edit": True,
-                "reaction_add": False,
-                "reaction_remove": False,
-                "reaction_clear": True,
-                "channel_delete": True,
-                "channel_create": True,
-                "channel_edit": True,
-                "channel_pin": False,
-                "channel_webhook": True,
-                "guild_integration": True,
-                "member_join": False,
-                "member_leave": False,
-                "member_edit": False,
-                "member_ban": True,
-                "member_unban": True,
-                "role_create": True,
-                "role_delete": True,
-                "role_edit": True,
-                "emoji_edit": False,
-                "invite_create": False,
-                "invite_delete": False
-            }
+            await ctx.reply(f'Initiated logging in {logging_channel.mention}. Please wait a minute or two for it to start.')
 
-            await self.bot.db.logging.insert_one(to_insert)
+        to_insert = {
+            "guild": ctx.guild.id,
+            "channel": logging_channel.id,
+            "message_delete": True,
+            "message_edit": True,
+            "reaction_add": False,
+            "reaction_remove": False,
+            "reaction_clear": True,
+            "channel_delete": True,
+            "channel_create": True,
+            "channel_edit": True,
+            "channel_pin": False,
+            "channel_webhook": True,
+            "guild_integration": True,
+            "member_join": False,
+            "member_leave": False,
+            "member_edit": False,
+            "member_ban": True,
+            "member_unban": True,
+            "role_create": True,
+            "role_delete": True,
+            "role_edit": True,
+            "emoji_edit": False,
+            "invite_create": False,
+            "invite_delete": False
+        }
 
-        await ctx.reply(f'Initiated logging in {logging_channel.mention}.')
+        await self.bot.db.logging.insert_one(to_insert)
 
     @logging.command(aliases=['quit', 'cancel', 'stop'])
     @checks.check_admin_or_owner()

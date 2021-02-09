@@ -64,7 +64,7 @@ class Bot(commands.AutoShardedBot):
             f'{self.btgreen}With ID: {self.endc}{self.user.id}\n——————————————————————————————')
 
         await self.change_presence(
-            activity=discord.Activity(type=5, name="ow!help"))
+            activity=discord.Activity(type=1, name="@DevilBot help"))
 
         print(
             f'{self.tgreen}Status changed successfully {self.endc}\n——————————————————————————————')
