@@ -756,36 +756,36 @@ class loggingCog(commands.Cog):
             if res:
                 raise commands.BadArgument("This guild already has logging set up.")
 
-            await ctx.reply(f'Initiated logging in {logging_channel.mention}. Please wait a minute or two for it to start.')
+            to_insert = {
+                "guild": ctx.guild.id,
+                "channel": logging_channel.id,
+                "message_delete": True,
+                "message_edit": True,
+                "reaction_add": False,
+                "reaction_remove": False,
+                "reaction_clear": True,
+                "channel_delete": True,
+                "channel_create": True,
+                "channel_edit": True,
+                "channel_pin": False,
+                "channel_webhook": True,
+                "guild_integration": True,
+                "member_join": False,
+                "member_leave": False,
+                "member_edit": False,
+                "member_ban": True,
+                "member_unban": True,
+                "role_create": True,
+                "role_delete": True,
+                "role_edit": True,
+                "emoji_edit": False,
+                "invite_create": False,
+                "invite_delete": False
+            }
 
-        to_insert = {
-            "guild": ctx.guild.id,
-            "channel": logging_channel.id,
-            "message_delete": True,
-            "message_edit": True,
-            "reaction_add": False,
-            "reaction_remove": False,
-            "reaction_clear": True,
-            "channel_delete": True,
-            "channel_create": True,
-            "channel_edit": True,
-            "channel_pin": False,
-            "channel_webhook": True,
-            "guild_integration": True,
-            "member_join": False,
-            "member_leave": False,
-            "member_edit": False,
-            "member_ban": True,
-            "member_unban": True,
-            "role_create": True,
-            "role_delete": True,
-            "role_edit": True,
-            "emoji_edit": False,
-            "invite_create": False,
-            "invite_delete": False
-        }
+            await self.bot.db.logging.insert_one(to_insert)
 
-        await self.bot.db.logging.insert_one(to_insert)
+        await ctx.reply(f'Initiated logging in {logging_channel.mention}. Please wait a minute or two for it to start.')
 
     @logging.command(aliases=['quit', 'cancel', 'stop'])
     @checks.check_admin_or_owner()
