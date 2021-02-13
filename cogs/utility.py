@@ -218,29 +218,6 @@ class utilityCog(commands.Cog):
             return await ctx.send('Output too long to display.')
         await ctx.send(msg)
 
-    @commands.command()
-    async def rtfs(self, ctx, *, search):
-        """Read the fucking source"""
-        base_url = 'https://rtfs.eviee.me/dpy?search='
-        async with aiohttp.ClientSession() as cs, ctx.typing():
-            async with cs.get(base_url + search) as r:
-                data = await r.json()
-        if not data:
-            raise commands.BadArgument('Not found')
-        final = []
-        skip = []
-        for i in data:
-            if not i['url'] in skip:
-                if i['parent']:
-                    pathname = f'{i["parent"]}.{i["object"]}'
-                else:
-                    pathname = f'{i["object"]}'
-                final.append(f'`{pathname}`\n{i["url"]}')
-                skip.append(i['url'])
-        pagey = MyPaginator(colour=0xff9300, embed=True, timeout=180, use_defaults=True,
-                            entries=[i for i in final], length=5)
-        await pagey.start(ctx)
-
     @commands.command(aliases=['iplookup', 'ipsearch'])
     @commands.cooldown(1, 180, BucketType.user)
     async def whois(self, ctx, IP: str):
@@ -298,26 +275,6 @@ class utilityCog(commands.Cog):
                         value=data['currency_code'] or 'None', inline=True)
         embed.set_image(url=data['country_flag'])
         await ctx.send(embed=embed)
-
-    @commands.command()
-    async def google(self, ctx, *, term: str):
-        """google a term"""
-        results = []
-
-        def scour(term):
-            for j in search(term, tld="com", num=10, stop=10, pause=2):
-                results.append(j)
-
-        async with ctx.typing():
-            loop = self.bot.loop
-            await loop.run_in_executor(None, scour, term)
-            if not len(results):
-                return await ctx.send('No results found for specified term.')
-            pagey = MyPaginator(title='`Google Search Results`', colour=0xff9300, embed=False, timeout=90,
-                                use_defaults=True,
-                                entries=[str(r) for r in results], length=1)
-
-        await pagey.start(ctx)
 
     @commands.command()
     async def afk(self, ctx, *, reason: str = 'None Provided'):
