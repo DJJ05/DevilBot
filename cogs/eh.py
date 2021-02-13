@@ -65,8 +65,6 @@ class eh(commands.Cog):
             traceback.print_exception(
                 type(error), error, error.__traceback__, file=sys.stderr)
 
-            errchannel = self.bot.get_channel(748962623487344753)
-
             etype = type(error)
             trace = error.__traceback__
             verbosity = 2
@@ -78,7 +76,6 @@ class eh(commands.Cog):
                                   description=f'ID: {ctx.message.id}\n[Jump]({ctx.message.jump_url})\n\
                                                 {traceback_text}')
 
-            await errchannel.send(embed=embed)
             lines = traceback.format_exception(etype, error, trace, 1)
             traceback_text = f'```py\n{"".join(lines)}\n```'.replace(
                 'rajsharma', 'dev')
