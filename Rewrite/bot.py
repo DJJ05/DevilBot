@@ -94,10 +94,6 @@ def main():
             return False
         return True
 
-    @bot.command()
-    async def test(ctx):
-        await ctx.reply(ctx.eqjfuwehfu)
-
     bot.run()
 
 

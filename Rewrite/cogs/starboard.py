@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import json
-
 import discord
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
@@ -9,16 +7,14 @@ from discord.ext.commands.cooldowns import BucketType
 from .utils import checks
 
 
-class starboardCog(commands.Cog):
-    """Starboard commands"""
+class starboard(commands.Cog):
+    """Starboard cog"""
 
     def __init__(self, bot):
         self.bot = bot
-        self.colour = 0xff9300
 
     @commands.Cog.listener(name='on_raw_reaction_add')
     async def on_star_add(self, payload):
-        """Catches star reactions and incremements / adds message to starboard"""
         if not payload.member:
             return
         if payload.member.bot:
@@ -83,13 +79,13 @@ class starboardCog(commands.Cog):
 
         await self.bot.db.starboard.update_one(
             {"id": message.id},
-            {"$set": {"guild": _msg["guild"], "id": _msg["id"], "stars": _msg["stars"], "channel": _msg["channel"], "embed": _msg["embed"]}},
+            {"$set": {"guild": _msg["guild"], "id": _msg["id"], "stars": _msg["stars"], "channel": _msg["channel"],
+                      "embed": _msg["embed"]}},
             upsert=True
         )
 
     @commands.Cog.listener(name='on_raw_reaction_remove')
     async def on_star_remove(self, payload):
-        """Catches star removals and decrements / removes message from starboard"""
         guild = self.bot.get_guild(payload.guild_id)
         channel = guild.get_channel(payload.channel_id)
         message = await channel.fetch_message(payload.message_id)
@@ -132,14 +128,14 @@ class starboardCog(commands.Cog):
     @commands.group(invoke_without_command=True)
     @checks.check_admin_or_owner()
     async def starboard(self, ctx):
-        """Starboard command group, see subcommands for setup. Requires administrator."""
+        """Returns subcommands"""
         await ctx.send_help(ctx.command)
 
     @starboard.command()
     @checks.check_admin_or_owner()
     @commands.cooldown(1, 30, BucketType.user)
     async def update(self, ctx, message: discord.Message, star_count: int):
-        """Updates the star count of a message with a new star count. This is updated internally, so keep in mind that the message reaction count and the stars in the starboard channel may not match. You must be in the same channel as the original message to use this command."""
+        """Updates star count of messages"""
         async with ctx.typing():
             res = await self.bot.db.starboard.find_one({"guild_config": ctx.guild.id})
 
@@ -232,7 +228,8 @@ class starboardCog(commands.Cog):
 
             await self.bot.db.starboard.update_one(
                 {"id": message.id},
-                {"$set": {"guild": _msg["guild"], "id": _msg["id"], "stars": _msg["stars"], "channel": _msg["channel"], "embed": _msg["embed"]}},
+                {"$set": {"guild": _msg["guild"], "id": _msg["id"], "stars": _msg["stars"], "channel": _msg["channel"],
+                          "embed": _msg["embed"]}},
                 upsert=True
             )
 
@@ -240,7 +237,7 @@ class starboardCog(commands.Cog):
 
     @starboard.command(aliases=['lb'])
     async def leaderboard(self, ctx):
-        """Displays a leaderboard from most to least stars per person"""
+        """Returns collected starcount leaderboard"""
         async with ctx.typing():
             people = {}
 
@@ -291,7 +288,7 @@ class starboardCog(commands.Cog):
     @starboard.command(aliases=['star'])
     @checks.check_admin_or_owner()
     async def stars(self, ctx, minimum_star_count: int = 4):
-        """Sets the minimum star count of a guild to a new value greater than 0. Defaults to 4."""
+        """Updates the minimum stars required for a starboard entry"""
         async with ctx.typing():
             res = await self.bot.db.starboard.find_one({"guild_config": ctx.guild.id})
 
@@ -340,7 +337,7 @@ class starboardCog(commands.Cog):
     @starboard.command(aliases=['stop', 'exit', 'cancel'])
     @checks.check_admin_or_owner()
     async def close(self, ctx):
-        """Closes an active starboard, but DOES NOT delete the channel. Bot will simply stop tracking stars."""
+        """Removes an active starboard"""
         async with ctx.typing():
             res = await self.bot.db.starboard.find_one({"guild_config": ctx.guild.id})
 
@@ -355,7 +352,7 @@ class starboardCog(commands.Cog):
     @starboard.command(aliases=['make', 'start'])
     @checks.check_admin_or_owner()
     async def create(self, ctx, channel: discord.TextChannel, minimum_star_count: int = 5):
-        """Creates an active starboard in a specified channel, with specified minimum star count. Bot requires send_messages permissions in starboard channel, and it is recommended to disallow @ everyone from talking there."""
+        """Creates an active starboard"""
         async with ctx.typing():
             if minimum_star_count < 1:
                 raise commands.BadArgument('You need a minimum number greater than 0.')
@@ -363,10 +360,12 @@ class starboardCog(commands.Cog):
             res = await self.bot.db.starboard.find_one({"guild_config": ctx.guild.id})
 
             if res:
-                raise commands.BadArgument(f"There is already a starboard in this server. Use `{ctx.prefix}starboard close` to remove it.")
+                raise commands.BadArgument(
+                    f"There is already a starboard in this server. Use `{ctx.prefix}starboard close` to remove it.")
 
             if not channel.permissions_for(ctx.me).send_messages:
-                raise commands.BadArgument(f'I need send_messages permissions in {channel.mention} to send messages there.')
+                raise commands.BadArgument(
+                    f'I need send_messages permissions in {channel.mention} to send messages there.')
 
             to_insert = {
                 "guild_config": ctx.guild.id,
@@ -381,4 +380,4 @@ class starboardCog(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(starboardCog(bot))
+    bot.add_cog(starboard(bot))
