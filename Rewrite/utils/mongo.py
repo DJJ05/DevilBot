@@ -13,3 +13,4 @@ class mongo:
         )[mongo_dbname]
         self.logging = self.db_conn["Logging"]
         self.starboard = self.db_conn["Starboard"]
+        self.starboard_config = self.db_conn["Starboard_config"]

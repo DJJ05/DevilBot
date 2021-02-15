@@ -30,7 +30,7 @@ class starboard(commands.Cog):
         if message.author == member:
             return
 
-        res = await self.bot.db.starboard.find_one({"guild_config": guild.id})
+        res = await self.bot.db.starboard_config.find_one({"_id": guild.id})
 
         if not res:
             return
@@ -39,7 +39,7 @@ class starboard(commands.Cog):
 
         starboard = guild.get_channel(res["channel"])
 
-        _msg = await self.bot.db.starboard.find_one({"id": message.id})
+        _msg = await self.bot.db.starboard.find_one({"_id": message.id})
 
         if _msg is not None:
             _msg["stars"] += 1
@@ -49,7 +49,7 @@ class starboard(commands.Cog):
         else:
             _msg = {
                 "guild": guild.id,
-                "id": message.id,
+                "_id": message.id,
                 "stars": 1,
                 "channel": message.channel.id,
                 "embed": None
@@ -78,8 +78,8 @@ class starboard(commands.Cog):
             _msg["embed"] = msg.id
 
         await self.bot.db.starboard.update_one(
-            {"id": message.id},
-            {"$set": {"guild": _msg["guild"], "id": _msg["id"], "stars": _msg["stars"], "channel": _msg["channel"],
+            {"_id": message.id},
+            {"$set": {"guild": _msg["guild"], "_id": _msg["_id"], "stars": _msg["stars"], "channel": _msg["channel"],
                       "embed": _msg["embed"]}},
             upsert=True
         )
@@ -96,7 +96,7 @@ class starboard(commands.Cog):
         if str(payload.emoji) != '⭐':
             return
 
-        res = await self.bot.db.starboard.find_one({"guild_config": guild.id})
+        res = await self.bot.db.starboard_config.find_one({"_id": guild.id})
 
         if not res:
             return
@@ -108,7 +108,7 @@ class starboard(commands.Cog):
 
         starboard = guild.get_channel(res["channel"])
 
-        _msg = await self.bot.db.starboard.find_one({"id": message.id})
+        _msg = await self.bot.db.starboard.find_one({"_id": message.id})
 
         if _msg is not None:
             _msg["stars"] -= 1
@@ -121,7 +121,7 @@ class starboard(commands.Cog):
                     await msg.edit(content=f'**{_msg["stars"]}** :star:')
 
             await self.bot.db.starboard.update_one(
-                {"id": message.id},
+                {"_id": message.id},
                 {"$set": {"stars": _msg["stars"], "embed": _msg["embed"]}}
             )
 
@@ -137,7 +137,7 @@ class starboard(commands.Cog):
     async def update(self, ctx, message: discord.Message, star_count: int):
         """Updates star count of messages"""
         async with ctx.typing():
-            res = await self.bot.db.starboard.find_one({"guild_config": ctx.guild.id})
+            res = await self.bot.db.starboard_config.find_one({"_id": ctx.guild.id})
 
             if not res:
                 raise commands.BadArgument(
@@ -148,7 +148,7 @@ class starboard(commands.Cog):
 
             starboard = ctx.guild.get_channel(res["channel"])
 
-            _msg = await self.bot.db.starboard.find_one({"id": message.id})
+            _msg = await self.bot.db.starboard.find_one({"_id": message.id})
 
             if _msg is not None:
                 _msg["stars"] = star_count
@@ -195,7 +195,7 @@ class starboard(commands.Cog):
             else:
                 _msg = {
                     "guild": ctx.guild.id,
-                    "id": message.id,
+                    "_id": message.id,
                     "stars": star_count,
                     "channel": message.channel.id,
                     "embed": None
@@ -227,8 +227,9 @@ class starboard(commands.Cog):
                     _msg["embed"] = msg.id
 
             await self.bot.db.starboard.update_one(
-                {"id": message.id},
-                {"$set": {"guild": _msg["guild"], "id": _msg["id"], "stars": _msg["stars"], "channel": _msg["channel"],
+                {"_id": message.id},
+                {"$set": {"guild": _msg["guild"], "_id": _msg["_id"], "stars": _msg["stars"],
+                          "channel": _msg["channel"],
                           "embed": _msg["embed"]}},
                 upsert=True
             )
@@ -241,7 +242,7 @@ class starboard(commands.Cog):
         async with ctx.typing():
             people = {}
 
-            res = await self.bot.db.starboard.find_one({"guild_config": ctx.guild.id})
+            res = await self.bot.db.starboard_config.find_one({"_id": ctx.guild.id})
 
             if not res:
                 raise commands.BadArgument(
@@ -258,7 +259,7 @@ class starboard(commands.Cog):
             for _msg in messages:
                 try:
                     channel = ctx.guild.get_channel(_msg["channel"])
-                    msg = await channel.fetch_message(int(_msg['id']))
+                    msg = await channel.fetch_message(int(_msg['_id']))
                     if people.get(str(msg.author)) is not None:
                         people[str(msg.author)] += _msg["stars"]
                     else:
@@ -290,7 +291,7 @@ class starboard(commands.Cog):
     async def stars(self, ctx, minimum_star_count: int = 4):
         """Updates the minimum stars required for a starboard entry"""
         async with ctx.typing():
-            res = await self.bot.db.starboard.find_one({"guild_config": ctx.guild.id})
+            res = await self.bot.db.starboard_config.find_one({"_id": ctx.guild.id})
 
             if not res:
                 raise commands.BadArgument(
@@ -321,14 +322,14 @@ class starboard(commands.Cog):
                         msg = await starboard.fetch_message(_msg["embed"])
                         await msg.delete()
                         await self.bot.db.starboard.update_one(
-                            {"id": _msg["id"]},
+                            {"_id": _msg["_id"]},
                             {"$set": {"embed": None}}
                         )
                     except discord.NotFound:
                         pass
 
-            await self.bot.db.starboard.update_one(
-                {"guild": ctx.guild.id},
+            await self.bot.db.starboard_config.update_one(
+                {"_id": ctx.guild.id},
                 {"$set": {"stars": minimum_star_count}}
             )
 
@@ -339,13 +340,13 @@ class starboard(commands.Cog):
     async def close(self, ctx):
         """Removes an active starboard"""
         async with ctx.typing():
-            res = await self.bot.db.starboard.find_one({"guild_config": ctx.guild.id})
+            res = await self.bot.db.starboard_config.find_one({"_id": ctx.guild.id})
 
             if not res:
                 raise commands.BadArgument(
                     f"There is no starboard in this server. Use `{ctx.prefix}starboard create` to create one.")
 
-            await self.bot.db.starboard.delete_one({"guild_config": ctx.guild.id})
+            await self.bot.db.starboard_config.delete_one({"_id": ctx.guild.id})
 
         await ctx.reply('Removed starboard.')
 
@@ -357,7 +358,7 @@ class starboard(commands.Cog):
             if minimum_star_count < 1:
                 raise commands.BadArgument('You need a minimum number greater than 0.')
 
-            res = await self.bot.db.starboard.find_one({"guild_config": ctx.guild.id})
+            res = await self.bot.db.starboard_config.find_one({"_id": ctx.guild.id})
 
             if res:
                 raise commands.BadArgument(
@@ -368,12 +369,12 @@ class starboard(commands.Cog):
                     f'I need send_messages permissions in {channel.mention} to send messages there.')
 
             to_insert = {
-                "guild_config": ctx.guild.id,
+                "_id": ctx.guild.id,
                 "channel": channel.id,
                 "stars": minimum_star_count
             }
 
-            await self.bot.db.starboard.insert_one(to_insert)
+            await self.bot.db.starboard_config.insert_one(to_insert)
 
         return await ctx.reply(
             f'Alright, I activated a starboard in {channel.mention} with a minimum star count of {minimum_star_count}. The allowed emoji is :star: and bots, self-starrers and embeds are not allowed to star. Use `{ctx.prefix}starboard` to view all of the available config commands.')
