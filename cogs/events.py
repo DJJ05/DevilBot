@@ -20,6 +20,11 @@ class eventsCog(commands.Cog):
         self.tred = '\033[31m'
         self.endc = '\033[m'
 
+    @commands.Cog.listener(name="on_message_delete")
+    async def logger_message_delete(self, message):
+        if message.author and message.guild and message.channel:
+            return self.bot.logger.info(f'Deletion: {message.author} in {message.guild.name} in {message.channel.name} - {message.content}')
+
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
         with open('prefixes.json', 'r') as f:

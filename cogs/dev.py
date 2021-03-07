@@ -68,6 +68,19 @@ class devCog(commands.Cog):
         """Blacklisting commands"""
         pass
 
+    @commands.group(invoke_without_command=True, aliases=['log'])
+    @commands.is_owner()
+    async def logs(self, ctx):
+        cat = self.bot.get_command('jishaku cat')
+        await ctx.invoke(cat, 'LOG.log')
+
+    @logs.command()
+    @commands.is_owner()
+    async def search(self, ctx, *, search_term):
+        _ctx = ctx
+        _ctx.message.content = f"{ctx.prefix}jsk sh grep -rn '{search_term}' LOG.log"
+        await self.bot.process_commands(_ctx.message)
+
     @blacklist.command(aliases=['addmember'])
     @commands.is_owner()
     async def adduser(self, ctx, member: discord.Member, *, reason: str = 'None Provided'):
