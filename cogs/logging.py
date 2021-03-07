@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 
-import json
 import discord
 from discord.ext import commands
+
 from .utils import checks
 
 
 def getallcustoms(object_):
     dicted = {}
     for i in dir(object_):
-        if not str(i).startswith('_') and not str(getattr(object_, i)).startswith('<') and not str(getattr(object_, i)).startswith('(') and not str(i) == 'overwrites' and 'status' not in str(i).lower() and 'activity' not in str(i).lower():
+        if not str(i).startswith('_') and not str(getattr(object_, i)).startswith('<') and not str(
+                getattr(object_, i)).startswith('(') and not str(i) == 'overwrites' and 'status' not in str(
+                i).lower() and 'activity' not in str(i).lower():
             dicted[i] = str(getattr(object_, i))
     return dicted
 
@@ -19,7 +21,7 @@ class loggingCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.colour = 0xff9300
+
         self.events = [
             "message_delete",
             "message_edit",
@@ -61,7 +63,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:wastebasket: Message sent by {message.author.mention} deleted in {message.channel.mention}.**',
             timestamp=message.created_at
         )
@@ -93,7 +95,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:pencil: Message sent by {after.author.mention} edited in {after.channel.mention}.** [Jump to message]({after.jump_url})',
             timestamp=after.created_at
         )
@@ -118,7 +120,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:inbox_tray: Reaction added by {user.mention} in {message.channel.mention}.** [Jump to message]({message.jump_url})\n{reaction.emoji}',
             timestamp=message.created_at
         )
@@ -141,7 +143,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:outbox_tray: Reaction by {user.mention} removed in {message.channel.mention}.** [Jump to message]({message.jump_url})\n{reaction.emoji}',
             timestamp=message.created_at
         )
@@ -163,7 +165,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:x: Message by {message.author.mention} had reactions cleared in {message.channel.mention}.** [Jump to message]({message.jump_url})',
             timestamp=message.created_at
         )
@@ -185,7 +187,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:wastebasket: Guild channel \'{channel.name}\' was deleted.**'
         )
         if channel.guild.me.guild_permissions.view_audit_log:
@@ -210,7 +212,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:writing_hand: Guild channel {channel.mention} was created.**'
         )
         if channel.guild.me.guild_permissions.view_audit_log:
@@ -235,7 +237,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:pencil: Guild channel {channel.mention} had its webhooks updated.**'
         )
         embed.set_footer(text=f'{channel.guild.name}')
@@ -266,7 +268,7 @@ class loggingCog(commands.Cog):
         for a, b in changes.items():
             changesstr += f'**• {str(a).replace("_", " ").title()} was** {getattr(before, a)} **now** {b}\n'
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:pencil: Guild channel {after.mention} was edited.**'
         )
         embed.add_field(name='Changes', value=changesstr)
@@ -292,7 +294,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:pushpin: Guild channel {channel.mention} had its pins updated.**'
         )
         embed.set_footer(text=f'{channel.guild.name}')
@@ -312,7 +314,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:globe_with_meridians: Guild integrations updated.**'
         )
         embed.set_footer(text=f'{guild.name}')
@@ -332,7 +334,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:heavy_plus_sign: Member {member.mention} just joined the guild.**'
         )
         embed.set_footer(text=f'{member.guild.name}')
@@ -352,7 +354,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:heavy_minus_sign: Member {member.mention} "{member}" just left the guild.**'
         )
         embed.set_footer(text=f'{member.guild.name}')
@@ -372,7 +374,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:pencil: Member {after.mention} was edited.**'
         )
         before_dir = getallcustoms(before)
@@ -404,7 +406,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:no_entry: User {user} just got banned.**'
         )
         if guild.me.guild_permissions.view_audit_log:
@@ -432,7 +434,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:wrench: User {user} just got unbanned.**'
         )
         if guild.me.guild_permissions.view_audit_log:
@@ -458,7 +460,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:loudspeaker: Role {role.mention} just got created.**'
         )
         if guild.me.guild_permissions.view_audit_log:
@@ -484,7 +486,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:name_badge: Role "{role.name}" just got deleted.**'
         )
         if guild.me.guild_permissions.view_audit_log:
@@ -510,7 +512,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:pencil2: Role {after.mention} just got edited.**'
         )
         before_dir = getallcustoms(before)
@@ -547,7 +549,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:symbols: Emojis just got updated.**'
         )
         changesstr = ''
@@ -578,10 +580,11 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:wave: Invite {invite.code} for {invite.channel.mention} just got created by {invite.inviter.mention}.**'
         )
-        embed.add_field(name='Usage', value=f'**• Max uses - {invite.max_uses if invite.max_uses != 0 else "Unlimited"}**\n**• Minutes until expiration - {round(invite.max_age / 60) if invite.max_age != 0 else "Permanent"}**')
+        embed.add_field(name='Usage',
+                        value=f'**• Max uses - {invite.max_uses if invite.max_uses != 0 else "Unlimited"}**\n**• Minutes until expiration - {round(invite.max_age / 60) if invite.max_age != 0 else "Permanent"}**')
         embed.set_footer(text=f'{guild.name}')
         await logging_channel.send(embed=embed)
 
@@ -600,7 +603,7 @@ class loggingCog(commands.Cog):
         except:
             return
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**:door: Invite {invite.code} for {invite.channel.mention} just got deleted.**'
         )
         embed.set_footer(text=f'{guild.name}')
@@ -628,7 +631,7 @@ class loggingCog(commands.Cog):
                     logstr += f'• {name} — **{"On" if option else "Off"}**\n'
 
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=logstr,
             title='Event Log Filter Settings'
         )

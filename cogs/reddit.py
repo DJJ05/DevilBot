@@ -18,7 +18,7 @@ class redditCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.colour = 0xff9300
+
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
@@ -41,7 +41,7 @@ class redditCog(commands.Cog):
                     memes.append(submission)
         submission = random.choice(memes)
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             title=submission.title.capitalize(),
             url=f'https://reddit.com{submission.permalink}',
             description=f'Posted in r/{subreddit} by u/{submission.author.name}\n\n\
@@ -60,7 +60,7 @@ class redditCog(commands.Cog):
                     thoughts.append(submission)
         submission = random.choice(thoughts)
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             title=f'Showerthought by u/{submission.author.name}',
             url=f'https://reddit.com{submission.permalink}',
             description=f'```fix\n{submission.title.capitalize()}\n```\n<:upvote:748924744572600450> {submission.score}   <:speechbubble:748960649861922877> {submission.num_comments}'
@@ -80,7 +80,7 @@ class redditCog(commands.Cog):
         subcomments = await submission.comments()
         embed = discord.Embed(
             title=submission.title.capitalize(),
-            colour=self.colour,
+            colour=self.bot.colour,
             url=f'https://reddit.com{submission.permalink}',
             description=f'<:upvote:748924744572600450> {submission.score}   <:speechbubble:748960649861922877> {submission.num_comments}'
         )

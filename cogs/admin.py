@@ -1,6 +1,5 @@
 import json
 
-import discord
 from discord.ext import commands
 
 from .utils import checks
@@ -11,7 +10,7 @@ class adminCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.colour = 0xff9300
+
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 

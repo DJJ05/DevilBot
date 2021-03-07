@@ -13,7 +13,7 @@ class devCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.colour = 0xff9300
+
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
@@ -43,7 +43,7 @@ class devCog(commands.Cog):
         embed = discord.Embed(
             title=f'Successfully generated invite for {guild.name}',
             description=f'```json\n{dicted}\n```',
-            colour=self.colour
+            colour=self.bot.colour
         )
         embed.set_thumbnail(url=guild.icon_url)
         await ctx.author.send(embed=embed)
@@ -83,7 +83,8 @@ class devCog(commands.Cog):
         await ctx.send('Done.')
 
         try:
-            embed = discord.Embed(title=f'You have been blacklisted from utilising my commands.', colour=self.colour,
+            embed = discord.Embed(title=f'You have been blacklisted from utilising my commands.',
+                                  colour=self.bot.colour,
                                   description=f'Reason: `{reason.capitalize()}`')
             await member.send(embed=embed)
             await ctx.send('DM sent successfully.')
@@ -109,7 +110,7 @@ class devCog(commands.Cog):
 
         try:
             embed = discord.Embed(
-                title=f'You have been unblacklisted from utilising my commands.', colour=self.colour)
+                title=f'You have been unblacklisted from utilising my commands.', colour=self.bot.colour)
             await member.send(embed=embed)
             await ctx.send('DM sent successfully.')
         except:

@@ -13,7 +13,7 @@ class funCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.colour = 0xff9300
+
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
         self.image = ImageCaptcha()
@@ -62,7 +62,7 @@ class funCog(commands.Cog):
         translated = data['contents']['translated']
         embed = discord.Embed(
             title='Yodish Translator',
-            colour=self.colour
+            colour=self.bot.colour
         )
         embed.add_field(name='Original',
                         value=original.capitalize(), inline=True)
@@ -77,7 +77,7 @@ class funCog(commands.Cog):
             async with cs.get(url) as r:
                 data = await r.json()
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             title=data["affirmation"]
         )
         await ctx.send(embed=embed)
@@ -90,7 +90,7 @@ class funCog(commands.Cog):
             async with cs.get(url) as r:
                 data = await r.text()
         embed = discord.Embed(
-            colour=self.colour
+            colour=self.bot.colour
         )
         embed.set_image(url=data)
         await ctx.send(embed=embed)
@@ -134,7 +134,7 @@ class funCog(commands.Cog):
                 if resp.status != 200:
                     return await ctx.send('No cat found :(')
                 js = await resp.json()
-                await ctx.send(embed=discord.Embed(title='Catto :)', color=self.colour).set_image(url=js[0]['url']))
+                await ctx.send(embed=discord.Embed(title='Catto :)', color=self.bot.colour).set_image(url=js[0]['url']))
 
     @commands.command(aliases=['pupper', 'doggo'])
     async def dog(self, ctx):
@@ -159,7 +159,7 @@ class funCog(commands.Cog):
                             fp = io.BytesIO(await other.read())
                             await ctx.send(file=discord.File(fp, filename=filename))
                 else:
-                    await ctx.send(embed=discord.Embed(title='Doggo :)', color=self.colour).set_image(url=url))
+                    await ctx.send(embed=discord.Embed(title='Doggo :)', color=self.bot.colour).set_image(url=url))
 
 
 def setup(bot):

@@ -14,7 +14,7 @@ class utopiaCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.colour = 0xff9300
+
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
@@ -107,7 +107,7 @@ class utopiaCog(commands.Cog):
             json.dump(nominees, f, indent=4)
         channel = self.bot.get_channel(752472138299998238)
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**Message:**\n{str(finmsg)}\n**Author:**\n{str(message.author)}\n**Created At:**\n{str(message.created_at)}\n**Jump:**\n{str(message.jump_url)}'
         )
         await channel.send(embed=embed)
@@ -125,7 +125,7 @@ class utopiaCog(commands.Cog):
         final = random.choice(full)
         final = final.split('∫√∆')
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**Message:**\n{final[0]}\n**Author:**\n{final[1]}\n**Created At:**\n{final[2]}'
         )
         await ctx.send(embed=embed)

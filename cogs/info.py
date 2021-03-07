@@ -49,7 +49,7 @@ class MyHelpCommand(commands.MinimalHelpCommand):
     async def send_pages(self):
         destination = self.get_destination()
         for page in self.paginator.pages:
-            emby = discord.Embed(description=page, colour=0xff9300)
+            emby = discord.Embed(description=page, colour=0x860111)
             await destination.send(embed=emby)
 
 
@@ -61,7 +61,7 @@ class infoCog(commands.Cog):
         self._original_help_command = bot.help_command
         bot.help_command = MyHelpCommand()
         bot.help_command.cog = self
-        self.colour = 0xff9300
+
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
@@ -93,7 +93,7 @@ class infoCog(commands.Cog):
         linecount = linecounter()
         embed = discord.Embed(
             title='Detailed code overview',
-            colour=self.colour
+            colour=self.bot.colour
         )
         for key in linecount:
             keyy = key.capitalize()
@@ -112,7 +112,7 @@ class infoCog(commands.Cog):
         guildpre = ctx.prefix
         appinfo = await self.bot.application_info()
         linecount = linecounter()
-        embed = discord.Embed(colour=self.colour,
+        embed = discord.Embed(colour=self.bot.colour,
                               title=f"{appinfo.name} | {appinfo.id}",
                               description=f":diamond_shape_with_a_dot_inside: `Guild Prefix:` **{guildpre}**\
                                         \n<:owner:730864906429136907> `Owner:` **<@!{appinfo.owner.id}>**\
@@ -144,19 +144,10 @@ class infoCog(commands.Cog):
     async def support(self, ctx):
         """Support server link"""
         embed = discord.Embed(
-            colour=self.colour,
-            description=('[`Click Me!`](https://discord.gg/KsHgrya)')
+            colour=self.bot.colour,
+            description='[`Click Me!`](https://discord.gg/KsHgrya)'
         )
         await ctx.send(embed=embed)
-
-    @commands.command(aliases=['web'])
-    async def website(self, ctx):
-        """Website, duh"""
-        embed = discord.Embed(
-            colour=self.colour,
-            description='[`Click Me!`](https://devilbot-app.herokuapp.com)'
-        )
-        return await ctx.send(embed=embed)
 
     @commands.command()
     async def cogs(self, ctx):
@@ -165,25 +156,22 @@ class infoCog(commands.Cog):
         for cog in self.bot.cogs:
             cogs.append(
                 f"`{cog}` • {self.bot.cogs[cog].__doc__}")
-        await ctx.send(embed=discord.Embed(colour=self.colour, title=f"All Cogs ({len(self.bot.cogs)})",
+        await ctx.send(embed=discord.Embed(colour=self.bot.colour, title=f"All Cogs ({len(self.bot.cogs)})",
                                            description=f"Do `{ctx.prefix}help <cog>` to know more about them!\nhttps://bit.ly/help-command-by-niztg" + "\n\n" + "\n".join(
                                                cogs)))
 
     @commands.command()
     async def ping(self, ctx):
         """Displays latency and response time"""
-        shard = self.bot.get_shard(ctx.guild.shard_id)
-        if not shard:
-            return
         begin = time.perf_counter()
         embed = discord.Embed(
-            colour=self.colour, description=f'```json\n"SHARD HEARTBEAT": "{round(shard.latency * 1000)}ms\n"```')
+            colour=self.bot.colour, description=f'```json\n"LATENCY": "{round(self.bot.latency * 1000)}ms\n"```')
         pong = await ctx.send(embed=embed)
         end = time.perf_counter()
         response = round((end - begin) * 1000)
         embed = discord.Embed(
-            colour=self.colour,
-            description=f'```json\n"SHARD HEARTBEAT": "{round(shard.latency * 1000)}ms"\n"RESPONSE TIME": "{response}ms"```')
+            colour=self.bot.colour,
+            description=f'```json\n"LATENCY": "{round(self.bot.latency * 1000)}ms"\n"RESPONSE TIME": "{response}ms"```')
         await pong.edit(embed=embed)
 
     @commands.command(aliases=['inv'])
@@ -192,7 +180,7 @@ class infoCog(commands.Cog):
 
         embed = discord.Embed(title='Invite me to your server! My default prefix is \'ow!\'',
                               description='__https://discord.com/api/oauth2/authorize?client_id=720229743974285312&permissions=67464257&scope=bot__',
-                              color=self.colour)
+                              color=self.bot.colour)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['src'])
@@ -209,14 +197,14 @@ class infoCog(commands.Cog):
         u = '\u200b'
         if not command:
             embed = discord.Embed(title='View my source code on GitHub!', url='https://github.com/DevilJamJar/DevilBot',
-                                  colour=self.colour,
+                                  colour=self.bot.colour,
                                   description=':scales: `License:` **[Apache-2.0](https://opensource.org/licenses/Apache-2.0)**')
             return await ctx.send(embed=embed)
 
         if command == 'help':
             embed = discord.Embed(title='View this command on GitHub!',
                                   url='https://github.com/DevilJamJar/DevilBot/blob/master/cogs/info.py#L10-L26',
-                                  colour=self.colour,
+                                  colour=self.bot.colour,
                                   description=':scales: `License:` **[Apache-2.0](https://opensource.org/licenses/Apache-2.0)**')
             return await ctx.send(embed=embed)
 
@@ -240,7 +228,7 @@ class infoCog(commands.Cog):
                 char = '\u200b'
             else:
                 char = '/'
-            embed = discord.Embed(color=self.colour,
+            embed = discord.Embed(color=self.bot.colour,
                                   title=f"View this command on GitHub: {cmd.name}{char}{'/'.join(cmd.aliases)}",
                                   url=url)
             embed.description = ":scales: `License:` **[Apache-2.0](https://opensource.org/licenses/Apache-2.0)**"
@@ -255,7 +243,7 @@ class infoCog(commands.Cog):
 
         statuses = collections.Counter([m.status for m in ctx.guild.members])
 
-        embed = discord.Embed(colour=self.colour, title=f"{ctx.guild.name}")
+        embed = discord.Embed(colour=self.bot.colour, title=f"{ctx.guild.name}")
         embed.description = ctx.guild.description if ctx.guild.description else None
         embed.add_field(name='**General:**',
                         value=f'Owner: **{ctx.guild.owner}**\n'
@@ -298,7 +286,7 @@ class infoCog(commands.Cog):
                     activity = f'Playing `{activity.name}``'
                 elif isinstance(activity, discord.Streaming):
                     activity = f'Streaming `{activity.name}`'
-        embed = discord.Embed(title=f"{member}", colour=self.colour)
+        embed = discord.Embed(title=f"{member}", colour=self.bot.colour)
         embed.add_field(name='**General:**',
                         value=f'Name: `{member}`\n'
                               f'Activity: {activity}\n'

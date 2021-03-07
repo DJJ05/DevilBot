@@ -13,7 +13,7 @@ class modCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.colour = 0xff9300
+
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
@@ -64,7 +64,7 @@ class modCog(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, member: discord.Member, *, reason = 'None Provided'):
+    async def ban(self, ctx, member: discord.Member, *, reason='None Provided'):
         """Bans a member from the server"""
         reason = f'Actioned by {ctx.author}: {reason}'
         await ctx.guild.ban(member, reason=reason)
@@ -72,7 +72,7 @@ class modCog(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, member: discord.Member, *, reason = 'None Provided'):
+    async def kick(self, ctx, member: discord.Member, *, reason='None Provided'):
         """Kicks a member from the server."""
         reason = f'Actioned by {ctx.author}: {reason}'
         await ctx.guild.kick(member, reason=reason)
@@ -90,7 +90,7 @@ class modCog(commands.Cog):
             raise commands.BadArgument('This channel has no stored deletions!')
         embed = discord.Embed(
             title=f'Last deleted message in #{ctx.channel.name}',
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'**Author:**\n{deleted[str(ctx.channel.id)]["author"]}\n**Message:**\n{deleted[str(ctx.channel.id)]["message"]}\n**Created At:**\n{deleted[str(ctx.channel.id)]["created"]}'
         )
         embed.set_author(
@@ -113,7 +113,7 @@ class modCog(commands.Cog):
                 messages = await ctx.channel.purge(check=lambda m: m.author == ctx.me, bulk=False, limit=limit)
 
             return await ctx.reply(f'I found and deleted `{len(messages)}` of my '
-                                  f'message(s) out of the last `{limit}` message(s).', delete_after=3)
+                                   f'message(s) out of the last `{limit}` message(s).', delete_after=3)
 
 
 def setup(bot):

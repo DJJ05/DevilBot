@@ -9,7 +9,6 @@ class eventsCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        self.colour = 0xff9300
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
 
@@ -33,7 +32,7 @@ class eventsCog(commands.Cog):
 
         c = self.bot.get_channel(745946456946507807)
 
-        embed = discord.Embed(colour=0xff9300, title=f'{guild}',
+        embed = discord.Embed(colour=0x860111, title=f'{guild}',
                               description=f"**{guild.id}**\
                               \n**Members:** {len(guild.members)}\
                               \n**Region:** {str(guild.region).capitalize()}\
@@ -70,7 +69,7 @@ class eventsCog(commands.Cog):
                 currentstatus = f'<:status_online:596576749790429200> `Status:` The Bot is currently **active.**'
             else:
                 currentstatus = f'<:status_dnd:596576774364856321> `Status:` The Bot is currently **undergoing maintenance.**'
-            embed = discord.Embed(colour=self.colour,
+            embed = discord.Embed(colour=self.bot.colour,
                                   title=f"{appinfo.name} | {appinfo.id}",
                                   description=f":diamond_shape_with_a_dot_inside: `Guild Prefix:` **{guildpre}**\
                                               \n<:owner:730864906429136907> `Owner:` **<@!{appinfo.owner.id}>**\
@@ -89,7 +88,7 @@ class eventsCog(commands.Cog):
 
         if message.guild:
             em = discord.Embed(
-                colour=self.colour, title=f'You may have been mentioned in: {message.guild.name}')
+                colour=self.bot.colour, title=f'You may have been mentioned in: {message.guild.name}')
             em.description = f'`Author:` {message.author.mention}\n\
                             `Message:` {message.content}\n\
                             `Created At:` {message.created_at}\n\
@@ -104,7 +103,9 @@ class eventsCog(commands.Cog):
                 ' vic ': 595752455409762304,
                 ' jake ': 116268975020703751,
                 'asti ': 517067779145334795,
-                ' spooky ': 253223928393236480
+                ' spooky ': 253223928393236480,
+                ' zex ': 737447606841639044,
+                ' gabe ': 737447606841639044
             }
 
             concac = ' ' + message.content.lower().replace('\n', '') + ' '

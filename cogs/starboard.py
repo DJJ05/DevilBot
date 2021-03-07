@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import json
-
 import discord
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
@@ -9,16 +7,14 @@ from discord.ext.commands.cooldowns import BucketType
 from .utils import checks
 
 
-class starboardCog(commands.Cog):
-    """Starboard commands"""
+class starboardcog(commands.Cog):
+    """Starboard cog"""
 
     def __init__(self, bot):
         self.bot = bot
-        self.colour = 0xff9300
 
     @commands.Cog.listener(name='on_raw_reaction_add')
     async def on_star_add(self, payload):
-        """Catches star reactions and incremements / adds message to starboard"""
         if not payload.member:
             return
         if payload.member.bot:
@@ -34,7 +30,7 @@ class starboardCog(commands.Cog):
         if message.author == member:
             return
 
-        res = await self.bot.db.starboard.find_one({"guild_config": guild.id})
+        res = await self.bot.db.starboard_config.find_one({"_id": guild.id}, max_time_ms=20000)
 
         if not res:
             return
@@ -43,17 +39,20 @@ class starboardCog(commands.Cog):
 
         starboard = guild.get_channel(res["channel"])
 
-        _msg = await self.bot.db.starboard.find_one({"id": message.id})
+        _msg = await self.bot.db.starboard.find_one({"_id": message.id}, max_time_ms=20000)
 
         if _msg is not None:
             _msg["stars"] += 1
             if _msg["embed"] is not None:
-                msg = await starboard.fetch_message(_msg["embed"])
-                await msg.edit(content=f'**{_msg["stars"]}** :star:')
+                try:
+                    msg = await starboard.fetch_message(_msg["embed"])
+                    await msg.edit(content=f'**{_msg["stars"]}** :star:')
+                except:
+                    pass
         else:
             _msg = {
                 "guild": guild.id,
-                "id": message.id,
+                "_id": message.id,
                 "stars": 1,
                 "channel": message.channel.id,
                 "embed": None
@@ -61,7 +60,7 @@ class starboardCog(commands.Cog):
 
         if _msg["stars"] >= res["stars"] and _msg["embed"] is None:
             embed = discord.Embed(
-                colour=self.colour,
+                colour=self.bot.colour,
                 description=message.content if len(message.content) > 0 else '\u200b',
                 timestamp=message.created_at
             )
@@ -82,14 +81,14 @@ class starboardCog(commands.Cog):
             _msg["embed"] = msg.id
 
         await self.bot.db.starboard.update_one(
-            {"id": message.id},
-            {"$set": {"guild": _msg["guild"], "id": _msg["id"], "stars": _msg["stars"], "channel": _msg["channel"], "embed": _msg["embed"]}},
+            {"_id": message.id},
+            {"$set": {"guild": _msg["guild"], "_id": _msg["_id"], "stars": _msg["stars"], "channel": _msg["channel"],
+                      "embed": _msg["embed"]}},
             upsert=True
         )
 
     @commands.Cog.listener(name='on_raw_reaction_remove')
     async def on_star_remove(self, payload):
-        """Catches star removals and decrements / removes message from starboard"""
         guild = self.bot.get_guild(payload.guild_id)
         channel = guild.get_channel(payload.channel_id)
         message = await channel.fetch_message(payload.message_id)
@@ -100,7 +99,7 @@ class starboardCog(commands.Cog):
         if str(payload.emoji) != '⭐':
             return
 
-        res = await self.bot.db.starboard.find_one({"guild_config": guild.id})
+        res = await self.bot.db.starboard_config.find_one({"_id": guild.id}, max_time_ms=20000)
 
         if not res:
             return
@@ -112,36 +111,39 @@ class starboardCog(commands.Cog):
 
         starboard = guild.get_channel(res["channel"])
 
-        _msg = await self.bot.db.starboard.find_one({"id": message.id})
+        _msg = await self.bot.db.starboard.find_one({"_id": message.id}, max_time_ms=20000)
 
         if _msg is not None:
             _msg["stars"] -= 1
             if _msg["embed"] is not None:
-                msg = await starboard.fetch_message(_msg["embed"])
-                if _msg["stars"] < res["stars"]:
-                    await msg.delete()
-                    _msg["embed"] = None
-                else:
-                    await msg.edit(content=f'**{_msg["stars"]}** :star:')
+                try:
+                    msg = await starboard.fetch_message(_msg["embed"])
+                    if _msg["stars"] < res["stars"]:
+                        await msg.delete()
+                        _msg["embed"] = None
+                    else:
+                        await msg.edit(content=f'**{_msg["stars"]}** :star:')
+                except:
+                    pass
 
             await self.bot.db.starboard.update_one(
-                {"id": message.id},
+                {"_id": message.id},
                 {"$set": {"stars": _msg["stars"], "embed": _msg["embed"]}}
             )
 
     @commands.group(invoke_without_command=True)
     @checks.check_admin_or_owner()
     async def starboard(self, ctx):
-        """Starboard command group, see subcommands for setup. Requires administrator."""
+        """Returns subcommands"""
         await ctx.send_help(ctx.command)
 
     @starboard.command()
     @checks.check_admin_or_owner()
     @commands.cooldown(1, 30, BucketType.user)
     async def update(self, ctx, message: discord.Message, star_count: int):
-        """Updates the star count of a message with a new star count. This is updated internally, so keep in mind that the message reaction count and the stars in the starboard channel may not match. You must be in the same channel as the original message to use this command."""
+        """Updates star count of messages"""
         async with ctx.typing():
-            res = await self.bot.db.starboard.find_one({"guild_config": ctx.guild.id})
+            res = await self.bot.db.starboard_config.find_one({"_id": ctx.guild.id}, max_time_ms=20000)
 
             if not res:
                 raise commands.BadArgument(
@@ -152,17 +154,20 @@ class starboardCog(commands.Cog):
 
             starboard = ctx.guild.get_channel(res["channel"])
 
-            _msg = await self.bot.db.starboard.find_one({"id": message.id})
+            _msg = await self.bot.db.starboard.find_one({"_id": message.id}, max_time_ms=20000)
 
             if _msg is not None:
                 _msg["stars"] = star_count
 
                 if _msg["embed"] is not None:
-                    msg = await starboard.fetch_message(_msg["embed"])
+                    try:
+                        msg = await starboard.fetch_message(_msg["embed"])
 
-                    if _msg["stars"] < res["stars"]:
-                        await msg.delete()
-                        _msg["embed"] = None
+                        if _msg["stars"] < res["stars"]:
+                            await msg.delete()
+                            _msg["embed"] = None
+                    except:
+                        pass
 
                     else:
                         await msg.edit(
@@ -170,7 +175,7 @@ class starboardCog(commands.Cog):
                 else:
                     if _msg["stars"] >= res["stars"]:
                         embed = discord.Embed(
-                            colour=self.colour,
+                            colour=self.bot.colour,
                             description=message.content if len(message.content) > 0 else '\u200b',
                             timestamp=message.created_at
                         )
@@ -199,14 +204,14 @@ class starboardCog(commands.Cog):
             else:
                 _msg = {
                     "guild": ctx.guild.id,
-                    "id": message.id,
+                    "_id": message.id,
                     "stars": star_count,
                     "channel": message.channel.id,
                     "embed": None
                 }
                 if _msg["stars"] >= res["stars"]:
                     embed = discord.Embed(
-                        colour=self.colour,
+                        colour=self.bot.colour,
                         description=message.content if len(message.content) > 0 else '\u200b',
                         timestamp=message.created_at
                     )
@@ -231,8 +236,10 @@ class starboardCog(commands.Cog):
                     _msg["embed"] = msg.id
 
             await self.bot.db.starboard.update_one(
-                {"id": message.id},
-                {"$set": {"guild": _msg["guild"], "id": _msg["id"], "stars": _msg["stars"], "channel": _msg["channel"], "embed": _msg["embed"]}},
+                {"_id": message.id},
+                {"$set": {"guild": _msg["guild"], "_id": _msg["_id"], "stars": _msg["stars"],
+                          "channel": _msg["channel"],
+                          "embed": _msg["embed"]}},
                 upsert=True
             )
 
@@ -240,11 +247,11 @@ class starboardCog(commands.Cog):
 
     @starboard.command(aliases=['lb'])
     async def leaderboard(self, ctx):
-        """Displays a leaderboard from most to least stars per person"""
+        """Returns collected starcount leaderboard"""
         async with ctx.typing():
             people = {}
 
-            res = await self.bot.db.starboard.find_one({"guild_config": ctx.guild.id})
+            res = await self.bot.db.starboard_config.find_one({"_id": ctx.guild.id}, max_time_ms=20000)
 
             if not res:
                 raise commands.BadArgument(
@@ -261,7 +268,7 @@ class starboardCog(commands.Cog):
             for _msg in messages:
                 try:
                     channel = ctx.guild.get_channel(_msg["channel"])
-                    msg = await channel.fetch_message(int(_msg['id']))
+                    msg = await channel.fetch_message(int(_msg['_id']))
                     if people.get(str(msg.author)) is not None:
                         people[str(msg.author)] += _msg["stars"]
                     else:
@@ -280,7 +287,7 @@ class starboardCog(commands.Cog):
                 lbnum += 1
 
             embed = discord.Embed(
-                colour=self.colour,
+                colour=self.bot.colour,
                 title='Star Leaderboard',
                 description=leaderboard,
                 timestamp=ctx.message.created_at
@@ -291,9 +298,9 @@ class starboardCog(commands.Cog):
     @starboard.command(aliases=['star'])
     @checks.check_admin_or_owner()
     async def stars(self, ctx, minimum_star_count: int = 4):
-        """Sets the minimum star count of a guild to a new value greater than 0. Defaults to 4."""
+        """Updates the minimum stars required for a starboard entry"""
         async with ctx.typing():
-            res = await self.bot.db.starboard.find_one({"guild_config": ctx.guild.id})
+            res = await self.bot.db.starboard_config.find_one({"_id": ctx.guild.id}, max_time_ms=20000)
 
             if not res:
                 raise commands.BadArgument(
@@ -307,31 +314,33 @@ class starboardCog(commands.Cog):
             if minimum_star_count < old:
                 await ctx.reply('Done.')
 
-            try:
-                messages = self.bot.db.starboard.find({"guild": ctx.guild.id})
-                messages = await messages.to_list(length=None)
-            except:
-                return await ctx.reply('Done.')
-            if len(messages) < 1:
-                return await ctx.reply('Done.')
+            else:
+                try:
+                    messages = self.bot.db.starboard.find({"guild": ctx.guild.id})
+                    messages = await messages.to_list(length=None)
+                except:
+                    return await ctx.reply('Done.')
+                if len(messages) < 1:
+                    return await ctx.reply('Done.')
 
-            await ctx.reply('Purging messages that do not fit the new requirement...')
-            starboard = ctx.guild.get_channel(res["channel"])
+                await ctx.reply('Purging messages that do not fit the new requirement...')
+                starboard = ctx.guild.get_channel(res["channel"])
 
-            for _msg in messages:
-                if _msg["stars"] < minimum_star_count and _msg["embed"]:
-                    try:
-                        msg = await starboard.fetch_message(_msg["embed"])
-                        await msg.delete()
-                        await self.bot.db.starboard.update_one(
-                            {"id": _msg["id"]},
-                            {"$set": {"embed": None}}
-                        )
-                    except discord.NotFound:
-                        pass
+                for _msg in messages:
+                    if _msg["stars"] < minimum_star_count and _msg["embed"]:
+                        try:
+                            msg = await starboard.fetch_message(_msg["embed"])
+                            await msg.delete()
+                            _msg["embed"] = None
+                            await self.bot.db.starboard.update_one(
+                                {"_id": _msg["_id"]},
+                                {"$set": {"embed": None}}
+                            )
+                        except:
+                            pass
 
-            await self.bot.db.starboard.update_one(
-                {"guild": ctx.guild.id},
+            await self.bot.db.starboard_config.update_one(
+                {"_id": ctx.guild.id},
                 {"$set": {"stars": minimum_star_count}}
             )
 
@@ -340,45 +349,47 @@ class starboardCog(commands.Cog):
     @starboard.command(aliases=['stop', 'exit', 'cancel'])
     @checks.check_admin_or_owner()
     async def close(self, ctx):
-        """Closes an active starboard, but DOES NOT delete the channel. Bot will simply stop tracking stars."""
+        """Removes an active starboard"""
         async with ctx.typing():
-            res = await self.bot.db.starboard.find_one({"guild_config": ctx.guild.id})
+            res = await self.bot.db.starboard_config.find_one({"_id": ctx.guild.id}, max_time_ms=20000)
 
             if not res:
                 raise commands.BadArgument(
                     f"There is no starboard in this server. Use `{ctx.prefix}starboard create` to create one.")
 
-            await self.bot.db.starboard.delete_one({"guild_config": ctx.guild.id})
+            await self.bot.db.starboard_config.delete_one({"_id": ctx.guild.id})
 
         await ctx.reply('Removed starboard.')
 
     @starboard.command(aliases=['make', 'start'])
     @checks.check_admin_or_owner()
     async def create(self, ctx, channel: discord.TextChannel, minimum_star_count: int = 5):
-        """Creates an active starboard in a specified channel, with specified minimum star count. Bot requires send_messages permissions in starboard channel, and it is recommended to disallow @ everyone from talking there."""
+        """Creates an active starboard"""
         async with ctx.typing():
             if minimum_star_count < 1:
                 raise commands.BadArgument('You need a minimum number greater than 0.')
 
-            res = await self.bot.db.starboard.find_one({"guild_config": ctx.guild.id})
+            res = await self.bot.db.starboard_config.find_one({"_id": ctx.guild.id}, max_time_ms=20000)
 
             if res:
-                raise commands.BadArgument(f"There is already a starboard in this server. Use `{ctx.prefix}starboard close` to remove it.")
+                raise commands.BadArgument(
+                    f"There is already a starboard in this server. Use `{ctx.prefix}starboard close` to remove it.")
 
             if not channel.permissions_for(ctx.me).send_messages:
-                raise commands.BadArgument(f'I need send_messages permissions in {channel.mention} to send messages there.')
+                raise commands.BadArgument(
+                    f'I need send_messages permissions in {channel.mention} to send messages there.')
 
             to_insert = {
-                "guild_config": ctx.guild.id,
+                "_id": ctx.guild.id,
                 "channel": channel.id,
                 "stars": minimum_star_count
             }
 
-            await self.bot.db.starboard.insert_one(to_insert)
+            await self.bot.db.starboard_config.insert_one(to_insert)
 
         return await ctx.reply(
             f'Alright, I activated a starboard in {channel.mention} with a minimum star count of {minimum_star_count}. The allowed emoji is :star: and bots, self-starrers and embeds are not allowed to star. Use `{ctx.prefix}starboard` to view all of the available config commands.')
 
 
 def setup(bot):
-    bot.add_cog(starboardCog(bot))
+    bot.add_cog(starboardcog(bot))

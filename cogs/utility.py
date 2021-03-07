@@ -5,19 +5,24 @@ import textwrap
 import unicodedata
 
 import aiohttp
-import googletrans
 import cv2
 import discord
+import googletrans
 import pytesseract
+import wikia
 import wikipedia
 from PIL import Image
 from PyDictionary import PyDictionary
 from discord.ext import commands, buttons
 from discord.ext.commands.cooldowns import BucketType
-from googlesearch import search
+
 from .secrets import *
 
 dictionary = PyDictionary()
+
+
+def wikia_search(dom, term):
+    return wikia.summary(dom, term)
 
 
 def to_emoji(c):
@@ -68,10 +73,22 @@ class utilityCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.colour = 0xff9300
+
         self.footer = 'Bot developed by DevilJamJar#0001\nWith a lot of help from ♿nizcomix#7532'
         self.thumb = 'https://styles.redditmedia.com/t5_3el0q/styles/communityIcon_iag4ayvh1eq41.jpg'
         self.trans = googletrans.Translator()
+
+    @commands.command(aliases=['lgbt', 'lgbtq', 'lqbtawiki', 'lgbtawikia'])
+    async def lgbta(self, ctx, term):
+        try:
+            res = await self.bot.loop.run_in_executor(None, wikia_search, 'lgbta', term)
+        except wikia.wikia.WikiaError:
+            raise commands.BadArgument('That page doesn\'t exist, check for typos.')
+        embed = discord.Embed(
+            title=term.title(), colour=self.bot.colour)
+        embed.add_field(name="Wikia Results",
+                        value=res[:500] + "...")
+        await ctx.reply(embed=embed)
 
     @commands.command(aliases=['remindme', 'reminder', 'timer'])
     async def remind(self, ctx, time: TimeConverter, *, event='None Provided'):
@@ -114,7 +131,7 @@ class utilityCog(commands.Cog):
 
         e = discord.Embed(
             description=f'```fix\n\u200b{t}\n```',
-            colour=self.colour
+            colour=self.bot.colour
         )
         return await ctx.send(embed=e)
 
@@ -230,12 +247,12 @@ class utilityCog(commands.Cog):
         if not data['success']:
             embed = discord.Embed(
                 title=f'IP: {IP.capitalize()}',
-                colour=self.colour,
+                colour=self.bot.colour,
                 description=f"Success: `{data['success']}`\nReason: `{data['message'].capitalize()}`"
             )
             return await ctx.send(embed=embed)
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             title=f'IP Address: {data["ip"]}'
         )
         embed.add_field(
@@ -313,7 +330,7 @@ class utilityCog(commands.Cog):
                 firstmeaning = firstmeaning[0].replace('(', '').capitalize()
         embed = discord.Embed(
             title=f'{search.capitalize()}',
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'Type: `{wordtype}`\nDefinition:\n```fix\n{firstmeaning}\n```'
         )
         return await ctx.send(embed=embed)
@@ -340,7 +357,7 @@ class utilityCog(commands.Cog):
             wik = wikipedia.page(newSearch)
 
             embed = discord.Embed(
-                title=wik.title, colour=self.colour, url=wik.url)
+                title=wik.title, colour=self.bot.colour, url=wik.url)
             textList = textwrap.wrap(
                 wik.content, 500, break_long_words=True, replace_whitespace=False)
             embed.add_field(name="Wikipedia Results",
@@ -356,7 +373,7 @@ class utilityCog(commands.Cog):
             async with cs.get(url) as resp:
                 new = await resp.text()
         embed = discord.Embed(
-            title='TinyURL Link Shortener', color=self.colour)
+            title='TinyURL Link Shortener', color=self.bot.colour)
         embed.add_field(name='Original Link', value=link, inline=False)
         embed.add_field(name='Shortened Link', value=new, inline=False)
         await ctx.send(embed=embed)
@@ -377,7 +394,7 @@ class utilityCog(commands.Cog):
             raise commands.BadArgument('Invalid movie title provided, no results found.')
 
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             title=f"__{data['Title']}__",
             description=f'**Plot Line:**\n||{data["Plot"]}||'
         )
@@ -422,7 +439,7 @@ class utilityCog(commands.Cog):
             features_list = '\n'.join([f.lower().title().replace(
                 '_', ' ') for f in fetched_inv.guild.features]) if fetched_inv.guild.features else None
             embed = discord.Embed(
-                title=f"Resolved Invite: {fetched_inv.code}", colour=0xff9300)
+                title=f"Resolved Invite: {fetched_inv.code}", colour=0x860111)
             embed.add_field(name='**General:**',
                             value=f'Name: **{fetched_inv.guild.name}**\n'
                                   f'Description: **{inv_description}**\n'
@@ -446,7 +463,7 @@ class utilityCog(commands.Cog):
             async with cs.post("https://hastebin.com/documents", data=code) as resp:
                 data = await resp.json()
                 key = data['key']
-        embed = discord.Embed(color=self.colour, title='Hastebin-ified Code:',
+        embed = discord.Embed(color=self.bot.colour, title='Hastebin-ified Code:',
                               description=f"https://hastebin.com/{key}")
         await ctx.send(embed=embed)
 
@@ -490,7 +507,7 @@ class utilityCog(commands.Cog):
             f'{keycap}: {content}' for keycap, content in answers)
         # actual_poll = await ctx.send(f'**{ctx.author} asks: **{question}\n\n{answer}')
         embed = discord.Embed(
-            title=question, colour=self.colour, description=answer)
+            title=question, colour=self.bot.colour, description=answer)
         embed.set_author(
             name=f'{ctx.author.name}#{ctx.author.discriminator}', icon_url=ctx.author.avatar_url)
         actual_poll = await ctx.send(embed=embed)
@@ -515,7 +532,7 @@ class utilityCog(commands.Cog):
             raise commands.BadArgument(
                 "This emote belongs to a guild I am not a member of.")
         embed = discord.Embed(
-            title='Link:', colour=self.colour, description=f'**{final_url}**')
+            title='Link:', colour=self.bot.colour, description=f'**{final_url}**')
         await ctx.send(embed=embed)
 
 

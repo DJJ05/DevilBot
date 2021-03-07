@@ -2,11 +2,11 @@
 
 import asyncio
 import datetime
-import discord
+import json
 import random
 import re
-import json
 
+import discord
 from discord.ext import commands, tasks
 from discord.ext.commands.cooldowns import BucketType
 
@@ -36,7 +36,7 @@ class giveawayCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.colour = 0xff9300
+
         self.get_giveaways.start()
 
     @tasks.loop(seconds=30)
@@ -73,7 +73,8 @@ class giveawayCog(commands.Cog):
                             await channel.send('Randomly drawn user has left the guild. Redrawing...')
                             entries.remove(user)
                         else:
-                            await channel.send(f'The randomly selected winner is **{member.mention}**! Well done and thank you for entering!')
+                            await channel.send(
+                                f'The randomly selected winner is **{member.mention}**! Well done and thank you for entering!')
                             break
         for id_ in finished:
             data.pop(id_)
@@ -99,7 +100,7 @@ class giveawayCog(commands.Cog):
             return
         embed = discord.Embed(
             title=f'✨ You entered the giveaway! ✨',
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'Ends: __{datetime.datetime.strptime(gwch["ends"], "%c").strftime("%c")}__'
         )
         dact = data[str(payload.guild_id)][str(payload.channel_id)]['entries']
@@ -126,7 +127,7 @@ class giveawayCog(commands.Cog):
             return
         embed = discord.Embed(
             title=f'You left the giveaway...',
-            colour=self.colour,
+            colour=self.bot.colour,
             description=f'Ends: __{datetime.datetime.strptime(gwch["ends"], "%c").strftime("%c")}__'
         )
         dact = data[str(payload.guild_id)][str(payload.channel_id)]['entries']

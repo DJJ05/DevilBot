@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import r6sapi
 import discord
+import r6sapi
 from discord.ext import commands
+
 from .secrets import secrets_siege_email, secrets_siege_password
 
 
@@ -11,7 +12,7 @@ class siegeCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.colour = 0xff9300
+
         self.auth = r6sapi.Auth(secrets_siege_email, secrets_siege_password)
 
     @commands.group(invoke_without_command=True)
@@ -27,7 +28,7 @@ class siegeCog(commands.Cog):
         except r6sapi.exceptions.InvalidRequest:
             raise commands.BadArgument("Couldn't find a Uplay account with that name.")
         embed = discord.Embed(
-            colour=self.colour,
+            colour=self.bot.colour,
             title=account.name,
             description=account.userid,
             url=account.url
@@ -55,6 +56,7 @@ class siegeCog(commands.Cog):
         embed.add_field(name='Kill Assists', value=f'{account.kill_assists:,}')
         embed.set_thumbnail(url=account.icon_url)
         await ctx.reply(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(siegeCog(bot))
