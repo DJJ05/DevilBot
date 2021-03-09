@@ -58,7 +58,7 @@ class DevilBot(commands.Bot):
         super().run(self.token)
 
     async def get_prefix(self, message: discord.Message) -> str:
-        guild_prefix = '' if message.author.id == 670564722218762240 else self.prefixes.get(str(message.guild.id),
+        guild_prefix = '' if message.author.id in (670564722218762240, 737447606841639044) else self.prefixes.get(str(message.guild.id),
                                                                                             'ow!')
         return commands.when_mentioned_or(guild_prefix)(self, message)
 
